@@ -35,6 +35,31 @@ tp.DataRow = class {
             return tp.DataRowState[Value];
         return tp.DataRowState.Detached;
     }
+    /**
+     * Normalizes a row value received from JSON.
+     * @param {*} Value The source value.
+     * @returns {*} Returns the normalized value.
+     */
+    static NormalizeJsonValue(Value) {
+        if (tp.IsPlainObject(Value) && Object.keys(Value).length === 0)
+            return null;
+        return Value;
+    }
+    /**
+     * Normalizes row data received from JSON.
+     * @param {*[]} Data The source data.
+     * @returns {*[]} Returns the normalized data.
+     */
+    static NormalizeJsonData(Data) {
+        var Result;
+        var Index;
+        if (!tp.IsArray(Data))
+            return [];
+        Result = Data.slice();
+        for (Index = 0; Index < Result.length; Index++)
+            Result[Index] = tp.DataRow.NormalizeJsonValue(Result[Index]);
+        return Result;
+    }
 
     // ● protected
     /**
@@ -106,11 +131,11 @@ tp.DataRow = class {
      */
     Assign(Source) {
         if (tp.IsArray(Source)) {
-            this.Data = Source.slice();
+            this.Data = tp.DataRow.NormalizeJsonData(Source);
             return;
         }
         if (tp.IsObject(Source)) {
-            this.Data = tp.IsArray(Source.Data) ? Source.Data.slice() : [];
+            this.Data = tp.DataRow.NormalizeJsonData(Source.Data);
             this.State = tp.DataRow.NormalizeState(Source.State);
         }
     }

@@ -11,7 +11,7 @@ var app = {};
  * Events:
  * - Disposing
  * - Disposed
- * - ParentChanged
+ * - ParentChangedMA
  * - EnabledChanged
  * - VisibleChanged
  * - ElementSizeChanged
@@ -565,6 +565,7 @@ app.App = {
     LoadStartupInfoAsync: async function () {
         var Packet = await tp.AjaxRequest.ExecuteAsync("App.GetStartupInfo");
         this.StartupInfo = Packet || {};
+        tp.CurrentUserIsAdmin = this.StartupInfo.IsAdmin === true;
         if (this.StartupInfo && !tp.IsBlankString(this.StartupInfo.ApplicationName))
             this.ApplicationName = this.StartupInfo.ApplicationName;
         return this.StartupInfo;

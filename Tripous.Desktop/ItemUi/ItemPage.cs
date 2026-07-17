@@ -52,6 +52,14 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// </summary>
     protected ItemInfoFactBoxControl fStandardInfoFactBoxControl;
     /// <summary>
+    /// The table list of the built-in item data FactBox.
+    /// </summary>
+    protected ListBox fDataFactBoxTableList;
+    /// <summary>
+    /// The grid of the built-in item data FactBox.
+    /// </summary>
+    protected GroupGrid fDataFactBoxGrid;
+    /// <summary>
     /// The created FactBox controls by definition.
     /// </summary>
     protected List<Tuple<ItemFactBoxDef, ItemFactBoxControl>> fFactBoxControls = [];
@@ -282,6 +290,97 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         };
     }
     /// <summary>
+    /// Returns true when the current user may see the built-in item data FactBox.
+    /// </summary>
+    /// <returns>True when the current user is an administrator.</returns>
+    protected virtual bool CanShowDataFactBox()
+    {
+        AppUser User = Sys.Context?.CurrentUser;
+        return User != null && (User.IsAdmin || User.IsGod);
+    }
+    /// <summary>
+    /// Returns the tables displayed by the built-in item data FactBox.
+    /// </summary>
+    /// <returns>The item tables.</returns>
+    protected virtual List<MemTable> GetDataFactBoxTables()
+    {
+        return Module?.ItemTables?.Where(Table => Table != null).ToList() ?? [];
+    }
+    /// <summary>
+    /// Binds the item data FactBox grid to a table.
+    /// </summary>
+    /// <param name="Table">The table.</param>
+    protected virtual void BindDataFactBoxGrid(MemTable Table)
+    {
+        if (fDataFactBoxGrid == null)
+            return;
+
+        if (Table == null)
+        {
+            GroupGridBinder.UnBindGrid(fDataFactBoxGrid);
+            return;
+        }
+
+        GroupGridBinder.BindGrid(fDataFactBoxGrid, Table.DefaultView, true);
+        fDataFactBoxGrid.IsReadOnly = true;
+        fDataFactBoxGrid.IsToolBarVisible = false;
+        fDataFactBoxGrid.IsGroupPanelVisible = false;
+        fDataFactBoxGrid.IsFilterPanelVisible = false;
+        fDataFactBoxGrid.IsTotalsSummaryVisible = false;
+        fDataFactBoxGrid.AreIdColumnsVisible = true;
+    }
+    /// <summary>
+    /// Refreshes the built-in item data FactBox.
+    /// </summary>
+    protected virtual void RefreshDataFactBox()
+    {
+        if (fDataFactBoxTableList == null || fDataFactBoxGrid == null)
+            return;
+
+        string TableName = fDataFactBoxTableList.SelectedItem as string;
+        MemTable Table = !string.IsNullOrWhiteSpace(TableName) ? Module?.FindTable(TableName) : null;
+        BindDataFactBoxGrid(Table);
+    }
+    /// <summary>
+    /// Creates the built-in item data FactBox control.
+    /// </summary>
+    /// <returns>The created control.</returns>
+    protected virtual Control CreateDataFactBoxControl()
+    {
+        List<MemTable> Tables = GetDataFactBoxTables();
+        Grid Result = new();
+        Result.RowDefinitions.Add(new RowDefinition(new GridLength(120)));
+        Result.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
+
+        fDataFactBoxTableList = new()
+        {
+            ItemsSource = Tables.Select(Table => Table.TableName).ToList(),
+            Margin = new Thickness(4)
+        };
+        fDataFactBoxTableList.SelectionChanged += (Sender, Args) => RefreshDataFactBox();
+        Grid.SetRow(fDataFactBoxTableList, 0);
+        Result.Children.Add(fDataFactBoxTableList);
+
+        fDataFactBoxGrid = new()
+        {
+            AutoGenerateColumns = false,
+            IsReadOnly = true,
+            IsToolBarVisible = false,
+            IsGroupPanelVisible = false,
+            IsFilterPanelVisible = false,
+            IsTotalsSummaryVisible = false,
+            AreIdColumnsVisible = true,
+            Margin = new Thickness(4, 0, 4, 4)
+        };
+        Grid.SetRow(fDataFactBoxGrid, 1);
+        Result.Children.Add(fDataFactBoxGrid);
+
+        if (Tables.Count > 0)
+            fDataFactBoxTableList.SelectedIndex = 0;
+
+        return Result;
+    }
+    /// <summary>
     /// Creates the built-in item information FactBox control.
     /// </summary>
     /// <returns>The created control.</returns>
@@ -323,6 +422,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     protected virtual void RefreshFactBoxes()
     {
         RefreshStandardInfoFactBox();
+        RefreshDataFactBox();
         foreach (Tuple<ItemFactBoxDef, ItemFactBoxControl> Pair in fFactBoxControls)
         {
             try
@@ -363,6 +463,14 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             Header = "Info",
             Content = CreateStandardInfoFactBoxControl()
         });
+        if (CanShowDataFactBox())
+        {
+            fFactBoxTabs.Items.Add(new TabItem
+            {
+                Header = "Data",
+                Content = CreateDataFactBoxControl()
+            });
+        }
         if (FactBoxes != null)
         {
             foreach (ItemFactBoxDef Def in FactBoxes)

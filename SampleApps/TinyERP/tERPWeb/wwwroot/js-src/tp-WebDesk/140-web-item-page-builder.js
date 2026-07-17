@@ -61,7 +61,7 @@ tp.WebItemPageBuilder = class {
          * The visual column count used for field groups.
          * @type {number}
          */
-        this.ColumnCount = tp.WebItemPageBuilder.GetDefaultColumnCount();
+        this.ColumnCount = 3;
         /**
          * Maximum controls placed in a visual column before continuing to the next column.
          * @type {number}
@@ -71,7 +71,12 @@ tp.WebItemPageBuilder = class {
          * The visual field column width in pixels.
          * @type {number}
          */
-        this.ColumnWidth = tp.WebItemPageBuilder.GetDefaultColumnWidth(this.ColumnCount);
+        this.ColumnWidth = 360;
+        /**
+         * Observes item page width changes for responsive field column layout.
+         * @type {ResizeObserver|null}
+         */
+        this.ColumnResizeObserver = null;
     }
 
     // ● static public
@@ -88,38 +93,13 @@ tp.WebItemPageBuilder = class {
             return 3;
         return ColumnCount;
     }
-    /**
-     * Returns the approximate available width for WebDesk item field columns.
-     * @returns {number} Returns the available width in pixels.
-     */
-    static GetAvailableWidth() {
-        var Width = window.innerWidth || document.documentElement.clientWidth || 1024;
-        var SidebarWidth = 350;
-        return Math.max(320, Width - SidebarWidth);
-    }
-    /**
-     * Returns the default visual column count, following the desktop rule.
-     * @returns {number} Returns the default column count.
-     */
-    static GetDefaultColumnCount() {
-        return tp.WebItemPageBuilder.GetAvailableWidth() > 1100 ? 3 : 2;
-    }
-    /**
-     * Returns the default visual column width, following the desktop rule.
-     * @param {number} ColumnCount The visual column count.
-     * @returns {number} Returns the column width in pixels.
-     */
-    static GetDefaultColumnWidth(ColumnCount) {
-        ColumnCount = tp.WebItemPageBuilder.NormalizeColumnCount(ColumnCount);
-        return Math.floor(tp.WebItemPageBuilder.GetAvailableWidth() / ColumnCount);
-    }
-
     // ● protected
     /**
      * Clears previously generated content.
      * @returns {void}
      */
     Clear() {
+        this.DisposeColumnResizeObserver();
         this.Controls = [];
         this.DetailSources = [];
         this.SourceByTable = {};
@@ -130,6 +110,188 @@ tp.WebItemPageBuilder = class {
         this.DataSource = null;
         if (this.IsServerRenderedItemPage() !== true && this.Form && this.Form.ItemPage instanceof HTMLElement)
             tp.RemoveChildren(this.Form.ItemPage);
+    }
+    /**
+     * Releases the responsive column resize observer.
+     * @returns {void}
+     */
+    DisposeColumnResizeObserver() {
+        if (this.ColumnResizeObserver && tp.IsFunction(this.ColumnResizeObserver.disconnect))
+            this.ColumnResizeObserver.disconnect();
+        this.ColumnResizeObserver = null;
+    }
+    /**
+     * Returns the current item page width.
+     * @returns {number} Returns the current item page width in pixels.
+     */
+    GetItemPageWidth() {
+        var Element = this.Form ? this.Form.ItemPage : null;
+        var Width;
+        if (Element instanceof HTMLElement) {
+            Width = Element.clientWidth || Element.getBoundingClientRect().width || 0;
+            if (Width > 0)
+                return Width;
+        }
+        return window.innerWidth || document.documentElement.clientWidth || 1024;
+    }
+    /**
+     * Updates the preferred field column count and width from the current item page size.
+     * @returns {void}
+     */
+    UpdatePreferredColumnLayout() {
+        this.ColumnCount = 3;
+        this.ColumnWidth = 320;
+    }
+    /**
+     * Returns the visual column count that fits in a column root.
+     * @param {HTMLElement} Root The column root element.
+     * @returns {number} Returns the fitted column count.
+     */
+    GetFittedColumnCount(Root) {
+        var RequestedCount = tp.WebItemPageBuilder.NormalizeColumnCount(this.ColumnCount);
+        var ColumnWidth = 320;
+        var Gap = 16;
+        var Width;
+        var Count;
+        if (!(Root instanceof HTMLElement))
+            return RequestedCount;
+        Width = Root.clientWidth || Root.getBoundingClientRect().width || 0;
+        Width -= 12;
+        if (Width <= 0)
+            return RequestedCount;
+        Count = Math.floor((Width + Gap) / (ColumnWidth + Gap));
+        Count = Math.max(1, Math.min(RequestedCount, Count));
+        return Count;
+    }
+    /**
+     * Applies responsive field column layout to a column root.
+     * @param {HTMLElement} Root The column root element.
+     * @returns {void}
+     */
+    ApplyResponsiveColumnRootLayout(Root) {
+        var ColumnCount = this.GetFittedColumnCount(Root);
+        if (!(Root instanceof HTMLElement))
+            return;
+        Root.style.gridTemplateColumns = "repeat(" + ColumnCount + ", minmax(0, 1fr))";
+        Root.style.justifyContent = "stretch";
+        this.EnsureColumnRootColumnCount(Root, ColumnCount);
+    }
+    /**
+     * Returns the direct visual columns of a column root.
+     * @param {HTMLElement} Root The column root element.
+     * @returns {HTMLElement[]} Returns the visual column elements.
+     */
+    GetVisualColumns(Root) {
+        var Result = [];
+        var Index;
+        var Element;
+        if (!(Root instanceof HTMLElement))
+            return Result;
+        for (Index = 0; Index < Root.children.length; Index++) {
+            Element = Root.children[Index];
+            if (Element instanceof HTMLElement && tp.HasClass(Element, "tp-WebItemPage-VisualColumn"))
+                Result.push(Element);
+        }
+        return Result;
+    }
+    /**
+     * Returns all field rows contained in a column root.
+     * @param {HTMLElement} Root The column root element.
+     * @returns {HTMLElement[]} Returns the field rows.
+     */
+    GetColumnRootFieldRows(Root) {
+        var Result = [];
+        var VisualColumns = this.GetVisualColumns(Root);
+        var Index;
+        var ChildIndex;
+        var Element;
+        if (!(Root instanceof HTMLElement))
+            return Result;
+        if (VisualColumns.length === 0)
+            return Array.from(Root.querySelectorAll("[data-wdf-role='field-row']"));
+        for (Index = 0; Index < VisualColumns.length; Index++) {
+            for (ChildIndex = 0; ChildIndex < VisualColumns[Index].children.length; ChildIndex++) {
+                Element = VisualColumns[Index].children[ChildIndex];
+                if (Element instanceof HTMLElement)
+                    Result.push(Element);
+            }
+        }
+        return Result;
+    }
+    /**
+     * Rebuilds a column root using a specified visual column count.
+     * @param {HTMLElement} Root The column root element.
+     * @param {HTMLElement[]} FieldRows The field row elements.
+     * @param {number} ColumnCount The visual column count.
+     * @returns {void}
+     */
+    RebuildColumnRootColumns(Root, FieldRows, ColumnCount) {
+        var RowsPerColumn;
+        var Index;
+        var ColumnIndex;
+        var Column;
+        var Columns = [];
+        if (!(Root instanceof HTMLElement))
+            return;
+        ColumnCount = tp.WebItemPageBuilder.NormalizeColumnCount(ColumnCount);
+        RowsPerColumn = Math.max(1, Math.ceil(FieldRows.length / ColumnCount));
+        tp.RemoveChildren(Root);
+        for (Index = 0; Index < ColumnCount; Index++) {
+            Column = this.CreateVisualColumn(Root);
+            Columns.push(Column);
+        }
+        for (Index = 0; Index < FieldRows.length; Index++) {
+            ColumnIndex = Math.floor(Index / RowsPerColumn);
+            if (ColumnIndex >= ColumnCount)
+                ColumnIndex = ColumnCount - 1;
+            Columns[ColumnIndex].appendChild(FieldRows[Index]);
+        }
+    }
+    /**
+     * Ensures a column root has the requested visual column count.
+     * @param {HTMLElement} Root The column root element.
+     * @param {number} ColumnCount The visual column count.
+     * @returns {void}
+     */
+    EnsureColumnRootColumnCount(Root, ColumnCount) {
+        var VisualColumns = this.GetVisualColumns(Root);
+        var FieldRows;
+        if (!(Root instanceof HTMLElement))
+            return;
+        ColumnCount = tp.WebItemPageBuilder.NormalizeColumnCount(ColumnCount);
+        if (VisualColumns.length === ColumnCount)
+            return;
+        FieldRows = this.GetColumnRootFieldRows(Root);
+        if (VisualColumns.length === 0 && FieldRows.length === 0)
+            return;
+        this.RebuildColumnRootColumns(Root, FieldRows, ColumnCount);
+    }
+    /**
+     * Applies responsive field column layout to all item page column roots.
+     * @returns {void}
+     */
+    ApplyResponsiveColumnLayout() {
+        var Scope = this.IsServerRenderedItemPage() === true ? this.GetServerItemPageRoot() : this.Form ? this.Form.ItemPage : null;
+        var List;
+        var Index;
+        if (!(Scope instanceof HTMLElement))
+            return;
+        this.UpdatePreferredColumnLayout();
+        List = Scope.querySelectorAll(".tp-WebItemPage-ColumnRoot");
+        for (Index = 0; Index < List.length; Index++)
+            this.ApplyResponsiveColumnRootLayout(List[Index]);
+    }
+    /**
+     * Initializes responsive field column layout.
+     * @returns {void}
+     */
+    InitializeResponsiveColumnLayout() {
+        var Scope = this.IsServerRenderedItemPage() === true ? this.GetServerItemPageRoot() : this.Form ? this.Form.ItemPage : null;
+        this.ApplyResponsiveColumnLayout();
+        if (!(Scope instanceof HTMLElement) || !tp.IsFunction(window.ResizeObserver))
+            return;
+        this.ColumnResizeObserver = new ResizeObserver(() => this.ApplyResponsiveColumnLayout());
+        this.ColumnResizeObserver.observe(Scope);
     }
     /**
      * Returns the server-rendered item page root.
@@ -214,16 +376,14 @@ tp.WebItemPageBuilder = class {
      */
     SplitColumns(Columns) {
         var VisualColumnCount = tp.WebItemPageBuilder.NormalizeColumnCount(this.ColumnCount);
-        var MaxControlsPerColumn = tp.ToInt(this.MaxControlsPerColumn);
+        var RowsPerColumn = Math.max(1, Math.ceil(Columns.length / VisualColumnCount));
         var Result = [];
         var Index;
         var ColumnIndex;
-        if (MaxControlsPerColumn < 1)
-            MaxControlsPerColumn = 8;
         for (Index = 0; Index < VisualColumnCount; Index++)
             Result.push([]);
         for (Index = 0; Index < Columns.length; Index++) {
-            ColumnIndex = Math.floor(Index / MaxControlsPerColumn);
+            ColumnIndex = Math.floor(Index / RowsPerColumn);
             if (ColumnIndex >= VisualColumnCount)
                 ColumnIndex = VisualColumnCount - 1;
             Result[ColumnIndex].push(Columns[Index]);
@@ -347,18 +507,17 @@ tp.WebItemPageBuilder = class {
      */
     CreateColumnRoot(Parent) {
         var Result = Parent.ownerDocument.createElement("div");
-        var ColumnWidth = Math.max(280, tp.ToInt(this.ColumnWidth));
-        var MinColumnWidth = Math.min(360, ColumnWidth);
+        tp.AddClass(Result, "tp-WebItemPage-ColumnRoot");
         Result.style.display = "grid";
         Result.style.boxSizing = "border-box";
         Result.style.width = "100%";
-        Result.style.gridTemplateColumns = "repeat(auto-fit, minmax(min(100%, " + MinColumnWidth + "px), 1fr))";
         Result.style.columnGap = "16px";
         Result.style.rowGap = "6px";
         Result.style.alignItems = "start";
-        Result.style.justifyContent = "stretch";
+        Result.style.justifyContent = "start";
         Result.style.padding = "8px 6px 6px 6px";
         Parent.appendChild(Result);
+        this.ApplyResponsiveColumnRootLayout(Result);
         return Result;
     }
     /**
@@ -368,12 +527,23 @@ tp.WebItemPageBuilder = class {
      */
     CreateVisualColumn(Parent) {
         var Result = Parent.ownerDocument.createElement("div");
+        tp.AddClass(Result, "tp-WebItemPage-VisualColumn");
         Result.style.display = "grid";
         Result.style.gridAutoRows = "max-content";
         Result.style.rowGap = "6px";
         Result.style.minWidth = "0";
         Parent.appendChild(Result);
         return Result;
+    }
+    /**
+     * Applies the desktop column sizing rule to a server-rendered column root.
+     * @param {HTMLElement} Root The column root element.
+     * @returns {void}
+     */
+    ApplyColumnRootLayout(Root) {
+        if (!(Root instanceof HTMLElement))
+            return;
+        this.ApplyResponsiveColumnRootLayout(Root);
     }
     /**
      * Creates a field row.
@@ -388,6 +558,8 @@ tp.WebItemPageBuilder = class {
             Control: this.CreateControlParams(Column)
         };
         var Row = Column.IsBoolean ? new tp.CheckBoxRow(Params) : new tp.CtrlRow(Params);
+        if (Row.Handle instanceof HTMLElement)
+            Row.Handle.setAttribute("data-wdf-role", "field-row");
         if (Row.Control instanceof tp.Control) {
             Row.Control.ToolTip = Column.DisplayToolTip;
             this.Controls.push(Row.Control);
@@ -902,6 +1074,35 @@ tp.WebItemPageBuilder = class {
         }
     }
     /**
+     * Reflows server-rendered field groups using the desktop column split rule.
+     * @returns {void}
+     */
+    ArrangeServerFieldGroups() {
+        var Root = this.GetServerItemPageRoot();
+        var List;
+        var Index;
+        if (!(Root instanceof HTMLElement))
+            return;
+        List = Root.querySelectorAll(".tp-WebItemPage-ColumnRoot");
+        for (Index = 0; Index < List.length; Index++)
+            this.ArrangeServerColumnRoot(List[Index]);
+    }
+    /**
+     * Reflows a server-rendered column root using the desktop column split rule.
+     * @param {HTMLElement} Root The column root element.
+     * @returns {void}
+     */
+    ArrangeServerColumnRoot(Root) {
+        var FieldRows;
+        var ColumnCount;
+        if (!(Root instanceof HTMLElement))
+            return;
+        FieldRows = Array.from(Root.querySelectorAll("[data-wdf-role='field-row']"));
+        this.ApplyColumnRootLayout(Root);
+        ColumnCount = this.GetFittedColumnCount(Root);
+        this.RebuildColumnRootColumns(Root, FieldRows, ColumnCount);
+    }
+    /**
      * Initializes a server-rendered field row.
      * @param {HTMLElement} Element The row element.
      * @returns {void}
@@ -1008,6 +1209,7 @@ tp.WebItemPageBuilder = class {
         List = Root.querySelectorAll("[data-wdf-role='field-row']");
         for (Index = 0; Index < List.length; Index++)
             this.InitializeServerFieldRow(List[Index]);
+        this.ArrangeServerFieldGroups();
         List = Root.querySelectorAll("[data-wdf-role='detail-grid']");
         for (Index = 0; Index < List.length; Index++)
             this.InitializeServerDetailGrid(List[Index]);
@@ -1233,6 +1435,7 @@ tp.WebItemPageBuilder = class {
         this.Clear();
         if (!this.Form || !(this.Form.ItemPage instanceof HTMLElement) || !(this.Form.Module instanceof tp.DataModule))
             return;
+        this.UpdatePreferredColumnLayout();
         Table = this.Form.Module.tblItem;
         if (!(Table instanceof tp.DataTable))
             return;
@@ -1241,6 +1444,7 @@ tp.WebItemPageBuilder = class {
         await this.PreloadLookupSourcesAsync();
         if (this.IsServerRenderedItemPage() === true) {
             this.InitializeServerRenderedItemPage();
+            this.InitializeResponsiveColumnLayout();
             return;
         }
         Details = this.GetChildDetailTables(Table);
@@ -1248,6 +1452,7 @@ tp.WebItemPageBuilder = class {
             this.BuildTabbedTopLayout(Table);
         else
             this.BuildSinglePageLayout(Table);
+        this.InitializeResponsiveColumnLayout();
     }
 };
 
@@ -1317,3 +1522,8 @@ tp.WebItemPageBuilder.prototype.MaxControlsPerColumn = 8;
  * @type {number}
  */
 tp.WebItemPageBuilder.prototype.ColumnWidth = 420;
+/**
+ * Observes item page width changes for responsive field column layout.
+ * @type {ResizeObserver|null}
+ */
+tp.WebItemPageBuilder.prototype.ColumnResizeObserver = null;

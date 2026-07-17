@@ -99,6 +99,7 @@ public abstract class AppAjaxOperation: AjaxOperation
         Response["FullName"] = User != null ? User.FullName : string.Empty;
         Response["UserLevel"] = User != null ? User.UserLevel.ToString() : UserLevel.None.ToString();
         Response["UserLevelId"] = User != null ? (int)User.UserLevel : (int)UserLevel.None;
+        Response["IsAdmin"] = User != null && (User.IsAdmin || User.IsGod);
         Response["CultureCode"] = User != null && !string.IsNullOrWhiteSpace(User.CultureCode) ? User.CultureCode : CultureInfo.CurrentCulture.Name;
     }
     /// <summary>

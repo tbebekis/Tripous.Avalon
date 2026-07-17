@@ -11,6 +11,40 @@ Documentation:
 
 > First public release of the sixth-generation Tripous framework family, built on .NET and Avalonia UI.
 
+## What Can You Build With Tripous.Avalon?
+
+Tripous.Avalon targets data-centric business software that can be delivered both as desktop applications and as WebDesk-style web applications.
+
+The desktop layer is multi-OS thanks to Avalonia, while the web layer is intended for desktop-like data entry applications in the browser.
+
+Examples include:
+
+- ERP systems.
+- CRM systems.
+- Accounting and finance applications.
+- Inventory and warehouse management systems.
+- Sales and purchase management systems.
+- Order processing applications.
+- Invoicing and billing systems.
+- Document-based business workflows.
+- Back-office administration tools.
+- Internal line-of-business applications.
+- Master-data management tools.
+- Reporting and inquiry applications.
+- Database maintenance and configuration tools.
+- Desktop database applications.
+- Web-based data entry applications.
+- Service-backed business applications.
+- Multi-database business systems.
+
+**Web**
+
+![tERPWeb](tERPWeb.png)
+
+**Desktop**
+
+![tERP](tERP.png)
+
 ## What Is Tripous?
 
 Tripous is an application framework.
@@ -42,6 +76,7 @@ The repository contains the following framework libraries.
 - `Tripous.Data`: Database access, schema execution, SQL providers, data modules, table sets, lookups, locators and data descriptors.
 - `Tripous.Logging`: Logging infrastructure and diagnostics.
 - `Tripous.Desktop`: Avalonia-based desktop layer with forms, menus, toolbars, commands, data forms and application UI infrastructure.
+- `Tripous.Web`: ASP.NET Core infrastructure and WebDesk browser UI layer for desktop-like business data applications.
 
 ## Application Declaration
 

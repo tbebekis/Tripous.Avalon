@@ -71,6 +71,11 @@ tp.WebDataForm = class extends tp.WebForm {
          */
         this.FormState = tp.WebDataFormState.None;
         /**
+         * True when the list needs to be reselected before showing it.
+         * @type {boolean}
+         */
+        this.ListIsDirty = false;
+        /**
          * The main toolbar.
          * @type {tp.ControlBar|null}
          */
@@ -155,6 +160,21 @@ tp.WebDataForm = class extends tp.WebForm {
          * @type {object[]}
          */
         this.FactBoxes = [];
+        /**
+         * The Data FactBox table list element.
+         * @type {HTMLSelectElement|null}
+         */
+        this.DataFactBoxTableList = null;
+        /**
+         * The Data FactBox grid.
+         * @type {tp.Grid|null}
+         */
+        this.DataFactBoxGrid = null;
+        /**
+         * Data FactBox data sources keyed by table name.
+         * @type {object}
+         */
+        this.DataFactBoxSources = {};
         /**
          * True when the FactBox pane is visible.
          * @type {boolean}
@@ -281,6 +301,9 @@ tp.WebDataForm = class extends tp.WebForm {
         this.FactBoxTabControl = null;
         this.ListGridDoubleClickHandler = null;
         this.FactBoxes = [];
+        this.DataFactBoxTableList = null;
+        this.DataFactBoxGrid = null;
+        this.DataFactBoxSources = {};
         this.ItemPageBuilder = null;
         this.Module = null;
         super.DoDispose();
@@ -468,7 +491,7 @@ tp.WebDataForm = class extends tp.WebForm {
      * @returns {void}
      */
     SetFactBoxPaneWidth(Width) {
-        Width = Math.max(260, Math.min(900, tp.ToInt(Width)));
+        Width = Math.max(260, tp.ToInt(Width));
         this.FactBoxPaneWidth = Width;
         if (this.FactBoxPane instanceof HTMLElement) {
             this.FactBoxPane.style.width = Width + "px";
@@ -705,6 +728,7 @@ tp.WebDataForm = class extends tp.WebForm {
                 this.RefreshListGridLayout(true);
             }
             this.FormState = tp.WebDataFormState.List;
+            this.ListIsDirty = false;
             this.ShowListPage();
             this.UpdateToolBar();
         });
@@ -739,11 +763,88 @@ tp.WebDataForm = class extends tp.WebForm {
         await this.ExecuteWithSpinner(async function () {
             await this.Module.Edit(Id);
             this.FormState = tp.WebDataFormState.Edit;
+            this.UiLog("Loaded " + this.GetItemLogText(Id));
             await this.RenderItemPageAsync();
             await this.LoadFactBoxesAsync();
             this.ShowItemPage();
             this.UpdateToolBar();
         });
+    }
+    /**
+     * Commits the current item, refreshes the list, and returns to the list page.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async SaveAsync() {
+        var Id;
+        if (!(this.Module instanceof tp.DataModule) || this.IsReadOnly === true || this.IsItemState() !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                await this.Module.Commit();
+                Id = this.Module.Id;
+                this.UiLog("Saved " + this.GetItemLogText(Id));
+                this.ListIsDirty = true;
+                this.FormState = tp.WebDataFormState.Edit;
+                await this.RenderItemPageAsync();
+                await this.LoadFactBoxesAsync();
+                this.ShowItemPage();
+                this.UpdateToolBar();
+            });
+        } catch (e) {
+            this.ReportError("Save failed: " + tp.ExceptionText(e));
+        }
+    }
+    /**
+     * Deletes the selected list item after confirmation.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async DeleteAsync() {
+        var Id;
+        var LogText;
+        var Confirmed;
+        if (!(this.Module instanceof tp.DataModule) || this.IsReadOnly === true || this.FormState !== tp.WebDataFormState.List)
+            return;
+        Id = this.GetSelectedListId();
+        if (tp.IsEmpty(Id))
+            return;
+        LogText = this.GetItemLogText(Id);
+        Confirmed = await tp.YesNoBoxAsync("Delete item: " + LogText + "?");
+        if (Confirmed !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                await this.Module.Delete(Id);
+                this.UiLog("Deleted " + LogText);
+                await this.SelectListAsync();
+            });
+        } catch (e) {
+            this.ReportError("Delete failed: " + tp.ExceptionText(e));
+        }
+    }
+    /**
+     * Cancels the current item operation and returns to the list page.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CancelAsync() {
+        if (this.IsItemState() !== true)
+            return;
+        this.ClearItemPage();
+        this.FormState = tp.WebDataFormState.List;
+        this.ShowListPage();
+        this.UpdateToolBar();
+    }
+    /**
+     * Shows the list page, refreshing it first when needed.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async ListAsync() {
+        if (this.ListIsDirty === true)
+            await this.SelectListAsync();
+        else {
+            this.FormState = tp.WebDataFormState.List;
+            this.ShowListPage();
+            this.UpdateToolBar();
+        }
     }
     /**
      * Renders the generated item page.
@@ -783,14 +884,175 @@ tp.WebDataForm = class extends tp.WebForm {
         if (!(this.FactBoxTabsHost instanceof HTMLElement))
             return;
         this.FactBoxTabControl = null;
+        this.DataFactBoxTableList = null;
+        this.DataFactBoxGrid = null;
+        this.DataFactBoxSources = {};
         this.FactBoxTabsHost.innerHTML = Html || "";
         if (tp.IsBlankString(Html))
             return;
+        this.AppendDataFactBoxPage();
         this.FactBoxTabControl = new tp.TabControl(this.FactBoxTabsHost);
         List = this.FactBoxTabsHost.querySelectorAll(".tp-WebDataForm-FactBoxAccordion");
         for (Index = 0; Index < List.length; Index++) {
             List[Index].tpObject = new tp.Accordion({ ElementOrSelector: List[Index] });
             List[Index].tpObject.AllowMultiExpand = true;
+        }
+        this.InitializeDataFactBox();
+    }
+    /**
+     * Returns true when the Data FactBox may be shown.
+     * @returns {boolean} Returns true for administrator users.
+     */
+    CanShowDataFactBox() {
+        return tp.CurrentUserIsAdmin === true;
+    }
+    /**
+     * Appends the admin-only Data FactBox page to the current FactBox markup.
+     * @returns {void}
+     */
+    AppendDataFactBoxPage() {
+        var List;
+        var TabHost;
+        var PageHost;
+        var Tab;
+        var Page;
+        var TableList;
+        var GridHost;
+        if (this.CanShowDataFactBox() !== true || !(this.FactBoxTabsHost instanceof HTMLElement))
+            return;
+        List = tp.ChildHTMLElements(this.FactBoxTabsHost);
+        if (List.length !== 2)
+            return;
+        TabHost = List[0];
+        PageHost = List[1];
+        Tab = this.CreateElement("div", "", "Data");
+        Page = this.CreateElement("div", "tp-WebDataForm-DataFactBoxPage");
+        TableList = Page.ownerDocument.createElement("select");
+        TableList.className = "tp-WebDataForm-DataFactBoxTableList";
+        TableList.size = 6;
+        GridHost = this.CreateElement("div", "tp-WebDataForm-DataFactBoxGridHost");
+        Page.appendChild(TableList);
+        Page.appendChild(GridHost);
+        TabHost.appendChild(Tab);
+        PageHost.appendChild(Page);
+        this.DataFactBoxTableList = TableList;
+    }
+    /**
+     * Returns the item data tables in tree order.
+     * @returns {tp.DataTable[]} Returns the data tables.
+     */
+    GetDataFactBoxTables() {
+        var Result = [];
+        var AddTable;
+        var TopTable = this.Module instanceof tp.DataModule ? this.Module.tblItem : null;
+        AddTable = (Table) => {
+            var Index;
+            var Detail;
+            if (!(Table instanceof tp.DataTable) || Result.indexOf(Table) >= 0)
+                return;
+            Result.push(Table);
+            for (Index = 0; Index < Table.Details.length; Index++) {
+                Detail = this.Module.FindTable(Table.Details[Index]);
+                AddTable(Detail);
+            }
+        };
+        AddTable(TopTable);
+        return Result;
+    }
+    /**
+     * Returns or creates a Data FactBox data source for a table.
+     * @param {tp.DataTable} Table The table.
+     * @returns {tp.DataSource|null} Returns the data source or null.
+     */
+    GetDataFactBoxSource(Table) {
+        var Source;
+        var MasterSource;
+        if (!(Table instanceof tp.DataTable))
+            return null;
+        if (this.DataFactBoxSources[Table.Name] instanceof tp.DataSource)
+            return this.DataFactBoxSources[Table.Name];
+        Source = new tp.DataSource(Table);
+        if (!tp.IsBlankString(Table.MasterTableName)) {
+            MasterSource = this.GetDataFactBoxSource(this.Module.FindTable(Table.MasterTableName));
+            if (MasterSource instanceof tp.DataSource) {
+                Source.MasterKeyField = Table.MasterField;
+                Source.DetailKeyField = Table.DetailField;
+                Source.MasterSource = MasterSource;
+            }
+        }
+        this.DataFactBoxSources[Table.Name] = Source;
+        return Source;
+    }
+    /**
+     * Creates all columns for the Data FactBox grid.
+     * @param {tp.Grid} Grid The grid.
+     * @param {tp.DataTable} Table The table.
+     * @returns {void}
+     */
+    CreateDataFactBoxGridColumns(Grid, Table) {
+        var Index;
+        var Column;
+        var GridColumn;
+        if (!(Grid instanceof tp.Grid) || !(Table instanceof tp.DataTable))
+            return;
+        Grid.ClearColumns();
+        for (Index = 0; Index < Table.Columns.length; Index++) {
+            Column = Table.Columns[Index];
+            GridColumn = Grid.AddColumn(Column.Name, Column.DisplayTitle);
+            GridColumn.ReadOnly = true;
+        }
+    }
+    /**
+     * Binds the Data FactBox grid to a table.
+     * @param {string} TableName The table name.
+     * @returns {void}
+     */
+    BindDataFactBoxGrid(TableName) {
+        var Table = this.Module instanceof tp.DataModule ? this.Module.FindTable(TableName) : null;
+        var Source;
+        if (!(this.DataFactBoxGrid instanceof tp.Grid) || !(Table instanceof tp.DataTable))
+            return;
+        Source = this.GetDataFactBoxSource(Table);
+        this.CreateDataFactBoxGridColumns(this.DataFactBoxGrid, Table);
+        this.DataFactBoxGrid.DataSource = Source;
+        this.DataFactBoxGrid.BestFitColumns();
+    }
+    /**
+     * Initializes the admin-only Data FactBox page.
+     * @returns {void}
+     */
+    InitializeDataFactBox() {
+        var Tables;
+        var Index;
+        var Option;
+        var GridHost;
+        if (!(this.DataFactBoxTableList instanceof HTMLSelectElement))
+            return;
+        GridHost = this.FactBoxTabsHost.querySelector(".tp-WebDataForm-DataFactBoxGridHost");
+        if (!(GridHost instanceof HTMLElement))
+            return;
+        Tables = this.GetDataFactBoxTables();
+        for (Index = 0; Index < Tables.length; Index++) {
+            Option = this.DataFactBoxTableList.ownerDocument.createElement("option");
+            Option.value = Tables[Index].Name;
+            Option.textContent = Tables[Index].Name;
+            this.DataFactBoxTableList.appendChild(Option);
+        }
+        this.DataFactBoxGrid = new tp.Grid({
+            ElementOrSelector: GridHost,
+            AutoGenerateColumns: false,
+            ToolBarVisible: false,
+            GroupsVisible: false,
+            FilterVisible: false,
+            FooterVisible: false,
+            ReadOnly: true,
+            AllowUserToAddRows: false,
+            AllowUserToDeleteRows: false
+        });
+        this.DataFactBoxTableList.addEventListener("change", () => this.BindDataFactBoxGrid(this.DataFactBoxTableList.value));
+        if (Tables.length > 0) {
+            this.DataFactBoxTableList.selectedIndex = 0;
+            this.BindDataFactBoxGrid(Tables[0].Name);
         }
     }
     /**
@@ -1028,6 +1290,113 @@ tp.WebDataForm = class extends tp.WebForm {
         return Row && Table instanceof tp.DataTable ? Row.Get(Table.KeyField, null) : null;
     }
     /**
+     * Returns true when the form is in an item editing state.
+     * @returns {boolean} Returns true when in Insert or Edit state.
+     */
+    IsItemState() {
+        return this.FormState === tp.WebDataFormState.Insert || this.FormState === tp.WebDataFormState.Edit;
+    }
+    /**
+     * Selects a list row by id.
+     * @param {*} Id The row id.
+     * @returns {void}
+     */
+    SelectListRowById(Id) {
+        var Source;
+        var Table;
+        var Row;
+        if (tp.IsEmpty(Id) || !(this.ListGrid instanceof tp.Grid))
+            return;
+        Source = this.ListGrid.DataSource;
+        Table = Source instanceof tp.DataSource ? Source.Table : null;
+        Row = Table instanceof tp.DataTable ? Table.FindRow(Table.KeyField, Id) : null;
+        if (Row instanceof tp.DataRow)
+            this.ListGrid.SetFocusedRow(Row);
+    }
+    /**
+     * Returns a text describing an item for logging purposes.
+     * @param {*} Id The item id.
+     * @returns {string} Returns the item log text.
+     */
+    GetItemLogText(Id) {
+        var Parts = [];
+        var Row = this.GetLogRow(Id);
+        var FieldName = this.Module instanceof tp.DataModule ? this.Module.ItemCaptionField : "";
+        var Code;
+        var Caption;
+        if (Row instanceof tp.DataRow) {
+            if (!tp.IsSameText(FieldName, "Code") && Row.Table instanceof tp.DataTable && Row.Table.IndexOfColumn("Code") >= 0) {
+                Code = Row.Get("Code", null);
+                if (!tp.IsEmpty(Code))
+                    Parts.push(String(Code));
+            }
+            if (!tp.IsBlank(FieldName) && Row.Table instanceof tp.DataTable && Row.Table.IndexOfColumn(FieldName) >= 0) {
+                Caption = Row.Get(FieldName, null);
+                if (!tp.IsEmpty(Caption))
+                    Parts.push(String(Caption));
+            }
+        }
+        if (Parts.length > 0)
+            return Parts.join(" - ");
+        if (!tp.IsEmpty(Id))
+            return String(Id);
+        return "Current item";
+    }
+    /**
+     * Returns the row used for item logging.
+     * @param {*} Id The item id.
+     * @returns {tp.DataRow|null} Returns a row or null.
+     */
+    GetLogRow(Id) {
+        var Table;
+        var Row;
+        if (this.Module instanceof tp.DataModule) {
+            Table = this.Module.tblList;
+            Row = Table instanceof tp.DataTable && !tp.IsEmpty(Id) ? Table.FindRow(Table.KeyField, Id) : null;
+            if (Row instanceof tp.DataRow)
+                return Row;
+            Row = this.Module.Row;
+            if (Row instanceof tp.DataRow)
+                return Row;
+        }
+        return null;
+    }
+    /**
+     * Writes a data form message to the UI log.
+     * @param {string} Text The message text.
+     * @returns {void}
+     */
+    UiLog(Text) {
+        var Title = !tp.IsBlank(this.TitleText) ? this.TitleText : this.ModuleName;
+        Title = String(Title || "").replace(/\s+/g, " ").trim();
+        if (tp.LogBox && tp.LogBox.AppendLine)
+            tp.LogBox.AppendLine("[" + Title + "] - " + Text);
+    }
+    /**
+     * Clears the item page surface and FactBox content.
+     * @returns {void}
+     */
+    ClearItemPage() {
+        if (this.ItemPageBuilder instanceof tp.WebItemPageBuilder)
+            this.ItemPageBuilder.Clear();
+        if (this.FactBoxTabsHost instanceof HTMLElement)
+            this.FactBoxTabsHost.innerHTML = "";
+        this.FactBoxes = [];
+        this.FactBoxTabControl = null;
+        this.SetFactBoxPaneVisible(false);
+    }
+    /**
+     * Reports an error through the standard WebDesk channels.
+     * @param {string} Text The error text.
+     * @returns {void}
+     */
+    ReportError(Text) {
+        if (tp.LogBox && tp.LogBox.AppendLine)
+            tp.LogBox.AppendLine(Text);
+        if (tp.IsFunction(tp.ErrorNote))
+            tp.ErrorNote(Text);
+    }
+    /**
      * Shows the list page.
      * @returns {void}
      */
@@ -1133,7 +1502,7 @@ tp.WebDataForm = class extends tp.WebForm {
         else if (Command === "FactBox")
             this.ToggleFactBoxPane();
         else if (Command === "List")
-            this.ShowListPage();
+            this.ListAsync();
         else if (Command === "RefreshList")
             this.SelectListAsync();
         else if (Command === "Find")
@@ -1142,6 +1511,12 @@ tp.WebDataForm = class extends tp.WebForm {
             this.InsertAsync();
         else if (Command === "Edit")
             this.EditAsync();
+        else if (Command === "Delete")
+            this.DeleteAsync();
+        else if (Command === "Save")
+            this.SaveAsync();
+        else if (Command === "Cancel")
+            this.CancelAsync();
         else if (Command === "Close")
             this.CloseForm();
     }
@@ -1175,20 +1550,22 @@ tp.WebDataForm = class extends tp.WebForm {
      * @returns {void}
      */
     UpdateToolBar() {
+        var IsItemState = this.IsItemState();
+        var HasModule = this.Module instanceof tp.DataModule;
         this.SetButtonEnabled("List", true);
         this.SetButtonEnabled("RefreshList", true);
-        this.SetButtonEnabled("Find", this.Module instanceof tp.DataModule && this.Module.UseFilters === true);
+        this.SetButtonEnabled("Find", HasModule && this.Module.UseFilters === true);
         this.SetButtonVisible("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML));
         this.SetButtonEnabled("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML) && this.FormState !== tp.WebDataFormState.List);
         this.SetButtonVisible("Ok", false);
         this.SetButtonEnabled("Home", false);
         this.SetButtonEnabled("ToggleIds", true);
-        this.SetButtonEnabled("Insert", this.Module instanceof tp.DataModule && this.IsReadOnly !== true);
-        this.SetButtonEnabled("Edit", this.Module instanceof tp.DataModule && this.Module.tblList instanceof tp.DataTable && this.Module.tblList.RowCount > 0 && this.IsReadOnly !== true);
-        this.SetButtonEnabled("Delete", false);
+        this.SetButtonEnabled("Insert", HasModule && this.IsReadOnly !== true && IsItemState !== true);
+        this.SetButtonEnabled("Edit", HasModule && this.Module.tblList instanceof tp.DataTable && this.Module.tblList.RowCount > 0 && this.IsReadOnly !== true && IsItemState !== true);
+        this.SetButtonEnabled("Delete", HasModule && this.Module.tblList instanceof tp.DataTable && this.Module.tblList.RowCount > 0 && this.IsReadOnly !== true && this.FormState === tp.WebDataFormState.List);
         this.SetButtonEnabled("Refresh", false);
-        this.SetButtonEnabled("Save", false);
-        this.SetButtonEnabled("Cancel", false);
+        this.SetButtonEnabled("Save", HasModule && this.IsReadOnly !== true && IsItemState === true);
+        this.SetButtonEnabled("Cancel", IsItemState === true);
         this.SetButtonEnabled("Ok", false);
         this.SetButtonEnabled("Close", true);
     }
@@ -1242,6 +1619,11 @@ tp.WebDataForm.prototype.Module = null;
  * @type {string}
  */
 tp.WebDataForm.prototype.FormState = tp.WebDataFormState.None;
+/**
+ * True when the list needs to be reselected before showing it.
+ * @type {boolean}
+ */
+tp.WebDataForm.prototype.ListIsDirty = false;
 /**
  * The main toolbar.
  * @type {tp.ControlBar|null}
@@ -1327,6 +1709,21 @@ tp.WebDataForm.prototype.FactBoxTabControl = null;
  * @type {object[]|null}
  */
 tp.WebDataForm.prototype.FactBoxes = null;
+/**
+ * The Data FactBox table list element.
+ * @type {HTMLSelectElement|null}
+ */
+tp.WebDataForm.prototype.DataFactBoxTableList = null;
+/**
+ * The Data FactBox grid.
+ * @type {tp.Grid|null}
+ */
+tp.WebDataForm.prototype.DataFactBoxGrid = null;
+/**
+ * Data FactBox data sources keyed by table name.
+ * @type {object|null}
+ */
+tp.WebDataForm.prototype.DataFactBoxSources = null;
 /**
  * True when the FactBox pane is visible.
  * @type {boolean}
