@@ -77,17 +77,19 @@ tp.WebFormPageHandler = class {
      * @param {tp.TabPage} Page The tab page.
      * @param {object} Form The server form packet.
      * @param {object} Packet The server packet.
+     * @param {object|null|undefined} Options Optional context options.
      * @returns {tp.WebFormContext} Returns the web form context.
      */
-    CreateFormContext(Page, Form, Packet) {
+    CreateFormContext(Page, Form, Packet, Options) {
         return new tp.WebFormContext({
-            FormId: Form.Name,
+            FormId: Options && !tp.IsBlankString(Options.FormId) ? Options.FormId : Form.Name,
             ClassName: Form.JsFormClassType,
             DisplayMode: tp.WebFormDisplayMode.TabPage,
             ParentControl: Page,
             Title: !tp.IsBlankString(Form.Title) ? Form.Title : Form.Name,
             WebFormDef: Form,
             Packet: Packet,
+            Options: Options || null,
             CssFiles: Form.CssFiles || [],
             JavaScriptFiles: Form.JavaScriptFiles || []
         });
@@ -145,19 +147,23 @@ tp.WebFormPageHandler = class {
     /**
      * Opens a web form page.
      * @param {string} WebFormName The web form name.
+     * @param {object|null|undefined} Options Optional open options.
      * @returns {Promise<tp.TabPage|null>} Returns a Promise with the opened page.
      */
-    async OpenAsync(WebFormName) {
+    async OpenAsync(WebFormName, Options) {
         var TabControl = this.GetTabControl();
         var Page;
         var Packet;
         var Form;
         var Component;
         var Context;
+        var FormId;
         var ShowSpinner = tp.IsFunction(tp.ShowSpinner);
         if (!TabControl || tp.IsBlankString(WebFormName))
             return null;
-        Page = this.FindPage(WebFormName);
+        Options = Options || null;
+        FormId = Options && !tp.IsBlankString(Options.FormId) ? Options.FormId : WebFormName;
+        Page = this.FindPage(FormId);
         if (Page) {
             TabControl.SelectedPage = Page;
             if (Page.AppComponent instanceof tp.WebForm)
@@ -174,10 +180,10 @@ tp.WebFormPageHandler = class {
             if (!Form)
                 throw new Error("WebForm not returned: " + WebFormName);
             Page = TabControl.AddPage(!tp.IsBlankString(Form.Title) ? Form.Title : Form.Name);
-            Page.AppPageName = Form.Name;
+            Page.AppPageName = FormId;
             Page.AppPageHandler = this;
             Page.Handle.innerHTML = Form.Html || "";
-            Context = this.CreateFormContext(Page, Form, Packet);
+            Context = this.CreateFormContext(Page, Form, Packet, Options);
             Page.AppContext = Context;
             Component = await this.CreateFormComponent(Page, Context);
             Component.On("CloseRequested", this.HandleFormCloseRequested, this);
@@ -195,11 +201,12 @@ tp.WebFormPageHandler = class {
     /**
      * Opens a web form page and logs failures without throwing.
      * @param {string} WebFormName The web form name.
+     * @param {object|null|undefined} Options Optional open options.
      * @returns {void}
      */
-    Open(WebFormName) {
+    Open(WebFormName, Options) {
         var Handler = this;
-        this.OpenAsync(WebFormName).catch(function (e) {
+        this.OpenAsync(WebFormName, Options).catch(function (e) {
             Handler.ReportError("Open web form failed: " + tp.ExceptionText(e));
         });
     }

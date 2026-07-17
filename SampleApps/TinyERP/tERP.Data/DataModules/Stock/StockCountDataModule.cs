@@ -267,7 +267,7 @@ public class StockCountDataModule: DocumentDataModule
         foreach (DataRow Row in Rows)
             CreateStockAdjustment(Transaction, Row, WarehouseId, UserId, CreatedAt, MovementDate);
     }
-    protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    protected override void SetDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     {
         base.SetDefaultValues(Table, Row, TableDef);
 

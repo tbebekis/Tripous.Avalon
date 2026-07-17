@@ -1,6 +1,7 @@
 @model Tripous.WebDesk.WebFormDef
 @{
     string JsFormClassType = !string.IsNullOrWhiteSpace(Model.JsFormClassType) ? Model.JsFormClassType : "tp.WebDataForm";
+    string JsDataModuleClassType = Model.JsDataModuleClassType ?? string.Empty;
     string ItemViewName = Model.ItemViewName;
     string ItemViewFileName = ItemViewName.EndsWith(".cshtml", StringComparison.OrdinalIgnoreCase) ? ItemViewName : $"{ItemViewName}.cshtml";
     string ItemViewPath = string.IsNullOrWhiteSpace(ItemViewName)
@@ -14,7 +15,8 @@
         IsReadOnly = Model.IsReadOnly,
         JavaScriptFiles = Model.JavaScriptFiles,
         CssFiles = Model.CssFiles,
-        JsFormClassType
+        JsFormClassType,
+        JsDataModuleClassType
     });
 }
 <div class="tp-WebDataForm" data-setup='@Html.Raw(DataSetup)'>

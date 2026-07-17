@@ -55,6 +55,47 @@ tp.DataModuleAction = class {
  * - Action
  */
 tp.DataModule = class extends tp.Object {
+    // ● static public
+    /**
+     * Resolves a dotted global object name.
+     * @param {string} Name The dotted name.
+     * @returns {*} Returns the resolved value or null.
+     */
+    static ResolveGlobalName(Name) {
+        var Parts;
+        var Index;
+        var Result = window;
+        if (tp.IsBlankString(Name))
+            return null;
+        Parts = String(Name).split(".");
+        for (Index = 0; Index < Parts.length; Index++) {
+            if (tp.IsBlankString(Parts[Index]) || tp.IsNil(Result[Parts[Index]]))
+                return null;
+            Result = Result[Parts[Index]];
+        }
+        return Result;
+    }
+    /**
+     * Creates a data module proxy instance.
+     * @param {string|object|null|undefined} NameOrSource The module name or a JsonDataModule source object.
+     * @param {string|Function|null|undefined} ClassTypeOrName Optional JavaScript class type or dotted class name.
+     * @returns {tp.DataModule} Returns a data module proxy.
+     */
+    static Create(NameOrSource, ClassTypeOrName) {
+        var ClassType = null;
+        var Result;
+        if (tp.IsFunction(ClassTypeOrName))
+            ClassType = ClassTypeOrName;
+        else if (tp.IsString(ClassTypeOrName) && !tp.IsBlankString(ClassTypeOrName))
+            ClassType = tp.DataModule.ResolveGlobalName(ClassTypeOrName);
+        if (!tp.IsFunction(ClassType))
+            ClassType = tp.DataModule;
+        Result = new ClassType(NameOrSource);
+        if (!(Result instanceof tp.DataModule))
+            throw new Error("The specified JavaScript data module class does not extend tp.DataModule.");
+        return Result;
+    }
+
     // ● constructor
     /**
      * Creates a data module proxy.

@@ -98,6 +98,7 @@ public abstract class WebFormProvider
         Result.IsReadOnly = Form.IsReadOnly;
         Result.IsCustom = Form.IsCustom;
         Result.JsFormClassType = Form.JsFormClassType;
+        Result.JsDataModuleClassType = Form.JsDataModuleClassType;
         Result.CssFiles.AddRange(Form.CssFiles);
         Result.JavaScriptFiles.AddRange(Form.JavaScriptFiles);
         AddSelectList(Result, Form);

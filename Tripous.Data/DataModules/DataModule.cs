@@ -205,7 +205,7 @@ public class DataModule
     /// <summary>
     /// Sets default values to the Table. It is called when a commit operation starts.
     /// </summary>
-    protected virtual void SetDefaultValues(DataTable Table, TableDef TableDef)
+    protected virtual void SetDefaultValues(MemTable Table, TableDef TableDef)
     {
         if (IsInserting || IsCommiting)
         {
@@ -216,7 +216,7 @@ public class DataModule
     /// <summary>
     /// Sets default values to the Row. It is called when a commit operation starts.
     /// </summary>
-    protected virtual void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    protected virtual void SetDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     {
         if (Row.RowState == DataRowState.Deleted)
             return;
@@ -279,7 +279,7 @@ public class DataModule
     /// <para>NOTE: This method is called only for the <see cref="tblItem"/> table.</para>
     /// <para>NOTE: This method sets the <c>CreatedBy, CreatedAt, ModifiedBy, ModifiedAt</c> field values, if they exist in the <see cref="tblItem"/>.</para>
     /// </summary>
-    protected virtual void SetAuditDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    protected virtual void SetAuditDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     {
         if (Row.RowState == DataRowState.Deleted)
             return;

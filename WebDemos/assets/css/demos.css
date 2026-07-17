@@ -68,7 +68,7 @@
     text-align: left;
 }
 .demo-nav-group-button::after {
-    content: "›";
+    content: "\203A";
     font-size: 18px;
     line-height: 1;
     transform: rotate(0deg);

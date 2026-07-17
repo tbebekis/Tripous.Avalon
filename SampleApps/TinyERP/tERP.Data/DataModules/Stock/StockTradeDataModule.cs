@@ -518,7 +518,7 @@ public class StockTradeDataModule: DocumentDataModule
     /// <summary>
     /// Sets defaults for stock transaction headers.
     /// </summary>
-    protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    protected override void SetDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     {
         base.SetDefaultValues(Table, Row, TableDef);
 

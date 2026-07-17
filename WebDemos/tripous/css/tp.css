@@ -113,6 +113,10 @@ select:focus {
     border: 1px solid var(--FocusBorderColor);
 }
 
+.tp-DefaultFocusedButton, .tp-DefaultFocusedButton:focus {
+    outline: 2px solid var(--FocusColor) !important;
+}
+
 /**
  * 1. Change the font styles in all browsers.
  * 2. Remove the margin in Firefox and Safari.

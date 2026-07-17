@@ -89,6 +89,11 @@ app.MainPage = class extends tp.Component {
          * @type {tp.WebFormPageHandler|null}
          */
         this.SideBarHandler = null;
+        /**
+         * Global shell keydown handler.
+         * @type {Function|null}
+         */
+        this.WindowKeyDownHandler = null;
     }
     /**
      * Creates child controls and stores useful shell element references.
@@ -99,6 +104,19 @@ app.MainPage = class extends tp.Component {
         this.InitializeElements();
         this.InitializeControls();
         this.InitializeLog();
+        this.WindowKeyDownHandler = (e) => this.HandleWindowKeyDown(e);
+        window.addEventListener("keydown", this.WindowKeyDownHandler, true);
+    }
+    /**
+     * Releases owned controls and event handlers.
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.WindowKeyDownHandler) {
+            window.removeEventListener("keydown", this.WindowKeyDownHandler, true);
+            this.WindowKeyDownHandler = null;
+        }
+        super.DoDispose();
     }
     /**
      * Stores useful shell element references.
@@ -207,6 +225,33 @@ app.MainPage = class extends tp.Component {
             return;
 
         app.App.ExecuteCommand(Command);
+    }
+    /**
+     * Returns true when a keyboard event maps to a browser command reserved by the WebDesk shell.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {boolean} Returns true when the browser command should be canceled.
+     */
+    IsReservedBrowserShortcut(e) {
+        var HasModifier = e.ctrlKey === true || e.metaKey === true;
+        var Key = tp.IsString(e.key) ? e.key.toLowerCase() : "";
+
+        if (tp.IsSameText(e.key, "F5") || e.code === "F5")
+            return true;
+        if (HasModifier !== true)
+            return false;
+        return Key === "r" || Key === "s" || Key === "f" || Key === "p" || Key === "o";
+    }
+    /**
+     * Handles global shell keyboard shortcuts.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleWindowKeyDown(e) {
+        if (!(e instanceof KeyboardEvent) || this.IsReservedBrowserShortcut(e) !== true)
+            return;
+        if (tp.IsFunction(e.preventDefault))
+            e.preventDefault();
+        e.returnValue = false;
     }
     /**
      * Handles workspace tab close requests.

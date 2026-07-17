@@ -174,11 +174,23 @@ static public partial class App
     /// </summary>
     static void ConfigureDocumentWebForms()
     {
-        WebFormDef Form = WebDeskRegistry.FindForm("SalesOrder");
+        ConfigureDocumentWebForm("SalesOrder", "app.SalesOrderForm", "app.SalesDataModule");
+        ConfigureDocumentWebForm("SalesDeliveryNote", "app.SalesDataForm", "app.SalesDataModule");
+    }
+    /// <summary>
+    /// Configures a single document web form.
+    /// </summary>
+    /// <param name="FormName">The form name.</param>
+    /// <param name="JsFormClassType">The JavaScript form class type.</param>
+    /// <param name="JsDataModuleClassType">The JavaScript data module class type.</param>
+    static void ConfigureDocumentWebForm(string FormName, string JsFormClassType, string JsDataModuleClassType)
+    {
+        WebFormDef Form = WebDeskRegistry.FindForm(FormName);
         if (Form == null)
             return;
 
-        Form.JsFormClassType = "app.SalesOrderForm";
+        Form.JsFormClassType = JsFormClassType;
+        Form.JsDataModuleClassType = JsDataModuleClassType;
         if (!Form.JavaScriptFiles.Contains("/js/forms/document-data-forms.js"))
             Form.JavaScriptFiles.Add("/js/forms/document-data-forms.js");
     }

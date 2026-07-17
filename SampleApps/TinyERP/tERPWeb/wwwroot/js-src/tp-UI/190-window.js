@@ -1102,26 +1102,42 @@ tp.MessageDialog = class extends tp.Window {
         this.MessageText = this.Args.MessageText || "";
     }
     /**
+     * Disposes internal resources.
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.Document && this.fDocumentKeyDownHandler)
+            this.Document.removeEventListener("keydown", this.fDocumentKeyDownHandler, true);
+        if (this.Footer && this.fFooterFocusInHandler)
+            this.Footer.removeEventListener("focusin", this.fFooterFocusInHandler);
+        this.fDocumentKeyDownHandler = null;
+        this.fFooterFocusInHandler = null;
+        super.DoDispose();
+    }
+    /**
      * Creates all controls.
      * @returns {void}
      */
     CreateControls() {
+        var Button;
         super.CreateControls();
         switch (this.BoxType) {
             case "Information":
                 this.Text = "Information";
-                this.CreateFooterButton("Close", "Close", tp.DialogResult.Cancel);
+                this.DefaultButton = this.CreateFooterButton("Close", "Close", tp.DialogResult.Cancel);
                 this.Args.DefaultDialogResult = tp.DialogResult.Cancel;
                 break;
             case "Error":
                 this.Text = "Error";
-                this.CreateFooterButton("Close", "Close", tp.DialogResult.Cancel);
+                this.DefaultButton = this.CreateFooterButton("Close", "Close", tp.DialogResult.Cancel);
                 this.Args.DefaultDialogResult = tp.DialogResult.Cancel;
                 break;
             case "Question":
                 this.Text = "Question";
-                this.CreateFooterButton("Yes", "Yes", tp.DialogResult.Yes);
-                this.CreateFooterButton("No", "No", tp.DialogResult.No);
+                Button = this.CreateFooterButton("Yes", "Yes", tp.DialogResult.Yes);
+                Button.Handle.tabIndex = 0;
+                this.DefaultButton = Button;
+                this.CreateFooterButton("No", "No", tp.DialogResult.No).Handle.tabIndex = 0;
                 this.Args.DefaultDialogResult = tp.DialogResult.No;
                 break;
         }
@@ -1133,8 +1149,141 @@ tp.MessageDialog = class extends tp.Window {
         this.edtMemo.Handle.cols = 10;
         this.edtMemo.Handle.rows = 5;
         this.edtMemo.Handle.spellcheck = false;
+        this.edtMemo.Handle.readOnly = true;
+        this.edtMemo.Handle.tabIndex = -1;
         this.edtMemo.Text = this.MessageText;
-        this.edtMemo.Handle.focus();
+    }
+    /**
+     * Called when the dialog is shown.
+     * @returns {void}
+     */
+    OnShown() {
+        super.OnShown();
+        if (!this.fDocumentKeyDownHandler) {
+            this.fDocumentKeyDownHandler = this.FuncBind(this.HandleKeyDown);
+            this.Document.addEventListener("keydown", this.fDocumentKeyDownHandler, true);
+        }
+        if (!this.fFooterFocusInHandler) {
+            this.fFooterFocusInHandler = this.FuncBind(this.FooterFocusIn);
+            this.Footer.addEventListener("focusin", this.fFooterFocusInHandler);
+        }
+        this.QueueDefaultButtonFocus();
+    }
+    /**
+     * Handles message dialog keyboard commands.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleKeyDown(e) {
+        if (this.Modal && tp.IsKey(e, tp.Keys.Tab)) {
+            this.HandleTabKey(e);
+        } else if (this.Modal && (tp.IsKey(e, tp.Keys.Enter) || tp.IsKey(e, tp.Keys.Space)) && this.DefaultButton && this.DefaultButton.Handle) {
+            if (this.GetFocusedFooterButtonElement(e.target))
+                return;
+            tp.CancelEvent(e, true);
+            if ("stopImmediatePropagation" in e)
+                e.stopImmediatePropagation();
+            this.DialogResult = this.DefaultButton.DialogResult;
+        } else {
+            super.HandleKeyDown(e);
+        }
+    }
+    /**
+     * Handles Tab and Shift+Tab inside the dialog footer.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleTabKey(e) {
+        var Buttons = this.GetFooterButtonElements();
+        var ActiveElement = this.Document.activeElement;
+        var Index = Buttons.indexOf(ActiveElement);
+        var NextIndex;
+        if (Buttons.length === 0)
+            return;
+        if (e.shiftKey === true)
+            NextIndex = Index <= 0 ? Buttons.length - 1 : Index - 1;
+        else
+            NextIndex = Index < 0 || Index >= Buttons.length - 1 ? 0 : Index + 1;
+        tp.CancelEvent(e, true);
+        if ("stopImmediatePropagation" in e)
+            e.stopImmediatePropagation();
+        this.FocusFooterButtonElement(Buttons[NextIndex]);
+    }
+    /**
+     * Handles focus entering a footer button.
+     * @param {FocusEvent} e The focus event.
+     * @returns {void}
+     */
+    FooterFocusIn(e) {
+        var Button = this.GetFocusedFooterButtonElement(e.target);
+        if (Button)
+            this.MarkFooterButtonFocused(Button);
+    }
+    /**
+     * Returns the footer button elements.
+     * @returns {HTMLElement[]} Returns the button elements.
+     */
+    GetFooterButtonElements() {
+        return this.Footer ? Array.from(this.Footer.querySelectorAll("." + tp.Classes.Button)) : [];
+    }
+    /**
+     * Returns a focused footer button element from a target element.
+     * @param {EventTarget|null} Target The event target.
+     * @returns {HTMLElement|null} Returns the button element or null.
+     */
+    GetFocusedFooterButtonElement(Target) {
+        var Button = Target && tp.IsFunction(Target.closest) ? Target.closest("." + tp.Classes.Button) : null;
+        return Button && this.Footer && this.Footer.contains(Button) ? Button : null;
+    }
+    /**
+     * Marks a footer button as focused.
+     * @param {HTMLElement} Button The button element.
+     * @returns {void}
+     */
+    MarkFooterButtonFocused(Button) {
+        var Buttons = this.GetFooterButtonElements();
+        var Index;
+        for (Index = 0; Index < Buttons.length; Index++)
+            Buttons[Index].classList.remove("tp-DefaultFocusedButton");
+        Button.classList.add("tp-DefaultFocusedButton");
+    }
+    /**
+     * Focuses a footer button element.
+     * @param {HTMLElement} Button The button element.
+     * @returns {void}
+     */
+    FocusFooterButtonElement(Button) {
+        if (!Button || !tp.IsFunction(Button.focus))
+            return;
+        this.MarkFooterButtonFocused(Button);
+        Button.tabIndex = 0;
+        try {
+            Button.focus({ preventScroll: true });
+        } catch (e) {
+            Button.focus();
+        }
+    }
+    /**
+     * Focuses the default footer button.
+     * @returns {void}
+     */
+    FocusDefaultButton() {
+        if (!this.DefaultButton || !this.DefaultButton.Handle || !tp.IsFunction(this.DefaultButton.Handle.focus))
+            return;
+        if (this.edtMemo && this.edtMemo.Handle && tp.IsFunction(this.edtMemo.Handle.blur))
+            this.edtMemo.Handle.blur();
+        this.FocusFooterButtonElement(this.DefaultButton.Handle);
+    }
+    /**
+     * Queues default button focus attempts after dialog layout is complete.
+     * @returns {void}
+     */
+    QueueDefaultButtonFocus() {
+        this.FocusDefaultButton();
+        requestAnimationFrame(this.FuncBind(this.FocusDefaultButton));
+        setTimeout(this.FuncBind(this.FocusDefaultButton), 0);
+        setTimeout(this.FuncBind(this.FocusDefaultButton), 120);
+        setTimeout(this.FuncBind(this.FocusDefaultButton), 500);
     }
 };
 
@@ -1155,6 +1304,21 @@ tp.MessageDialog.prototype.MessageText = "";
  * @type {tp.Component|null}
  */
 tp.MessageDialog.prototype.edtMemo = null;
+/**
+ * Default focused button.
+ * @type {tp.Button|null}
+ */
+tp.MessageDialog.prototype.DefaultButton = null;
+/**
+ * Document key down handler.
+ * @type {Function|null}
+ */
+tp.MessageDialog.prototype.fDocumentKeyDownHandler = null;
+/**
+ * Footer focus-in handler.
+ * @type {Function|null}
+ */
+tp.MessageDialog.prototype.fFooterFocusInHandler = null;
 
 // ● static public
 /**
@@ -1176,6 +1340,7 @@ tp.MessageDialog.Show = function (MessageText, BoxType, CloseFunc, Creator) {
     Args.MessageText = MessageText;
     Result = new tp.MessageDialog(Args);
     Result.ShowModal();
+    Result.QueueDefaultButtonFocus();
     return Result;
 };
 

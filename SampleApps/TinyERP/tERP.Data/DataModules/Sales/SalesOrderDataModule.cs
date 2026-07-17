@@ -34,4 +34,28 @@ public class SalesOrderDataModule: SalesDataModule
             throw new TripousDataException("Cannot create a Sales Delivery Note module.");
         return Result;
     }
+    /// <summary>
+    /// Applies a JSON contract object and creates a transformed Sales Delivery Note data module.
+    /// </summary>
+    public virtual JsonDataModule JsonCreateDeliveryNote(JsonDataModule Source)
+    {
+        if (Source == null)
+            throw new TripousArgumentNullException(nameof(Source));
+
+        State = (DataMode)Source.State;
+
+        tblItem.EventsDisabled = true;
+        try
+        {
+            JsonApplyTableRows(tblItem, Source);
+        }
+        finally
+        {
+            tblItem.EventsDisabled = false;
+        }
+
+        SalesDeliveryNoteDataModule DeliveryNoteModule = CreateDeliveryNote();
+        JsonDataModule Result = new(DeliveryNoteModule);
+        return Result;
+    }
 }

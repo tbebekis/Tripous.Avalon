@@ -56,6 +56,11 @@ tp.WebDataForm = class extends tp.WebForm {
          */
         this.ModuleName = "";
         /**
+         * The JavaScript data module class type.
+         * @type {string}
+         */
+        this.JsDataModuleClassType = "";
+        /**
          * True when the form is read-only.
          * @type {boolean}
          */
@@ -65,6 +70,16 @@ tp.WebDataForm = class extends tp.WebForm {
          * @type {tp.DataModule|null}
          */
         this.Module = null;
+        /**
+         * Initial data module packet used when a form opens directly in item mode.
+         * @type {object|null}
+         */
+        this.InitialDataModule = null;
+        /**
+         * Initial form state when an initial data module packet is supplied.
+         * @type {string}
+         */
+        this.InitialFormState = "";
         /**
          * The current form state.
          * @type {string}
@@ -105,6 +120,11 @@ tp.WebDataForm = class extends tp.WebForm {
          * @type {tp.Grid|null}
          */
         this.ListGrid = null;
+        /**
+         * True when list grid plain Id columns are visible.
+         * @type {boolean}
+         */
+        this.ListGridIdColumnsVisible = false;
         /**
          * The filter pane element.
          * @type {HTMLElement|null}
@@ -221,6 +241,11 @@ tp.WebDataForm = class extends tp.WebForm {
          */
         this.ListGridDoubleClickHandler = null;
         /**
+         * List grid key down handler.
+         * @type {Function|null}
+         */
+        this.ListGridKeyDownHandler = null;
+        /**
          * Window key down handler.
          * @type {Function|null}
          */
@@ -258,8 +283,14 @@ tp.WebDataForm = class extends tp.WebForm {
                 this.ModuleName = Params.ModuleName || "";
             if (!tp.IsNil(Params.Module))
                 this.ModuleName = Params.Module || this.ModuleName;
+            if (!tp.IsNil(Params.JsDataModuleClassType))
+                this.JsDataModuleClassType = Params.JsDataModuleClassType || "";
             if (!tp.IsNil(Params.IsReadOnly))
                 this.IsReadOnly = Params.IsReadOnly === true;
+            if (!tp.IsNil(Params.InitialDataModule))
+                this.InitialDataModule = Params.InitialDataModule || null;
+            if (!tp.IsNil(Params.InitialFormState))
+                this.InitialFormState = Params.InitialFormState || "";
         }
     }
     /**
@@ -272,7 +303,14 @@ tp.WebDataForm = class extends tp.WebForm {
         Form = this.Context instanceof tp.WebFormContext ? this.Context.WebFormDef : null;
         if (Form) {
             this.ModuleName = Form.Module || this.ModuleName || Form.Name || "";
+            this.JsDataModuleClassType = Form.JsDataModuleClassType || this.JsDataModuleClassType || "";
             this.IsReadOnly = Form.IsReadOnly === true;
+        }
+        if (this.Context instanceof tp.WebFormContext && this.Context.Options) {
+            if (!tp.IsNil(this.Context.Options.InitialDataModule))
+                this.InitialDataModule = this.Context.Options.InitialDataModule || this.InitialDataModule;
+            if (!tp.IsNil(this.Context.Options.InitialFormState))
+                this.InitialFormState = this.Context.Options.InitialFormState || this.InitialFormState;
         }
     }
     /**
@@ -281,7 +319,10 @@ tp.WebDataForm = class extends tp.WebForm {
      */
     async StartAsync() {
         await this.InitializeDataModuleAsync();
-        await this.SelectListAsync();
+        if (this.InitialDataModule)
+            await this.ShowInitialDataModuleAsync();
+        else
+            await this.SelectListAsync();
     }
     /**
      * Releases owned controls.
@@ -290,6 +331,7 @@ tp.WebDataForm = class extends tp.WebForm {
     DoDispose() {
         this.DisposeFactBoxSplitterResize();
         this.DisposeListGridDoubleClick();
+        this.DisposeListGridKeyDown();
         this.Buttons = {};
         this.ToolBar = null;
         this.SelectBar = null;
@@ -307,6 +349,7 @@ tp.WebDataForm = class extends tp.WebForm {
         this.FactBoxTabsHost = null;
         this.FactBoxTabControl = null;
         this.ListGridDoubleClickHandler = null;
+        this.ListGridKeyDownHandler = null;
         if (this.WindowKeyDownHandler) {
             window.removeEventListener("keydown", this.WindowKeyDownHandler, true);
             this.WindowKeyDownHandler = null;
@@ -441,6 +484,7 @@ tp.WebDataForm = class extends tp.WebForm {
         });
         tp.AddClass(this.ListGrid.Handle, tp.Classes.WebDataFormGrid);
         this.InitializeListGridDoubleClick();
+        this.InitializeListGridKeyDown();
     }
     /**
      * Finds an element by data-role.
@@ -561,6 +605,17 @@ tp.WebDataForm = class extends tp.WebForm {
         this.ListGrid.Handle.addEventListener("dblclick", this.ListGridDoubleClickHandler);
     }
     /**
+     * Initializes list grid keyboard handling.
+     * @returns {void}
+     */
+    InitializeListGridKeyDown() {
+        if (!(this.ListGrid instanceof tp.Grid))
+            return;
+        this.ListGridKeyDownHandler = this.HandleListGridKeyDown.bind(this);
+        this.ListGrid.Handle.addEventListener("keydown", this.ListGridKeyDownHandler, true);
+        this.ListGrid.Handle.tabIndex = 0;
+    }
+    /**
      * Releases list grid double click handling.
      * @returns {void}
      */
@@ -568,6 +623,15 @@ tp.WebDataForm = class extends tp.WebForm {
         if (this.ListGrid instanceof tp.Grid && this.ListGridDoubleClickHandler)
             this.ListGrid.Handle.removeEventListener("dblclick", this.ListGridDoubleClickHandler);
         this.ListGridDoubleClickHandler = null;
+    }
+    /**
+     * Releases list grid keyboard handling.
+     * @returns {void}
+     */
+    DisposeListGridKeyDown() {
+        if (this.ListGrid instanceof tp.Grid && this.ListGridKeyDownHandler)
+            this.ListGrid.Handle.removeEventListener("keydown", this.ListGridKeyDownHandler, true);
+        this.ListGridKeyDownHandler = null;
     }
     /**
      * Handles list grid double click.
@@ -584,17 +648,53 @@ tp.WebDataForm = class extends tp.WebForm {
         this.EditAsync();
     }
     /**
+     * Handles list grid keyboard commands.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleListGridKeyDown(e) {
+        if (!(e instanceof KeyboardEvent) || this.FormState !== tp.WebDataFormState.List)
+            return;
+        if (!tp.IsKey(e, tp.Keys.Enter) || tp.IsEmpty(this.GetSelectedListId()))
+            return;
+        tp.CancelEvent(e, true);
+        if (tp.IsFunction(e.stopImmediatePropagation))
+            e.stopImmediatePropagation();
+        if (e.repeat !== true)
+            this.EditAsync();
+    }
+    /**
      * Initializes the data module.
      * @returns {Promise<void>} Returns a Promise.
      */
     async InitializeDataModuleAsync() {
         if (tp.IsBlankString(this.ModuleName))
             throw new Error("No DataModule name specified for WebDataForm.");
-        this.Module = new tp.DataModule(this.ModuleName);
-        await this.Module.Initialize();
+        if (this.InitialDataModule)
+            this.Module = tp.DataModule.Create(this.InitialDataModule, this.JsDataModuleClassType);
+        else {
+            this.Module = tp.DataModule.Create(this.ModuleName, this.JsDataModuleClassType);
+            await this.Module.Initialize();
+        }
         this.FillSelectCombo();
         this.BuildFilterPanels();
         this.FormState = tp.WebDataFormState.List;
+        this.UpdateToolBar();
+    }
+    /**
+     * Displays an initial data module packet directly in item mode.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async ShowInitialDataModuleAsync() {
+        if (!(this.Module instanceof tp.DataModule))
+            return;
+        this.ModuleName = this.Module.Name || this.ModuleName;
+        this.Module.CaptureCancelSnapshot();
+        this.FormState = this.InitialFormState || tp.WebDataFormState.Insert;
+        this.ListIsDirty = true;
+        await this.RenderItemPageAsync();
+        await this.LoadFactBoxesAsync();
+        this.ShowItemPage();
         this.UpdateToolBar();
     }
     /**
@@ -735,9 +835,10 @@ tp.WebDataForm = class extends tp.WebForm {
             Table = this.Module.tblList;
             if (this.ListGrid instanceof tp.Grid && Table) {
                 this.ListGrid.DataSource = Table;
-                this.ListGrid.ShowIdGridColumns(false);
+                this.ListGrid.ShowIdGridColumns(this.ListGridIdColumnsVisible);
                 this.ListGrid.Handle.style.visibility = "";
                 this.RefreshListGridLayout(true);
+                this.EnsureListGridSelectedRow(true);
             }
             this.FormState = tp.WebDataFormState.List;
             this.ListIsDirty = false;
@@ -807,6 +908,38 @@ tp.WebDataForm = class extends tp.WebForm {
         }
     }
     /**
+     * Cancels pending changes and reloads the current item from the server.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async RefreshAsync() {
+        var Id;
+        var Confirmed;
+        if (!(this.Module instanceof tp.DataModule) || this.FormState !== tp.WebDataFormState.Edit || this.Module.Row == null)
+            return;
+        Id = this.Module.Id;
+        if (tp.IsEmpty(Id))
+            return;
+        if (this.HasChanges() === true) {
+            Confirmed = await tp.YesNoBoxAsync("Cancel changes and refresh the current item?");
+            if (Confirmed !== true)
+                return;
+            this.CancelChanges();
+        }
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                await this.Module.Edit(Id);
+                this.FormState = tp.WebDataFormState.Edit;
+                this.UiLog("Refreshed " + this.GetItemLogText(Id));
+                await this.RenderItemPageAsync();
+                await this.LoadFactBoxesAsync();
+                this.ShowItemPage();
+                this.UpdateToolBar();
+            });
+        } catch (e) {
+            this.ReportError("Refresh failed: " + tp.ExceptionText(e));
+        }
+    }
+    /**
      * Deletes the selected list item after confirmation.
      * @returns {Promise<void>} Returns a Promise.
      */
@@ -820,10 +953,10 @@ tp.WebDataForm = class extends tp.WebForm {
         if (tp.IsEmpty(Id))
             return;
         LogText = this.GetItemLogText(Id);
-        Confirmed = await tp.YesNoBoxAsync("Delete item: " + LogText + "?");
-        if (Confirmed !== true)
-            return;
         try {
+            Confirmed = await tp.YesNoBoxAsync("Delete item: " + LogText + "?");
+            if (Confirmed !== true)
+                return;
             await this.ExecuteWithSpinner(async function () {
                 await this.Module.Delete(Id);
                 this.UiLog("Deleted " + LogText);
@@ -831,6 +964,9 @@ tp.WebDataForm = class extends tp.WebForm {
             });
         } catch (e) {
             this.ReportError("Delete failed: " + tp.ExceptionText(e));
+        } finally {
+            if (this.FormState === tp.WebDataFormState.List)
+                this.EnsureListGridSelectedRow(true);
         }
     }
     /**
@@ -912,8 +1048,29 @@ tp.WebDataForm = class extends tp.WebForm {
         else {
             this.FormState = tp.WebDataFormState.List;
             this.ShowListPage();
+            this.EnsureListGridSelectedRow(false);
             this.UpdateToolBar();
         }
+    }
+    /**
+     * Refreshes the list, using the same item-cancel flow as the list action.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async RefreshListAsync() {
+        this.ListIsDirty = true;
+        await this.ListAsync();
+    }
+    /**
+     * Toggles plain Id column visibility in the list grid.
+     * @returns {void}
+     */
+    ToggleListGridIdColumns() {
+        if (!(this.ListGrid instanceof tp.Grid))
+            return;
+        this.ListGridIdColumnsVisible = this.ListGridIdColumnsVisible !== true;
+        this.ListGrid.ShowIdGridColumns(this.ListGridIdColumnsVisible);
+        this.RefreshListGridLayout(false);
+        this.EnsureListGridSelectedRow(true);
     }
     /**
      * Renders the generated item page.
@@ -1359,6 +1516,29 @@ tp.WebDataForm = class extends tp.WebForm {
         return Row && Table instanceof tp.DataTable ? Row.Get(Table.KeyField, null) : null;
     }
     /**
+     * Ensures the list grid has a focused row when list rows exist.
+     * @param {boolean} Defer True to defer until grid layout finishes.
+     * @returns {void}
+     */
+    EnsureListGridSelectedRow(Defer) {
+        var Source;
+        var Row;
+        if (Defer === true) {
+            setTimeout(() => this.EnsureListGridSelectedRow(false), 0);
+            return;
+        }
+        if (!(this.ListGrid instanceof tp.Grid) || this.ListGrid.IsDisposed)
+            return;
+        Source = this.ListGrid.DataSource;
+        if (!(Source instanceof tp.DataSource) || Source.Rows.length === 0)
+            return;
+        Row = Source.Current instanceof tp.DataRow ? Source.Current : Source.Rows[0];
+        if (Row instanceof tp.DataRow)
+            this.ListGrid.SetFocusedRow(Row);
+        if (tp.IsFunction(this.ListGrid.Handle.focus))
+            this.ListGrid.Handle.focus();
+    }
+    /**
      * Returns true when the form is in an item editing state.
      * @returns {boolean} Returns true when in Insert or Edit state.
      */
@@ -1480,6 +1660,7 @@ tp.WebDataForm = class extends tp.WebForm {
             this.ItemPageShell.hidden = true;
             this.ItemPageShell.style.display = "none";
         }
+        this.EnsureListGridSelectedRow(true);
     }
     /**
      * Shows the item page.
@@ -1576,15 +1757,19 @@ tp.WebDataForm = class extends tp.WebForm {
             else if (Command === "List")
                 await this.ListAsync();
             else if (Command === "RefreshList")
-                await this.SelectListAsync();
+                await this.RefreshListAsync();
             else if (Command === "Find")
                 this.ToggleFilterPane();
+            else if (Command === "ToggleIds")
+                this.ToggleListGridIdColumns();
             else if (Command === "Insert")
                 await this.InsertAsync();
             else if (Command === "Edit")
                 await this.EditAsync();
             else if (Command === "Delete")
                 await this.DeleteAsync();
+            else if (Command === "Refresh")
+                await this.RefreshAsync();
             else if (Command === "Save")
                 await this.SaveAsync();
             else if (Command === "Cancel")
@@ -1603,22 +1788,52 @@ tp.WebDataForm = class extends tp.WebForm {
     async HandleWindowKeyDown(e) {
         var Parent;
         var IsSaveKey;
+        var IsRefreshListKey;
+        var IsListKey;
+        var IsFindKey;
+        var IsInsertKey;
+        var IsEditKey;
+        var IsDeleteKey;
+        var IsCancelKey;
+        var HasModifier;
         if (!(e instanceof KeyboardEvent))
             return;
-        IsSaveKey = (e.ctrlKey === true || e.metaKey === true) && (tp.IsSameText(e.key, "s") || e.code === "KeyS");
-        if (IsSaveKey !== true)
+        HasModifier = e.ctrlKey === true || e.metaKey === true;
+        IsSaveKey = HasModifier && (tp.IsSameText(e.key, "s") || e.code === "KeyS");
+        IsRefreshListKey = HasModifier && (tp.IsSameText(e.key, "F5") || e.code === "F5");
+        IsListKey = IsRefreshListKey !== true && (tp.IsSameText(e.key, "F5") || e.code === "F5");
+        IsFindKey = HasModifier && (tp.IsSameText(e.key, "f") || e.code === "KeyF");
+        IsInsertKey = HasModifier && (tp.IsSameText(e.key, "Insert") || e.code === "Insert");
+        IsEditKey = HasModifier && (tp.IsSameText(e.key, "Enter") || e.code === "Enter");
+        IsDeleteKey = HasModifier && (tp.IsSameText(e.key, "Delete") || e.code === "Delete");
+        IsCancelKey = HasModifier !== true && (tp.IsSameText(e.key, "Escape") || e.code === "Escape");
+        if (IsSaveKey !== true && IsRefreshListKey !== true && IsListKey !== true && IsFindKey !== true && IsInsertKey !== true && IsEditKey !== true && IsDeleteKey !== true && IsCancelKey !== true)
+            return;
+        Parent = this.ParentControl;
+        if (Parent instanceof tp.TabPage && Parent.Handle && Parent.Handle.style.display === "none")
             return;
         tp.CancelEvent(e, true);
         if (tp.IsFunction(e.stopImmediatePropagation))
             e.stopImmediatePropagation();
         if (e.repeat === true)
             return;
-        Parent = this.ParentControl;
-        if (Parent instanceof tp.TabPage && Parent.Handle && Parent.Handle.style.display === "none")
-            return;
         try {
-            if (this.IsItemState() === true && this.IsReadOnly !== true)
+            if (IsSaveKey === true && this.IsItemState() === true && this.IsReadOnly !== true)
                 await this.SaveAsync();
+            else if (IsRefreshListKey === true)
+                await this.RefreshListAsync();
+            else if (IsListKey === true)
+                await this.ListAsync();
+            else if (IsFindKey === true && this.Module instanceof tp.DataModule && this.Module.UseFilters === true)
+                this.ToggleFilterPane();
+            else if (IsInsertKey === true && this.IsButtonExecutable("Insert"))
+                await this.InsertAsync();
+            else if (IsEditKey === true && this.IsButtonExecutable("Edit"))
+                await this.EditAsync();
+            else if (IsDeleteKey === true && this.IsButtonExecutable("Delete"))
+                await this.DeleteAsync();
+            else if (IsCancelKey === true && this.IsButtonExecutable("Cancel"))
+                await this.CancelAsync();
         } catch (Error) {
             this.ReportError("Command failed: " + tp.ExceptionText(Error));
         }
@@ -1654,19 +1869,21 @@ tp.WebDataForm = class extends tp.WebForm {
      */
     UpdateToolBar() {
         var IsItemState = this.IsItemState();
+        var IsListState = this.FormState === tp.WebDataFormState.List;
         var HasModule = this.Module instanceof tp.DataModule;
-        this.SetButtonEnabled("List", true);
-        this.SetButtonEnabled("RefreshList", true);
-        this.SetButtonEnabled("Find", HasModule && this.Module.UseFilters === true);
+        var HasSelectedListRow = IsListState === true && !tp.IsEmpty(this.GetSelectedListId());
+        this.SetButtonEnabled("List", IsItemState === true);
+        this.SetButtonEnabled("RefreshList", HasModule === true);
+        this.SetButtonEnabled("Find", HasModule && this.Module.UseFilters === true && IsListState === true);
         this.SetButtonVisible("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML));
         this.SetButtonEnabled("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML) && this.FormState !== tp.WebDataFormState.List);
         this.SetButtonVisible("Ok", false);
         this.SetButtonEnabled("Home", false);
-        this.SetButtonEnabled("ToggleIds", true);
-        this.SetButtonEnabled("Insert", HasModule && this.IsReadOnly !== true && (this.FormState === tp.WebDataFormState.List || this.FormState === tp.WebDataFormState.Edit));
-        this.SetButtonEnabled("Edit", HasModule && this.Module.tblList instanceof tp.DataTable && this.Module.tblList.RowCount > 0 && this.IsReadOnly !== true && IsItemState !== true);
-        this.SetButtonEnabled("Delete", HasModule && this.Module.tblList instanceof tp.DataTable && this.Module.tblList.RowCount > 0 && this.IsReadOnly !== true && this.FormState === tp.WebDataFormState.List);
-        this.SetButtonEnabled("Refresh", false);
+        this.SetButtonEnabled("ToggleIds", HasModule === true);
+        this.SetButtonEnabled("Insert", HasModule && this.IsReadOnly !== true && (IsListState === true || this.FormState === tp.WebDataFormState.Edit));
+        this.SetButtonEnabled("Edit", HasModule && HasSelectedListRow === true);
+        this.SetButtonEnabled("Delete", HasModule && this.IsReadOnly !== true && HasSelectedListRow === true);
+        this.SetButtonEnabled("Refresh", HasModule && this.FormState === tp.WebDataFormState.Edit && this.Module.Row != null);
         this.SetButtonEnabled("Save", HasModule && this.IsReadOnly !== true && IsItemState === true);
         this.SetButtonEnabled("Cancel", IsItemState === true);
         this.SetButtonEnabled("Ok", false);
@@ -1682,6 +1899,15 @@ tp.WebDataForm = class extends tp.WebForm {
         var Button = this.Buttons[Command];
         if (Button instanceof tp.Component)
             Button.Enabled = Enabled === true;
+    }
+    /**
+     * Returns true when a toolbar button is visible and enabled.
+     * @param {string} Command The button command.
+     * @returns {boolean} Returns true when executable.
+     */
+    IsButtonExecutable(Command) {
+        var Button = this.Buttons[Command];
+        return Button instanceof tp.Component && Button.Visible === true && Button.Enabled === true;
     }
     /**
      * Shows or hides a toolbar button.
@@ -1708,6 +1934,11 @@ tp.WebDataForm.prototype.tpClass = "tp.WebDataForm";
  */
 tp.WebDataForm.prototype.ModuleName = "";
 /**
+ * The JavaScript data module class type.
+ * @type {string}
+ */
+tp.WebDataForm.prototype.JsDataModuleClassType = "";
+/**
  * True when the form is read-only.
  * @type {boolean}
  */
@@ -1717,6 +1948,16 @@ tp.WebDataForm.prototype.IsReadOnly = false;
  * @type {tp.DataModule|null}
  */
 tp.WebDataForm.prototype.Module = null;
+/**
+ * Initial data module packet used when a form opens directly in item mode.
+ * @type {object|null}
+ */
+tp.WebDataForm.prototype.InitialDataModule = null;
+/**
+ * Initial form state when an initial data module packet is supplied.
+ * @type {string}
+ */
+tp.WebDataForm.prototype.InitialFormState = "";
 /**
  * The current form state.
  * @type {string}
@@ -1757,6 +1998,11 @@ tp.WebDataForm.prototype.SelectFilterRows = null;
  * @type {tp.Grid|null}
  */
 tp.WebDataForm.prototype.ListGrid = null;
+/**
+ * True when list grid plain Id columns are visible.
+ * @type {boolean}
+ */
+tp.WebDataForm.prototype.ListGridIdColumnsVisible = false;
 /**
  * The filter pane element.
  * @type {HTMLElement|null}
@@ -1872,6 +2118,11 @@ tp.WebDataForm.prototype.FactBoxSplitterMouseUpHandler = null;
  * @type {Function|null}
  */
 tp.WebDataForm.prototype.ListGridDoubleClickHandler = null;
+/**
+ * List grid key down handler.
+ * @type {Function|null}
+ */
+tp.WebDataForm.prototype.ListGridKeyDownHandler = null;
 /**
  * Toolbar buttons keyed by command.
  * @type {object|null}

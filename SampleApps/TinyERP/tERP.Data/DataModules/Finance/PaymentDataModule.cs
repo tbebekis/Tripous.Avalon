@@ -730,7 +730,7 @@ public class PaymentDataModule : DocumentDataModule
     /// <summary>
     /// Sets defaults for payment headers and settlement lines.
     /// </summary>
-    protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    protected override void SetDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     {
         base.SetDefaultValues(Table, Row, TableDef);
         if (Row.RowState == DataRowState.Deleted)

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Ajax Error Regression</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Ajax Error Regression</h1>
+
+        <p>
+            This page verifies that an Ajax response-handler exception rejects <code>tp.Ajax.Async()</code>
+            and lets spinner cleanup code run.
+        </p>
+
+        <style>
+            .ajax-regression-layout {
+                display: grid;
+                gap: 12px;
+                max-width: 900px;
+            }
+            .ajax-regression-actions {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .ajax-regression-status {
+                padding: 8px 10px;
+                border: 1px solid #d0d7de;
+                background: #f7f9fb;
+            }
+            .ajax-regression-status[data-result="pass"] {
+                border-color: #8bc34a;
+                background: #f1f8e9;
+            }
+            .ajax-regression-status[data-result="fail"] {
+                border-color: #e57373;
+                background: #ffebee;
+            }
+            .ajax-regression-log {
+                box-sizing: border-box;
+                min-height: 220px;
+                margin: 0;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+                white-space: pre-wrap;
+            }
+        </style>
+
+        <div class="html-code">
+            <div class="ajax-regression-layout">
+                <div class="ajax-regression-actions">
+                    <button id="RunAjaxRegressionButton" type="button">Run regression</button>
+                    <span id="AjaxRegressionStatus" class="ajax-regression-status">Not run</span>
+                </div>
+                <pre id="AjaxRegressionLog" class="ajax-regression-log"></pre>
+            </div>
+        </div>
+
+        <script class="js-code">
+            tp.Ready(function () {
+                var Button = tp("#RunAjaxRegressionButton");
+                var Status = tp("#AjaxRegressionStatus");
+                var Log = tp("#AjaxRegressionLog");
+
+                function WriteLine(Text) {
+                    Log.textContent += Text + "\n";
+                }
+
+                function SetStatus(Text, Result) {
+                    Status.textContent = Text;
+                    Status.setAttribute("data-result", Result || "");
+                }
+
+                function CreateFakeXMLHttpRequest() {
+                    function FakeXMLHttpRequest() {
+                        this.headers = {};
+                        this.readyState = 0;
+                        this.status = 200;
+                        this.statusText = "OK";
+                        this.responseText = JSON.stringify({
+                            IsSuccess: false,
+                            ErrorText: "REGRESSION ajax operation failure.",
+                            Packet: {}
+                        });
+                        this.onload = null;
+                        this.onerror = null;
+                        this.timeout = 0;
+                    }
+
+                    FakeXMLHttpRequest.DONE = 4;
+                    FakeXMLHttpRequest.prototype.open = function (Method, Url, Async) {
+                        this.method = Method;
+                        this.url = Url;
+                        this.async = Async;
+                        this.readyState = 1;
+                    };
+                    FakeXMLHttpRequest.prototype.setRequestHeader = function (Name, Value) {
+                        this.headers[Name] = Value;
+                    };
+                    FakeXMLHttpRequest.prototype.send = function (Data) {
+                        this.data = Data;
+                        setTimeout(() => {
+                            this.readyState = FakeXMLHttpRequest.DONE;
+                            if (tp.IsFunction(this.onload))
+                                this.onload({ type: "load" });
+                        }, 0);
+                    };
+
+                    return FakeXMLHttpRequest;
+                }
+
+                async function ExecuteWithSpinner(Func, Counters) {
+                    Counters.spinnerOn++;
+                    tp.ShowSpinner(true);
+                    try {
+                        return await Func();
+                    } finally {
+                        Counters.spinnerOff++;
+                        tp.ShowSpinner(false);
+                    }
+                }
+
+                async function RunRegression() {
+                    var OriginalXMLHttpRequest = window.XMLHttpRequest;
+                    var Counters = {
+                        spinnerOn: 0,
+                        spinnerOff: 0
+                    };
+                    var Rejected = false;
+                    var ErrorText = "";
+                    var OperationErrorFound = false;
+
+                    Log.textContent = "";
+                    SetStatus("Running", "");
+
+                    try {
+                        window.XMLHttpRequest = CreateFakeXMLHttpRequest();
+                        await ExecuteWithSpinner(async function () {
+                            await tp.Ajax.Async(new tp.AjaxArgs({
+                                Method: "POST",
+                                Url: "/regression/ajax-error",
+                                Data: { Test: true }
+                            }));
+                        }, Counters);
+                    } catch (e) {
+                        Rejected = true;
+                        ErrorText = tp.ExceptionText(e);
+                    } finally {
+                        window.XMLHttpRequest = OriginalXMLHttpRequest;
+                    }
+
+                    OperationErrorFound = ErrorText.indexOf("REGRESSION ajax operation failure.") >= 0;
+                    WriteLine("Promise rejected: " + Rejected);
+                    WriteLine("Spinner on calls: " + Counters.spinnerOn);
+                    WriteLine("Spinner off calls: " + Counters.spinnerOff);
+                    WriteLine("Operation error captured: " + OperationErrorFound);
+
+                    if (Rejected === true
+                        && Counters.spinnerOn === 1
+                        && Counters.spinnerOff === 1
+                        && OperationErrorFound === true) {
+                        SetStatus("Pass", "pass");
+                    } else {
+                        SetStatus("Fail", "fail");
+                    }
+                }
+
+                Button.addEventListener("click", function () {
+                    RunRegression().catch(function (e) {
+                        SetStatus("Fail", "fail");
+                        WriteLine(tp.ExceptionText(e));
+                    });
+                });
+
+                RunRegression();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

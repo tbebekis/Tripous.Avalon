@@ -119,6 +119,10 @@ public class WebFormProviderPacket
     /// </summary>
     public string JsFormClassType { get; set; }
     /// <summary>
+    /// Gets or sets the JavaScript data module class type.
+    /// </summary>
+    public string JsDataModuleClassType { get; set; }
+    /// <summary>
     /// Gets or sets the form HTML.
     /// </summary>
     public string Html { get; set; }

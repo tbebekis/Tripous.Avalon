@@ -28,6 +28,7 @@ public class WebFormDef: BaseDef
     string fModule;
     string fGroup;
     string fJsFormClassType;
+    string fJsDataModuleClassType;
     bool fIsReadOnly;
     bool fIsCustom;
     UserLevel fSecurityLevel;
@@ -121,6 +122,14 @@ public class WebFormDef: BaseDef
     {
         get => !string.IsNullOrWhiteSpace(fJsFormClassType) ? fJsFormClassType : string.Empty;
         set { if (fJsFormClassType != value) { fJsFormClassType = value; NotifyPropertyChanged(nameof(JsFormClassType)); } }
+    }
+    /// <summary>
+    /// Gets or sets the JavaScript data module class type that handles this form data on the client.
+    /// </summary>
+    public string JsDataModuleClassType
+    {
+        get => !string.IsNullOrWhiteSpace(fJsDataModuleClassType) ? fJsDataModuleClassType : string.Empty;
+        set { if (fJsDataModuleClassType != value) { fJsDataModuleClassType = value; NotifyPropertyChanged(nameof(JsDataModuleClassType)); } }
     }
     /// <summary>
     /// Gets or sets the minimum user level required to access this web form.

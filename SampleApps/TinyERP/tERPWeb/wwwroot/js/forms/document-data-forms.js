@@ -4,6 +4,90 @@
  */
 var app = app || {};
 
+// ● trade data module
+/**
+ * Client-side data module for commercial document modules.
+ */
+app.TradeDataModule = class extends tp.DataModule {
+    // ● constructor
+    /**
+     * Creates the trade data module.
+     * @param {string|object|null|undefined} NameOrSource The module name or a JsonDataModule source object.
+     */
+    constructor(NameOrSource) {
+        super(NameOrSource);
+        this.AttachTradeLineDefaults();
+    }
+
+    // ● protected
+    /**
+     * Returns true when the table is a trade line table.
+     * @param {tp.DataTable} Table The table to check.
+     * @returns {boolean} Returns true when the table is a trade line table.
+     */
+    IsTradeLineTable(Table) {
+        return Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "TradeLine");
+    }
+    /**
+     * Applies commercial document defaults to a newly added line.
+     * @param {tp.DataTable} Table The detail table.
+     * @param {tp.DataRow} Row The detail row.
+     * @returns {void}
+     */
+    ApplyTradeLineDefaults(Table, Row) {
+        var Header = this.Row;
+        if (!this.IsTradeLineTable(Table) || !(Row instanceof tp.DataRow) || !(Header instanceof tp.DataRow))
+            return;
+        if (Table.IndexOfColumn("WarehouseId") >= 0 && tp.IsEmpty(Row.Get("WarehouseId")))
+            Row.Set("WarehouseId", Header.Get("WarehouseId"));
+    }
+    /**
+     * Attaches detail table default handlers.
+     * @returns {void}
+     */
+    AttachTradeLineDefaults() {
+        var Table;
+        var Index;
+        if (!(this.DataSet instanceof tp.DataSet))
+            return;
+        for (Index = 0; Index < this.DataSet.Tables.length; Index++) {
+            Table = this.DataSet.Tables[Index];
+            if (this.IsTradeLineTable(Table) && Table.fAppTradeDefaultsAttached !== true) {
+                Table.fAppTradeDefaultsAttached = true;
+                Table.On("RowAdding", function (Args) {
+                    this.ApplyTradeLineDefaults(Args.Table, Args.Row);
+                }, this);
+            }
+        }
+    }
+
+    // ● public
+    /**
+     * Assigns values from a JsonDataModule source object.
+     * @param {object|null|undefined} Source The source object.
+     * @returns {void}
+     */
+    Assign(Source) {
+        super.Assign(Source);
+        this.AttachTradeLineDefaults();
+    }
+};
+
+// ● sales data module
+/**
+ * Client-side data module for sales document modules.
+ */
+app.SalesDataModule = class extends app.TradeDataModule {
+    // ● constructor
+    /**
+     * Creates the sales data module.
+     * @param {string|object|null|undefined} NameOrSource The module name or a JsonDataModule source object.
+     */
+    constructor(NameOrSource) {
+        super(NameOrSource);
+    }
+};
+
 // ● document item page builder
 /**
  * Builds item pages for document forms and applies document-specific detail row defaults.
@@ -26,6 +110,25 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
      */
     IsTradeLineTable(Table) {
         return Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "TradeLine");
+    }
+    /**
+     * Returns true when a column should be read-only.
+     * @param {tp.DataColumn} Column The data column.
+     * @returns {boolean} Returns true when read-only.
+     */
+    IsReadOnlyColumn(Column) {
+        if (this.Form && tp.IsFunction(this.Form.IsDocumentLocked) && this.Form.IsDocumentLocked())
+            return true;
+        return super.IsReadOnlyColumn(Column);
+    }
+    /**
+     * Returns true when detail grid rows can be changed.
+     * @returns {boolean} Returns true when detail grids are editable.
+     */
+    IsDetailGridEditable() {
+        if (this.Form && tp.IsFunction(this.Form.IsDocumentLocked) && this.Form.IsDocumentLocked())
+            return false;
+        return super.IsDetailGridEditable();
     }
     /**
      * Applies the next display order to a new detail row.
@@ -479,6 +582,103 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         return new app.DocumentItemPageBuilder(this);
     }
     /**
+     * Creates the main toolbar.
+     * @param {HTMLElement} Element The host element.
+     * @returns {void}
+     */
+    CreateToolBar(Element) {
+        super.CreateToolBar(Element);
+        this.AddToolBarButton("Post", "Post Document", "document_mark_as_final.png");
+        if (this.ToolBar && this.Buttons.Save && this.Buttons.Post)
+            this.ToolBar.PlaceControlAfter(this.Buttons.Save, this.Buttons.Post);
+        this.UpdateToolBar();
+    }
+    /**
+     * Returns the current document lifecycle status.
+     * @returns {number} Returns the current document lifecycle status.
+     */
+    GetDocumentStatus() {
+        var Row = this.Module instanceof tp.DataModule ? this.Module.Row : null;
+        if (!(Row instanceof tp.DataRow))
+            return 0;
+        if (Row.Table instanceof tp.DataTable && Row.Table.IndexOfColumn("TradeStatusId") >= 0)
+            return tp.StrToInt(Row.Get("TradeStatusId"), 0);
+        if (Row.Table instanceof tp.DataTable && Row.Table.IndexOfColumn("StatusId") >= 0)
+            return tp.StrToInt(Row.Get("StatusId"), 0);
+        return 0;
+    }
+    /**
+     * Returns true when the current document is cancelled.
+     * @returns {boolean} Returns true when the document is cancelled.
+     */
+    IsDocumentCancelled() {
+        var Row = this.Module instanceof tp.DataModule ? this.Module.Row : null;
+        if (!(Row instanceof tp.DataRow) || !(Row.Table instanceof tp.DataTable) || Row.Table.IndexOfColumn("IsCancelled") < 0)
+            return false;
+        return tp.StrToBool(Row.Get("IsCancelled"), false);
+    }
+    /**
+     * Returns true when the current document is locked.
+     * @returns {boolean} Returns true when the document is locked.
+     */
+    IsDocumentLocked() {
+        var Row = this.Module instanceof tp.DataModule ? this.Module.Row : null;
+        if (!(Row instanceof tp.DataRow))
+            return false;
+        if (Row.Table instanceof tp.DataTable && Row.Table.IndexOfColumn("IsLocked") >= 0)
+            return tp.StrToBool(Row.Get("IsLocked"), false) || this.GetDocumentStatus() !== 1;
+        return this.GetDocumentStatus() !== 1;
+    }
+    /**
+     * Returns true when the current document can be posted immediately.
+     * @returns {boolean} Returns true when the current document can be posted.
+     */
+    CanPost() {
+        return this.IsReadOnly !== true
+            && this.FormState === tp.WebDataFormState.Edit
+            && this.Module instanceof tp.DataModule
+            && this.Module.Row instanceof tp.DataRow
+            && this.HasChanges() !== true
+            && this.GetDocumentStatus() === 1
+            && this.IsDocumentCancelled() !== true
+            && this.IsDocumentLocked() !== true;
+    }
+    /**
+     * Returns true when posting may be attempted.
+     * @returns {boolean} Returns true when posting may be attempted.
+     */
+    CanAttemptPost() {
+        return this.IsReadOnly !== true
+            && this.FormState === tp.WebDataFormState.Edit
+            && this.Module instanceof tp.DataModule
+            && this.Module.Row instanceof tp.DataRow
+            && this.GetDocumentStatus() === 1
+            && this.IsDocumentCancelled() !== true
+            && this.IsDocumentLocked() !== true;
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleToolBarButtonClick(Args) {
+        var Command = Args ? Args.Command : "";
+        if (Command === "Post")
+            await this.PostAsync();
+        else
+            await super.HandleToolBarButtonClick(Args);
+    }
+    /**
+     * Updates toolbar state.
+     * @returns {void}
+     */
+    UpdateToolBar() {
+        super.UpdateToolBar();
+        this.SetButtonVisible("Post", true);
+        this.SetButtonEnabled("Save", this.IsButtonExecutable("Save") && this.IsDocumentLocked() !== true);
+        this.SetButtonEnabled("Post", this.CanPost());
+    }
+    /**
      * Renders the generated item page.
      * @returns {Promise<void>} Returns a Promise.
      */
@@ -489,6 +689,48 @@ app.DocumentDataForm = class extends tp.WebDataForm {
     }
 
     // ● public
+    /**
+     * Posts the current document.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async PostAsync() {
+        var Code;
+        var DocumentText;
+        var Message;
+        var Packet;
+        var Id;
+        if (this.CanAttemptPost() !== true) {
+            this.UpdateToolBar();
+            return;
+        }
+        Code = this.Module.Row.Get("Code", "");
+        DocumentText = tp.IsBlankString(Code) ? "document" : "document: " + Code;
+        Message = "Post " + DocumentText + "?\n\nAfter posting, the document can no longer be edited.";
+        if (await tp.YesNoBoxAsync(Message) !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                Packet = await tp.AjaxRequest.Execute("App.DocumentDataModule.Post", {
+                    ModuleName: this.ModuleName,
+                    DataModule: this.Module.toDataJSON()
+                });
+                if (Packet && Packet.DataModule) {
+                    this.Module.Assign(Packet.DataModule);
+                    this.Module.CaptureCancelSnapshot();
+                }
+                Id = this.Module.Id;
+                this.UiLog("Posted " + this.GetItemLogText(Id));
+                this.ListIsDirty = true;
+                this.FormState = tp.WebDataFormState.Edit;
+                await this.RenderItemPageAsync();
+                await this.LoadFactBoxesAsync();
+                this.ShowItemPage();
+                this.UpdateToolBar();
+            });
+        } catch (e) {
+            this.ReportError("Post failed: " + tp.ExceptionText(e));
+        }
+    }
     /**
      * Schedules a server-side commercial document calculation.
      * @param {string|null|undefined} TableName The table name of the changed field.
@@ -656,5 +898,97 @@ app.SalesOrderForm = class extends app.SalesDataForm {
      */
     constructor(CreateParams) {
         super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the main toolbar.
+     * @param {HTMLElement} Element The host element.
+     * @returns {void}
+     */
+    CreateToolBar(Element) {
+        super.CreateToolBar(Element);
+        this.AddToolBarButton("CreateDeliveryNote", "Create Sales Delivery Note", "document_export.png");
+        if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateDeliveryNote)
+            this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateDeliveryNote);
+        this.UpdateToolBar();
+    }
+    /**
+     * Returns true when a sales delivery note can be created.
+     * @returns {boolean} Returns true when a sales delivery note can be created.
+     */
+    CanCreateDeliveryNote() {
+        return this.FormState === tp.WebDataFormState.Edit
+            && this.Module instanceof tp.DataModule
+            && this.Module.Row instanceof tp.DataRow
+            && this.HasChanges() !== true
+            && this.GetDocumentStatus() === 2
+            && this.IsDocumentCancelled() !== true;
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleToolBarButtonClick(Args) {
+        var Command = Args ? Args.Command : "";
+        if (Command === "CreateDeliveryNote")
+            await this.CreateDeliveryNoteAsync();
+        else
+            await super.HandleToolBarButtonClick(Args);
+    }
+    /**
+     * Updates toolbar state.
+     * @returns {void}
+     */
+    UpdateToolBar() {
+        super.UpdateToolBar();
+        this.SetButtonVisible("CreateDeliveryNote", true);
+        this.SetButtonEnabled("CreateDeliveryNote", this.CanCreateDeliveryNote());
+    }
+
+    // ● public
+    /**
+     * Creates a sales delivery note from the current sales order.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateDeliveryNoteAsync() {
+        var Code;
+        var OrderText;
+        var Packet;
+        var WebFormName;
+        var DataModulePacket;
+        var FormId;
+        var PageHandler;
+        if (this.CanCreateDeliveryNote() !== true)
+            return;
+        Code = this.Module.Row.Get("Code", "");
+        OrderText = tp.IsBlankString(Code) ? "Sales Order" : "Sales Order: " + Code;
+        if (await tp.YesNoBoxAsync("Create a Sales Delivery Note from " + OrderText + "?") !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                Packet = await tp.AjaxRequest.Execute("App.SalesOrder.CreateDeliveryNote", {
+                    ModuleName: this.ModuleName,
+                    DataModule: this.Module.toDataJSON()
+                });
+                WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : "SalesDeliveryNote";
+                DataModulePacket = Packet ? Packet.DataModule : null;
+                if (!DataModulePacket)
+                    throw new Error("Sales Delivery Note data module was not returned.");
+                FormId = WebFormName + "." + (DataModulePacket && DataModulePacket.DataSet ? this.Module.Id : tp.Guid());
+                PageHandler = app.App && app.App.MainPage ? app.App.MainPage.PageHandler : null;
+                if (!PageHandler || !tp.IsFunction(PageHandler.OpenAsync))
+                    throw new Error("The WebForm page handler is not available.");
+                await PageHandler.OpenAsync(WebFormName, {
+                    FormId: FormId,
+                    InitialDataModule: DataModulePacket,
+                    InitialFormState: tp.WebDataFormState.Insert
+                });
+                this.UiLog("Created Sales Delivery Note from " + this.GetItemLogText(this.Module.Id));
+            });
+        } catch (e) {
+            this.ReportError("Create Sales Delivery Note failed: " + tp.ExceptionText(e));
+        }
     }
 };

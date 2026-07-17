@@ -12,7 +12,7 @@ public class AppUserDataModule : DataModule
     /// <param name="Table">The table.</param>
     /// <param name="Row">The data row.</param>
     /// <param name="TableDef">The table definition.</param>
-    protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    protected override void SetDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     {
         base.SetDefaultValues(Table, Row, TableDef);
         string Salt = Sec.CreateSalt();

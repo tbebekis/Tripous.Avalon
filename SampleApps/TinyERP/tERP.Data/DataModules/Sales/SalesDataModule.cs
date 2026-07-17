@@ -93,6 +93,12 @@ public class SalesDataModule: TradeDataModule
 
                 DataRow TargetLine = TargetLineTable.AddNewRow();
                 CopyCommonValues(SourceLine, TargetLine, LineExcludedFields);
+                if (TargetLine.Table.Columns.Contains("WarehouseId")
+                    && string.IsNullOrWhiteSpace(TargetLine.AsString("WarehouseId"))
+                    && Result.CurrentRow.Table.Columns.Contains("WarehouseId"))
+                {
+                    TargetLine.SetValue("WarehouseId", Result.CurrentRow["WarehouseId"]);
+                }
                 TargetLine.SetValue("Quantity", Quantity);
                 TargetLine.SetValue("DiscountPercent", SourceLine.AsDecimal("DiscountPercent"));
                 TargetLine.SetValue("SourceTradeLineId", SourceLine["Id"]);
@@ -134,7 +140,7 @@ public class SalesDataModule: TradeDataModule
     /// <summary>
     /// Sets default values to the Row. It is called when a commit operation starts.
     /// </summary>
-    protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    protected override void SetDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     {
         base.SetDefaultValues(Table, Row, TableDef);
 

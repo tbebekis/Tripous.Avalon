@@ -214,7 +214,7 @@ public class DocumentDataModule: AppDataModule
     /// <summary>
     /// Sets default values to the Row. It is called when a commit operation starts.
     /// </summary>
-    protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    protected override void SetDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     {
         base.SetDefaultValues(Table, Row, TableDef);
 
@@ -308,6 +308,31 @@ public class DocumentDataModule: AppDataModule
             Context.IsPosting = false;
             IsPosting = false;
         }
+    }
+    /// <summary>
+    /// Applies a JSON contract object, posts the document, commits the changes, and returns this data module as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataModule JsonPost(JsonDataModule Source)
+    {
+        if (Source == null)
+            throw new TripousArgumentNullException(nameof(Source));
+
+        State = (DataMode)Source.State;
+
+        tblItem.EventsDisabled = true;
+        try
+        {
+            JsonApplyTableRows(tblItem, Source);
+        }
+        finally
+        {
+            tblItem.EventsDisabled = false;
+        }
+
+        Post(true);
+
+        JsonDataModule Result = new(this);
+        return Result;
     }
 
     // ● properties

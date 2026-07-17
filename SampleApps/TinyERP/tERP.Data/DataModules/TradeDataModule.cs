@@ -1311,7 +1311,7 @@ where
     /// <summary>
     /// Sets default values to the Row. It is called when a commit operation starts.
     /// </summary>
-    protected override void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    protected override void SetDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     {
         base.SetDefaultValues(Table, Row, TableDef);
 
@@ -1324,6 +1324,14 @@ where
             Row.SetValue("TradeStatusId", (int)TradeStatus.Draft);
             Row.SetValue("ExchangeRate", 1);
             Row.SetValue("TradeDate", DateTime.UtcNow.Date);
+        }
+        else if (IsTradeLineTable(Table)
+                 && CurrentRow != null
+                 && tblItem.ContainsColumn("WarehouseId")
+                 && Table.ContainsColumn("WarehouseId")
+                 && string.IsNullOrWhiteSpace(Row.AsString("WarehouseId")))
+        {
+            Row.SetValue("WarehouseId", CurrentRow["WarehouseId"]);
         }
     }
     protected override void NewRowAdded(MemTable Table, DataTableNewRowEventArgs ea)
