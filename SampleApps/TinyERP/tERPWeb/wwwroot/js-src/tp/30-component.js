@@ -793,8 +793,11 @@ tp.Component = class extends tp.Object {
     set Enabled(Value) {
         var OldValue = this.Enabled;
         this.fEnabled = Value === true;
-        if (this.HasHandle && "disabled" in this.Handle)
-            this.Handle.disabled = !this.fEnabled;
+        if (this.HasHandle) {
+            if ("disabled" in this.Handle)
+                this.Handle.disabled = !this.fEnabled;
+            this.Handle.classList.toggle("tp-Disabled", !this.fEnabled);
+        }
         if (OldValue !== this.Enabled)
             this.OnEnabledChanged();
     }

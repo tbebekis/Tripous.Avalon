@@ -273,9 +273,13 @@ tp.Ajax = function (Args) {
     XHR.onload = function (e) {
         if (XHR.readyState === XMLHttpRequest.DONE) {
             if (Succeeded(XHR)) {
-                Args.Result = true;
-                tp.Call(Args.ResponseHandlerFunc, null, Args);
-                tp.Call(Args.OnSuccess, Context, Args);
+                try {
+                    Args.Result = true;
+                    tp.Call(Args.ResponseHandlerFunc, null, Args);
+                    tp.Call(Args.OnSuccess, Context, Args);
+                } catch (Error) {
+                    OnError(Error);
+                }
             } else {
                 OnError(e);
             }

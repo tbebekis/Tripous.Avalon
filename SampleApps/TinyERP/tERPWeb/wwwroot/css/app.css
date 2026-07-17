@@ -488,6 +488,11 @@ textarea {
     background: #f7f7f7;
 }
 
+.app-toolbar .tp-ButtonEx.tp-Disabled {
+    border-color: #d0d0d0;
+    background: #dddddd;
+}
+
 .app-toolbar .tp-ButtonEx.tp-IcoTop > :nth-child(1) {
     width: 24px;
     height: 24px;
@@ -643,6 +648,11 @@ textarea {
     background: #f7f7f7;
 }
 
+.app-command-tree-toolbar .tp-ButtonEx.tp-Disabled {
+    border-color: #d0d0d0;
+    background: #dddddd;
+}
+
 .app-empty-panel {
     height: 100%;
     background: #ffffff;
@@ -685,6 +695,11 @@ textarea {
 .app-dashboard-toolbar .tp-ButtonEx:hover {
     border-color: #cccccc;
     background: #f7f7f7;
+}
+
+.app-dashboard-toolbar .tp-ButtonEx.tp-Disabled {
+    border-color: #d0d0d0;
+    background: #dddddd;
 }
 
 .app-dashboard-content {

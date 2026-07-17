@@ -195,10 +195,6 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
             Grid.fDocumentCalculateSource.Off("RowModified", Grid.fDocumentCalculateListener);
         Grid.fDocumentCalculateSource = Source;
         Grid.fDocumentCalculateListener = Source.On("RowModified", function (Args) {
-            if (this.Form && tp.IsFunction(this.Form.LogDocumentRowStates))
-                this.Form.LogDocumentRowStates("before edit " + (Table ? Table.Name : "") + "." + (Args && Args.Column ? Args.Column.Name : ""));
-            if (this.Form && tp.IsFunction(this.Form.LogDocumentRowStates))
-                setTimeout(() => this.Form.LogDocumentRowStates("after edit " + (Table ? Table.Name : "") + "." + (Args && Args.Column ? Args.Column.Name : "")), 0);
             if (this.Form && this.IsServerCalculatedLineColumn(Args ? Args.Column : null))
                 this.Form.ScheduleDocumentCalculate(Table ? Table.Name : "", Args && Args.Column ? Args.Column.Name : "");
         }, this);
@@ -340,11 +336,6 @@ app.DocumentDataForm = class extends tp.WebDataForm {
          * @type {string}
          */
         this.fDocumentCalculateFieldName = "";
-        /**
-         * Last logged document row states, keyed by table and row key.
-         * @type {object}
-         */
-        this.fDocumentRowStateLog = {};
     }
     /**
      * Returns a stable row key for preserving row state across calculation packets.
@@ -441,103 +432,6 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         }
     }
     /**
-     * Returns row states for diagnostics.
-     * @param {string} TableName The table name.
-     * @returns {string} Returns row state text.
-     */
-    GetDocumentTableStateText(TableName) {
-        var Table = this.Module instanceof tp.DataModule ? this.Module.FindTable(TableName) : null;
-        var List = [];
-        var Index;
-        var Row;
-        if (!(Table instanceof tp.DataTable))
-            return "";
-        for (Index = 0; Index < Table.Rows.length; Index++) {
-            Row = Table.Rows[Index];
-            if (Row instanceof tp.DataRow)
-                List.push(String(Row.State));
-        }
-        return List.join(",");
-    }
-    /**
-     * Returns a display name for a data row state.
-     * @param {number} State The data row state.
-     * @returns {string} Returns the state name.
-     */
-    GetDataRowStateName(State) {
-        if (State === tp.DataRowState.Detached)
-            return "Detached";
-        if (State === tp.DataRowState.Unchanged)
-            return "Unchanged";
-        if (State === tp.DataRowState.Added)
-            return "Added";
-        if (State === tp.DataRowState.Deleted)
-            return "Deleted";
-        if (State === tp.DataRowState.Modified)
-            return "Modified";
-        return String(State);
-    }
-    /**
-     * Returns a diagnostic key for a document row.
-     * @param {tp.DataTable} Table The table.
-     * @param {tp.DataRow} Row The row.
-     * @param {number} Index The row index.
-     * @returns {string} Returns a diagnostic row key.
-     */
-    GetDocumentRowLogKey(Table, Row, Index) {
-        var Key = this.GetDocumentRowStateKey(Table, Row);
-        return !tp.IsBlank(Key) ? Key : "#" + String(Index);
-    }
-    /**
-     * Returns extra row diagnostic values.
-     * @param {tp.DataTable} Table The table.
-     * @param {tp.DataRow} Row The row.
-     * @returns {string} Returns extra diagnostic values.
-     */
-    GetDocumentRowLogExtra(Table, Row) {
-        if (!(Table instanceof tp.DataTable) || !(Row instanceof tp.DataRow))
-            return "";
-        if (tp.IsSameText(Table.Name, "TradeLine"))
-            return ", Quantity " + String(Row.Get("Quantity"));
-        return "";
-    }
-    /**
-     * Logs document row state transitions.
-     * @param {string} Context The diagnostic context.
-     * @returns {void}
-     */
-    LogDocumentRowStates(Context) {
-        var TableIndex;
-        var RowIndex;
-        var Table;
-        var Row;
-        var Key;
-        var LogKey;
-        var OldState;
-        var NewState;
-        if (!(this.Module instanceof tp.DataModule) || !(this.Module.DataSet instanceof tp.DataSet))
-            return;
-        if (!tp.IsObject(this.fDocumentRowStateLog))
-            this.fDocumentRowStateLog = {};
-        for (TableIndex = 0; TableIndex < this.Module.DataSet.Tables.length; TableIndex++) {
-            Table = this.Module.DataSet.Tables[TableIndex];
-            if (!(Table instanceof tp.DataTable))
-                continue;
-            for (RowIndex = 0; RowIndex < Table.Rows.length; RowIndex++) {
-                Row = Table.Rows[RowIndex];
-                if (!(Row instanceof tp.DataRow))
-                    continue;
-                Key = this.GetDocumentRowLogKey(Table, Row, RowIndex);
-                LogKey = Table.Name + ":" + Key;
-                OldState = Object.prototype.hasOwnProperty.call(this.fDocumentRowStateLog, LogKey) ? this.fDocumentRowStateLog[LogKey] : tp.DataRowState.Unchanged;
-                NewState = Row.State;
-                if (OldState !== NewState)
-                    this.UiLog("Row state " + Context + ": " + Table.Name + "[" + Key + "] " + this.GetDataRowStateName(OldState) + " -> " + this.GetDataRowStateName(NewState) + this.GetDocumentRowLogExtra(Table, Row));
-                this.fDocumentRowStateLog[LogKey] = NewState;
-            }
-        }
-    }
-    /**
      * Applies a data module packet returned by a server-side calculation.
      * @param {object} Packet The Ajax response packet.
      * @returns {void}
@@ -550,7 +444,6 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         var RowStates;
         if (!Packet || !Packet.DataModule || !(this.Module instanceof tp.DataModule))
             return;
-        this.LogDocumentRowStates("before calculation apply");
         RowStates = this.CaptureDocumentRowStates();
         this.fDocumentApplyingServerPacket = true;
         try {
@@ -562,7 +455,6 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         } finally {
             this.fDocumentApplyingServerPacket = false;
         }
-        this.LogDocumentRowStates("after calculation apply");
         if (this.ItemPageBuilder instanceof app.DocumentItemPageBuilder) {
             if (this.ItemPageBuilder.DataSource instanceof tp.DataSource)
                 this.ItemPageBuilder.DataSource.Update();
@@ -594,31 +486,6 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         if (!(this.ItemPageBuilder instanceof app.DocumentItemPageBuilder))
             this.ItemPageBuilder = this.CreateItemPageBuilder();
         await this.ItemPageBuilder.BuildAsync();
-    }
-    /**
-     * Returns document save diagnostic text.
-     * @returns {string} Returns diagnostic text.
-     */
-    GetDocumentSaveDiagnosticText() {
-        var Table = this.Module instanceof tp.DataModule ? this.Module.FindTable("TradeLine") : null;
-        var Row;
-        if (!(Table instanceof tp.DataTable) || Table.Rows.length === 0)
-            return "";
-        Row = Table.Rows[0];
-        if (!(Row instanceof tp.DataRow))
-            return "";
-        return "TradeLine state " + String(Row.State) + ", Quantity " + String(Row.Get("Quantity"));
-    }
-    /**
-     * Commits the current item.
-     * @returns {Promise<void>} Returns a Promise.
-     */
-    async SaveAsync() {
-        var Text = this.GetDocumentSaveDiagnosticText();
-        this.LogDocumentRowStates("before save");
-        if (!tp.IsBlank(Text))
-            this.UiLog("Saving " + Text);
-        await super.SaveAsync();
     }
 
     // ● public

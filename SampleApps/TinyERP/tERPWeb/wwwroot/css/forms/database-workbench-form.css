@@ -52,6 +52,11 @@
     background: #f7f7f7;
 }
 
+.app-database-workbench-toolbar .tp-ButtonEx.tp-Disabled {
+    border-color: #d0d0d0;
+    background: #dddddd;
+}
+
 .app-database-workbench [data-role='explorer-tree'] {
     flex: 1 1 auto;
     min-height: 0;

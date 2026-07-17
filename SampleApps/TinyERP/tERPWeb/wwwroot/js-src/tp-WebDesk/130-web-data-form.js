@@ -244,7 +244,7 @@ tp.WebDataForm = class extends tp.WebForm {
         super.OnFieldsInitialized();
         this.CreateControls();
         this.WindowKeyDownHandler = (e) => this.HandleWindowKeyDown(e);
-        window.addEventListener("keydown", this.WindowKeyDownHandler, false);
+        window.addEventListener("keydown", this.WindowKeyDownHandler, true);
     }
     /**
      * Applies explicit create params to this component.
@@ -308,7 +308,7 @@ tp.WebDataForm = class extends tp.WebForm {
         this.FactBoxTabControl = null;
         this.ListGridDoubleClickHandler = null;
         if (this.WindowKeyDownHandler) {
-            window.removeEventListener("keydown", this.WindowKeyDownHandler, false);
+            window.removeEventListener("keydown", this.WindowKeyDownHandler, true);
             this.WindowKeyDownHandler = null;
         }
         this.FactBoxes = [];
@@ -735,6 +735,7 @@ tp.WebDataForm = class extends tp.WebForm {
             Table = this.Module.tblList;
             if (this.ListGrid instanceof tp.Grid && Table) {
                 this.ListGrid.DataSource = Table;
+                this.ListGrid.ShowIdGridColumns(false);
                 this.ListGrid.Handle.style.visibility = "";
                 this.RefreshListGridLayout(true);
             }
@@ -1463,6 +1464,8 @@ tp.WebDataForm = class extends tp.WebForm {
             tp.LogBox.AppendLine(Text);
         if (tp.IsFunction(tp.ErrorNote))
             tp.ErrorNote(Text);
+        if (tp.IsFunction(tp.ErrorBox))
+            tp.ErrorBox(Text);
     }
     /**
      * Shows the list page.
@@ -1561,44 +1564,64 @@ tp.WebDataForm = class extends tp.WebForm {
     /**
      * Handles main toolbar button clicks.
      * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
-     * @returns {void}
+     * @returns {Promise<void>} Returns a Promise.
      */
-    HandleToolBarButtonClick(Args) {
+    async HandleToolBarButtonClick(Args) {
         var Command = Args ? Args.Command : "";
-        if (Command === "Home")
-            this.ListAsync();
-        else if (Command === "FactBox")
-            this.ToggleFactBoxPane();
-        else if (Command === "List")
-            this.ListAsync();
-        else if (Command === "RefreshList")
-            this.SelectListAsync();
-        else if (Command === "Find")
-            this.ToggleFilterPane();
-        else if (Command === "Insert")
-            this.InsertAsync();
-        else if (Command === "Edit")
-            this.EditAsync();
-        else if (Command === "Delete")
-            this.DeleteAsync();
-        else if (Command === "Save")
-            this.SaveAsync();
-        else if (Command === "Cancel")
-            this.CancelAsync();
-        else if (Command === "Close")
-            this.CloseForm();
+        try {
+            if (Command === "Home")
+                await this.ListAsync();
+            else if (Command === "FactBox")
+                this.ToggleFactBoxPane();
+            else if (Command === "List")
+                await this.ListAsync();
+            else if (Command === "RefreshList")
+                await this.SelectListAsync();
+            else if (Command === "Find")
+                this.ToggleFilterPane();
+            else if (Command === "Insert")
+                await this.InsertAsync();
+            else if (Command === "Edit")
+                await this.EditAsync();
+            else if (Command === "Delete")
+                await this.DeleteAsync();
+            else if (Command === "Save")
+                await this.SaveAsync();
+            else if (Command === "Cancel")
+                await this.CancelAsync();
+            else if (Command === "Close")
+                this.CloseForm();
+        } catch (e) {
+            this.ReportError("Command failed: " + tp.ExceptionText(e));
+        }
     }
     /**
      * Handles global keyboard shortcuts while this form is open.
      * @param {KeyboardEvent} e The keyboard event.
-     * @returns {void}
+     * @returns {Promise<void>} Returns a Promise.
      */
-    HandleWindowKeyDown(e) {
-        if (!(e instanceof KeyboardEvent) || e.ctrlKey !== true || !tp.IsSameText(e.key, "s"))
+    async HandleWindowKeyDown(e) {
+        var Parent;
+        var IsSaveKey;
+        if (!(e instanceof KeyboardEvent))
             return;
-        tp.CancelEvent(e);
-        if (this.IsItemState() === true && this.IsReadOnly !== true)
-            this.SaveAsync();
+        IsSaveKey = (e.ctrlKey === true || e.metaKey === true) && (tp.IsSameText(e.key, "s") || e.code === "KeyS");
+        if (IsSaveKey !== true)
+            return;
+        tp.CancelEvent(e, true);
+        if (tp.IsFunction(e.stopImmediatePropagation))
+            e.stopImmediatePropagation();
+        if (e.repeat === true)
+            return;
+        Parent = this.ParentControl;
+        if (Parent instanceof tp.TabPage && Parent.Handle && Parent.Handle.style.display === "none")
+            return;
+        try {
+            if (this.IsItemState() === true && this.IsReadOnly !== true)
+                await this.SaveAsync();
+        } catch (Error) {
+            this.ReportError("Command failed: " + tp.ExceptionText(Error));
+        }
     }
     /**
      * Handles select toolbar button clicks.
@@ -1640,7 +1663,7 @@ tp.WebDataForm = class extends tp.WebForm {
         this.SetButtonVisible("Ok", false);
         this.SetButtonEnabled("Home", false);
         this.SetButtonEnabled("ToggleIds", true);
-        this.SetButtonEnabled("Insert", HasModule && this.IsReadOnly !== true && IsItemState !== true);
+        this.SetButtonEnabled("Insert", HasModule && this.IsReadOnly !== true && (this.FormState === tp.WebDataFormState.List || this.FormState === tp.WebDataFormState.Edit));
         this.SetButtonEnabled("Edit", HasModule && this.Module.tblList instanceof tp.DataTable && this.Module.tblList.RowCount > 0 && this.IsReadOnly !== true && IsItemState !== true);
         this.SetButtonEnabled("Delete", HasModule && this.Module.tblList instanceof tp.DataTable && this.Module.tblList.RowCount > 0 && this.IsReadOnly !== true && this.FormState === tp.WebDataFormState.List);
         this.SetButtonEnabled("Refresh", false);

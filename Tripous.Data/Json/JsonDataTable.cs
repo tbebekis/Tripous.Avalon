@@ -238,6 +238,9 @@ public class JsonDataTable
                 Row.Delete();
             }
         }
+
+        if (Table is MemTable MemTable)
+            MemTable.UpdateCurrentRow();
     }
     /// <summary>
     /// Converts this instance to a JSON object.

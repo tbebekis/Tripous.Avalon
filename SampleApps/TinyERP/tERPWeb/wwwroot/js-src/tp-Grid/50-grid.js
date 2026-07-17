@@ -2546,10 +2546,15 @@ tp.Grid = class extends tp.Control  {
     */
     ShowIdGridColumns(Flag) {
         let i, ln, Column;
+        let IsReferenceColumn = function (Column) {
+            return Column.IsLocator === true
+                || Column.IsLookUp === true
+                || Column.DataColumn && (Column.DataColumn.IsLocator === true || Column.DataColumn.IsLookup === true);
+        };
 
         for (i = 0, ln = this.Columns.length; i < ln; i++) {
             Column = this.Columns[i];
-            if (tp.EndsWith(Column.Name, "Id", true)) {
+            if (tp.EndsWith(Column.Name, "Id", true) && IsReferenceColumn(Column) !== true) {
                 Column.Visible = Flag === true;
             }
         }
