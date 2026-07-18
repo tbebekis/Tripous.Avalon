@@ -264,6 +264,7 @@ tp.WebForm = class extends tp.Component {
         this.IsFormInitialized = false;
         this.ClosableByUser = true;
         this.IsClosing = false;
+        this.fBroadcasterRegistered = false;
     }
     /**
      * Applies explicit create params to this component.
@@ -280,6 +281,7 @@ tp.WebForm = class extends tp.Component {
      * @returns {void}
      */
     DoDispose() {
+        this.UnregisterBroadcaster();
         if (this.Context instanceof tp.WebFormContext) {
             tp.StaticFiles.UnLoadJavascriptFiles(this.Context.JavaScriptFiles || []);
             tp.StaticFiles.UnLoadCssFiles(this.Context.CssFiles || []);
@@ -336,6 +338,15 @@ tp.WebForm = class extends tp.Component {
      * @returns {void}
      */
     Closed() {
+        this.UnregisterBroadcaster();
+    }
+    /**
+     * Handles a broadcaster event.
+     * @param {string} EventName The event name.
+     * @param {tp.EventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleBroadcasterEvent(EventName, Args) {
     }
     /**
      * Called when the TitleText property changes.
@@ -370,6 +381,7 @@ tp.WebForm = class extends tp.Component {
             this.TitleText = Context.Title;
             this.SetupContext();
             this.IsSetupDone = true;
+            this.RegisterBroadcaster();
             this.FormInitializing();
             this.FormInitialize();
             this.IsFormInitialized = true;
@@ -434,6 +446,35 @@ tp.WebForm = class extends tp.Component {
      */
     Close() {
         this.CloseForm();
+    }
+    /**
+     * Registers this form to the broadcaster.
+     * @returns {void}
+     */
+    RegisterBroadcaster() {
+        if (this.fBroadcasterRegistered !== true && tp.Broadcaster && tp.Broadcaster.Add) {
+            tp.Broadcaster.Add(this);
+            this.fBroadcasterRegistered = true;
+        }
+    }
+    /**
+     * Unregisters this form from the broadcaster.
+     * @returns {void}
+     */
+    UnregisterBroadcaster() {
+        if (this.fBroadcasterRegistered === true && tp.Broadcaster && tp.Broadcaster.Remove) {
+            tp.Broadcaster.Remove(this);
+            this.fBroadcasterRegistered = false;
+        }
+    }
+    /**
+     * Handles broadcaster notifications.
+     * @param {tp.EventArgs} Args The broadcaster arguments.
+     * @returns {void}
+     */
+    BroadcasterFunc(Args) {
+        if (Args && Args.Sender !== this)
+            this.HandleBroadcasterEvent(Args.EventName, Args);
     }
 
     // ● properties
@@ -534,3 +575,8 @@ tp.WebForm.prototype.ClosableByUser = true;
  * @type {boolean}
  */
 tp.WebForm.prototype.IsClosing = false;
+/**
+ * True when this form is registered to the broadcaster.
+ * @type {boolean}
+ */
+tp.WebForm.prototype.fBroadcasterRegistered = false;

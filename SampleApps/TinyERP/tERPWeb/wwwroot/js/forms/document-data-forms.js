@@ -4,6 +4,218 @@
  */
 var app = app || {};
 
+// ● app form dialog
+/**
+ * Modal dialog window that hosts a WebDesk form.
+ */
+app.AppFormDialog = class extends tp.Window {
+    // ● static public
+    /**
+     * Shows a WebDesk data form in a modal dialog.
+     * @param {string} WebFormName The web form name.
+     * @param {object|null|undefined} Options The dialog and form options.
+     * @returns {Promise<app.AppFormDialog>} Returns a Promise resolving with the closed dialog.
+     */
+    static async ShowModalDataFormAsync(WebFormName, Options) {
+        var Packet;
+        var Form;
+        var Dialog;
+        var ShowSpinner = tp.IsFunction(tp.ShowSpinner);
+        Options = Options || {};
+        if (tp.IsBlankString(WebFormName))
+            throw new Error("No WebForm name specified.");
+        if (ShowSpinner)
+            tp.ShowSpinner(true);
+        try {
+            Packet = await app.App.GetWebFormAsync(WebFormName);
+            Form = Packet ? Packet.Form : null;
+            if (!Form)
+                throw new Error("WebForm not returned: " + WebFormName);
+            Dialog = new app.AppFormDialog({
+                Text: Options.Title || Form.Title || Form.Name || WebFormName,
+                Width: Options.Width || "min(1180px, calc(100vw - 32px))",
+                Height: Options.Height || "min(760px, calc(100vh - 32px))",
+                ShowFooter: false,
+                CloseBox: Options.CloseBox !== false,
+                CssClasses: "app-form-dialog",
+                WebFormName: WebFormName,
+                WebFormPacket: Packet,
+                WebFormOptions: Options
+            });
+            await Dialog.CreateHostedFormAsync();
+        } finally {
+            if (ShowSpinner)
+                tp.ShowSpinner(false);
+        }
+        Dialog.ShowModal();
+        return await Dialog.WaitClosedAsync();
+    }
+
+    // ● constructor
+    /**
+     * Creates the dialog.
+     * @param {tp.WindowArgs|object|null|undefined} Args The window arguments.
+     */
+    constructor(Args) {
+        super(Args);
+        this.tpClass = "app.AppFormDialog";
+    }
+
+    // ● protected
+    /**
+     * Initializes instance fields.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        /**
+         * The server web form packet.
+         * @type {object|null}
+         */
+        this.WebFormPacket = null;
+        /**
+         * The hosted web form context.
+         * @type {tp.WebFormContext|null}
+         */
+        this.FormContext = null;
+        /**
+         * The hosted web form.
+         * @type {tp.WebForm|null}
+         */
+        this.HostedForm = null;
+        /**
+         * Resolves the modal close Promise.
+         * @type {Function|null}
+         */
+        this.fClosedResolve = null;
+    }
+    /**
+     * Applies create params.
+     * @param {tp.WindowArgs|object|null|undefined} Params The create params.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (Params) {
+            this.WebFormName = Params.WebFormName || "";
+            this.WebFormPacket = Params.WebFormPacket || null;
+            this.WebFormOptions = Params.WebFormOptions || null;
+        }
+    }
+    /**
+     * Releases the hosted form.
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.HostedForm instanceof tp.WebForm) {
+            this.HostedForm.Off("CloseRequested", this.HandleHostedFormCloseRequested, this);
+            this.HostedForm.Dispose();
+        }
+        this.HostedForm = null;
+        this.FormContext = null;
+        this.WebFormPacket = null;
+        this.WebFormOptions = null;
+        super.DoDispose();
+    }
+    /**
+     * Creates the client web form inside the dialog.
+     * @returns {Promise<tp.WebForm>} Returns a Promise resolving with the created form.
+     */
+    async CreateHostedFormAsync() {
+        var Form = this.WebFormPacket ? this.WebFormPacket.Form : null;
+        var Options = this.WebFormOptions || {};
+        var Element;
+        if (!Form)
+            throw new Error("WebForm packet has no Form.");
+        if (!this.ContentWrapper) {
+            this.CreateControls();
+            this.SetupDragger();
+            this.SetupPositionAndSize();
+        }
+        this.ContentWrapper.Handle.innerHTML = Form.Html || "";
+        Element = this.FindHostedFormElement();
+        if (!(Element instanceof HTMLElement))
+            throw new Error("WebForm root element not found: " + (Form.Name || ""));
+        this.FormContext = new tp.WebFormContext({
+            FormId: Options.FormId || Form.Name || this.WebFormName,
+            ClassName: Form.JsFormClassType,
+            DisplayMode: tp.WebFormDisplayMode.Dialog,
+            ParentControl: this,
+            Title: Options.Title || Form.Title || Form.Name || this.WebFormName,
+            WebFormDef: Form,
+            Packet: this.WebFormPacket,
+            Options: Options,
+            CssFiles: Form.CssFiles || [],
+            JavaScriptFiles: Form.JavaScriptFiles || []
+        });
+        this.HostedForm = await this.FormContext.CreateForm(Element);
+        this.HostedForm.On("CloseRequested", this.HandleHostedFormCloseRequested, this);
+        return this.HostedForm;
+    }
+    /**
+     * Finds the root hosted web form element.
+     * @returns {HTMLElement|null} Returns the form element or null.
+     */
+    FindHostedFormElement() {
+        var Index;
+        var Children = this.ContentWrapper && this.ContentWrapper.Handle ? this.ContentWrapper.Handle.children : [];
+        for (Index = 0; Index < Children.length; Index++) {
+            if (Children[Index] instanceof HTMLElement)
+                return Children[Index];
+        }
+        return null;
+    }
+    /**
+     * Handles hosted form close requests.
+     * @param {tp.EventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleHostedFormCloseRequested(Args) {
+        var Result = Args && Args.Context instanceof tp.WebFormContext ? Args.Context.ModalResult : tp.DialogResult.None;
+        if (Result === tp.DialogResult.None)
+            Result = tp.DialogResult.Cancel;
+        this.fDialogResult = Result;
+        this.Close();
+    }
+    /**
+     * Handles standard window clicks.
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    WindowAnyClick(e) {
+        var Command = e && e.type !== "dblclick" ? tp.Data(e.target, "command") : "";
+        if (tp.IsSameText("Close", Command) && this.HostedForm instanceof tp.WebForm) {
+            this.HostedForm.CloseForm();
+            return;
+        }
+        super.WindowAnyClick(e);
+    }
+    /**
+     * Called when the window closes.
+     * @returns {void}
+     */
+    OnClosed() {
+        super.OnClosed();
+        if (this.fClosedResolve) {
+            this.fClosedResolve(this);
+            this.fClosedResolve = null;
+        }
+    }
+
+    // ● public
+    /**
+     * Returns a Promise resolved when the dialog closes.
+     * @returns {Promise<app.AppFormDialog>} Returns a Promise resolving with this dialog.
+     */
+    WaitClosedAsync() {
+        if (!this.Visible)
+            return Promise.resolve(this);
+        return new Promise((Resolve) => {
+            this.fClosedResolve = Resolve;
+        });
+    }
+};
+
 // ● trade data module
 /**
  * Client-side data module for commercial document modules.
@@ -441,6 +653,65 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         this.fDocumentCalculateFieldName = "";
     }
     /**
+     * Returns a row value by column name.
+     * @param {tp.DataRow|null|undefined} Row The row.
+     * @param {string} FieldName The field name.
+     * @returns {*} Returns the value or an empty string.
+     */
+    GetDocumentRowValue(Row, FieldName) {
+        return Row instanceof tp.DataRow && Row.Table instanceof tp.DataTable && Row.Table.IndexOfColumn(FieldName) >= 0
+            ? Row.Get(FieldName)
+            : "";
+    }
+    /**
+     * Creates a document-posted notification packet from the current row.
+     * @returns {object} Returns the notification packet.
+     */
+    CreateDocumentPostedArgs() {
+        var Row = this.Module instanceof tp.DataModule ? this.Module.Row : null;
+        return {
+            ModuleName: this.ModuleName || "",
+            DocumentId: this.GetDocumentRowValue(Row, "Id"),
+            SourceId: this.GetDocumentRowValue(Row, "SourceId"),
+            CancelsTradeId: this.GetDocumentRowValue(Row, "CancelsTradeId"),
+            CancelledByTradeId: this.GetDocumentRowValue(Row, "CancelledByTradeId"),
+            CancelledPaymentId: this.GetDocumentRowValue(Row, "CancelledPaymentId"),
+            CancellationPaymentId: this.GetDocumentRowValue(Row, "CancellationPaymentId")
+        };
+    }
+    /**
+     * Returns true when a document-posted notification affects this form.
+     * @param {object} Args The notification arguments.
+     * @returns {boolean} Returns true when affected.
+     */
+    IsAffectedByDocumentPosted(Args) {
+        var Row = this.Module instanceof tp.DataModule ? this.Module.Row : null;
+        var DocumentId = this.GetDocumentRowValue(Row, "Id");
+        if (tp.IsEmpty(DocumentId) || !tp.IsObject(Args))
+            return false;
+        return tp.IsSameText(DocumentId, Args.DocumentId)
+            || tp.IsSameText(DocumentId, Args.SourceId)
+            || tp.IsSameText(DocumentId, Args.CancelsTradeId)
+            || tp.IsSameText(DocumentId, Args.CancelledByTradeId)
+            || tp.IsSameText(DocumentId, Args.CancelledPaymentId)
+            || tp.IsSameText(DocumentId, Args.CancellationPaymentId)
+            || (tp.IsArray(Args.AffectedDocumentIds) && Args.AffectedDocumentIds.some((Id) => tp.IsSameText(DocumentId, Id)));
+    }
+    /**
+     * Handles a document-posted notification.
+     * @param {tp.EventArgs} Args The notification arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleDocumentPostedAsync(Args) {
+        if (!this.IsAffectedByDocumentPosted(Args) || this.FormState !== tp.WebDataFormState.Edit)
+            return;
+        if (this.HasChanges() === true) {
+            this.UiLog("Document changed by another form; refresh is skipped because this form has unsaved changes.");
+            return;
+        }
+        await this.RefreshAsync();
+    }
+    /**
      * Returns a stable row key for preserving row state across calculation packets.
      * @param {tp.DataTable} Table The data table.
      * @param {tp.DataRow} Row The data row.
@@ -719,6 +990,7 @@ app.DocumentDataForm = class extends tp.WebDataForm {
                     this.Module.CaptureCancelSnapshot();
                 }
                 Id = this.Module.Id;
+                tp.Broadcaster.Send("Document.Posted", this, Packet && Packet.PostedInfo ? Packet.PostedInfo : this.CreateDocumentPostedArgs());
                 this.UiLog("Posted " + this.GetItemLogText(Id));
                 this.ListIsDirty = true;
                 this.FormState = tp.WebDataFormState.Edit;
@@ -789,6 +1061,20 @@ app.DocumentDataForm = class extends tp.WebDataForm {
             this.fDocumentCalculateAgain = false;
             this.ScheduleDocumentCalculate();
         }
+    }
+    /**
+     * Handles a broadcaster event.
+     * @param {string} EventName The event name.
+     * @param {tp.EventArgs} Args The broadcaster arguments.
+     * @returns {void}
+     */
+    HandleBroadcasterEvent(EventName, Args) {
+        super.HandleBroadcasterEvent(EventName, Args);
+        if (!tp.IsSameText(EventName, "Document.Posted"))
+            return;
+        this.HandleDocumentPostedAsync(Args).catch((e) => {
+            this.ReportError("Document notification failed: " + tp.ExceptionText(e));
+        });
     }
 };
 
@@ -958,8 +1244,6 @@ app.SalesOrderForm = class extends app.SalesDataForm {
         var Packet;
         var WebFormName;
         var DataModulePacket;
-        var FormId;
-        var PageHandler;
         if (this.CanCreateDeliveryNote() !== true)
             return;
         Code = this.Module.Row.Get("Code", "");
@@ -976,12 +1260,9 @@ app.SalesOrderForm = class extends app.SalesDataForm {
                 DataModulePacket = Packet ? Packet.DataModule : null;
                 if (!DataModulePacket)
                     throw new Error("Sales Delivery Note data module was not returned.");
-                FormId = WebFormName + "." + (DataModulePacket && DataModulePacket.DataSet ? this.Module.Id : tp.Guid());
-                PageHandler = app.App && app.App.MainPage ? app.App.MainPage.PageHandler : null;
-                if (!PageHandler || !tp.IsFunction(PageHandler.OpenAsync))
-                    throw new Error("The WebForm page handler is not available.");
-                await PageHandler.OpenAsync(WebFormName, {
-                    FormId: FormId,
+                await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
+                    FormId: WebFormName + "." + tp.Guid(),
+                    Title: "Sales Delivery Note",
                     InitialDataModule: DataModulePacket,
                     InitialFormState: tp.WebDataFormState.Insert
                 });
@@ -990,5 +1271,474 @@ app.SalesOrderForm = class extends app.SalesDataForm {
         } catch (e) {
             this.ReportError("Create Sales Delivery Note failed: " + tp.ExceptionText(e));
         }
+    }
+};
+
+// ● sales delivery note form
+/**
+ * Web data form for sales delivery notes.
+ */
+app.SalesDeliveryNoteForm = class extends app.SalesDataForm {
+    // ● constructor
+    /**
+     * Creates the sales delivery note form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the main toolbar.
+     * @param {HTMLElement} Element The host element.
+     * @returns {void}
+     */
+    CreateToolBar(Element) {
+        super.CreateToolBar(Element);
+        this.AddToolBarButton("CreateReturn", "Create Sales Return", "document_redirect.png");
+        this.AddToolBarButton("CreateInvoice", "Create Sales Invoice", "document_export.png");
+        if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateReturn)
+            this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateReturn);
+        if (this.ToolBar && this.Buttons.CreateReturn && this.Buttons.CreateInvoice)
+            this.ToolBar.PlaceControlAfter(this.Buttons.CreateReturn, this.Buttons.CreateInvoice);
+        this.UpdateToolBar();
+    }
+    /**
+     * Returns true when a document can be created from the current sales delivery note.
+     * @returns {boolean} Returns true when the current delivery note can be transformed.
+     */
+    CanCreateFromDeliveryNote() {
+        return this.FormState === tp.WebDataFormState.Edit
+            && this.Module instanceof tp.DataModule
+            && this.Module.Row instanceof tp.DataRow
+            && this.HasChanges() !== true
+            && this.GetDocumentStatus() === 2
+            && this.IsDocumentCancelled() !== true;
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleToolBarButtonClick(Args) {
+        var Command = Args ? Args.Command : "";
+        if (Command === "CreateReturn")
+            await this.CreateReturnAsync();
+        else if (Command === "CreateInvoice")
+            await this.CreateInvoiceAsync();
+        else
+            await super.HandleToolBarButtonClick(Args);
+    }
+    /**
+     * Updates toolbar state.
+     * @returns {void}
+     */
+    UpdateToolBar() {
+        super.UpdateToolBar();
+        this.SetButtonVisible("CreateReturn", true);
+        this.SetButtonEnabled("CreateReturn", this.CanCreateFromDeliveryNote());
+        this.SetButtonVisible("CreateInvoice", true);
+        this.SetButtonEnabled("CreateInvoice", this.CanCreateFromDeliveryNote());
+    }
+    /**
+     * Creates a transformed document from the current sales delivery note.
+     * @param {string} OperationName The Ajax operation name.
+     * @param {string} DefaultWebFormName The default target web form name.
+     * @param {string} TargetTitle The target document title.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateTransformedDocumentAsync(OperationName, DefaultWebFormName, TargetTitle) {
+        var Code;
+        var DeliveryText;
+        var Packet;
+        var WebFormName;
+        var DataModulePacket;
+        if (this.CanCreateFromDeliveryNote() !== true)
+            return;
+        Code = this.Module.Row.Get("Code", "");
+        DeliveryText = tp.IsBlankString(Code) ? "Sales Delivery Note" : "Sales Delivery Note: " + Code;
+        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + DeliveryText + "?") !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                Packet = await tp.AjaxRequest.Execute(OperationName, {
+                    ModuleName: this.ModuleName,
+                    DataModule: this.Module.toDataJSON()
+                });
+                WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : DefaultWebFormName;
+                DataModulePacket = Packet ? Packet.DataModule : null;
+                if (!DataModulePacket)
+                    throw new Error(TargetTitle + " data module was not returned.");
+                await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
+                    FormId: WebFormName + "." + tp.Guid(),
+                    Title: TargetTitle,
+                    InitialDataModule: DataModulePacket,
+                    InitialFormState: tp.WebDataFormState.Insert
+                });
+                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+            });
+        } catch (e) {
+            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+        }
+    }
+
+    // ● public
+    /**
+     * Creates a sales return from the current sales delivery note.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateReturnAsync() {
+        await this.CreateTransformedDocumentAsync("App.SalesDeliveryNote.CreateReturn", "SalesReturn", "Sales Return");
+    }
+    /**
+     * Creates a sales invoice from the current sales delivery note.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateInvoiceAsync() {
+        await this.CreateTransformedDocumentAsync("App.SalesDeliveryNote.CreateInvoice", "SalesInvoice", "Sales Invoice");
+    }
+};
+
+// ● sales invoice form
+/**
+ * Web data form for sales invoices.
+ */
+app.SalesInvoiceForm = class extends app.SalesDataForm {
+    // ● constructor
+    /**
+     * Creates the sales invoice form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the main toolbar.
+     * @param {HTMLElement} Element The host element.
+     * @returns {void}
+     */
+    CreateToolBar(Element) {
+        super.CreateToolBar(Element);
+        this.AddToolBarButton("CreateCustomerReceipt", "Create Customer Receipt", "coins_add.png");
+        this.AddToolBarButton("CreateCreditNote", "Create Sales Credit Note", "document_redirect.png");
+        this.AddToolBarButton("CreateCancellation", "Create Sales Cancellation", "document_torn.png");
+        if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateCustomerReceipt)
+            this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateCustomerReceipt);
+        if (this.ToolBar && this.Buttons.CreateCustomerReceipt && this.Buttons.CreateCreditNote)
+            this.ToolBar.PlaceControlAfter(this.Buttons.CreateCustomerReceipt, this.Buttons.CreateCreditNote);
+        if (this.ToolBar && this.Buttons.CreateCreditNote && this.Buttons.CreateCancellation)
+            this.ToolBar.PlaceControlAfter(this.Buttons.CreateCreditNote, this.Buttons.CreateCancellation);
+        this.UpdateToolBar();
+    }
+    /**
+     * Returns true when a document can be created from the current sales invoice.
+     * @returns {boolean} Returns true when the current invoice can create related documents.
+     */
+    CanCreateFromInvoice() {
+        return this.FormState === tp.WebDataFormState.Edit
+            && this.Module instanceof tp.DataModule
+            && this.Module.Row instanceof tp.DataRow
+            && this.HasChanges() !== true
+            && this.GetDocumentStatus() === 2
+            && this.IsDocumentCancelled() !== true;
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleToolBarButtonClick(Args) {
+        var Command = Args ? Args.Command : "";
+        if (Command === "CreateCustomerReceipt")
+            await this.CreateCustomerReceiptAsync();
+        else if (Command === "CreateCreditNote")
+            await this.CreateCreditNoteAsync();
+        else if (Command === "CreateCancellation")
+            await this.CreateCancellationAsync();
+        else
+            await super.HandleToolBarButtonClick(Args);
+    }
+    /**
+     * Updates toolbar state.
+     * @returns {void}
+     */
+    UpdateToolBar() {
+        super.UpdateToolBar();
+        this.SetButtonVisible("CreateCustomerReceipt", true);
+        this.SetButtonEnabled("CreateCustomerReceipt", this.CanCreateFromInvoice());
+        this.SetButtonVisible("CreateCreditNote", true);
+        this.SetButtonEnabled("CreateCreditNote", this.CanCreateFromInvoice());
+        this.SetButtonVisible("CreateCancellation", true);
+        this.SetButtonEnabled("CreateCancellation", this.CanCreateFromInvoice());
+    }
+    /**
+     * Creates a related document from the current sales invoice.
+     * @param {string} OperationName The Ajax operation name.
+     * @param {string} DefaultWebFormName The default target web form name.
+     * @param {string} TargetTitle The target document title.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateRelatedDocumentAsync(OperationName, DefaultWebFormName, TargetTitle) {
+        var Code;
+        var InvoiceText;
+        var Packet;
+        var WebFormName;
+        var DataModulePacket;
+        if (this.CanCreateFromInvoice() !== true)
+            return;
+        Code = this.Module.Row.Get("Code", "");
+        InvoiceText = tp.IsBlankString(Code) ? "Sales Invoice" : "Sales Invoice: " + Code;
+        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + InvoiceText + "?") !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                Packet = await tp.AjaxRequest.Execute(OperationName, {
+                    ModuleName: this.ModuleName,
+                    DataModule: this.Module.toDataJSON()
+                });
+                WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : DefaultWebFormName;
+                DataModulePacket = Packet ? Packet.DataModule : null;
+                if (!DataModulePacket)
+                    throw new Error(TargetTitle + " data module was not returned.");
+                await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
+                    FormId: WebFormName + "." + tp.Guid(),
+                    Title: TargetTitle,
+                    InitialDataModule: DataModulePacket,
+                    InitialFormState: tp.WebDataFormState.Insert
+                });
+                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+            });
+        } catch (e) {
+            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+        }
+    }
+
+    // ● public
+    /**
+     * Creates a customer receipt from the current sales invoice.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateCustomerReceiptAsync() {
+        await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCustomerReceipt", "CustomerReceipt", "Customer Receipt");
+    }
+    /**
+     * Creates a sales credit note from the current sales invoice.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateCreditNoteAsync() {
+        await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCreditNote", "SalesCreditNote", "Sales Credit Note");
+    }
+    /**
+     * Creates a sales cancellation from the current sales invoice.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateCancellationAsync() {
+        await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCancellation", "SalesCancellation", "Sales Cancellation");
+    }
+};
+
+// ● payment item page builder
+/**
+ * Builds item pages for payment document forms.
+ */
+app.PaymentItemPageBuilder = class extends app.DocumentItemPageBuilder {
+    // ● constructor
+    /**
+     * Creates the payment item page builder.
+     * @param {tp.WebDataForm} Form The owner data form.
+     */
+    constructor(Form) {
+        super(Form);
+    }
+
+    // ● public
+    /**
+     * Returns true when a detail grid add or delete command can execute.
+     * @param {tp.Grid} Grid The detail grid.
+     * @param {string} Command The command name.
+     * @returns {boolean} Returns true when the command can execute.
+     */
+    CanExecuteDetailGridCommand(Grid, Command) {
+        var Table = Grid instanceof tp.Grid && Grid.DataSource instanceof tp.DataSource ? Grid.DataSource.Table : null;
+        if (this.Form instanceof app.PaymentDataForm
+            && this.Form.IsPaymentCancellation() === true
+            && Table instanceof tp.DataTable
+            && tp.IsSameText(Table.Name, "PaymentSettlement")
+            && Command === "GridRowInsert")
+            return false;
+        return super.CanExecuteDetailGridCommand(Grid, Command);
+    }
+};
+
+// ● payment data form
+/**
+ * Base web data form for payment documents.
+ */
+app.PaymentDataForm = class extends app.DocumentDataForm {
+    // ● constructor
+    /**
+     * Creates the payment data form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the item page builder.
+     * @returns {tp.WebItemPageBuilder} Returns the item page builder.
+     */
+    CreateItemPageBuilder() {
+        return new app.PaymentItemPageBuilder(this);
+    }
+
+    // ● public
+    /**
+     * Returns true when this payment form displays a cancellation document.
+     * @returns {boolean} Returns true for payment cancellation forms.
+     */
+    IsPaymentCancellation() {
+        return tp.IsSameText(this.ModuleName, "CustomerReceiptCancellation")
+            || tp.IsSameText(this.ModuleName, "SupplierPaymentCancellation");
+    }
+};
+
+// ● payment form
+/**
+ * Web data form for customer receipts and supplier payments.
+ */
+app.PaymentForm = class extends app.PaymentDataForm {
+    // ● constructor
+    /**
+     * Creates the payment form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the main toolbar.
+     * @param {HTMLElement} Element The host element.
+     * @returns {void}
+     */
+    CreateToolBar(Element) {
+        super.CreateToolBar(Element);
+        this.AddToolBarButton("CreateCancellation", "Create " + this.GetPaymentCancellationTitle(), "document_torn.png");
+        if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateCancellation)
+            this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateCancellation);
+        this.UpdateToolBar();
+    }
+    /**
+     * Returns the payment document title.
+     * @returns {string} Returns the payment document title.
+     */
+    GetPaymentTitle() {
+        return tp.IsSameText(this.ModuleName, "SupplierPayment") ? "Supplier Payment" : "Customer Receipt";
+    }
+    /**
+     * Returns the payment cancellation document title.
+     * @returns {string} Returns the payment cancellation document title.
+     */
+    GetPaymentCancellationTitle() {
+        return tp.IsSameText(this.ModuleName, "SupplierPayment") ? "Supplier Payment Cancellation" : "Customer Receipt Cancellation";
+    }
+    /**
+     * Returns true when the current payment can create a cancellation document.
+     * @returns {boolean} Returns true when cancellation can be created.
+     */
+    CanCreateCancellation() {
+        var Row = this.Module instanceof tp.DataModule ? this.Module.Row : null;
+        return this.FormState === tp.WebDataFormState.Edit
+            && Row instanceof tp.DataRow
+            && this.HasChanges() !== true
+            && this.GetDocumentStatus() === 2
+            && this.IsDocumentCancelled() !== true
+            && tp.IsBlank(this.GetDocumentRowValue(Row, "CancelledPaymentId"))
+            && tp.IsBlank(this.GetDocumentRowValue(Row, "CancellationPaymentId"));
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleToolBarButtonClick(Args) {
+        var Command = Args ? Args.Command : "";
+        if (Command === "CreateCancellation")
+            await this.CreateCancellationAsync();
+        else
+            await super.HandleToolBarButtonClick(Args);
+    }
+    /**
+     * Updates toolbar state.
+     * @returns {void}
+     */
+    UpdateToolBar() {
+        super.UpdateToolBar();
+        this.SetButtonVisible("CreateCancellation", true);
+        this.SetButtonEnabled("CreateCancellation", this.CanCreateCancellation());
+    }
+
+    // ● public
+    /**
+     * Creates a payment cancellation from the current payment.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateCancellationAsync() {
+        var Code;
+        var PaymentText;
+        var Packet;
+        var WebFormName;
+        var DataModulePacket;
+        var TargetTitle = this.GetPaymentCancellationTitle();
+        if (this.CanCreateCancellation() !== true)
+            return;
+        Code = this.Module.Row.Get("Code", "");
+        PaymentText = tp.IsBlankString(Code) ? this.GetPaymentTitle() : this.GetPaymentTitle() + ": " + Code;
+        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + PaymentText + "?") !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                Packet = await tp.AjaxRequest.Execute("App.Payment.CreateCancellation", {
+                    ModuleName: this.ModuleName,
+                    DataModule: this.Module.toDataJSON()
+                });
+                WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : "";
+                DataModulePacket = Packet ? Packet.DataModule : null;
+                if (tp.IsBlankString(WebFormName))
+                    WebFormName = DataModulePacket && DataModulePacket.Name ? DataModulePacket.Name : "";
+                if (!DataModulePacket || tp.IsBlankString(WebFormName))
+                    throw new Error(TargetTitle + " data module was not returned.");
+                await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
+                    FormId: WebFormName + "." + tp.Guid(),
+                    Title: TargetTitle,
+                    InitialDataModule: DataModulePacket,
+                    InitialFormState: tp.WebDataFormState.Insert
+                });
+                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+            });
+        } catch (e) {
+            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+        }
+    }
+};
+
+// ● payment cancellation form
+/**
+ * Web data form for payment cancellation documents.
+ */
+app.PaymentCancellationForm = class extends app.PaymentDataForm {
+    // ● constructor
+    /**
+     * Creates the payment cancellation form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
     }
 };

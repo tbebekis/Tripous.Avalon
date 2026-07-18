@@ -175,7 +175,15 @@ static public partial class App
     static void ConfigureDocumentWebForms()
     {
         ConfigureDocumentWebForm("SalesOrder", "app.SalesOrderForm", "app.SalesDataModule");
-        ConfigureDocumentWebForm("SalesDeliveryNote", "app.SalesDataForm", "app.SalesDataModule");
+        ConfigureDocumentWebForm("SalesDeliveryNote", "app.SalesDeliveryNoteForm", "app.SalesDataModule");
+        ConfigureDocumentWebForm("SalesReturn", "app.SalesDataForm", "app.SalesDataModule");
+        ConfigureDocumentWebForm("SalesInvoice", "app.SalesInvoiceForm", "app.SalesDataModule");
+        ConfigureDocumentWebForm("SalesCreditNote", "app.SalesDataForm", "app.SalesDataModule");
+        ConfigureDocumentWebForm("SalesCancellation", "app.SalesDataForm", "app.SalesDataModule");
+        ConfigureDocumentWebForm("CustomerReceipt", "app.PaymentForm", "");
+        ConfigureDocumentWebForm("CustomerReceiptCancellation", "app.PaymentCancellationForm", "");
+        ConfigureDocumentWebForm("SupplierPayment", "app.PaymentForm", "");
+        ConfigureDocumentWebForm("SupplierPaymentCancellation", "app.PaymentCancellationForm", "");
     }
     /// <summary>
     /// Configures a single document web form.

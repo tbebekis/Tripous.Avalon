@@ -26,6 +26,9 @@ public class DocumentDataModulePost: DataModuleAjaxOperation
             Sys.Throw($"DataModule is not a document module: {Module.Name}");
 
         DocumentDataModule DocumentModule = Module as DocumentDataModule;
-        return CreateDataModuleResponse(Request, DocumentModule.JsonPost(Packet));
+        JsonDataModule ResultPacket = DocumentModule.JsonPost(Packet);
+        AjaxResponse Result = CreateDataModuleResponse(Request, ResultPacket);
+        Result["PostedInfo"] = DocumentPostedInfo.FromModule(Module.Name, DocumentModule).ToDictionary();
+        return Result;
     }
 }

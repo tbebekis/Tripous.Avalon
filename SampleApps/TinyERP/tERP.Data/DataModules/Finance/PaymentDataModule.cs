@@ -122,6 +122,26 @@ public class PaymentDataModule : DocumentDataModule
         SetValueIfColumnExists(PaymentRow, $"{FieldPrefix}__Code", SourcePayment.AsString("Code"));
     }
     /// <summary>
+    /// Applies a JSON contract object to this module before creating another document.
+    /// </summary>
+    void ApplyJsonSource(JsonDataModule Source)
+    {
+        if (Source == null)
+            throw new TripousArgumentNullException(nameof(Source));
+
+        State = (DataMode)Source.State;
+
+        tblItem.EventsDisabled = true;
+        try
+        {
+            JsonApplyTableRows(tblItem, Source);
+        }
+        finally
+        {
+            tblItem.EventsDisabled = false;
+        }
+    }
+    /// <summary>
     /// Returns the generated journal entry code for the current payment.
     /// </summary>
     string GetGeneratedJournalEntryCode() => $"JE-{CurrentRow.AsString("Code")}";
@@ -826,6 +846,16 @@ public class PaymentDataModule : DocumentDataModule
         Result.CurrentRow.SetValue("ExternalRef", CurrentRow["Code"]);
         SetPersonDisplayFields(Result.CurrentRow);
         SetPaymentDisplayFields(Result.CurrentRow, "CancelledPayment", CurrentRow);
+        return Result;
+    }
+    /// <summary>
+    /// Applies a JSON contract object and creates a payment cancellation data module.
+    /// </summary>
+    public virtual JsonDataModule JsonCreateCancellation(JsonDataModule Source)
+    {
+        ApplyJsonSource(Source);
+        PaymentDataModule CancellationModule = CreateCancellation();
+        JsonDataModule Result = new(CancellationModule);
         return Result;
     }
 

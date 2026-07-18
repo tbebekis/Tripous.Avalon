@@ -889,14 +889,17 @@ tp.WebDataForm = class extends tp.WebForm {
      */
     async SaveAsync() {
         var Id;
+        var WasInsert;
         if (!(this.Module instanceof tp.DataModule) || this.IsReadOnly === true || this.IsItemState() !== true)
             return;
         try {
             await this.ExecuteWithSpinner(async function () {
+                WasInsert = this.FormState === tp.WebDataFormState.Insert;
                 await this.Module.Commit();
                 Id = this.Module.Id;
                 this.UiLog("Saved " + this.GetItemLogText(Id));
                 this.ListIsDirty = true;
+                tp.Broadcaster.Send("DataModule.Saved", this, this.CreateSavedBroadcasterArgs(Id, WasInsert));
                 this.FormState = tp.WebDataFormState.Edit;
                 await this.RenderItemPageAsync();
                 await this.LoadFactBoxesAsync();
@@ -1059,6 +1062,33 @@ tp.WebDataForm = class extends tp.WebForm {
     async RefreshListAsync() {
         this.ListIsDirty = true;
         await this.ListAsync();
+    }
+    /**
+     * Creates broadcaster arguments for a saved item.
+     * @param {*} Id The saved item id.
+     * @param {boolean} WasInsert True when the item was inserted.
+     * @returns {object} Returns broadcaster arguments.
+     */
+    CreateSavedBroadcasterArgs(Id, WasInsert) {
+        return {
+            ModuleName: this.ModuleName || "",
+            Id: Id,
+            WasInsert: WasInsert === true
+        };
+    }
+    /**
+     * Handles a broadcaster event.
+     * @param {string} EventName The event name.
+     * @param {tp.EventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleBroadcasterEvent(EventName, Args) {
+        super.HandleBroadcasterEvent(EventName, Args);
+        if (!Args || !tp.IsObject(Args) || tp.IsBlankString(Args.ModuleName))
+            return;
+        if ((tp.IsSameText(EventName, "DataModule.Saved") || tp.IsSameText(EventName, "Document.Posted"))
+            && tp.IsSameText(Args.ModuleName, this.ModuleName))
+            this.ListIsDirty = true;
     }
     /**
      * Toggles plain Id column visibility in the list grid.

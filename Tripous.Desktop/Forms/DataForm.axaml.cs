@@ -483,6 +483,40 @@ public partial class DataForm : AppForm
     }
 
     /// <summary>
+    /// Creates broadcaster arguments for a saved item.
+    /// </summary>
+    /// <param name="Id">The saved item id.</param>
+    /// <param name="WasInsert">True when the item was inserted.</param>
+    /// <returns>The broadcaster argument dictionary.</returns>
+    protected virtual IDictionary<string, object> CreateSavedBroadcasterArgs(object Id, bool WasInsert)
+    {
+        return new Dictionary<string, object>()
+        {
+            ["ModuleName"] = ModuleDef?.Name ?? "",
+            ["Id"] = Id,
+            ["WasInsert"] = WasInsert,
+        };
+    }
+    /// <summary>
+    /// Handles a broadcaster event.
+    /// </summary>
+    /// <param name="EventName">The broadcaster event name.</param>
+    /// <param name="Args">The broadcaster event arguments.</param>
+    protected override void HandleBroadcasterEvent(string EventName, IDictionary<string, object> Args)
+    {
+        base.HandleBroadcasterEvent(EventName, Args);
+        if (Args == null || !Args.TryGetValue("ModuleName", out object ModuleNameValue))
+            return;
+
+        string ModuleName = Convert.ToString(ModuleNameValue) ?? "";
+        if ((EventName.IsSameText("DataModule.Saved") || EventName.IsSameText("Document.Posted"))
+            && ModuleDef != null
+            && ModuleName.IsSameText(ModuleDef.Name))
+        {
+            ListIsDirty = true;
+        }
+    }
+    /// <summary>
     /// Executes the List action.
     /// </summary>
     protected virtual async Task ExecuteList()
@@ -760,8 +794,10 @@ public partial class DataForm : AppForm
     /// </summary>
     protected virtual void Save() 
     {
+        bool WasInsert = FormState == DataFormState.Insert;
         Module.Commit(Reselect: false);
-        ListIsDirty = true; 
+        ListIsDirty = true;
+        Broadcaster.Send("DataModule.Saved", this, CreateSavedBroadcasterArgs(Module.LastCommitedId, WasInsert));
     }
     /// <summary>
     /// Reloads the current item and refreshes its controls.

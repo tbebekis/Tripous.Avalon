@@ -12,9 +12,13 @@ namespace Tripous.Desktop;
 /// A base class for a UI embeddable in <see cref="TabItem"/> controls.
 /// </summary>
 [TypeStore]
-public class AppForm: UserControl
+public class AppForm: UserControl, IBroadcasterListener
 {
     // ● private fields
+    /// <summary>
+    /// True when this form is registered as a broadcaster listener.
+    /// </summary>
+    bool fBroadcasterRegistered;
     /// <summary>
     /// The modal result of the modal dialog displaying this form.
     /// </summary>
@@ -80,6 +84,7 @@ public class AppForm: UserControl
     /// </summary>
     protected virtual void Closed()
     {
+        UnregisterBroadcaster();
     }
     /// <summary>
     /// Called when the <see cref="TitleText"/> property changes.
@@ -154,6 +159,28 @@ public class AppForm: UserControl
 
         return false;
     }  
+    /// <summary>
+    /// Registers this form as a broadcaster listener.
+    /// </summary>
+    protected virtual void RegisterBroadcaster()
+    {
+        if (!fBroadcasterRegistered)
+        {
+            Broadcaster.Add(this);
+            fBroadcasterRegistered = true;
+        }
+    }
+    /// <summary>
+    /// Unregisters this form from the broadcaster.
+    /// </summary>
+    protected virtual void UnregisterBroadcaster()
+    {
+        if (fBroadcasterRegistered)
+        {
+            Broadcaster.Remove(this);
+            fBroadcasterRegistered = false;
+        }
+    }
     
     // ● overrides
     /// <summary>
@@ -164,6 +191,9 @@ public class AppForm: UserControl
     {
         base.OnAttachedToVisualTree(e);
 
+        if (!Design.IsDesignMode && IsSetupDone)
+            RegisterBroadcaster();
+
         if (!Design.IsDesignMode && !IsFormInitialized)
         {
             FormInitializing();
@@ -173,6 +203,15 @@ public class AppForm: UserControl
             await Start();
             this.IsFormInitialized = true;
         }
+    }
+    /// <summary>
+    /// Called when the control is removed from a rooted visual tree.
+    /// </summary>
+    /// <param name="e">The visual tree attachment event arguments.</param>
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        UnregisterBroadcaster();
+        base.OnDetachedFromVisualTree(e);
     }
     
     // ● construction
@@ -208,12 +247,22 @@ public class AppForm: UserControl
             this.TitleText = Context.Title;
             Setup();
             IsSetupDone = true;
+            RegisterBroadcaster();
             
             Dispatcher.UIThread.Post(() => 
             {  
                 Context.ParentControl.Content = this; // this triggers the OnAttachedToVisualTree
             }, DispatcherPriority.Background);   
         }
+    }
+    /// <summary>
+    /// Processes a broadcaster message.
+    /// </summary>
+    /// <param name="Args">The broadcaster event arguments.</param>
+    public virtual void ProcessBroadcasterMessage(BroadcasterArgs Args)
+    {
+        if (Args != null)
+            HandleBroadcasterEvent(Args.EventName, Args.Params);
     }
     /// <summary>
     /// Set the <see cref="ParentTabPage"/> as the selected tab page of its parent <see cref="TabControl"/>

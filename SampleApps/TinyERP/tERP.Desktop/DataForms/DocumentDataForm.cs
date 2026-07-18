@@ -120,6 +120,7 @@ After posting, the document can no longer be edited.
             fListTargetId = Id;
             ItemPage?.Refresh();
             ItemPage?.RestoreDetailGridSelection(DetailGridSelection);
+            Broadcaster.Send("Document.Posted", this, DocumentPostedInfo.FromModule(ModuleDef.Name, DocumentModule).ToDictionary());
             UiLog($"Posted {GetItemLogText(Id)}");
             FormState = DataFormState.Edit;
             UpdateUi();
@@ -177,6 +178,34 @@ After posting, the document can no longer be edited.
         btnPost = ToolBar.AddButton("document_mark_as_final.png", "Post Document", async () => await ExecuteCustom(DocumentAction.Post));
         ToolBar.PlaceControlAfter(btnSave, btnPost);
         return true;
+    }
+    /// <summary>
+    /// Handles broadcaster notifications.
+    /// </summary>
+    protected override void HandleBroadcasterEvent(string EventName, IDictionary<string, object> Args)
+    {
+        base.HandleBroadcasterEvent(EventName, Args);
+        if (!EventName.IsSameText("Document.Posted") || CurrentRow == null || FormState != DataFormState.Edit)
+            return;
+        if (HasChanges())
+        {
+            UiLog("Document changed by another form; refresh is skipped because this form has unsaved changes.");
+            return;
+        }
+
+        DocumentPostedInfo Info = DocumentPostedInfo.FromParams(Args);
+        string DocumentId = CurrentRow.AsString(ModuleDef.Table.KeyField);
+        if (!Info.AffectsDocument(DocumentId))
+            return;
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (CurrentRow != null && FormState == DataFormState.Edit && !HasChanges())
+            {
+                Refresh();
+                UiLog($"Refreshed {GetItemLogText(DocumentId)} after document posting.");
+            }
+        }, DispatcherPriority.Background);
     }
 
     // ● construction
