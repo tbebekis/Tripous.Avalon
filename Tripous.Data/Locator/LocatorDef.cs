@@ -199,7 +199,14 @@ public class LocatorDef : BaseDef
     /// </summary>
     public List<string> GetListVisibleFields()
     {
-        return ListVisibleFields.Count > 0 ? [.. ListVisibleFields] : GetResultFields();
+        if (ListVisibleFields.Count > 0)
+            return [.. ListVisibleFields];
+
+        List<string> Result = GetSearchFields(IsMultiRow: true);
+        if (Result.Count == 0)
+            Result = GetSearchFields(IsMultiRow: false);
+
+        return Result.Count > 0 ? Result : GetResultFields();
     }
 
     // ● properties

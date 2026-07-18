@@ -58,6 +58,11 @@ tp.WebItemPageBuilder = class {
          */
         this.Controls = [];
         /**
+         * Created reference context menus.
+         * @type {tp.ReferenceContextMenu[]}
+         */
+        this.ReferenceMenus = [];
+        /**
          * The visual column count used for field groups.
          * @type {number}
          */
@@ -100,6 +105,7 @@ tp.WebItemPageBuilder = class {
      */
     Clear() {
         this.DisposeColumnResizeObserver();
+        this.DisposeReferenceMenus();
         this.Controls = [];
         this.DetailSources = [];
         this.SourceByTable = {};
@@ -119,6 +125,18 @@ tp.WebItemPageBuilder = class {
         if (this.ColumnResizeObserver && tp.IsFunction(this.ColumnResizeObserver.disconnect))
             this.ColumnResizeObserver.disconnect();
         this.ColumnResizeObserver = null;
+    }
+    /**
+     * Releases created reference context menus.
+     * @returns {void}
+     */
+    DisposeReferenceMenus() {
+        var Index;
+        for (Index = 0; Index < this.ReferenceMenus.length; Index++) {
+            if (this.ReferenceMenus[Index] instanceof tp.ReferenceContextMenu)
+                this.ReferenceMenus[Index].Dispose();
+        }
+        this.ReferenceMenus = [];
     }
     /**
      * Returns the current item page width.
@@ -562,6 +580,7 @@ tp.WebItemPageBuilder = class {
             Row.Handle.setAttribute("data-wdf-role", "field-row");
         if (Row.Control instanceof tp.Control) {
             Row.Control.ToolTip = Column.DisplayToolTip;
+            this.ApplyReferenceContextMenu(Row.Control);
             this.Controls.push(Row.Control);
         }
         return Row;
@@ -742,6 +761,7 @@ tp.WebItemPageBuilder = class {
         this.CreateDetailGridColumns(Grid, DetailTable);
         Grid.DataSource = Source;
         this.ConfigureDetailGrid(Grid);
+        this.ApplyDetailGridReferenceMenus(Grid);
         this.DetailSources.push(Source);
         this.DetailGrids.push(Grid);
         return Grid;
@@ -871,6 +891,44 @@ tp.WebItemPageBuilder = class {
         ListSource = this.GetServerListSource(ComboBox.ListSourceName);
         if (ListSource instanceof tp.DataSource)
             ComboBox.ListSource = ListSource;
+    }
+    /**
+     * Attaches a reference context menu to a locator box.
+     * @param {tp.Control} Control The candidate control.
+     * @returns {void}
+     */
+    ApplyReferenceContextMenu(Control) {
+        var Menu;
+        if (!(Control instanceof tp.LocatorBox))
+            return;
+        Menu = new tp.ReferenceContextMenu({
+            Host: this,
+            LocatorBox: Control
+        });
+        Control.ReferenceContextMenu = Menu;
+        this.ReferenceMenus.push(Menu);
+    }
+    /**
+     * Attaches reference context menus to locator grid columns.
+     * @param {tp.Grid} Grid The grid.
+     * @returns {void}
+     */
+    ApplyDetailGridReferenceMenus(Grid) {
+        var Index;
+        var Column;
+        var Menu;
+        if (!(Grid instanceof tp.Grid))
+            return;
+        for (Index = 0; Index < Grid.Columns.length; Index++) {
+            Column = Grid.Columns[Index];
+            if (!(Column instanceof tp.GridColumn) || Column.IsLocator !== true || Column.ReadOnly === true)
+                continue;
+            Menu = new tp.ReferenceContextMenu({
+                Host: this
+            });
+            Column.ReferenceContextMenu = Menu;
+            this.ReferenceMenus.push(Menu);
+        }
     }
     /**
      * Creates a detail grid column for a data column.
@@ -1128,6 +1186,7 @@ tp.WebItemPageBuilder = class {
         if (Control instanceof tp.LocatorBox) {
             Control.ModuleName = this.Form ? this.Form.ModuleName : "";
             Control.TargetRow = this.Form && this.Form.Module ? this.Form.Module.Row : null;
+            this.ApplyReferenceContextMenu(Control);
         }
         this.ApplyComboBoxListSource(Control);
         this.Controls.push(Control);
@@ -1164,6 +1223,7 @@ tp.WebItemPageBuilder = class {
         this.CreateDetailGridColumns(Grid, Source.Table);
         Grid.DataSource = Source;
         this.ConfigureDetailGrid(Grid);
+        this.ApplyDetailGridReferenceMenus(Grid);
         this.DetailGrids.push(Grid);
     }
     /**
@@ -1507,6 +1567,11 @@ tp.WebItemPageBuilder.prototype.DetailTabControl = null;
  * @type {tp.Control[]|null}
  */
 tp.WebItemPageBuilder.prototype.Controls = null;
+/**
+ * Created reference context menus.
+ * @type {tp.ReferenceContextMenu[]|null}
+ */
+tp.WebItemPageBuilder.prototype.ReferenceMenus = null;
 /**
  * The visual column count used for field groups.
  * @type {number}

@@ -73,6 +73,7 @@ tp.GridColumn = class extends tp.Object {
         this.fLocatorFields = [];
         this.fLocatorSearchFields = [];
         this.fLocatorMinimumSearchLength = null;
+        this.ReferenceContextMenu = null;
     }
     /**
      * Creates child controls.
@@ -1283,3 +1284,8 @@ tp.GridColumn = class extends tp.Object {
  * @type {string}
  */
 tp.GridColumn.prototype.tpClass = "tp.GridColumn";
+/**
+ * Optional reference context menu used by locator inplace editors.
+ * @type {*}
+ */
+tp.GridColumn.prototype.ReferenceContextMenu = null;

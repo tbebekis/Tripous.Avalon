@@ -438,7 +438,13 @@ tp.LocatorDef = class {
      * @returns {string[]} Returns display field names.
      */
     GetListVisibleFields() {
-        return this.ListVisibleFields.length > 0 ? this.ListVisibleFields.slice() : this.ResultFields.slice();
+        var Result;
+        if (this.ListVisibleFields.length > 0)
+            return this.ListVisibleFields.slice();
+        Result = this.GetSearchFields(true);
+        if (Result.length === 0)
+            Result = this.GetSearchFields(false);
+        return Result.length > 0 ? Result : this.ResultFields.slice();
     }
 };
 

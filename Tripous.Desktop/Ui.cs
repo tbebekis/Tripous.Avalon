@@ -282,6 +282,37 @@ static public partial class Ui
             Debug(e.ToString());
         }
     }
+    /// <summary>
+    /// Displays a desktop notification.
+    /// </summary>
+    /// <param name="Message">The notification message.</param>
+    /// <param name="Type">The notification type.</param>
+    /// <returns>The created notification.</returns>
+    static public DesktopNote Note(string Message, DesktopNoteType Type) => DesktopNote.Show(Message, Type);
+    /// <summary>
+    /// Displays an information desktop notification.
+    /// </summary>
+    /// <param name="Message">The notification message.</param>
+    /// <returns>The created notification.</returns>
+    static public DesktopNote InfoNote(string Message) => Note(Message, DesktopNoteType.Information);
+    /// <summary>
+    /// Displays a success desktop notification.
+    /// </summary>
+    /// <param name="Message">The notification message.</param>
+    /// <returns>The created notification.</returns>
+    static public DesktopNote SuccessNote(string Message) => Note(Message, DesktopNoteType.Success);
+    /// <summary>
+    /// Displays a warning desktop notification.
+    /// </summary>
+    /// <param name="Message">The notification message.</param>
+    /// <returns>The created notification.</returns>
+    static public DesktopNote WarningNote(string Message) => Note(Message, DesktopNoteType.Warning);
+    /// <summary>
+    /// Displays an error desktop notification.
+    /// </summary>
+    /// <param name="Message">The notification message.</param>
+    /// <returns>The created notification.</returns>
+    static public DesktopNote ErrorNote(string Message) => Note(Message, DesktopNoteType.Error);
 
     /// <summary>
     /// Executes an action on the UI thread (fire-and-forget).

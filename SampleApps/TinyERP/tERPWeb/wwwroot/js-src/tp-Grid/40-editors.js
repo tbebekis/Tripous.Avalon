@@ -472,6 +472,9 @@ tp.GridInplaceEditorLocator = class extends tp.GridInplaceEditor {
         this.fLocatorBox.ReferenceField = this.Column.LocatorReferenceField;
         this.fLocatorBox.Fields = Fields;
         this.fLocatorBox.SearchFields = SearchFields;
+        this.fLocatorBox.ReferenceContextMenu = this.Column.ReferenceContextMenu || null;
+        if (this.fLocatorBox.ReferenceContextMenu instanceof tp.ReferenceContextMenu)
+            this.fLocatorBox.ReferenceContextMenu.LocatorBox = this.fLocatorBox;
         if (!tp.IsNil(this.Column.LocatorMinimumSearchLength)) {
             this.fLocatorBox.MinimumSearchLength = this.Column.LocatorMinimumSearchLength;
             this.fLocatorBox.fMinimumSearchLengthAssigned = true;

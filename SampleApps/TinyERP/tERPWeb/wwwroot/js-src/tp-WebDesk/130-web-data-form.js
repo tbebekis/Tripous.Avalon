@@ -81,6 +81,16 @@ tp.WebDataForm = class extends tp.WebForm {
          */
         this.InitialFormState = "";
         /**
+         * Optional initial form action.
+         * @type {string}
+         */
+        this.InitialAction = "";
+        /**
+         * Optional initial item key value.
+         * @type {*}
+         */
+        this.InitialKeyValue = null;
+        /**
          * The current form state.
          * @type {string}
          */
@@ -291,6 +301,10 @@ tp.WebDataForm = class extends tp.WebForm {
                 this.InitialDataModule = Params.InitialDataModule || null;
             if (!tp.IsNil(Params.InitialFormState))
                 this.InitialFormState = Params.InitialFormState || "";
+            if (!tp.IsNil(Params.InitialAction))
+                this.InitialAction = Params.InitialAction || "";
+            if (!tp.IsNil(Params.InitialKeyValue))
+                this.InitialKeyValue = Params.InitialKeyValue;
         }
     }
     /**
@@ -311,6 +325,10 @@ tp.WebDataForm = class extends tp.WebForm {
                 this.InitialDataModule = this.Context.Options.InitialDataModule || this.InitialDataModule;
             if (!tp.IsNil(this.Context.Options.InitialFormState))
                 this.InitialFormState = this.Context.Options.InitialFormState || this.InitialFormState;
+            if (!tp.IsNil(this.Context.Options.InitialAction))
+                this.InitialAction = this.Context.Options.InitialAction || this.InitialAction;
+            if (!tp.IsNil(this.Context.Options.InitialKeyValue))
+                this.InitialKeyValue = this.Context.Options.InitialKeyValue;
         }
     }
     /**
@@ -321,6 +339,8 @@ tp.WebDataForm = class extends tp.WebForm {
         await this.InitializeDataModuleAsync();
         if (this.InitialDataModule)
             await this.ShowInitialDataModuleAsync();
+        else if (!tp.IsBlankString(this.InitialAction))
+            await this.ExecuteInitialActionAsync();
         else
             await this.SelectListAsync();
     }
@@ -698,6 +718,21 @@ tp.WebDataForm = class extends tp.WebForm {
         this.UpdateToolBar();
     }
     /**
+     * Executes the configured initial action.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async ExecuteInitialActionAsync() {
+        if (tp.IsSameText(this.InitialAction, "Insert")) {
+            await this.InsertAsync();
+        } else if (tp.IsSameText(this.InitialAction, "Edit")) {
+            await this.EditItemAsync(this.InitialKeyValue);
+        } else {
+            await this.SelectListAsync();
+            if (!tp.IsEmpty(this.InitialKeyValue))
+                this.SelectListRowById(this.InitialKeyValue);
+        }
+    }
+    /**
      * Fills the select combo box from available query names.
      * @returns {void}
      */
@@ -871,7 +906,15 @@ tp.WebDataForm = class extends tp.WebForm {
         if (!(this.Module instanceof tp.DataModule) || this.IsReadOnly === true)
             return;
         Id = this.GetSelectedListId();
-        if (tp.IsEmpty(Id))
+        await this.EditItemAsync(Id);
+    }
+    /**
+     * Starts an edit operation for a specified item id and displays the item page.
+     * @param {*} Id The item id.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async EditItemAsync(Id) {
+        if (!(this.Module instanceof tp.DataModule) || this.IsReadOnly === true || tp.IsEmpty(Id))
             return;
         await this.ExecuteWithSpinner(async function () {
             await this.Module.Edit(Id);
@@ -898,6 +941,7 @@ tp.WebDataForm = class extends tp.WebForm {
                 await this.Module.Commit();
                 Id = this.Module.Id;
                 this.UiLog("Saved " + this.GetItemLogText(Id));
+                this.ReportSuccess("Saved " + this.GetItemLogText(Id));
                 this.ListIsDirty = true;
                 tp.Broadcaster.Send("DataModule.Saved", this, this.CreateSavedBroadcasterArgs(Id, WasInsert));
                 this.FormState = tp.WebDataFormState.Edit;
@@ -963,6 +1007,7 @@ tp.WebDataForm = class extends tp.WebForm {
             await this.ExecuteWithSpinner(async function () {
                 await this.Module.Delete(Id);
                 this.UiLog("Deleted " + LogText);
+                this.ReportSuccess("Deleted " + LogText);
                 await this.SelectListAsync();
             });
         } catch (e) {
@@ -1029,10 +1074,42 @@ tp.WebDataForm = class extends tp.WebForm {
         if (this.IsItemState() !== true)
             return;
         if (await this.CancelEditAsync(false)) {
+            if (this.IsModal === true) {
+                this.ModalResult = tp.DialogResult.Cancel;
+                return;
+            }
             if (this.FormState === tp.WebDataFormState.List) {
                 this.ClearItemPage();
                 this.ShowListPage();
                 this.UpdateToolBar();
+            }
+        }
+    }
+    /**
+     * Accepts the current modal result.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async OkAsync() {
+        var Id;
+        if (this.IsModal !== true)
+            return;
+        if (this.FormState === tp.WebDataFormState.List) {
+            Id = this.GetSelectedListId();
+            if (tp.IsEmpty(Id))
+                return;
+            if (this.Context instanceof tp.WebFormContext)
+                this.Context.ResultData = Id;
+            this.ModalResult = tp.DialogResult.OK;
+            return;
+        }
+        if (this.IsItemState() === true) {
+            if (this.HasChanges() === true)
+                await this.SaveAsync();
+            Id = this.Module instanceof tp.DataModule ? this.Module.Id : null;
+            if (!tp.IsEmpty(Id)) {
+                if (this.Context instanceof tp.WebFormContext)
+                    this.Context.ResultData = Id;
+                this.ModalResult = tp.DialogResult.OK;
             }
         }
     }
@@ -1665,17 +1742,43 @@ tp.WebDataForm = class extends tp.WebForm {
         this.SetFactBoxPaneVisible(false);
     }
     /**
+     * Returns the user-facing part of an error report.
+     * @param {string} Text The full error report text.
+     * @returns {string} Returns the user-facing error text.
+     */
+    GetUserErrorText(Text) {
+        var Match;
+        Text = tp.IsNil(Text) ? "" : String(Text);
+        Match = Text.match(/ResponseErrorText:\s*"([^"]+)"/);
+        if (Match && !tp.IsBlank(Match[1]))
+            return Match[1];
+        Match = Text.match(/\bfailed:\s*(.+)$/s);
+        if (Match && !tp.IsBlank(Match[1]))
+            return Match[1];
+        return Text;
+    }
+    /**
      * Reports an error through the standard WebDesk channels.
      * @param {string} Text The error text.
      * @returns {void}
      */
     ReportError(Text) {
+        var UserText = this.GetUserErrorText(Text);
         if (tp.LogBox && tp.LogBox.AppendLine)
             tp.LogBox.AppendLine(Text);
         if (tp.IsFunction(tp.ErrorNote))
-            tp.ErrorNote(Text);
+            tp.ErrorNote(UserText);
         if (tp.IsFunction(tp.ErrorBox))
-            tp.ErrorBox(Text);
+            tp.ErrorBox(UserText);
+    }
+    /**
+     * Reports a successful operation through the standard WebDesk channels.
+     * @param {string} Text The success text.
+     * @returns {void}
+     */
+    ReportSuccess(Text) {
+        if (tp.IsFunction(tp.SuccessNote))
+            tp.SuccessNote(Text);
     }
     /**
      * Shows the list page.
@@ -1804,6 +1907,8 @@ tp.WebDataForm = class extends tp.WebForm {
                 await this.SaveAsync();
             else if (Command === "Cancel")
                 await this.CancelAsync();
+            else if (Command === "Ok")
+                await this.OkAsync();
             else if (Command === "Close")
                 this.CloseForm();
         } catch (e) {
@@ -1839,6 +1944,8 @@ tp.WebDataForm = class extends tp.WebForm {
         IsCancelKey = HasModifier !== true && (tp.IsSameText(e.key, "Escape") || e.code === "Escape");
         if (IsSaveKey !== true && IsRefreshListKey !== true && IsListKey !== true && IsFindKey !== true && IsInsertKey !== true && IsEditKey !== true && IsDeleteKey !== true && IsCancelKey !== true)
             return;
+        if (this.ShouldIgnoreWindowShortcut())
+            return;
         Parent = this.ParentControl;
         if (Parent instanceof tp.TabPage && Parent.Handle && Parent.Handle.style.display === "none")
             return;
@@ -1858,6 +1965,8 @@ tp.WebDataForm = class extends tp.WebForm {
                 this.ToggleFilterPane();
             else if (IsInsertKey === true && this.IsButtonExecutable("Insert"))
                 await this.InsertAsync();
+            else if (IsEditKey === true && this.IsButtonExecutable("Ok"))
+                await this.OkAsync();
             else if (IsEditKey === true && this.IsButtonExecutable("Edit"))
                 await this.EditAsync();
             else if (IsDeleteKey === true && this.IsButtonExecutable("Delete"))
@@ -1902,12 +2011,12 @@ tp.WebDataForm = class extends tp.WebForm {
         var IsListState = this.FormState === tp.WebDataFormState.List;
         var HasModule = this.Module instanceof tp.DataModule;
         var HasSelectedListRow = IsListState === true && !tp.IsEmpty(this.GetSelectedListId());
-        this.SetButtonEnabled("List", IsItemState === true);
+        this.SetButtonEnabled("List", HasModule === true);
         this.SetButtonEnabled("RefreshList", HasModule === true);
         this.SetButtonEnabled("Find", HasModule && this.Module.UseFilters === true && IsListState === true);
         this.SetButtonVisible("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML));
         this.SetButtonEnabled("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML) && this.FormState !== tp.WebDataFormState.List);
-        this.SetButtonVisible("Ok", false);
+        this.SetButtonVisible("Ok", this.IsModal === true);
         this.SetButtonEnabled("Home", false);
         this.SetButtonEnabled("ToggleIds", HasModule === true);
         this.SetButtonEnabled("Insert", HasModule && this.IsReadOnly !== true && (IsListState === true || this.FormState === tp.WebDataFormState.Edit));
@@ -1916,7 +2025,7 @@ tp.WebDataForm = class extends tp.WebForm {
         this.SetButtonEnabled("Refresh", HasModule && this.FormState === tp.WebDataFormState.Edit && this.Module.Row != null);
         this.SetButtonEnabled("Save", HasModule && this.IsReadOnly !== true && IsItemState === true);
         this.SetButtonEnabled("Cancel", IsItemState === true);
-        this.SetButtonEnabled("Ok", false);
+        this.SetButtonEnabled("Ok", this.IsModal === true && (HasSelectedListRow === true || IsItemState === true));
         this.SetButtonEnabled("Close", true);
     }
     /**
@@ -1988,6 +2097,16 @@ tp.WebDataForm.prototype.InitialDataModule = null;
  * @type {string}
  */
 tp.WebDataForm.prototype.InitialFormState = "";
+/**
+ * Optional initial form action.
+ * @type {string}
+ */
+tp.WebDataForm.prototype.InitialAction = "";
+/**
+ * Optional initial item key value.
+ * @type {*}
+ */
+tp.WebDataForm.prototype.InitialKeyValue = null;
 /**
  * The current form state.
  * @type {string}

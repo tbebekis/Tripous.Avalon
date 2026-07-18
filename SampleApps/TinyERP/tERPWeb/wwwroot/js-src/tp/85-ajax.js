@@ -318,6 +318,13 @@ tp.Ajax.Async = async function (Args) {
     var Context = Args.Context || null;
     var OnSuccess = Args.OnSuccess || null;
     var OnFailure = Args.OnFailure || null;
+    var GetRejectText = function (InnerArgs) {
+        if (InnerArgs instanceof tp.AjaxArgs
+            && !tp.IsEmpty(InnerArgs.ResponseData)
+            && !tp.IsBlank(InnerArgs.ResponseData.ErrorText))
+            return InnerArgs.ResponseData.ErrorText;
+        return tp.ExceptionText(InnerArgs);
+    };
 
     return new Promise(function (Resolve, Reject) {
         Args.Context = null;
@@ -326,7 +333,7 @@ tp.Ajax.Async = async function (Args) {
                 tp.Call(OnSuccess, Context, InnerArgs);
 
                 if (!tp.IsEmpty(InnerArgs.ResponseData) && InnerArgs.ResponseData.IsSuccess === false && !tp.IsBlank(InnerArgs.ResponseData.ErrorText))
-                    Reject(tp.ExceptionText(InnerArgs));
+                    Reject(GetRejectText(InnerArgs));
                 else
                     Resolve(InnerArgs);
             } else {
@@ -336,7 +343,7 @@ tp.Ajax.Async = async function (Args) {
         Args.OnFailure = function (InnerArgs) {
             if (tp.IsFunction(OnFailure))
                 tp.Call(OnFailure, Context, InnerArgs);
-            Reject(tp.ExceptionText(InnerArgs));
+            Reject(GetRejectText(InnerArgs));
         };
 
         try {

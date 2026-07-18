@@ -84,6 +84,11 @@ app.AppFormDialog = class extends tp.Window {
          */
         this.HostedForm = null;
         /**
+         * Result data returned by the hosted form.
+         * @type {*}
+         */
+        this.ResultData = null;
+        /**
          * Resolves the modal close Promise.
          * @type {Function|null}
          */
@@ -171,9 +176,11 @@ app.AppFormDialog = class extends tp.Window {
      * @returns {void}
      */
     HandleHostedFormCloseRequested(Args) {
-        var Result = Args && Args.Context instanceof tp.WebFormContext ? Args.Context.ModalResult : tp.DialogResult.None;
+        var Context = Args && Args.Context instanceof tp.WebFormContext ? Args.Context : null;
+        var Result = Context instanceof tp.WebFormContext ? Context.ModalResult : tp.DialogResult.None;
         if (Result === tp.DialogResult.None)
             Result = tp.DialogResult.Cancel;
+        this.ResultData = Context instanceof tp.WebFormContext ? Context.ResultData : null;
         this.fDialogResult = Result;
         this.Close();
     }
@@ -214,6 +221,16 @@ app.AppFormDialog = class extends tp.Window {
             this.fClosedResolve = Resolve;
         });
     }
+};
+
+tp.ReferenceContextMenu.ShowDataFormModalAsync = async function (WebFormName, Options) {
+    Options = Options || {};
+    return await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
+        FormId: WebFormName + "." + tp.Guid(),
+        Title: Options.Title || WebFormName,
+        InitialAction: Options.InitialAction || "List",
+        InitialKeyValue: Options.InitialKeyValue
+    });
 };
 
 // ● trade data module
@@ -992,6 +1009,7 @@ app.DocumentDataForm = class extends tp.WebDataForm {
                 Id = this.Module.Id;
                 tp.Broadcaster.Send("Document.Posted", this, Packet && Packet.PostedInfo ? Packet.PostedInfo : this.CreateDocumentPostedArgs());
                 this.UiLog("Posted " + this.GetItemLogText(Id));
+                this.ReportSuccess("Posted " + this.GetItemLogText(Id));
                 this.ListIsDirty = true;
                 this.FormState = tp.WebDataFormState.Edit;
                 await this.RenderItemPageAsync();

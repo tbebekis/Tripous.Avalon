@@ -66,6 +66,7 @@ tp.LocatorBox = class extends tp.Control {
         this.Result = null;
         this.TargetRow = null;
         this.Info = null;
+        this.ReferenceContextMenu = null;
         this.fInputs = [];
         this.fInputMap = {};
         this.fButton = null;
@@ -128,6 +129,8 @@ tp.LocatorBox = class extends tp.Control {
         }
         if (!tp.IsNil(Params.TargetRow))
             this.TargetRow = Params.TargetRow;
+        if (!tp.IsNil(Params.ReferenceContextMenu))
+            this.ReferenceContextMenu = Params.ReferenceContextMenu;
         if (!tp.IsNil(Params.IsMultiRow))
             this.IsMultiRow = Params.IsMultiRow === true;
         this.RebuildInputs();
@@ -658,10 +661,13 @@ tp.LocatorBox = class extends tp.Control {
      */
     OpenDropDown() {
         var HostWidth = this.Handle.getBoundingClientRect().width;
-        var TableWidth = this.fTable ? this.fTable.scrollWidth + 20 : 0;
+        var TableWidth;
         var ViewWidth = Math.max(320, tp.Viewport.Width - 24);
-        this.fDropDownBox.Width = Math.min(Math.max(HostWidth, TableWidth, 320), ViewWidth);
+        this.fDropDownBox.Width = Math.min(Math.max(HostWidth, 320), ViewWidth);
         this.fDropDownBox.Open();
+        TableWidth = this.fTable ? this.fTable.scrollWidth + 20 : 0;
+        this.fDropDownBox.Width = Math.min(Math.max(HostWidth, TableWidth, 320), ViewWidth);
+        this.fDropDownBox.KeepInsideViewport();
         this.FocusDropDown();
     }
     /**
@@ -819,6 +825,18 @@ tp.LocatorBox = class extends tp.Control {
      */
     HandleButtonClick(e) {
         tp.CancelEvent(e, true);
+        if (this.ReferenceContextMenu && tp.IsFunction(this.ReferenceContextMenu.OpenAsync)) {
+            this.ReferenceContextMenu.OpenAsync(e).catch(function (Error) {
+                if (tp.ErrorNote)
+                    tp.ErrorNote(tp.ExceptionText(Error));
+            });
+            return;
+        }
+        if (this.fDropDownBox.IsOpen) {
+            this.CloseDropDown();
+            return;
+        }
+        this.SearchAsync(this.fActiveInput || this.fInputs[0] || null, true);
     }
     /**
      * Handles drop-down row click.
@@ -883,5 +901,10 @@ tp.LocatorBox = class extends tp.Control {
  * @type {string}
  */
 tp.LocatorBox.prototype.tpClass = "tp.LocatorBox";
+/**
+ * Optional reference context menu.
+ * @type {*}
+ */
+tp.LocatorBox.prototype.ReferenceContextMenu = null;
 
 tp.Ui.RegisterType(["LocatorBox", "tp-LocatorBox"], tp.LocatorBox);

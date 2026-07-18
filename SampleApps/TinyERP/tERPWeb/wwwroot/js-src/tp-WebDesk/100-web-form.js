@@ -476,6 +476,32 @@ tp.WebForm = class extends tp.Component {
         if (Args && Args.Sender !== this)
             this.HandleBroadcasterEvent(Args.EventName, Args);
     }
+    /**
+     * Returns the top visible modal window.
+     * @returns {tp.Window|null} Returns the top visible modal window, if any.
+     */
+    GetTopModalWindow() {
+        var Index;
+        var Window;
+        if (!tp.Window || !Array.isArray(tp.Window.Windows))
+            return null;
+        for (Index = tp.Window.Windows.length - 1; Index >= 0; Index--) {
+            Window = tp.Window.Windows[Index];
+            if (Window instanceof tp.Window && Window.Modal === true && Window.Visible === true)
+                return Window;
+        }
+        return null;
+    }
+    /**
+     * Returns true when this form should ignore a global shortcut because another modal window is on top.
+     * @returns {boolean} Returns true when the shortcut should be ignored.
+     */
+    ShouldIgnoreWindowShortcut() {
+        var TopModal = this.GetTopModalWindow();
+        if (!(TopModal instanceof tp.Window))
+            return false;
+        return this.ParentControl !== TopModal;
+    }
 
     // ● properties
     /**

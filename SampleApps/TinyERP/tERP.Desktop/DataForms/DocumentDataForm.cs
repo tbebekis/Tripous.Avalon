@@ -122,6 +122,7 @@ After posting, the document can no longer be edited.
             ItemPage?.RestoreDetailGridSelection(DetailGridSelection);
             Broadcaster.Send("Document.Posted", this, DocumentPostedInfo.FromModule(ModuleDef.Name, DocumentModule).ToDictionary());
             UiLog($"Posted {GetItemLogText(Id)}");
+            Ui.SuccessNote($"Posted {GetItemLogText(Id)}");
             FormState = DataFormState.Edit;
             UpdateUi();
         }

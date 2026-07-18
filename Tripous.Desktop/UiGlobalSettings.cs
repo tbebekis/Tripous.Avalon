@@ -24,6 +24,14 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     bool fShowLocatorGridFilterPanel;
     bool fShowDataFormLog;
     bool fShowDataFormFactBoxPane = true;
+    int fNoteDurationSeconds;
+    double fNoteWidth;
+    double fNoteHeight;
+    string fNoteForeground = "#FFFFFFFF";
+    string fNoteInfoBackground = "#FF2563EB";
+    string fNoteSuccessBackground = "#FF16A34A";
+    string fNoteWarningBackground = "#FFF59E0B";
+    string fNoteErrorBackground = "#FFDC2626";
 
     
     // ● private  
@@ -157,6 +165,70 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     {
         get => fShowDataFormFactBoxPane;
         set { if (fShowDataFormFactBoxPane != value) { fShowDataFormFactBoxPane = value; NotifyPropertyChanged(nameof(ShowDataFormFactBoxPane)); } }
+    }
+    /// <summary>
+    /// Desktop notification duration in seconds.
+    /// </summary>
+    public int NoteDurationSeconds
+    {
+        get => fNoteDurationSeconds >= 1 && fNoteDurationSeconds <= 30 ? fNoteDurationSeconds : 4;
+        set { if (fNoteDurationSeconds != value) { fNoteDurationSeconds = value; NotifyPropertyChanged(nameof(NoteDurationSeconds)); } }
+    }
+    /// <summary>
+    /// Desktop notification width.
+    /// </summary>
+    public double NoteWidth
+    {
+        get => fNoteWidth >= 220 && fNoteWidth <= 600 ? fNoteWidth : 360;
+        set { if (fNoteWidth != value) { fNoteWidth = value; NotifyPropertyChanged(nameof(NoteWidth)); } }
+    }
+    /// <summary>
+    /// Desktop notification height.
+    /// </summary>
+    public double NoteHeight
+    {
+        get => fNoteHeight >= 52 && fNoteHeight <= 160 ? fNoteHeight : 76;
+        set { if (fNoteHeight != value) { fNoteHeight = value; NotifyPropertyChanged(nameof(NoteHeight)); } }
+    }
+    /// <summary>
+    /// Desktop notification foreground color.
+    /// </summary>
+    public string NoteForeground
+    {
+        get => !string.IsNullOrWhiteSpace(fNoteForeground) ? fNoteForeground : "#FFFFFFFF";
+        set { if (fNoteForeground != value) { fNoteForeground = value; NotifyPropertyChanged(nameof(NoteForeground)); } }
+    }
+    /// <summary>
+    /// Desktop information notification background color.
+    /// </summary>
+    public string NoteInfoBackground
+    {
+        get => !string.IsNullOrWhiteSpace(fNoteInfoBackground) ? fNoteInfoBackground : "#FF2563EB";
+        set { if (fNoteInfoBackground != value) { fNoteInfoBackground = value; NotifyPropertyChanged(nameof(NoteInfoBackground)); } }
+    }
+    /// <summary>
+    /// Desktop success notification background color.
+    /// </summary>
+    public string NoteSuccessBackground
+    {
+        get => !string.IsNullOrWhiteSpace(fNoteSuccessBackground) ? fNoteSuccessBackground : "#FF16A34A";
+        set { if (fNoteSuccessBackground != value) { fNoteSuccessBackground = value; NotifyPropertyChanged(nameof(NoteSuccessBackground)); } }
+    }
+    /// <summary>
+    /// Desktop warning notification background color.
+    /// </summary>
+    public string NoteWarningBackground
+    {
+        get => !string.IsNullOrWhiteSpace(fNoteWarningBackground) ? fNoteWarningBackground : "#FFF59E0B";
+        set { if (fNoteWarningBackground != value) { fNoteWarningBackground = value; NotifyPropertyChanged(nameof(NoteWarningBackground)); } }
+    }
+    /// <summary>
+    /// Desktop error notification background color.
+    /// </summary>
+    public string NoteErrorBackground
+    {
+        get => !string.IsNullOrWhiteSpace(fNoteErrorBackground) ? fNoteErrorBackground : "#FFDC2626";
+        set { if (fNoteErrorBackground != value) { fNoteErrorBackground = value; NotifyPropertyChanged(nameof(NoteErrorBackground)); } }
     }
 
     // ● events

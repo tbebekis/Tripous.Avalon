@@ -583,6 +583,7 @@ public partial class DataForm : AppForm
             {
                 Delete(oId);
                 UiLog($"Deleted {LogText}");
+                Ui.SuccessNote($"Deleted {LogText}");
                 if (IsInListState)
                     await Execute(DataFormAction.RefreshList);
             }
@@ -600,6 +601,7 @@ public partial class DataForm : AppForm
             Save();
             fListTargetId = Module.LastCommitedId;
             UiLog($"Saved {GetItemLogText(Module.LastCommitedId)}");
+            Ui.SuccessNote($"Saved {GetItemLogText(Module.LastCommitedId)}");
             ItemPage?.RestoreDetailGridSelection(DetailGridSelection);
         }
         finally
@@ -644,7 +646,12 @@ public partial class DataForm : AppForm
         }
         else if (FormState == DataFormState.Insert || FormState == DataFormState.Edit)
         {
-            if (HasChanges())
+            if (IsModal)
+            {
+                if (await ExecuteCancelEdit())
+                    this.ModalResult = ModalResult.Cancel;
+            }
+            else if (HasChanges())
                 await ExecuteCancelEdit();
             else
                 await ExecuteList();
@@ -1069,7 +1076,7 @@ public partial class DataForm : AppForm
         // ● enable ================================================================
         btnHome.IsEnabled = btnHome.ContextMenu != null && btnHome.ContextMenu.Items.Count > 0;
         
-        btnList.IsEnabled = !DataFormAction.List.In(InvalidActions);
+        btnList.IsEnabled = true;
         btnRefreshList.IsEnabled = btnList.IsEnabled;
         btnFind.IsEnabled = !DataFormAction.Find.In(InvalidActions) && FormState == DataFormState.List;
         btnToggleIds.IsEnabled = true;
