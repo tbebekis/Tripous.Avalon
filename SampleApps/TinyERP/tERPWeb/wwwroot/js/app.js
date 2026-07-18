@@ -306,8 +306,9 @@ app.MainPage = class extends tp.Component {
             if (this.StatusBar)
                 this.StatusBar.Message = "Loading web forms...";
 
-            Count = await app.App.LoadWebFormsAsync();
-            Text = "Loaded web forms: " + Count.toString();
+            await app.App.LoadWebFormsAsync();
+            //Count = await app.App.LoadWebFormsAsync();
+            //Text = "Loaded web forms: " + Count.toString();
 
             if (this.CommandTreeView)
                 this.CommandTreeView.Refresh();

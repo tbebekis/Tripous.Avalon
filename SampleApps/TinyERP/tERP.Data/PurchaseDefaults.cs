@@ -66,7 +66,7 @@ public class PurchaseDefaults
     /// <summary>
     /// Price resolver class name.
     /// </summary>
-    public string PriceResolverClassName { get; set; } = typeof(PriceResolver).FullName;
+    public string PriceResolverClassName { get; set; } = typeof(PurchasePriceResolver).FullName;
     /// <summary>
     /// Tax resolver class name.
     /// </summary>

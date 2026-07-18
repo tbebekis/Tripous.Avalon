@@ -317,6 +317,21 @@ app.SalesDataModule = class extends app.TradeDataModule {
     }
 };
 
+// ● purchase data module
+/**
+ * Client-side data module for purchase document modules.
+ */
+app.PurchaseDataModule = class extends app.TradeDataModule {
+    // ● constructor
+    /**
+     * Creates the purchase data module.
+     * @param {string|object|null|undefined} NameOrSource The module name or a JsonDataModule source object.
+     */
+    constructor(NameOrSource) {
+        super(NameOrSource);
+    }
+};
+
 // ● document item page builder
 /**
  * Builds item pages for document forms and applies document-specific detail row defaults.
@@ -957,11 +972,11 @@ app.DocumentDataForm = class extends tp.WebDataForm {
             await super.HandleToolBarButtonClick(Args);
     }
     /**
-     * Updates toolbar state.
+     * Enables or disables form commands.
      * @returns {void}
      */
-    UpdateToolBar() {
-        super.UpdateToolBar();
+    EnableCommands() {
+        super.EnableCommands();
         this.SetButtonVisible("Post", true);
         this.SetButtonEnabled("Save", this.IsButtonExecutable("Save") && this.IsDocumentLocked() !== true);
         this.SetButtonEnabled("Post", this.CanPost());
@@ -1242,11 +1257,11 @@ app.SalesOrderForm = class extends app.SalesDataForm {
             await super.HandleToolBarButtonClick(Args);
     }
     /**
-     * Updates toolbar state.
+     * Enables or disables form commands.
      * @returns {void}
      */
-    UpdateToolBar() {
-        super.UpdateToolBar();
+    EnableCommands() {
+        super.EnableCommands();
         this.SetButtonVisible("CreateDeliveryNote", true);
         this.SetButtonEnabled("CreateDeliveryNote", this.CanCreateDeliveryNote());
     }
@@ -1335,6 +1350,47 @@ app.SalesDeliveryNoteForm = class extends app.SalesDataForm {
             && this.IsDocumentCancelled() !== true;
     }
     /**
+     * Returns true when at least one delivery line has quantity available for the specified counters.
+     * @param {string[]} CounterFieldNames The consumed quantity field names.
+     * @returns {boolean} Returns true when remaining quantity exists.
+     */
+    HasRemainingDeliveryQuantity(CounterFieldNames) {
+        var Table = this.Module instanceof tp.DataModule ? this.Module.FindTable("TradeLine") : null;
+        var Index;
+        var Row;
+        var UsedQuantity;
+        var FieldIndex;
+        if (!(Table instanceof tp.DataTable) || !tp.IsArray(CounterFieldNames))
+            return false;
+        for (Index = 0; Index < Table.Rows.length; Index++) {
+            Row = Table.Rows[Index];
+            if (!(Row instanceof tp.DataRow) || Row.State === tp.DataRowState.Deleted || Row.State === tp.DataRowState.Detached)
+                continue;
+            UsedQuantity = 0;
+            for (FieldIndex = 0; FieldIndex < CounterFieldNames.length; FieldIndex++)
+                UsedQuantity += tp.StrToFloat(Row.Get(CounterFieldNames[FieldIndex], 0), 0);
+            if (tp.StrToFloat(Row.Get("Quantity", 0), 0) > UsedQuantity)
+                return true;
+        }
+        return false;
+    }
+    /**
+     * Returns true when a sales return can be created from the current delivery note.
+     * @returns {boolean} Returns true when return quantity remains.
+     */
+    CanCreateReturn() {
+        return this.CanCreateFromDeliveryNote()
+            && this.HasRemainingDeliveryQuantity(["ExecutedQuantity"]);
+    }
+    /**
+     * Returns true when a sales invoice can be created from the current delivery note.
+     * @returns {boolean} Returns true when invoice quantity remains.
+     */
+    CanCreateInvoice() {
+        return this.CanCreateFromDeliveryNote()
+            && this.HasRemainingDeliveryQuantity(["InvoicedQuantity", "ExecutedQuantity"]);
+    }
+    /**
      * Handles toolbar button clicks.
      * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
      * @returns {Promise<void>} Returns a Promise.
@@ -1349,15 +1405,15 @@ app.SalesDeliveryNoteForm = class extends app.SalesDataForm {
             await super.HandleToolBarButtonClick(Args);
     }
     /**
-     * Updates toolbar state.
+     * Enables or disables form commands.
      * @returns {void}
      */
-    UpdateToolBar() {
-        super.UpdateToolBar();
+    EnableCommands() {
+        super.EnableCommands();
         this.SetButtonVisible("CreateReturn", true);
-        this.SetButtonEnabled("CreateReturn", this.CanCreateFromDeliveryNote());
+        this.SetButtonEnabled("CreateReturn", this.CanCreateReturn());
         this.SetButtonVisible("CreateInvoice", true);
-        this.SetButtonEnabled("CreateInvoice", this.CanCreateFromDeliveryNote());
+        this.SetButtonEnabled("CreateInvoice", this.CanCreateInvoice());
     }
     /**
      * Creates a transformed document from the current sales delivery note.
@@ -1480,11 +1536,11 @@ app.SalesInvoiceForm = class extends app.SalesDataForm {
             await super.HandleToolBarButtonClick(Args);
     }
     /**
-     * Updates toolbar state.
+     * Enables or disables form commands.
      * @returns {void}
      */
-    UpdateToolBar() {
-        super.UpdateToolBar();
+    EnableCommands() {
+        super.EnableCommands();
         this.SetButtonVisible("CreateCustomerReceipt", true);
         this.SetButtonEnabled("CreateCustomerReceipt", this.CanCreateFromInvoice());
         this.SetButtonVisible("CreateCreditNote", true);
@@ -1555,6 +1611,494 @@ app.SalesInvoiceForm = class extends app.SalesDataForm {
      */
     async CreateCancellationAsync() {
         await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCancellation", "SalesCancellation", "Sales Cancellation");
+    }
+};
+
+// ● purchase item page builder
+/**
+ * Builds item pages for purchase document forms.
+ */
+app.PurchaseItemPageBuilder = class extends app.DocumentItemPageBuilder {
+    // ● constructor
+    /**
+     * Creates the purchase item page builder.
+     * @param {tp.WebDataForm} Form The owner data form.
+     */
+    constructor(Form) {
+        super(Form);
+    }
+
+    // ● protected
+    /**
+     * Returns the field names to display in a purchase document detail grid.
+     * @param {tp.DataTable} Table The detail table.
+     * @returns {string[]|null} Returns field names or null to use the default columns.
+     */
+    GetDetailGridFieldNames(Table) {
+        if (this.IsTradeLineTable(Table)) {
+            return [
+                "DisplayOrder",
+                "LineTypeId",
+                "ProductCode",
+                "ProductName",
+                "UnitOfMeasureName",
+                "Quantity",
+                "UnitPrice",
+                "GrossAmount",
+                "DiscountPercent",
+                "DiscountAmount",
+                "DocumentDiscountAmount",
+                "NetAmount",
+                "TaxPercent",
+                "TaxAmount",
+                "TotalAmount"
+            ];
+        }
+        return super.GetDetailGridFieldNames(Table);
+    }
+    /**
+     * Applies purchase-specific defaults to a newly created detail row.
+     * @param {tp.DataTable} Table The detail table.
+     * @param {tp.DataRow} Row The detail row.
+     * @returns {void}
+     */
+    ApplyDetailRowDefaults(Table, Row) {
+        super.ApplyDetailRowDefaults(Table, Row);
+        if (this.IsTradeLineTable(Table) && Table.IndexOfColumn("Quantity") >= 0)
+            Row.Set("Quantity", 1);
+    }
+};
+
+// ● purchase data form
+/**
+ * Base web data form for purchase document modules.
+ */
+app.PurchaseDataForm = class extends app.TradeDataForm {
+    // ● constructor
+    /**
+     * Creates the purchase data form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the item page builder.
+     * @returns {tp.WebItemPageBuilder} Returns the item page builder.
+     */
+    CreateItemPageBuilder() {
+        return new app.PurchaseItemPageBuilder(this);
+    }
+};
+
+// ● purchase order form
+/**
+ * Web data form for purchase orders.
+ */
+app.PurchaseOrderForm = class extends app.PurchaseDataForm {
+    // ● constructor
+    /**
+     * Creates the purchase order form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the main toolbar.
+     * @param {HTMLElement} Element The host element.
+     * @returns {void}
+     */
+    CreateToolBar(Element) {
+        super.CreateToolBar(Element);
+        this.AddToolBarButton("CreateDeliveryNote", "Create Purchase Delivery Note", "document_export.png");
+        if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateDeliveryNote)
+            this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateDeliveryNote);
+        this.UpdateToolBar();
+    }
+    /**
+     * Returns true when a purchase delivery note can be created.
+     * @returns {boolean} Returns true when a purchase delivery note can be created.
+     */
+    CanCreateDeliveryNote() {
+        return this.FormState === tp.WebDataFormState.Edit
+            && this.Module instanceof tp.DataModule
+            && this.Module.Row instanceof tp.DataRow
+            && this.HasChanges() !== true
+            && this.GetDocumentStatus() === 2
+            && this.IsDocumentCancelled() !== true;
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleToolBarButtonClick(Args) {
+        var Command = Args ? Args.Command : "";
+        if (Command === "CreateDeliveryNote")
+            await this.CreateDeliveryNoteAsync();
+        else
+            await super.HandleToolBarButtonClick(Args);
+    }
+    /**
+     * Enables or disables form commands.
+     * @returns {void}
+     */
+    EnableCommands() {
+        super.EnableCommands();
+        this.SetButtonVisible("CreateDeliveryNote", true);
+        this.SetButtonEnabled("CreateDeliveryNote", this.CanCreateDeliveryNote());
+    }
+
+    // ● public
+    /**
+     * Creates a purchase delivery note from the current purchase order.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateDeliveryNoteAsync() {
+        var Code;
+        var OrderText;
+        var Packet;
+        var WebFormName;
+        var DataModulePacket;
+        if (this.CanCreateDeliveryNote() !== true)
+            return;
+        Code = this.Module.Row.Get("Code", "");
+        OrderText = tp.IsBlankString(Code) ? "Purchase Order" : "Purchase Order: " + Code;
+        if (await tp.YesNoBoxAsync("Create a Purchase Delivery Note from " + OrderText + "?") !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                Packet = await tp.AjaxRequest.Execute("App.PurchaseOrder.CreateDeliveryNote", {
+                    ModuleName: this.ModuleName,
+                    DataModule: this.Module.toDataJSON()
+                });
+                WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : "PurchaseDeliveryNote";
+                DataModulePacket = Packet ? Packet.DataModule : null;
+                if (!DataModulePacket)
+                    throw new Error("Purchase Delivery Note data module was not returned.");
+                await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
+                    FormId: WebFormName + "." + tp.Guid(),
+                    Title: "Purchase Delivery Note",
+                    InitialDataModule: DataModulePacket,
+                    InitialFormState: tp.WebDataFormState.Insert
+                });
+                this.UiLog("Created Purchase Delivery Note from " + this.GetItemLogText(this.Module.Id));
+            });
+        } catch (e) {
+            this.ReportError("Create Purchase Delivery Note failed: " + tp.ExceptionText(e));
+        }
+    }
+};
+
+// ● purchase delivery note form
+/**
+ * Web data form for purchase delivery notes.
+ */
+app.PurchaseDeliveryNoteForm = class extends app.PurchaseDataForm {
+    // ● constructor
+    /**
+     * Creates the purchase delivery note form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the main toolbar.
+     * @param {HTMLElement} Element The host element.
+     * @returns {void}
+     */
+    CreateToolBar(Element) {
+        super.CreateToolBar(Element);
+        this.AddToolBarButton("CreateReturn", "Create Purchase Return", "document_redirect.png");
+        this.AddToolBarButton("CreateInvoice", "Create Purchase Invoice", "document_export.png");
+        if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateReturn)
+            this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateReturn);
+        if (this.ToolBar && this.Buttons.CreateReturn && this.Buttons.CreateInvoice)
+            this.ToolBar.PlaceControlAfter(this.Buttons.CreateReturn, this.Buttons.CreateInvoice);
+        this.UpdateToolBar();
+    }
+    /**
+     * Returns true when a document can be created from the current purchase delivery note.
+     * @returns {boolean} Returns true when the current delivery note can be transformed.
+     */
+    CanCreateFromDeliveryNote() {
+        return this.FormState === tp.WebDataFormState.Edit
+            && this.Module instanceof tp.DataModule
+            && this.Module.Row instanceof tp.DataRow
+            && this.HasChanges() !== true
+            && this.GetDocumentStatus() === 2
+            && this.IsDocumentCancelled() !== true;
+    }
+    /**
+     * Returns true when at least one delivery line has quantity available for the specified counters.
+     * @param {string[]} CounterFieldNames The consumed quantity field names.
+     * @returns {boolean} Returns true when remaining quantity exists.
+     */
+    HasRemainingDeliveryQuantity(CounterFieldNames) {
+        var Table = this.Module instanceof tp.DataModule ? this.Module.FindTable("TradeLine") : null;
+        var Index;
+        var Row;
+        var UsedQuantity;
+        var FieldIndex;
+        if (!(Table instanceof tp.DataTable) || !tp.IsArray(CounterFieldNames))
+            return false;
+        for (Index = 0; Index < Table.Rows.length; Index++) {
+            Row = Table.Rows[Index];
+            if (!(Row instanceof tp.DataRow) || Row.State === tp.DataRowState.Deleted || Row.State === tp.DataRowState.Detached)
+                continue;
+            UsedQuantity = 0;
+            for (FieldIndex = 0; FieldIndex < CounterFieldNames.length; FieldIndex++)
+                UsedQuantity += tp.StrToFloat(Row.Get(CounterFieldNames[FieldIndex], 0), 0);
+            if (tp.StrToFloat(Row.Get("Quantity", 0), 0) > UsedQuantity)
+                return true;
+        }
+        return false;
+    }
+    /**
+     * Returns true when a purchase return can be created from the current delivery note.
+     * @returns {boolean} Returns true when return quantity remains.
+     */
+    CanCreateReturn() {
+        return this.CanCreateFromDeliveryNote()
+            && this.HasRemainingDeliveryQuantity(["ExecutedQuantity"]);
+    }
+    /**
+     * Returns true when a purchase invoice can be created from the current delivery note.
+     * @returns {boolean} Returns true when invoice quantity remains.
+     */
+    CanCreateInvoice() {
+        return this.CanCreateFromDeliveryNote()
+            && this.HasRemainingDeliveryQuantity(["InvoicedQuantity", "ExecutedQuantity"]);
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleToolBarButtonClick(Args) {
+        var Command = Args ? Args.Command : "";
+        if (Command === "CreateReturn")
+            await this.CreateReturnAsync();
+        else if (Command === "CreateInvoice")
+            await this.CreateInvoiceAsync();
+        else
+            await super.HandleToolBarButtonClick(Args);
+    }
+    /**
+     * Enables or disables form commands.
+     * @returns {void}
+     */
+    EnableCommands() {
+        super.EnableCommands();
+        this.SetButtonVisible("CreateReturn", true);
+        this.SetButtonEnabled("CreateReturn", this.CanCreateReturn());
+        this.SetButtonVisible("CreateInvoice", true);
+        this.SetButtonEnabled("CreateInvoice", this.CanCreateInvoice());
+    }
+    /**
+     * Creates a transformed document from the current purchase delivery note.
+     * @param {string} OperationName The Ajax operation name.
+     * @param {string} DefaultWebFormName The default target web form name.
+     * @param {string} TargetTitle The target document title.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateTransformedDocumentAsync(OperationName, DefaultWebFormName, TargetTitle) {
+        var Code;
+        var DeliveryText;
+        var Packet;
+        var WebFormName;
+        var DataModulePacket;
+        if (this.CanCreateFromDeliveryNote() !== true)
+            return;
+        Code = this.Module.Row.Get("Code", "");
+        DeliveryText = tp.IsBlankString(Code) ? "Purchase Delivery Note" : "Purchase Delivery Note: " + Code;
+        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + DeliveryText + "?") !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                Packet = await tp.AjaxRequest.Execute(OperationName, {
+                    ModuleName: this.ModuleName,
+                    DataModule: this.Module.toDataJSON()
+                });
+                WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : DefaultWebFormName;
+                DataModulePacket = Packet ? Packet.DataModule : null;
+                if (!DataModulePacket)
+                    throw new Error(TargetTitle + " data module was not returned.");
+                await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
+                    FormId: WebFormName + "." + tp.Guid(),
+                    Title: TargetTitle,
+                    InitialDataModule: DataModulePacket,
+                    InitialFormState: tp.WebDataFormState.Insert
+                });
+                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+            });
+        } catch (e) {
+            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+        }
+    }
+
+    // ● public
+    /**
+     * Creates a purchase return from the current purchase delivery note.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateReturnAsync() {
+        await this.CreateTransformedDocumentAsync("App.PurchaseDeliveryNote.CreateReturn", "PurchaseReturn", "Purchase Return");
+    }
+    /**
+     * Creates a purchase invoice from the current purchase delivery note.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateInvoiceAsync() {
+        await this.CreateTransformedDocumentAsync("App.PurchaseDeliveryNote.CreateInvoice", "PurchaseInvoice", "Purchase Invoice");
+    }
+};
+
+// ● purchase invoice form
+/**
+ * Web data form for purchase invoices.
+ */
+app.PurchaseInvoiceForm = class extends app.PurchaseDataForm {
+    // ● constructor
+    /**
+     * Creates the purchase invoice form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the main toolbar.
+     * @param {HTMLElement} Element The host element.
+     * @returns {void}
+     */
+    CreateToolBar(Element) {
+        super.CreateToolBar(Element);
+        this.AddToolBarButton("CreateSupplierPayment", "Create Supplier Payment", "coins_delete.png");
+        this.AddToolBarButton("CreateCreditNote", "Create Purchase Credit Note", "document_redirect.png");
+        this.AddToolBarButton("CreateCancellation", "Create Purchase Cancellation", "document_torn.png");
+        if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateSupplierPayment)
+            this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateSupplierPayment);
+        if (this.ToolBar && this.Buttons.CreateSupplierPayment && this.Buttons.CreateCreditNote)
+            this.ToolBar.PlaceControlAfter(this.Buttons.CreateSupplierPayment, this.Buttons.CreateCreditNote);
+        if (this.ToolBar && this.Buttons.CreateCreditNote && this.Buttons.CreateCancellation)
+            this.ToolBar.PlaceControlAfter(this.Buttons.CreateCreditNote, this.Buttons.CreateCancellation);
+        this.UpdateToolBar();
+    }
+    /**
+     * Returns true when a document can be created from the current purchase invoice.
+     * @returns {boolean} Returns true when the current invoice can create related documents.
+     */
+    CanCreateFromInvoice() {
+        return this.FormState === tp.WebDataFormState.Edit
+            && this.Module instanceof tp.DataModule
+            && this.Module.Row instanceof tp.DataRow
+            && this.HasChanges() !== true
+            && this.GetDocumentStatus() === 2
+            && this.IsDocumentCancelled() !== true;
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleToolBarButtonClick(Args) {
+        var Command = Args ? Args.Command : "";
+        if (Command === "CreateSupplierPayment")
+            await this.CreateSupplierPaymentAsync();
+        else if (Command === "CreateCreditNote")
+            await this.CreateCreditNoteAsync();
+        else if (Command === "CreateCancellation")
+            await this.CreateCancellationAsync();
+        else
+            await super.HandleToolBarButtonClick(Args);
+    }
+    /**
+     * Enables or disables form commands.
+     * @returns {void}
+     */
+    EnableCommands() {
+        super.EnableCommands();
+        this.SetButtonVisible("CreateSupplierPayment", true);
+        this.SetButtonEnabled("CreateSupplierPayment", this.CanCreateFromInvoice());
+        this.SetButtonVisible("CreateCreditNote", true);
+        this.SetButtonEnabled("CreateCreditNote", this.CanCreateFromInvoice());
+        this.SetButtonVisible("CreateCancellation", true);
+        this.SetButtonEnabled("CreateCancellation", this.CanCreateFromInvoice());
+    }
+    /**
+     * Creates a related document from the current purchase invoice.
+     * @param {string} OperationName The Ajax operation name.
+     * @param {string} DefaultWebFormName The default target web form name.
+     * @param {string} TargetTitle The target document title.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateRelatedDocumentAsync(OperationName, DefaultWebFormName, TargetTitle) {
+        var Code;
+        var InvoiceText;
+        var Packet;
+        var WebFormName;
+        var DataModulePacket;
+        if (this.CanCreateFromInvoice() !== true)
+            return;
+        Code = this.Module.Row.Get("Code", "");
+        InvoiceText = tp.IsBlankString(Code) ? "Purchase Invoice" : "Purchase Invoice: " + Code;
+        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + InvoiceText + "?") !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                Packet = await tp.AjaxRequest.Execute(OperationName, {
+                    ModuleName: this.ModuleName,
+                    DataModule: this.Module.toDataJSON()
+                });
+                WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : DefaultWebFormName;
+                DataModulePacket = Packet ? Packet.DataModule : null;
+                if (!DataModulePacket)
+                    throw new Error(TargetTitle + " data module was not returned.");
+                await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
+                    FormId: WebFormName + "." + tp.Guid(),
+                    Title: TargetTitle,
+                    InitialDataModule: DataModulePacket,
+                    InitialFormState: tp.WebDataFormState.Insert
+                });
+                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+            });
+        } catch (e) {
+            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+        }
+    }
+
+    // ● public
+    /**
+     * Creates a supplier payment from the current purchase invoice.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateSupplierPaymentAsync() {
+        await this.CreateRelatedDocumentAsync("App.PurchaseInvoice.CreateSupplierPayment", "SupplierPayment", "Supplier Payment");
+    }
+    /**
+     * Creates a purchase credit note from the current purchase invoice.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateCreditNoteAsync() {
+        await this.CreateRelatedDocumentAsync("App.PurchaseInvoice.CreateCreditNote", "PurchaseCreditNote", "Purchase Credit Note");
+    }
+    /**
+     * Creates a purchase cancellation from the current purchase invoice.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateCancellationAsync() {
+        await this.CreateRelatedDocumentAsync("App.PurchaseInvoice.CreateCancellation", "PurchaseCancellation", "Purchase Cancellation");
     }
 };
 
@@ -1653,18 +2197,36 @@ app.PaymentForm = class extends app.PaymentDataForm {
         this.UpdateToolBar();
     }
     /**
+     * Returns the payment module name.
+     * @returns {string} Returns the module name.
+     */
+    GetPaymentModuleName() {
+        if (this.Module instanceof tp.DataModule && !tp.IsBlankString(this.Module.Name))
+            return this.Module.Name;
+        if (!tp.IsBlankString(this.ModuleName))
+            return this.ModuleName;
+        return this.GetWebFormName();
+    }
+    /**
+     * Returns true when this form displays a supplier payment.
+     * @returns {boolean} Returns true for supplier payment forms.
+     */
+    IsSupplierPayment() {
+        return tp.IsSameText(this.GetPaymentModuleName(), "SupplierPayment");
+    }
+    /**
      * Returns the payment document title.
      * @returns {string} Returns the payment document title.
      */
     GetPaymentTitle() {
-        return tp.IsSameText(this.ModuleName, "SupplierPayment") ? "Supplier Payment" : "Customer Receipt";
+        return this.IsSupplierPayment() ? "Supplier Payment" : "Customer Receipt";
     }
     /**
      * Returns the payment cancellation document title.
      * @returns {string} Returns the payment cancellation document title.
      */
     GetPaymentCancellationTitle() {
-        return tp.IsSameText(this.ModuleName, "SupplierPayment") ? "Supplier Payment Cancellation" : "Customer Receipt Cancellation";
+        return this.IsSupplierPayment() ? "Supplier Payment Cancellation" : "Customer Receipt Cancellation";
     }
     /**
      * Returns true when the current payment can create a cancellation document.
@@ -1693,12 +2255,14 @@ app.PaymentForm = class extends app.PaymentDataForm {
             await super.HandleToolBarButtonClick(Args);
     }
     /**
-     * Updates toolbar state.
+     * Enables or disables form commands.
      * @returns {void}
      */
-    UpdateToolBar() {
-        super.UpdateToolBar();
+    EnableCommands() {
+        super.EnableCommands();
         this.SetButtonVisible("CreateCancellation", true);
+        if (this.Buttons.CreateCancellation instanceof tp.ButtonEx)
+            this.Buttons.CreateCancellation.ToolTip = "Create " + this.GetPaymentCancellationTitle();
         this.SetButtonEnabled("CreateCancellation", this.CanCreateCancellation());
     }
 

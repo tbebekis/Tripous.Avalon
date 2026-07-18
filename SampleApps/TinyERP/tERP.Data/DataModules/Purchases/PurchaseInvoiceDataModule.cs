@@ -190,4 +190,37 @@ public class PurchaseInvoiceDataModule: PurchaseDataModule
         Result.CurrentRow.SetValue("UnappliedAmount", 0m);
         return Result;
     }
+    /// <summary>
+    /// Applies a JSON contract object and creates a transformed Purchase Credit Note data module.
+    /// </summary>
+    public virtual JsonDataModule JsonCreateCreditNote(JsonDataModule Source)
+    {
+        ApplyJsonSource(Source);
+        if (!HasRemainingCreditQuantity())
+            throw new TripousBusinessException("The source document has no remaining quantity to credit.");
+
+        PurchaseCreditNoteDataModule CreditNoteModule = CreateCreditNote();
+        JsonDataModule Result = new(CreditNoteModule);
+        return Result;
+    }
+    /// <summary>
+    /// Applies a JSON contract object and creates a Purchase Cancellation data module.
+    /// </summary>
+    public virtual JsonDataModule JsonCreateCancellation(JsonDataModule Source)
+    {
+        ApplyJsonSource(Source);
+        PurchaseCancellationDataModule CancellationModule = CreateCancellation();
+        JsonDataModule Result = new(CancellationModule);
+        return Result;
+    }
+    /// <summary>
+    /// Applies a JSON contract object and creates a Supplier Payment data module.
+    /// </summary>
+    public virtual JsonDataModule JsonCreateSupplierPayment(JsonDataModule Source)
+    {
+        ApplyJsonSource(Source);
+        PaymentDataModule PaymentModule = CreateSupplierPayment();
+        JsonDataModule Result = new(PaymentModule);
+        return Result;
+    }
 }

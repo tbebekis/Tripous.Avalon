@@ -29,24 +29,26 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
     /// </summary>
     protected virtual bool CanCreateInvoice()
     {
-        return Module is PurchaseDeliveryNoteDataModule
+        return Module is PurchaseDeliveryNoteDataModule DeliveryNoteModule
                && FormState == DataFormState.Edit
                && CurrentRow != null
                && !HasChanges()
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
-               && !CurrentRow.AsBoolean("IsCancelled");
+               && !CurrentRow.AsBoolean("IsCancelled")
+               && DeliveryNoteModule.HasRemainingInvoiceQuantity();
     }
     /// <summary>
     /// Returns true when a purchase return can be created.
     /// </summary>
     protected virtual bool CanCreateReturn()
     {
-        return Module is PurchaseDeliveryNoteDataModule
+        return Module is PurchaseDeliveryNoteDataModule DeliveryNoteModule
                && FormState == DataFormState.Edit
                && CurrentRow != null
                && !HasChanges()
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
-               && !CurrentRow.AsBoolean("IsCancelled");
+               && !CurrentRow.AsBoolean("IsCancelled")
+               && DeliveryNoteModule.HasRemainingTransformQuantity();
     }
     /// <summary>
     /// Creates a purchase return from the current delivery note.

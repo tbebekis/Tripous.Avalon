@@ -61,7 +61,7 @@ public class SalesDeliveryNoteDataModule: SalesStockDataModule
     public virtual SalesInvoiceDataModule CreateInvoice()
     {
         CheckCanCreateInvoice();
-        SalesInvoiceDataModule Result = CreateTransformedDocument("SalesInvoice", "Sales Delivery Note", "InvoicedQuantity") as SalesInvoiceDataModule;
+        SalesInvoiceDataModule Result = CreateTransformedDocument("SalesInvoice", "Sales Delivery Note", "InvoicedQuantity", "ExecutedQuantity") as SalesInvoiceDataModule;
         if (Result == null)
             throw new TripousDataException("Cannot create a Sales Invoice module.");
         return Result;
@@ -85,5 +85,24 @@ public class SalesDeliveryNoteDataModule: SalesStockDataModule
         SalesInvoiceDataModule InvoiceModule = CreateInvoice();
         JsonDataModule Result = new(InvoiceModule);
         return Result;
+    }
+    /// <summary>
+    /// Returns true when the persisted delivery note has quantity that can still be invoiced.
+    /// </summary>
+    public override bool HasRemainingInvoiceQuantity()
+    {
+        if (CurrentRow == null)
+            return false;
+
+        int Count = Store.IntegerResult("""
+                                        select count(*)
+                                        from TradeLine
+                                        where TradeId = :TradeId
+                                          and Quantity > InvoicedQuantity + ExecutedQuantity
+                                        """, 0, new Dictionary<string, object>()
+        {
+            ["TradeId"] = CurrentRow.AsString("Id"),
+        });
+        return Count > 0;
     }
 }

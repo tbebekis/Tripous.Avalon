@@ -1230,6 +1230,7 @@ input[type=text].tp-Grid-InplaceEditor {
 
 .tp-ButtonEx.tp-Disabled {
     color: var(--DisabledColor);
+    pointer-events: auto;
 }
 
 .tp-ButtonEx > :nth-child(1) {

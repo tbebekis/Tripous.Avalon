@@ -349,6 +349,12 @@ tp.WebForm = class extends tp.Component {
     HandleBroadcasterEvent(EventName, Args) {
     }
     /**
+     * Enables or disables form commands.
+     * @returns {void}
+     */
+    EnableCommands() {
+    }
+    /**
      * Called when the TitleText property changes.
      * @returns {void}
      */

@@ -30,24 +30,26 @@ public class SalesDeliveryNoteForm : DocumentDataForm
     /// </summary>
     protected virtual bool CanCreateInvoice()
     {
-        return Module is SalesDeliveryNoteDataModule
+        return Module is SalesDeliveryNoteDataModule DeliveryNoteModule
                && FormState == DataFormState.Edit
                && CurrentRow != null
                && !HasChanges()
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
-               && !CurrentRow.AsBoolean("IsCancelled");
+               && !CurrentRow.AsBoolean("IsCancelled")
+               && DeliveryNoteModule.HasRemainingInvoiceQuantity();
     }
     /// <summary>
     /// Returns true when a sales return can be created.
     /// </summary>
     protected virtual bool CanCreateReturn()
     {
-        return Module is SalesDeliveryNoteDataModule
+        return Module is SalesDeliveryNoteDataModule DeliveryNoteModule
                && FormState == DataFormState.Edit
                && CurrentRow != null
                && !HasChanges()
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
-               && !CurrentRow.AsBoolean("IsCancelled");
+               && !CurrentRow.AsBoolean("IsCancelled")
+               && DeliveryNoteModule.HasRemainingTransformQuantity();
     }
     /// <summary>
     /// Creates a sales return from the current delivery note.

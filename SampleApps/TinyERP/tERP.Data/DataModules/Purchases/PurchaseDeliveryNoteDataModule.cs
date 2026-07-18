@@ -146,9 +146,48 @@ public class PurchaseDeliveryNoteDataModule: PurchaseStockDataModule
     public virtual PurchaseInvoiceDataModule CreateInvoice()
     {
         CheckCanCreateInvoice();
-        PurchaseInvoiceDataModule Result = CreateTransformedDocument("PurchaseInvoice", "Purchase Delivery Note", "InvoicedQuantity") as PurchaseInvoiceDataModule;
+        PurchaseInvoiceDataModule Result = CreateTransformedDocument("PurchaseInvoice", "Purchase Delivery Note", "InvoicedQuantity", "ExecutedQuantity") as PurchaseInvoiceDataModule;
         if (Result == null)
             throw new TripousDataException("Cannot create a Purchase Invoice module.");
         return Result;
+    }
+    /// <summary>
+    /// Applies a JSON contract object and creates a transformed Purchase Return data module.
+    /// </summary>
+    public virtual JsonDataModule JsonCreateReturn(JsonDataModule Source)
+    {
+        ApplyJsonSource(Source);
+        PurchaseReturnDataModule ReturnModule = CreateReturn();
+        JsonDataModule Result = new(ReturnModule);
+        return Result;
+    }
+    /// <summary>
+    /// Applies a JSON contract object and creates a transformed Purchase Invoice data module.
+    /// </summary>
+    public virtual JsonDataModule JsonCreateInvoice(JsonDataModule Source)
+    {
+        ApplyJsonSource(Source);
+        PurchaseInvoiceDataModule InvoiceModule = CreateInvoice();
+        JsonDataModule Result = new(InvoiceModule);
+        return Result;
+    }
+    /// <summary>
+    /// Returns true when the persisted delivery note has quantity that can still be invoiced.
+    /// </summary>
+    public override bool HasRemainingInvoiceQuantity()
+    {
+        if (CurrentRow == null)
+            return false;
+
+        int Count = Store.IntegerResult("""
+                                        select count(*)
+                                        from TradeLine
+                                        where TradeId = :TradeId
+                                          and Quantity > InvoicedQuantity + ExecutedQuantity
+                                        """, 0, new Dictionary<string, object>()
+        {
+            ["TradeId"] = CurrentRow.AsString("Id"),
+        });
+        return Count > 0;
     }
 }

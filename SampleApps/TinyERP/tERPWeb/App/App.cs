@@ -182,6 +182,12 @@ static public partial class App
         ConfigureDocumentWebForm("SalesCancellation", "app.SalesDataForm", "app.SalesDataModule");
         ConfigureDocumentWebForm("CustomerReceipt", "app.PaymentForm", "");
         ConfigureDocumentWebForm("CustomerReceiptCancellation", "app.PaymentCancellationForm", "");
+        ConfigureDocumentWebForm("PurchaseOrder", "app.PurchaseOrderForm", "app.PurchaseDataModule");
+        ConfigureDocumentWebForm("PurchaseDeliveryNote", "app.PurchaseDeliveryNoteForm", "app.PurchaseDataModule");
+        ConfigureDocumentWebForm("PurchaseReturn", "app.PurchaseDataForm", "app.PurchaseDataModule");
+        ConfigureDocumentWebForm("PurchaseInvoice", "app.PurchaseInvoiceForm", "app.PurchaseDataModule");
+        ConfigureDocumentWebForm("PurchaseCreditNote", "app.PurchaseDataForm", "app.PurchaseDataModule");
+        ConfigureDocumentWebForm("PurchaseCancellation", "app.PurchaseDataForm", "app.PurchaseDataModule");
         ConfigureDocumentWebForm("SupplierPayment", "app.PaymentForm", "");
         ConfigureDocumentWebForm("SupplierPaymentCancellation", "app.PaymentCancellationForm", "");
     }

@@ -43,9 +43,29 @@ public class PurchaseDataModule: TradeDataModule
         }
     }
     /// <summary>
+    /// Applies a JSON contract object to this module before creating another document.
+    /// </summary>
+    protected virtual void ApplyJsonSource(JsonDataModule Source)
+    {
+        if (Source == null)
+            throw new TripousArgumentNullException(nameof(Source));
+
+        State = (DataMode)Source.State;
+
+        tblItem.EventsDisabled = true;
+        try
+        {
+            JsonApplyTableRows(tblItem, Source);
+        }
+        finally
+        {
+            tblItem.EventsDisabled = false;
+        }
+    }
+    /// <summary>
     /// Creates an unsaved purchase document from the current document.
     /// </summary>
-    protected virtual PurchaseDataModule CreateTransformedDocument(string TargetModuleName, string SourceDocumentName, string SourceQuantityFieldName = "ExecutedQuantity")
+    protected virtual PurchaseDataModule CreateTransformedDocument(string TargetModuleName, string SourceDocumentName, params string[] SourceQuantityFieldNames)
     {
         if (CurrentRow == null)
             throw new TripousBusinessException($"No {SourceDocumentName} is selected.");
@@ -102,7 +122,11 @@ public class PurchaseDataModule: TradeDataModule
                 if (SourceLine.RowState == DataRowState.Deleted || SourceLine.RowState == DataRowState.Detached)
                     continue;
 
-                decimal Quantity = SourceLine.AsDecimal("Quantity") - SourceLine.AsDecimal(SourceQuantityFieldName);
+                decimal UsedQuantity = 0;
+                foreach (string FieldName in SourceQuantityFieldNames.Length > 0 ? SourceQuantityFieldNames : ["ExecutedQuantity"])
+                    UsedQuantity += SourceLine.AsDecimal(FieldName);
+
+                decimal Quantity = SourceLine.AsDecimal("Quantity") - UsedQuantity;
                 if (Quantity <= 0)
                     continue;
 
@@ -169,6 +193,25 @@ public class PurchaseDataModule: TradeDataModule
             && "PersonId".IsSameText(ea.Column.ColumnName))
         {
             CopyPersonAddresses(ea.Row);
+        }
+    }
+    /// <summary>
+    /// Applies purchase-specific server-side side effects for a web JSON calculation field change.
+    /// </summary>
+    protected override void ApplyJsonCalculateFieldChange(string TableName, string FieldName)
+    {
+        base.ApplyJsonCalculateFieldChange(TableName, FieldName);
+
+        MemTable Table = FindTable(TableName);
+        DataRow Row = Table?.Rows.Cast<DataRow>().FirstOrDefault(item => item.RowState != DataRowState.Deleted && item.RowState != DataRowState.Detached);
+
+        if (!IsCopyingPersonAddresses
+            && Row != null
+            && !IsTransforming
+            && State.In(DataMode.Insert | DataMode.Edit)
+            && "PersonId".IsSameText(FieldName))
+        {
+            CopyPersonAddresses(Row);
         }
     }
     protected virtual void CopyPersonAddresses(DataRow Row)

@@ -33,4 +33,14 @@ public class PurchaseOrderDataModule: PurchaseDataModule
             throw new TripousDataException("Cannot create a Purchase Delivery Note module.");
         return Result;
     }
+    /// <summary>
+    /// Applies a JSON contract object and creates a transformed Purchase Delivery Note data module.
+    /// </summary>
+    public virtual JsonDataModule JsonCreateDeliveryNote(JsonDataModule Source)
+    {
+        ApplyJsonSource(Source);
+        PurchaseDeliveryNoteDataModule DeliveryNoteModule = CreateDeliveryNote();
+        JsonDataModule Result = new(DeliveryNoteModule);
+        return Result;
+    }
 }

@@ -30,7 +30,7 @@ public class SalesDataModule: TradeDataModule
     /// <summary>
     /// Creates an unsaved sales document from the current document.
     /// </summary>
-    protected virtual SalesDataModule CreateTransformedDocument(string TargetModuleName, string SourceDocumentName, string SourceQuantityFieldName = "ExecutedQuantity")
+    protected virtual SalesDataModule CreateTransformedDocument(string TargetModuleName, string SourceDocumentName, params string[] SourceQuantityFieldNames)
     {
         if (CurrentRow == null)
             throw new TripousBusinessException($"No {SourceDocumentName} is selected.");
@@ -87,7 +87,11 @@ public class SalesDataModule: TradeDataModule
                 if (SourceLine.RowState == DataRowState.Deleted || SourceLine.RowState == DataRowState.Detached)
                     continue;
 
-                decimal Quantity = SourceLine.AsDecimal("Quantity") - SourceLine.AsDecimal(SourceQuantityFieldName);
+                decimal UsedQuantity = 0;
+                foreach (string FieldName in SourceQuantityFieldNames.Length > 0 ? SourceQuantityFieldNames : ["ExecutedQuantity"])
+                    UsedQuantity += SourceLine.AsDecimal(FieldName);
+
+                decimal Quantity = SourceLine.AsDecimal("Quantity") - UsedQuantity;
                 if (Quantity <= 0)
                     continue;
 

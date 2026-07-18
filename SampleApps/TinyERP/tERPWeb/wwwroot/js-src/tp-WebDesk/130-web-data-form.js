@@ -2003,10 +2003,10 @@ tp.WebDataForm = class extends tp.WebForm {
         }
     }
     /**
-     * Updates toolbar state.
+     * Enables or disables form commands.
      * @returns {void}
      */
-    UpdateToolBar() {
+    EnableCommands() {
         var IsItemState = this.IsItemState();
         var IsListState = this.FormState === tp.WebDataFormState.List;
         var HasModule = this.Module instanceof tp.DataModule;
@@ -2027,6 +2027,13 @@ tp.WebDataForm = class extends tp.WebForm {
         this.SetButtonEnabled("Cancel", IsItemState === true);
         this.SetButtonEnabled("Ok", this.IsModal === true && (HasSelectedListRow === true || IsItemState === true));
         this.SetButtonEnabled("Close", true);
+    }
+    /**
+     * Updates toolbar state.
+     * @returns {void}
+     */
+    UpdateToolBar() {
+        this.EnableCommands();
     }
     /**
      * Enables or disables a toolbar button.
