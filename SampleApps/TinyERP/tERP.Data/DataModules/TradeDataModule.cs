@@ -1343,6 +1343,21 @@ where
 
         ea.Row.SetValue("WarehouseId", CurrentRow["WarehouseId"]);
     }
+    /// <summary>
+    /// Returns true when a changed line field should resolve a new price from the current price list.
+    /// </summary>
+    protected virtual bool ShouldResolveLinePrice(DataRow Row, string FieldName)
+    {
+        if (Row != null
+            && FieldName.IsSameText("Quantity")
+            && Row.Table.Columns.Contains("SourceTradeLineId")
+            && !string.IsNullOrWhiteSpace(Row.AsString("SourceTradeLineId")))
+        {
+            return false;
+        }
+
+        return true;
+    }
     protected override void ColumnChanged(MemTable Table, DataColumnChangeEventArgs ea)
     {
         base.ColumnChanged(Table, ea);
@@ -1394,7 +1409,7 @@ where
 
             if (IsTradeLineTable(Table) && IsLineField)
             {
-                if (IsPriceLineField)
+                if (IsPriceLineField && ShouldResolveLinePrice(ea.Row, FieldName))
                     ResolveLinePrice(ea.Row);
                 Calculate(ea.Row, FieldName, "DiscountPercent");
             }
@@ -1477,7 +1492,7 @@ where
 
             if (IsTradeLineTable(Table) && IsLineField)
             {
-                if (IsPriceLineField)
+                if (IsPriceLineField && ShouldResolveLinePrice(Row, FieldName))
                     ResolveLinePrice(Row);
                 Calculate(Row, FieldName, "DiscountPercent");
             }

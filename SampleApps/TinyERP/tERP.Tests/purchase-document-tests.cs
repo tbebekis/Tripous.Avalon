@@ -283,21 +283,27 @@ public class PurchaseDocumentTests
     PurchaseReturnDataModule CreatePurchaseReturn(PurchaseDeliveryNoteDataModule DeliveryModule, decimal Quantity)
     {
         PurchaseReturnDataModule Result = DeliveryModule.CreateReturn();
+        decimal UnitPrice = Result.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice");
         Result.GetTable("TradeLine").Rows[0].SetValue("Quantity", Quantity);
+        Assert.Equal(UnitPrice, Result.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice"));
         Result.Commit();
         return Result;
     }
     PurchaseInvoiceDataModule CreatePurchaseInvoice(PurchaseDeliveryNoteDataModule DeliveryModule, decimal Quantity)
     {
         PurchaseInvoiceDataModule Result = DeliveryModule.CreateInvoice();
+        decimal UnitPrice = Result.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice");
         Result.GetTable("TradeLine").Rows[0].SetValue("Quantity", Quantity);
+        Assert.Equal(UnitPrice, Result.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice"));
         Result.Commit();
         return Result;
     }
     PurchaseCreditNoteDataModule CreatePurchaseCreditNote(PurchaseInvoiceDataModule InvoiceModule, decimal Quantity)
     {
         PurchaseCreditNoteDataModule Result = InvoiceModule.CreateCreditNote();
+        decimal UnitPrice = Result.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice");
         Result.GetTable("TradeLine").Rows[0].SetValue("Quantity", Quantity);
+        Assert.Equal(UnitPrice, Result.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice"));
         Result.Commit();
         return Result;
     }
@@ -338,6 +344,84 @@ public class PurchaseDocumentTests
         Assert.Equal(1m, Line.AsDecimal("Quantity"));
     }
     [Fact]
+    public void PurchaseOrderReceiptReturnInvoiceCreditFlowKeepsQuantityCountersIndependent()
+    {
+        DataRow Product = GetProduct("Espresso Beans");
+        string WarehouseId = DataLib.GetDefaultWarehouseId();
+        SetStockBalance(Product.AsString("Id"), WarehouseId, 0m, 0m);
+        PurchaseOrderDataModule OrderModule = CreatePurchaseOrder("Espresso Beans", 10m, 20m);
+        string OrderId = OrderModule.CurrentRow.AsString("Id");
+        string OrderLineId = OrderModule.GetTable("TradeLine").Rows[0].AsString("Id");
+        OrderModule.Post();
+
+        PurchaseDeliveryNoteDataModule FirstReceipt = CreatePurchaseDeliveryNote(OrderModule, 8m);
+        string FirstReceiptLineId = FirstReceipt.GetTable("TradeLine").Rows[0].AsString("Id");
+        FirstReceipt.Post();
+        PurchaseDeliveryNoteDataModule SecondReceipt = CreatePurchaseDeliveryNote(OrderModule, 2m);
+        string SecondReceiptLineId = SecondReceipt.GetTable("TradeLine").Rows[0].AsString("Id");
+        SecondReceipt.Post();
+
+        Assert.Equal(10m, GetTradeLine(OrderLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Equal((int)TradeStatus.Completed, GetTrade(OrderId).AsInteger("TradeStatusId"));
+        Assert.Equal(1, GetStockMovement(FirstReceiptLineId).AsInteger("Direction"));
+        Assert.Equal(1, GetStockMovement(SecondReceiptLineId).AsInteger("Direction"));
+        Assert.Equal(10m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
+
+        PurchaseReturnDataModule FirstReturn = CreatePurchaseReturn(FirstReceipt, 3m);
+        string FirstReturnLineId = FirstReturn.GetTable("TradeLine").Rows[0].AsString("Id");
+        FirstReturn.Post();
+        PurchaseReturnDataModule SecondReturn = CreatePurchaseReturn(FirstReceipt, 5m);
+        string SecondReturnLineId = SecondReturn.GetTable("TradeLine").Rows[0].AsString("Id");
+        SecondReturn.Post();
+
+        Assert.Equal(8m, GetTradeLine(FirstReceiptLineId).AsDecimal("ReturnedQuantity"));
+        Assert.Equal(0m, GetTradeLine(FirstReceiptLineId).AsDecimal("InvoicedQuantity"));
+        Assert.Equal(-1, GetStockMovement(FirstReturnLineId).AsInteger("Direction"));
+        Assert.Equal(-1, GetStockMovement(SecondReturnLineId).AsInteger("Direction"));
+        Assert.Equal(2m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
+        Assert.False(FirstReceipt.HasRemainingTransformQuantity());
+        Assert.Throws<TripousBusinessException>(() => FirstReceipt.CreateReturn());
+
+        PurchaseInvoiceDataModule SmallInvoice = CreatePurchaseInvoice(SecondReceipt, 2m);
+        string SmallInvoiceLineId = SmallInvoice.GetTable("TradeLine").Rows[0].AsString("Id");
+        SmallInvoice.Post();
+        Assert.Equal(2m, GetTradeLine(SecondReceiptLineId).AsDecimal("InvoicedQuantity"));
+        Assert.Equal(0m, GetTradeLine(SecondReceiptLineId).AsDecimal("ReturnedQuantity"));
+        Assert.Null(GetStockMovement(SmallInvoiceLineId));
+        Assert.False(SecondReceipt.HasRemainingInvoiceQuantity());
+        Assert.Throws<TripousBusinessException>(() => SecondReceipt.CreateInvoice());
+
+        PurchaseInvoiceDataModule FullInvoice = CreatePurchaseInvoice(FirstReceipt, 8m);
+        string FullInvoiceLineId = FullInvoice.GetTable("TradeLine").Rows[0].AsString("Id");
+        decimal InvoiceUnitPrice = FullInvoice.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice");
+        FullInvoice.Post();
+        Assert.Equal(8m, GetTradeLine(FirstReceiptLineId).AsDecimal("InvoicedQuantity"));
+        Assert.Equal(8m, GetTradeLine(FirstReceiptLineId).AsDecimal("ReturnedQuantity"));
+        Assert.Null(GetStockMovement(FullInvoiceLineId));
+
+        PurchaseCreditNoteDataModule FirstCredit = CreatePurchaseCreditNote(FullInvoice, 2m);
+        string FirstCreditLineId = FirstCredit.GetTable("TradeLine").Rows[0].AsString("Id");
+        Assert.Equal(InvoiceUnitPrice, FirstCredit.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice"));
+        FirstCredit.Post();
+        PurchaseCreditNoteDataModule SecondCredit = CreatePurchaseCreditNote(FullInvoice, 3m);
+        string SecondCreditLineId = SecondCredit.GetTable("TradeLine").Rows[0].AsString("Id");
+        Assert.Equal(InvoiceUnitPrice, SecondCredit.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice"));
+        SecondCredit.Post();
+        PurchaseCreditNoteDataModule ThirdCredit = CreatePurchaseCreditNote(FullInvoice, 3m);
+        string ThirdCreditLineId = ThirdCredit.GetTable("TradeLine").Rows[0].AsString("Id");
+        Assert.Equal(InvoiceUnitPrice, ThirdCredit.GetTable("TradeLine").Rows[0].AsDecimal("UnitPrice"));
+        ThirdCredit.Post();
+
+        Assert.Equal(8m, GetTradeLine(FullInvoiceLineId).AsDecimal("CreditedQuantity"));
+        Assert.Null(GetStockMovement(FirstCreditLineId));
+        Assert.Null(GetStockMovement(SecondCreditLineId));
+        Assert.Null(GetStockMovement(ThirdCreditLineId));
+        Assert.Equal(2m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
+        Assert.False(FullInvoice.HasRemainingCreditQuantity());
+        Assert.Throws<TripousBusinessException>(() => FullInvoice.CreateCreditNote());
+        Assert.Throws<TripousBusinessException>(() => FullInvoice.CreateCancellation());
+    }
+    [Fact]
     public void PartialPurchaseInvoicesPreserveContextAndRemainIndependentFromReturns()
     {
         DataRow Product = GetProduct("Espresso Beans");
@@ -360,7 +444,7 @@ public class PurchaseDocumentTests
         ReturnModule.Post();
 
         Assert.Equal(4m, GetTradeLine(DeliveryLineId).AsDecimal("InvoicedQuantity"));
-        Assert.Equal(3m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Equal(3m, GetTradeLine(DeliveryLineId).AsDecimal("ReturnedQuantity"));
         Assert.Null(GetStockMovement(FirstInvoiceLineId));
 
         PurchaseInvoiceDataModule SecondInvoice = DeliveryModule.CreateInvoice();
@@ -370,7 +454,7 @@ public class PurchaseDocumentTests
         SecondInvoice.Post();
 
         Assert.Equal(10m, GetTradeLine(DeliveryLineId).AsDecimal("InvoicedQuantity"));
-        Assert.Equal(3m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Equal(3m, GetTradeLine(DeliveryLineId).AsDecimal("ReturnedQuantity"));
         Assert.Null(GetStockMovement(SecondInvoiceLineId));
         Assert.Equal(7m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
         Assert.False(DeliveryModule.HasRemainingInvoiceQuantity());
@@ -852,14 +936,14 @@ public class PurchaseDocumentTests
         PurchaseReturnDataModule FirstReturn = CreatePurchaseReturn(DeliveryModule, 4m);
         FirstReturn.Post();
 
-        Assert.Equal(4m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Equal(4m, GetTradeLine(DeliveryLineId).AsDecimal("ReturnedQuantity"));
         Assert.Equal((int)TradeStatus.Posted, GetTrade(DeliveryId).AsInteger("TradeStatusId"));
         Assert.Equal(6m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
 
         PurchaseReturnDataModule SecondReturn = CreatePurchaseReturn(DeliveryModule, 6m);
         SecondReturn.Post();
 
-        Assert.Equal(10m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Equal(10m, GetTradeLine(DeliveryLineId).AsDecimal("ReturnedQuantity"));
         Assert.Equal((int)TradeStatus.Posted, GetTrade(DeliveryId).AsInteger("TradeStatusId"));
         Assert.Equal(0m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));
         Assert.False(DeliveryModule.HasRemainingTransformQuantity());
@@ -883,7 +967,7 @@ public class PurchaseDocumentTests
         TripousBusinessException Error = Assert.Throws<TripousBusinessException>(() => ReturnModule.Post());
 
         Assert.Contains("exceeds remaining quantity 10", Error.Message.ToLowerInvariant());
-        Assert.Equal(0m, GetTradeLine(DeliveryLineId).AsDecimal("ExecutedQuantity"));
+        Assert.Equal(0m, GetTradeLine(DeliveryLineId).AsDecimal("ReturnedQuantity"));
         Assert.Equal((int)TradeStatus.Draft, GetTrade(ReturnId).AsInteger("TradeStatusId"));
         Assert.Null(GetStockMovement(ReturnLineId));
         Assert.Equal(10m, GetStockBalance(Product.AsString("Id"), WarehouseId).AsDecimal("PrimaryQuantity"));

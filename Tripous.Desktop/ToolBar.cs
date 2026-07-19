@@ -35,7 +35,10 @@ public class ToolBar
             Button.Content = ToolTipText;
         
         if (!string.IsNullOrWhiteSpace(ToolTipText))
+        {
             ToolTip.SetTip(Button, ToolTipText);
+            ToolTip.SetShowOnDisabled(Button, true);
+        }
     }
 
     /// <summary>

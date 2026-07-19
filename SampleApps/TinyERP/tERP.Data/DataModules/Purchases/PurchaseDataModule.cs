@@ -110,7 +110,7 @@ public class PurchaseDataModule: TradeDataModule
             string[] LineExcludedFields =
             [
                 "Id", "TradeId", "Quantity", "PrimaryUnitQuantity",
-                "ReservedQuantity", "ExecutedQuantity", "InvoicedQuantity", "CreditedQuantity",
+                "ReservedQuantity", "ExecutedQuantity", "InvoicedQuantity", "ReturnedQuantity", "CreditedQuantity",
                 "GrossAmount", "DiscountAmount", "NetUnitPrice", "NetAmount",
                 "DocumentDiscountAmount", "TaxAmount", "TotalAmount",
                 "TaxPercent", "IsTaxExempt", "IsReverseCharge",
@@ -132,6 +132,12 @@ public class PurchaseDataModule: TradeDataModule
 
                 DataRow TargetLine = TargetLineTable.AddNewRow();
                 CopyCommonValues(SourceLine, TargetLine, LineExcludedFields);
+                if (TargetLine.Table.Columns.Contains("WarehouseId")
+                    && string.IsNullOrWhiteSpace(TargetLine.AsString("WarehouseId"))
+                    && Result.CurrentRow.Table.Columns.Contains("WarehouseId"))
+                {
+                    TargetLine.SetValue("WarehouseId", Result.CurrentRow["WarehouseId"]);
+                }
                 TargetLine.SetValue("Quantity", Quantity);
                 TargetLine.SetValue("DiscountPercent", SourceLine.AsDecimal("DiscountPercent"));
                 TargetLine.SetValue("SourceTradeLineId", SourceLine["Id"]);

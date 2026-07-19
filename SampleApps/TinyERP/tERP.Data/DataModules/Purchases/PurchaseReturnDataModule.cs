@@ -62,20 +62,20 @@ public class PurchaseReturnDataModule: PurchaseStockDataModule
                 throw new TripousBusinessException("A source Purchase Delivery Note line does not exist.");
 
             decimal ReceivedQuantity = SourceLine.AsDecimal("Quantity");
-            decimal ReturnedQuantity = SourceLine.AsDecimal("ExecutedQuantity");
+            decimal ReturnedQuantity = SourceLine.AsDecimal("ReturnedQuantity");
             decimal RemainingQuantity = ReceivedQuantity - ReturnedQuantity;
             if (Entry.Value > RemainingQuantity)
                 throw new TripousBusinessException($"Return quantity {Entry.Value} exceeds remaining quantity {RemainingQuantity}.");
 
             string SqlText = """
                              update TradeLine
-                             set ExecutedQuantity = :ExecutedQuantity
+                             set ReturnedQuantity = :ReturnedQuantity
                              where Id = :Id
                              """;
             Store.ExecSql(Transaction, SqlText, new Dictionary<string, object>()
             {
                 ["Id"] = Entry.Key,
-                ["ExecutedQuantity"] = ReturnedQuantity + Entry.Value,
+                ["ReturnedQuantity"] = ReturnedQuantity + Entry.Value,
             });
         }
     }

@@ -184,9 +184,9 @@ public class DataModuleGetFactBoxes: DataModuleAjaxOperation
         return string.IsNullOrWhiteSpace(FormName) ? null : WebDeskRegistry.FindForm(FormName);
     }
     /// <summary>
-    /// Returns true when the FactBox pane should be initially visible.
+    /// Returns true when the FactBox pane is enabled by configuration.
     /// </summary>
-    bool GetShowPane()
+    bool GetFactBoxPaneEnabled()
     {
         try
         {
@@ -267,6 +267,15 @@ public class DataModuleGetFactBoxes: DataModuleAjaxOperation
         if (Form != null && !Form.CanAccess(User))
             Sys.Throw($"Access denied to WebForm: {Form.Name}");
 
+        AjaxResponse Result = new(Request.OperationName);
+        if (!GetFactBoxPaneEnabled())
+        {
+            Result["Html"] = string.Empty;
+            Result["FactBoxCount"] = 0;
+            Result["ShowPane"] = false;
+            return Result;
+        }
+
         object KeyValue = Request.GetParam("KeyValue");
         List<ItemFactBoxDef> CustomFactBoxes = GetVisibleFactBoxes(ModuleDef, Form);
         DataModule Module = ModuleDef.Create();
@@ -288,10 +297,9 @@ public class DataModuleGetFactBoxes: DataModuleAjaxOperation
 
         string Html = new ItemFactBoxHtmlRenderer(Context.ViewToStringConverter).Render(FactBoxContext, CustomFactBoxes);
 
-        AjaxResponse Result = new(Request.OperationName);
         Result["Html"] = Html;
         Result["FactBoxCount"] = 1 + CustomFactBoxes.Count;
-        Result["ShowPane"] = GetShowPane();
+        Result["ShowPane"] = false;
         return Result;
     }
 }

@@ -55,6 +55,10 @@ public partial class DataForm : AppForm
     /// </summary>
     protected bool fIdColumnsVisible = false;
     /// <summary>
+    /// True while the Toggle Ids toolbar button state is being synchronized.
+    /// </summary>
+    protected bool fApplyingIdColumnsVisible;
+    /// <summary>
     /// True when the filters sidebar is visible.
     /// </summary>
     protected bool fFiltersSideBarVisible = true;
@@ -436,7 +440,13 @@ public partial class DataForm : AppForm
     /// <summary>
     /// Executes the Toggle Ids action.
     /// </summary>
-    protected virtual void ExecuteToggleIds() => IdColumnsVisible = !IdColumnsVisible;
+    protected virtual void ExecuteToggleIds()
+    {
+        if (fApplyingIdColumnsVisible)
+            return;
+
+        IdColumnsVisible = btnToggleIds?.IsChecked == true;
+    }
     /// <summary>
     /// Toggles the FactBox pane.
     /// </summary>
@@ -914,7 +924,7 @@ public partial class DataForm : AppForm
     /// Returns true when the form can display a FactBox pane.
     /// </summary>
     /// <returns>True when a FactBox pane can be displayed.</returns>
-    protected virtual bool HasVisibleFactBoxes() => ModuleDef != null && FormDef != null;
+    protected virtual bool HasVisibleFactBoxes() => Ui.Settings.ShowDataFormFactBoxPane && ModuleDef != null && FormDef != null;
     /// <summary>
     /// Creates the select list toolbar.
     /// </summary>
@@ -941,6 +951,7 @@ public partial class DataForm : AppForm
     {
         gridList.SettingsSuggestedFileName = $"{ModuleDef.Name}-ListGrid.json";
         GroupGridBinder.BindGrid(SelectDef, gridList, Module.tblList.DataView, GoToFirst: true);
+        ApplyIdColumnsVisible();
     }
     /// <summary>
     /// Unbinds the list grid.
@@ -1115,21 +1126,37 @@ public partial class DataForm : AppForm
     /// </summary>
     protected virtual void ApplyIdColumnsVisible()
     {
-        Ui.Post(() =>
+        void Apply()
         {
             bool Flag = IdColumnsVisible; // Checked = hide, else = show
             string S = Flag ? "Hide Ids" : "Show Ids";
-            ToolTip.SetTip(btnToggleIds, S);
-        
-            List<GroupGridColumnBinding> List = gridList.GetInfoList();
-            foreach (GroupGridColumnBinding CI in List)
+            if (btnToggleIds != null)
             {
-                if (CI.IsPlainId)
-                    gridList.SetColumnVisible(CI.GridColumn, Flag);
+                fApplyingIdColumnsVisible = true;
+                btnToggleIds.IsChecked = Flag;
+                fApplyingIdColumnsVisible = false;
+                ToolTip.SetTip(btnToggleIds, S);
+            }
+
+            if (gridList != null)
+            {
+                gridList.AreIdColumnsVisible = Flag;
+
+                List<GroupGridColumnBinding> List = gridList.GetInfoList();
+                foreach (GroupGridColumnBinding CI in List)
+                {
+                    string ColumnName = CI.GridColumn?.Name ?? string.Empty;
+                    bool IsPlainIdColumn = CI.IsPlainId || ColumnName.IsSameText("Id") || ColumnName.EndsWithText("Id");
+                    if (IsPlainIdColumn)
+                        gridList.SetColumnVisible(CI.GridColumn, Flag);
+                }
             }
 
             ItemPage?.ApplyIdColumnsVisible(Flag);
-        });
+        }
+
+        Apply();
+        Ui.Post(Apply);
     }
     /// <summary>
     /// Called when another named SELECT is selected in the combobox with the select list.

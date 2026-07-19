@@ -524,7 +524,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         Border Pane = CreateFactBoxPane(FactBoxes);
         Grid.SetColumn(Pane, 2);
         Result.Children.Add(Pane);
-        FactBoxPaneVisible = Ui.Settings.ShowDataFormFactBoxPane;
+        FactBoxPaneVisible = false;
         return Result;
     }
 
@@ -786,7 +786,10 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Toggles the FactBox pane.
     /// </summary>
-    public virtual void ToggleFactBoxPane() => FactBoxPaneVisible = !FactBoxPaneVisible;
+    public virtual void ToggleFactBoxPane()
+    {
+        FactBoxPaneVisible = Ui.Settings.ShowDataFormFactBoxPane && !FactBoxPaneVisible;
+    }
     /// <summary>
     /// Sets the data-bound controls and detail grids to read-only or restores their field-defined state.
     /// </summary>

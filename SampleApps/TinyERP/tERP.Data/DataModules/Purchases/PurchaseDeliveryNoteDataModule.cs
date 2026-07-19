@@ -138,7 +138,7 @@ public class PurchaseDeliveryNoteDataModule: PurchaseStockDataModule
     public virtual PurchaseReturnDataModule CreateReturn()
     {
         CheckCanCreateReturn();
-        PurchaseReturnDataModule Result = CreateTransformedDocument("PurchaseReturn", "Purchase Delivery Note") as PurchaseReturnDataModule;
+        PurchaseReturnDataModule Result = CreateTransformedDocument("PurchaseReturn", "Purchase Delivery Note", "ReturnedQuantity") as PurchaseReturnDataModule;
         if (Result == null)
             throw new TripousDataException("Cannot create a Purchase Return module.");
         return Result;
@@ -146,7 +146,7 @@ public class PurchaseDeliveryNoteDataModule: PurchaseStockDataModule
     public virtual PurchaseInvoiceDataModule CreateInvoice()
     {
         CheckCanCreateInvoice();
-        PurchaseInvoiceDataModule Result = CreateTransformedDocument("PurchaseInvoice", "Purchase Delivery Note", "InvoicedQuantity", "ExecutedQuantity") as PurchaseInvoiceDataModule;
+        PurchaseInvoiceDataModule Result = CreateTransformedDocument("PurchaseInvoice", "Purchase Delivery Note", "InvoicedQuantity") as PurchaseInvoiceDataModule;
         if (Result == null)
             throw new TripousDataException("Cannot create a Purchase Invoice module.");
         return Result;
@@ -183,11 +183,18 @@ public class PurchaseDeliveryNoteDataModule: PurchaseStockDataModule
                                         select count(*)
                                         from TradeLine
                                         where TradeId = :TradeId
-                                          and Quantity > InvoicedQuantity + ExecutedQuantity
+                                          and Quantity > InvoicedQuantity
                                         """, 0, new Dictionary<string, object>()
         {
             ["TradeId"] = CurrentRow.AsString("Id"),
         });
         return Count > 0;
+    }
+    /// <summary>
+    /// Returns true when the persisted delivery note has quantity that can still be returned.
+    /// </summary>
+    public override bool HasRemainingTransformQuantity()
+    {
+        return HasRemainingQuantity("ReturnedQuantity");
     }
 }

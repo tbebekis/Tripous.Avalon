@@ -10,7 +10,7 @@
     Title="First Application Run"
     Width="420"
     Height="400"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterOwner"
     CanResize="False">
  <Border Padding="24">
         <Grid RowDefinitions="Auto,Auto,* ,Auto"

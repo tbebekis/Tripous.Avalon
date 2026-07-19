@@ -159,7 +159,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
         set { if (fShowDataFormLog != value) { fShowDataFormLog = value; NotifyPropertyChanged(nameof(ShowDataFormLog)); } }
     }
     /// <summary>
-    /// When true then the <see cref="DataForm"/> FactBox pane is shown initially.
+    /// When true then the <see cref="DataForm"/> FactBox pane is available.
     /// </summary>
     public bool ShowDataFormFactBoxPane
     {

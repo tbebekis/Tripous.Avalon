@@ -11,7 +11,7 @@
     Width="500" 
     Height="640"
     SizeToContent="Manual"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterOwner"
     CanResize="False">
     <Border Padding="16">
         <DockPanel LastChildFill="True">

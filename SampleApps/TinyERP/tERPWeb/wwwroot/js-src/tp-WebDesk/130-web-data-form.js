@@ -1204,7 +1204,7 @@ tp.WebDataForm = class extends tp.WebForm {
         });
         this.FactBoxes = Packet && tp.IsArray(Packet.FactBoxes) ? Packet.FactBoxes : [];
         this.RenderFactBoxes(Packet ? Packet.Html || "" : "");
-        this.SetFactBoxPaneVisible(Packet && Packet.ShowPane === true && Packet.FactBoxCount > 0);
+        this.SetFactBoxPaneVisible(false);
     }
     /**
      * Renders the FactBox pane.

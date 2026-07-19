@@ -21,6 +21,8 @@ static internal partial class AppHost
     {
         SysConfig.ApplicationMode = ApplicationMode.Desktop;
         SysConfig.MainAssembly = typeof(AppHost).Assembly;
+        SysConfig.AppName = "tERP";
+        StartupMainWindow.SetApplicationTitle(SysConfig.AppName);
         
         //Db.Settings.LogSqlStatements = true;
     }
@@ -54,7 +56,7 @@ static internal partial class AppHost
             DbConnectionInfo CI = CreateDefaultConnectionInfo();
             Db.Connections.Add(CI);
             Db.Connections.Save();
-            await MessageBox.Info($"A default SQLite connection has been created.{Environment.NewLine}{Environment.NewLine}{CI.ConnectionString}", HiddenMainWindow);
+            await MessageBox.Info($"A default SQLite connection has been created.{Environment.NewLine}{Environment.NewLine}{CI.ConnectionString}", StartupMainWindow);
         }
     }
     /// <summary>
@@ -68,7 +70,7 @@ static internal partial class AppHost
         if (!Provider.DatabaseExists(ConnectionString) && Provider.CanCreateDatabases)
         {
             Provider.CreateDatabase(ConnectionString);
-            await MessageBox.Info($"An empty database has been created for connection '{ConnectionInfo.Name}'.{Environment.NewLine}{Environment.NewLine}{ConnectionString}", HiddenMainWindow);
+            await MessageBox.Info($"An empty database has been created for connection '{ConnectionInfo.Name}'.{Environment.NewLine}{Environment.NewLine}{ConnectionString}", StartupMainWindow);
         }
     }
     /// <summary>
@@ -226,20 +228,25 @@ static internal partial class AppHost
         bool Flag = true;
         
         AppHost.AvaloniaDesktop = AvaloniaDesktop;
-        Ui.MainWindow = AppHost.HiddenMainWindow;
+        Ui.MainWindow = AppHost.StartupMainWindow;
         
         try
         {
+            StartupMainWindow.SetMessage("Checking startup state...");
             InitializeConfigs();
 
+            StartupMainWindow.SetMessage("Loading database connection settings...");
             await LoadConnectionStrings();
+            StartupMainWindow.SetMessage("Checking database...");
             await CreateDatabases();
            
+            StartupMainWindow.SetMessage("Updating database schema...");
             Registry.RegisterSchemas();                 // Registers database schema versions
             Schemas.Execute();                          // Creates database tables etc. based on the registered schemas
 
             Store = SqlStores.CreateDefaultSqlStore();
             
+            StartupMainWindow.SetMessage("Loading application libraries...");
             LoadLibraries();
             TypeStore.RegisterLoadedAssemblies();
             Registry.RegisterDescriptors();             // Register data descriptors, i.e. commands, lookup sources, locators and modules.
@@ -247,17 +254,24 @@ static internal partial class AppHost
             
             InitializeLibraries();
             
+            StartupMainWindow.SetMessage("Checking users...");
             Flag = await EnsureAdminUser();
 
             if (Flag)
+            {
+                StartupMainWindow.SetMessage("Signing in...");
                 Flag = UseUsers() ? await LoginUser() : await AutoLoginUser();
+            }
             
             if (Flag)
             {
+                StartupMainWindow.SetMessage("Opening main window...");
                 RegisterCommands();
                 AppHost.MainWindow = new MainWindow();
                 Ui.MainWindow = AppHost.MainWindow;
+                AvaloniaDesktop.MainWindow = AppHost.MainWindow;
                 MainWindow.Show();
+                StartupMainWindow.Close();
             }
  
         }

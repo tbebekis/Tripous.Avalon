@@ -1567,6 +1567,7 @@ where DocumentType.ModuleName = 'PurchaseCancellation'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -1993,6 +1994,7 @@ where DocumentType.ModuleName = 'PurchaseCreditNote'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -2419,6 +2421,7 @@ where DocumentType.ModuleName = 'PurchaseDeliveryNote'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -2843,6 +2846,7 @@ where DocumentType.ModuleName = 'PurchaseInvoice'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -3269,6 +3273,7 @@ where DocumentType.ModuleName = 'PurchaseOrder'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -3695,6 +3700,7 @@ where DocumentType.ModuleName = 'PurchaseReturn'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -4121,6 +4127,7 @@ where DocumentType.ModuleName = 'SalesCancellation'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -4547,6 +4554,7 @@ where DocumentType.ModuleName = 'SalesCreditNote'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -4973,6 +4981,7 @@ where DocumentType.ModuleName = 'SalesDeliveryNote'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -5399,6 +5408,7 @@ where DocumentType.ModuleName = 'SalesInvoice'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -5825,6 +5835,7 @@ where DocumentType.ModuleName = 'SalesOrder'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
@@ -6251,6 +6262,7 @@ where DocumentType.ModuleName = 'SalesReturn'
         tblTradeLine.AddDecimal("ReservedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("ExecutedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("InvoicedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
+        tblTradeLine.AddDecimal("ReturnedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("CreditedQuantity", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddDecimal("TaxPercent", Decimals: 4, Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");
         tblTradeLine.AddBoolean("IsTaxExempt", Flags: FieldFlags.Required | FieldFlags.ReadOnlyUI).SetNullable(false).SetDefaultValue("0");

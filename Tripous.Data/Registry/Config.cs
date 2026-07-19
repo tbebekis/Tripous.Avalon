@@ -212,7 +212,7 @@ static public class Config
     /// </summary>
     public const string SSelectListRowLimit = "SelectListRowLimit";
     /// <summary>
-    /// The configuration property name used to show the DataForm FactBox pane initially.
+    /// The configuration property name used to enable the DataForm FactBox pane.
     /// </summary>
     public const string SShowDataFormFactBoxPane = "ShowDataFormFactBoxPane";
     /// <summary>

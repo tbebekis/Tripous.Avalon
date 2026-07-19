@@ -332,6 +332,190 @@ app.PurchaseDataModule = class extends app.TradeDataModule {
     }
 };
 
+// ● payment data module
+/**
+ * Client-side data module for payment document modules.
+ */
+app.PaymentDataModule = class extends tp.DataModule {
+    // ● constructor
+    /**
+     * Creates the payment data module.
+     * @param {string|object|null|undefined} NameOrSource The module name or a JsonDataModule source object.
+     */
+    constructor(NameOrSource) {
+        super(NameOrSource);
+        /**
+         * Latest payment amount adjustment message.
+         * @type {string}
+         */
+        this.AmountAdjustmentMessage = "";
+        /**
+         * True while payment totals are being calculated.
+         * @type {boolean}
+         */
+        this.fPaymentTotalsUpdating = false;
+        this.AttachPaymentTotals();
+    }
+
+    // ● protected
+    /**
+     * Rounds payment amounts.
+     * @param {*} Value The source value.
+     * @returns {number} Returns the rounded amount.
+     */
+    RoundAmount(Value) {
+        return Math.round(tp.StrToFloat(Value, 0) * 10000) / 10000;
+    }
+    /**
+     * Returns true when this module is a payment cancellation document.
+     * @returns {boolean} Returns true for payment cancellations.
+     */
+    IsPaymentCancellation() {
+        return tp.IsSameText(this.Name, "CustomerReceiptCancellation")
+            || tp.IsSameText(this.Name, "SupplierPaymentCancellation");
+    }
+    /**
+     * Returns a table by name.
+     * @param {string} TableName The table name.
+     * @returns {tp.DataTable|null} Returns the table or null.
+     */
+    FindPaymentTable(TableName) {
+        return this.DataSet instanceof tp.DataSet ? this.DataSet.FindTable(TableName) : null;
+    }
+    /**
+     * Sets a row value when the field exists.
+     * @param {tp.DataRow} Row The row.
+     * @param {string} FieldName The field name.
+     * @param {*} Value The field value.
+     * @returns {void}
+     */
+    SetPaymentRowValue(Row, FieldName, Value) {
+        if (Row instanceof tp.DataRow && Row.Table instanceof tp.DataTable && Row.Table.IndexOfColumn(FieldName) >= 0)
+            Row.Set(FieldName, Value);
+    }
+    /**
+     * Returns active settlement rows.
+     * @returns {tp.DataRow[]} Returns active settlement rows.
+     */
+    GetActiveSettlements() {
+        var Table = this.FindPaymentTable("PaymentSettlement");
+        if (!(Table instanceof tp.DataTable))
+            return [];
+        return Table.Rows.filter(function (Row) {
+            return Row instanceof tp.DataRow
+                && Row.State !== tp.DataRowState.Deleted
+                && Row.State !== tp.DataRowState.Detached;
+        });
+    }
+    /**
+     * Returns the settlement amount total.
+     * @returns {number} Returns the settlement amount total.
+     */
+    GetSettlementTotal() {
+        var Rows = this.GetActiveSettlements();
+        var Result = 0;
+        var Index;
+        for (Index = 0; Index < Rows.length; Index++)
+            Result += tp.StrToFloat(Rows[Index].Get("Amount"), 0);
+        return this.RoundAmount(Result);
+    }
+    /**
+     * Recalculates payment settlement totals.
+     * @returns {void}
+     */
+    CalculateTotals() {
+        var Row = this.Row;
+        var SettledAmount;
+        if (!(Row instanceof tp.DataRow) || this.fPaymentTotalsUpdating === true)
+            return;
+        this.fPaymentTotalsUpdating = true;
+        try {
+            SettledAmount = this.GetSettlementTotal();
+            this.SetPaymentRowValue(Row, "SettledAmount", SettledAmount);
+            this.SetPaymentRowValue(Row, "UnappliedAmount", this.RoundAmount(tp.StrToFloat(Row.Get("Amount"), 0) - SettledAmount));
+        } finally {
+            this.fPaymentTotalsUpdating = false;
+        }
+    }
+    /**
+     * Adjusts payment amount to settlement total when settlement lines exist.
+     * @returns {void}
+     */
+    AdjustAmountToSettlementTotal() {
+        var Row = this.Row;
+        var SettledAmount;
+        var Amount;
+        this.AmountAdjustmentMessage = "";
+        if (!(Row instanceof tp.DataRow) || this.IsPaymentCancellation() === true || this.GetActiveSettlements().length === 0)
+            return;
+        SettledAmount = this.GetSettlementTotal();
+        Amount = this.RoundAmount(Row.Get("Amount"));
+        if (Amount === SettledAmount)
+            return;
+        this.fPaymentTotalsUpdating = true;
+        try {
+            Row.Set("Amount", SettledAmount);
+        } finally {
+            this.fPaymentTotalsUpdating = false;
+        }
+        this.AmountAdjustmentMessage = "Payment amount was adjusted from " + Amount + " to " + SettledAmount + " to match settlement total.";
+    }
+    /**
+     * Handles payment row changes.
+     * @param {tp.DataTableEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandlePaymentRowModified(Args) {
+        var Table = Args instanceof tp.DataTableEventArgs ? Args.Table : null;
+        var Column = Args instanceof tp.DataTableEventArgs ? Args.Column : null;
+        if (this.fPaymentTotalsUpdating === true || !(Column instanceof tp.DataColumn))
+            return;
+        if ((Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "Payment") && tp.IsSameText(Column.Name, "Amount"))
+            || (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "PaymentSettlement") && tp.IsSameText(Column.Name, "Amount")))
+            this.CalculateTotals();
+    }
+    /**
+     * Attaches payment total handlers.
+     * @returns {void}
+     */
+    AttachPaymentTotals() {
+        var PaymentTable = this.FindPaymentTable("Payment");
+        var SettlementTable = this.FindPaymentTable("PaymentSettlement");
+        if (PaymentTable instanceof tp.DataTable && PaymentTable.fAppPaymentTotalsAttached !== true) {
+            PaymentTable.fAppPaymentTotalsAttached = true;
+            PaymentTable.On("RowModified", this.HandlePaymentRowModified, this);
+        }
+        if (SettlementTable instanceof tp.DataTable && SettlementTable.fAppPaymentTotalsAttached !== true) {
+            SettlementTable.fAppPaymentTotalsAttached = true;
+            SettlementTable.On("RowModified", this.HandlePaymentRowModified, this);
+            SettlementTable.On("RowAdded", this.CalculateTotals, this);
+            SettlementTable.On("RowRemoved", this.CalculateTotals, this);
+        }
+        this.CalculateTotals();
+    }
+
+    // ● public
+    /**
+     * Assigns values from a JsonDataModule source object.
+     * @param {object|null|undefined} Source The source object.
+     * @returns {void}
+     */
+    Assign(Source) {
+        super.Assign(Source);
+        this.AttachPaymentTotals();
+    }
+    /**
+     * Commits the current item.
+     * @returns {Promise<tp.DataModuleAction>} Returns the action.
+     */
+    async Commit() {
+        this.CalculateTotals();
+        this.AdjustAmountToSettlementTotal();
+        this.CalculateTotals();
+        return await super.Commit();
+    }
+};
+
 // ● document item page builder
 /**
  * Builds item pages for document forms and applies document-specific detail row defaults.
@@ -707,6 +891,8 @@ app.DocumentDataForm = class extends tp.WebDataForm {
             SourceId: this.GetDocumentRowValue(Row, "SourceId"),
             CancelsTradeId: this.GetDocumentRowValue(Row, "CancelsTradeId"),
             CancelledByTradeId: this.GetDocumentRowValue(Row, "CancelledByTradeId"),
+            CancelsStockTradeId: this.GetDocumentRowValue(Row, "CancelsStockTradeId"),
+            CancelledByStockTradeId: this.GetDocumentRowValue(Row, "CancelledByStockTradeId"),
             CancelledPaymentId: this.GetDocumentRowValue(Row, "CancelledPaymentId"),
             CancellationPaymentId: this.GetDocumentRowValue(Row, "CancellationPaymentId")
         };
@@ -725,6 +911,8 @@ app.DocumentDataForm = class extends tp.WebDataForm {
             || tp.IsSameText(DocumentId, Args.SourceId)
             || tp.IsSameText(DocumentId, Args.CancelsTradeId)
             || tp.IsSameText(DocumentId, Args.CancelledByTradeId)
+            || tp.IsSameText(DocumentId, Args.CancelsStockTradeId)
+            || tp.IsSameText(DocumentId, Args.CancelledByStockTradeId)
             || tp.IsSameText(DocumentId, Args.CancelledPaymentId)
             || tp.IsSameText(DocumentId, Args.CancellationPaymentId)
             || (tp.IsArray(Args.AffectedDocumentIds) && Args.AffectedDocumentIds.some((Id) => tp.IsSameText(DocumentId, Id)));
@@ -1111,6 +1299,112 @@ app.DocumentDataForm = class extends tp.WebDataForm {
     }
 };
 
+// ● stock trade form
+/**
+ * Web data form for Stock Transaction documents.
+ */
+app.StockTradeForm = class extends app.DocumentDataForm {
+    // ● constructor
+    /**
+     * Creates the Stock Transaction form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the main toolbar.
+     * @param {HTMLElement} Element The host element.
+     * @returns {void}
+     */
+    CreateToolBar(Element) {
+        super.CreateToolBar(Element);
+        this.AddToolBarButton("CreateCancellation", "Create Stock Cancellation", "document_torn.png");
+        if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateCancellation)
+            this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateCancellation);
+        this.UpdateToolBar();
+    }
+    /**
+     * Returns true when the current Stock Transaction can create a cancellation.
+     * @returns {boolean} Returns true when cancellation can be created.
+     */
+    CanCreateCancellation() {
+        var Row = this.Module instanceof tp.DataModule ? this.Module.Row : null;
+        return this.FormState === tp.WebDataFormState.Edit
+            && Row instanceof tp.DataRow
+            && this.HasChanges() !== true
+            && this.GetDocumentStatus() === 2
+            && this.IsDocumentCancelled() !== true
+            && tp.IsBlank(this.GetDocumentRowValue(Row, "CancelsStockTradeId"))
+            && tp.IsBlank(this.GetDocumentRowValue(Row, "CancelledByStockTradeId"));
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async HandleToolBarButtonClick(Args) {
+        var Command = Args ? Args.Command : "";
+        if (Command === "CreateCancellation")
+            await this.CreateCancellationAsync();
+        else
+            await super.HandleToolBarButtonClick(Args);
+    }
+    /**
+     * Enables or disables form commands.
+     * @returns {void}
+     */
+    EnableCommands() {
+        super.EnableCommands();
+        this.SetButtonVisible("CreateCancellation", true);
+        this.SetButtonEnabled("CreateCancellation", this.CanCreateCancellation());
+    }
+
+    // ● public
+    /**
+     * Creates a Stock Transaction cancellation from the current Stock Transaction.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CreateCancellationAsync() {
+        var Code;
+        var DocumentText;
+        var Packet;
+        var WebFormName;
+        var DataModulePacket;
+        if (this.CanCreateCancellation() !== true)
+            return;
+        Code = this.Module.Row.Get("Code", "");
+        DocumentText = tp.IsBlankString(Code) ? "Stock Transaction" : "Stock Transaction: " + Code;
+        if (await tp.YesNoBoxAsync("Create a cancellation for " + DocumentText + "?") !== true)
+            return;
+        try {
+            await this.ExecuteWithSpinner(async function () {
+                Packet = await tp.AjaxRequest.Execute("App.StockTrade.CreateCancellation", {
+                    ModuleName: this.ModuleName,
+                    DataModule: this.Module.toDataJSON()
+                });
+                WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : "";
+                DataModulePacket = Packet ? Packet.DataModule : null;
+                if (tp.IsBlankString(WebFormName))
+                    WebFormName = DataModulePacket && DataModulePacket.Name ? DataModulePacket.Name : "";
+                if (!DataModulePacket || tp.IsBlankString(WebFormName))
+                    throw new Error("Stock Cancellation data module was not returned.");
+                await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
+                    FormId: WebFormName + "." + tp.Guid(),
+                    Title: "Stock Cancellation",
+                    InitialDataModule: DataModulePacket,
+                    InitialFormState: tp.WebDataFormState.Insert
+                });
+                this.UiLog("Created Stock Cancellation from " + this.GetItemLogText(this.Module.Id));
+            });
+        } catch (e) {
+            this.ReportError("Create Stock Cancellation failed: " + tp.ExceptionText(e));
+        }
+    }
+};
+
 // ● trade data form
 /**
  * Base web data form for commercial trade document modules.
@@ -1380,7 +1674,7 @@ app.SalesDeliveryNoteForm = class extends app.SalesDataForm {
      */
     CanCreateReturn() {
         return this.CanCreateFromDeliveryNote()
-            && this.HasRemainingDeliveryQuantity(["ExecutedQuantity"]);
+            && this.HasRemainingDeliveryQuantity(["ReturnedQuantity"]);
     }
     /**
      * Returns true when a sales invoice can be created from the current delivery note.
@@ -1388,7 +1682,7 @@ app.SalesDeliveryNoteForm = class extends app.SalesDataForm {
      */
     CanCreateInvoice() {
         return this.CanCreateFromDeliveryNote()
-            && this.HasRemainingDeliveryQuantity(["InvoicedQuantity", "ExecutedQuantity"]);
+            && this.HasRemainingDeliveryQuantity(["InvoicedQuantity"]);
     }
     /**
      * Handles toolbar button clicks.
@@ -1868,7 +2162,7 @@ app.PurchaseDeliveryNoteForm = class extends app.PurchaseDataForm {
      */
     CanCreateReturn() {
         return this.CanCreateFromDeliveryNote()
-            && this.HasRemainingDeliveryQuantity(["ExecutedQuantity"]);
+            && this.HasRemainingDeliveryQuantity(["ReturnedQuantity"]);
     }
     /**
      * Returns true when a purchase invoice can be created from the current delivery note.
@@ -1876,7 +2170,7 @@ app.PurchaseDeliveryNoteForm = class extends app.PurchaseDataForm {
      */
     CanCreateInvoice() {
         return this.CanCreateFromDeliveryNote()
-            && this.HasRemainingDeliveryQuantity(["InvoicedQuantity", "ExecutedQuantity"]);
+            && this.HasRemainingDeliveryQuantity(["InvoicedQuantity"]);
     }
     /**
      * Handles toolbar button clicks.
@@ -2267,6 +2561,18 @@ app.PaymentForm = class extends app.PaymentDataForm {
     }
 
     // ● public
+    /**
+     * Saves the current payment and displays amount adjustment feedback.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async SaveAsync() {
+        await super.SaveAsync();
+        if (this.Module instanceof app.PaymentDataModule && !tp.IsBlankString(this.Module.AmountAdjustmentMessage) && this.HasChanges() !== true) {
+            this.UiLog(this.Module.AmountAdjustmentMessage);
+            tp.InfoNote(this.Module.AmountAdjustmentMessage);
+            this.Module.AmountAdjustmentMessage = "";
+        }
+    }
     /**
      * Creates a payment cancellation from the current payment.
      * @returns {Promise<void>} Returns a Promise.

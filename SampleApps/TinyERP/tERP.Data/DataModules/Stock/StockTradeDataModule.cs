@@ -51,6 +51,26 @@ public class StockTradeDataModule: DocumentDataModule
         Row.SetValue("PrimaryQuantity", PrimaryQuantity);
         Row.SetValue("CostAmount", Round(PrimaryQuantity * Row.AsDecimal("UnitCost")));
     }
+    /// <summary>
+    /// Applies a JSON contract object to this module before creating another document.
+    /// </summary>
+    void ApplyJsonSource(JsonDataModule Source)
+    {
+        if (Source == null)
+            throw new TripousArgumentNullException(nameof(Source));
+
+        State = (DataMode)Source.State;
+
+        tblItem.EventsDisabled = true;
+        try
+        {
+            JsonApplyTableRows(tblItem, Source);
+        }
+        finally
+        {
+            tblItem.EventsDisabled = false;
+        }
+    }
     /// <summary>Loads product snapshot and primary unit values into a line.</summary>
     void LoadProduct(DataRow Row)
     {
@@ -658,6 +678,16 @@ public class StockTradeDataModule: DocumentDataModule
             Line.SetValue("SourceStockTradeLineId", SourceLine["Id"]);
         }
 
+        return Result;
+    }
+    /// <summary>
+    /// Applies a JSON contract object and creates a stock transaction cancellation data module.
+    /// </summary>
+    public virtual JsonDataModule JsonCreateCancellation(JsonDataModule Source)
+    {
+        ApplyJsonSource(Source);
+        StockTradeDataModule CancellationModule = CreateCancellation();
+        JsonDataModule Result = new(CancellationModule);
         return Result;
     }
 }

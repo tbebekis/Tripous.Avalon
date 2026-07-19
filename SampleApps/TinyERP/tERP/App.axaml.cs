@@ -23,10 +23,10 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = AppHost.HiddenMainWindow; //new MainWindow();
+            desktop.MainWindow = AppHost.StartupMainWindow; //new MainWindow();
             desktop.MainWindow.Opened += async (s, e) =>
             {
-                await AppHost.Start(desktop);
+                await Dispatcher.UIThread.InvokeAsync(async () => await AppHost.Start(desktop), DispatcherPriority.Background);
             };
         }
     }

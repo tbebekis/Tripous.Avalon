@@ -23,6 +23,10 @@ public class PurchaseInvoiceDataModule: PurchaseDataModule
             throw new TripousBusinessException("No Purchase Invoice is selected.");
         if (HasChanges())
             throw new TripousBusinessException("Save or cancel the Purchase Invoice changes before creating a Purchase Credit Note.");
+        if ((TradeStatus)CurrentRow.AsInteger("TradeStatusId") != TradeStatus.Posted)
+            throw new TripousBusinessException("Only posted Purchase Invoices can create Purchase Credit Notes.");
+        if (CurrentRow.AsBoolean("IsCancelled"))
+            throw new TripousBusinessException("A cancelled Purchase Invoice cannot create a Purchase Credit Note.");
     }
     /// <summary>
     /// Validates that the current Purchase Invoice can create a Cancellation document.
@@ -33,6 +37,10 @@ public class PurchaseInvoiceDataModule: PurchaseDataModule
             throw new TripousBusinessException("No Purchase Invoice is selected.");
         if (HasChanges())
             throw new TripousBusinessException("Save or cancel the Purchase Invoice changes before creating a Purchase Cancellation.");
+        if ((TradeStatus)CurrentRow.AsInteger("TradeStatusId") != TradeStatus.Posted)
+            throw new TripousBusinessException("Only posted Purchase Invoices can create Purchase Cancellations.");
+        if (CurrentRow.AsBoolean("IsCancelled"))
+            throw new TripousBusinessException("A cancelled Purchase Invoice cannot create a Purchase Cancellation.");
         if (HasCreditedQuantity())
             throw new TripousBusinessException("A Purchase Invoice with posted Credit Notes cannot be cancelled.");
     }

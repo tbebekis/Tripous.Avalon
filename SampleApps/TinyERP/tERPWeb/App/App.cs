@@ -180,16 +180,19 @@ static public partial class App
         ConfigureDocumentWebForm("SalesInvoice", "app.SalesInvoiceForm", "app.SalesDataModule");
         ConfigureDocumentWebForm("SalesCreditNote", "app.SalesDataForm", "app.SalesDataModule");
         ConfigureDocumentWebForm("SalesCancellation", "app.SalesDataForm", "app.SalesDataModule");
-        ConfigureDocumentWebForm("CustomerReceipt", "app.PaymentForm", "");
-        ConfigureDocumentWebForm("CustomerReceiptCancellation", "app.PaymentCancellationForm", "");
+        ConfigureDocumentWebForm("CustomerReceipt", "app.PaymentForm", "app.PaymentDataModule");
+        ConfigureDocumentWebForm("CustomerReceiptCancellation", "app.PaymentCancellationForm", "app.PaymentDataModule");
         ConfigureDocumentWebForm("PurchaseOrder", "app.PurchaseOrderForm", "app.PurchaseDataModule");
         ConfigureDocumentWebForm("PurchaseDeliveryNote", "app.PurchaseDeliveryNoteForm", "app.PurchaseDataModule");
         ConfigureDocumentWebForm("PurchaseReturn", "app.PurchaseDataForm", "app.PurchaseDataModule");
         ConfigureDocumentWebForm("PurchaseInvoice", "app.PurchaseInvoiceForm", "app.PurchaseDataModule");
         ConfigureDocumentWebForm("PurchaseCreditNote", "app.PurchaseDataForm", "app.PurchaseDataModule");
         ConfigureDocumentWebForm("PurchaseCancellation", "app.PurchaseDataForm", "app.PurchaseDataModule");
-        ConfigureDocumentWebForm("SupplierPayment", "app.PaymentForm", "");
-        ConfigureDocumentWebForm("SupplierPaymentCancellation", "app.PaymentCancellationForm", "");
+        ConfigureDocumentWebForm("SupplierPayment", "app.PaymentForm", "app.PaymentDataModule");
+        ConfigureDocumentWebForm("SupplierPaymentCancellation", "app.PaymentCancellationForm", "app.PaymentDataModule");
+        ConfigureDocumentWebForm("StockTrade", "app.StockTradeForm", "");
+        ConfigureDocumentWebForm("StockCount", "app.DocumentDataForm", "");
+        ConfigureDocumentWebForm("JournalEntry", "app.DocumentDataForm", "");
     }
     /// <summary>
     /// Configures a single document web form.

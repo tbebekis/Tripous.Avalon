@@ -65,5 +65,5 @@ public class GroupGridColumnBinding: TripousBinding
     /// <summary>
     /// Gets a value indicating whether this binding points to a plain ID field.
     /// </summary>
-    public bool IsPlainId => FieldName.EndsWithText("Id") && !IsReference;
+    public bool IsPlainId => !string.IsNullOrWhiteSpace(FieldName) && (FieldName.IsSameText("Id") || FieldName.EndsWithText("Id")) && !IsReference;
 }

@@ -97,6 +97,8 @@ public class DocumentPostedInfo: EventArgs
             SourceId = GetString(Row, "SourceId"),
             CancelsTradeId = GetString(Row, "CancelsTradeId"),
             CancelledByTradeId = GetString(Row, "CancelledByTradeId"),
+            CancelsStockTradeId = GetString(Row, "CancelsStockTradeId"),
+            CancelledByStockTradeId = GetString(Row, "CancelledByStockTradeId"),
             CancelledPaymentId = GetString(Row, "CancelledPaymentId"),
             CancellationPaymentId = GetString(Row, "CancellationPaymentId")
         };
@@ -131,6 +133,8 @@ public class DocumentPostedInfo: EventArgs
         Result.SourceId = GetParam(Params, "SourceId");
         Result.CancelsTradeId = GetParam(Params, "CancelsTradeId");
         Result.CancelledByTradeId = GetParam(Params, "CancelledByTradeId");
+        Result.CancelsStockTradeId = GetParam(Params, "CancelsStockTradeId");
+        Result.CancelledByStockTradeId = GetParam(Params, "CancelledByStockTradeId");
         Result.CancelledPaymentId = GetParam(Params, "CancelledPaymentId");
         Result.CancellationPaymentId = GetParam(Params, "CancellationPaymentId");
         Result.AffectedDocumentIds.AddRange(GetStringListParam(Params, "AffectedDocumentIds"));
@@ -151,6 +155,8 @@ public class DocumentPostedInfo: EventArgs
             ["SourceId"] = SourceId,
             ["CancelsTradeId"] = CancelsTradeId,
             ["CancelledByTradeId"] = CancelledByTradeId,
+            ["CancelsStockTradeId"] = CancelsStockTradeId,
+            ["CancelledByStockTradeId"] = CancelledByStockTradeId,
             ["CancelledPaymentId"] = CancelledPaymentId,
             ["CancellationPaymentId"] = CancellationPaymentId,
             ["AffectedDocumentIds"] = AffectedDocumentIds,
@@ -168,6 +174,8 @@ public class DocumentPostedInfo: EventArgs
                    || DocumentId.IsSameText(SourceId)
                    || DocumentId.IsSameText(CancelsTradeId)
                    || DocumentId.IsSameText(CancelledByTradeId)
+                   || DocumentId.IsSameText(CancelsStockTradeId)
+                   || DocumentId.IsSameText(CancelledByStockTradeId)
                    || DocumentId.IsSameText(CancelledPaymentId)
                    || DocumentId.IsSameText(CancellationPaymentId)
                    || AffectedDocumentIds.Any(Item => DocumentId.IsSameText(Item)));
@@ -194,6 +202,14 @@ public class DocumentPostedInfo: EventArgs
     /// The cancellation document id, when present in the posted row.
     /// </summary>
     public string CancelledByTradeId { get; set; } = "";
+    /// <summary>
+    /// The cancelled Stock Transaction id, when the posted document cancels another Stock Transaction.
+    /// </summary>
+    public string CancelsStockTradeId { get; set; } = "";
+    /// <summary>
+    /// The Stock Transaction cancellation id, when present in the posted row.
+    /// </summary>
+    public string CancelledByStockTradeId { get; set; } = "";
     /// <summary>
     /// The cancelled payment id, when the posted payment cancels another payment.
     /// </summary>

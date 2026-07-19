@@ -15,7 +15,7 @@ static internal partial class AppHost
 #if DEBUG
         Sys.DebugMode = true;
 #endif
-        AppHost.HiddenMainWindow = new();
+        AppHost.StartupMainWindow = new();
         Sys.UiLogProc = Log;
     }
     // ● miscs
@@ -26,7 +26,7 @@ static internal partial class AppHost
     }
     
     // ● properties
-    static public HiddenMainWindow HiddenMainWindow { get; private set; }
+    static public StartupMainWindow StartupMainWindow { get; private set; }
     static public MainWindow MainWindow { get; private set; }
     static public IClassicDesktopStyleApplicationLifetime AvaloniaDesktop { get; private set; }
     static public AppFormPagerHandler SideBarHandler { get; private set; } // pagerSideBar

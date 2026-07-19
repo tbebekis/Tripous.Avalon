@@ -34,6 +34,7 @@ public partial class AppDefaultPropertiesEditor : UserControl, IConfigEditor
         "ReservedQuantity",
         "ExecutedQuantity",
         "InvoicedQuantity",
+        "ReturnedQuantity",
         "CreditedQuantity",
         "UnitPrice",
         "GrossAmount",

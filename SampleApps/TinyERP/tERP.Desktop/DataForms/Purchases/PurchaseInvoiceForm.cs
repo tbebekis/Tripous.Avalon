@@ -33,12 +33,13 @@ public class PurchaseInvoiceForm: DocumentDataForm
     /// </summary>
     protected virtual bool CanCreateCreditNote()
     {
-        return Module is PurchaseInvoiceDataModule
+        return Module is PurchaseInvoiceDataModule InvoiceModule
                && FormState == DataFormState.Edit
                && CurrentRow != null
                && !HasChanges()
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
-               && !CurrentRow.AsBoolean("IsCancelled");
+               && !CurrentRow.AsBoolean("IsCancelled")
+               && InvoiceModule.HasRemainingCreditQuantity();
     }
     /// <summary>
     /// Returns true when the current Purchase Invoice can create a Cancellation document.

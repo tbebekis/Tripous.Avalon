@@ -397,6 +397,7 @@ CREATE TABLE {TableName} (
     ReservedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity reserved by warehouse processes
     ExecutedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity already executed or fulfilled
     InvoicedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity already transformed into posted invoices
+    ReturnedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity already transformed into posted returns
     CreditedQuantity @DECIMAL default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Quantity already transformed into posted credit notes
 
     TaxPercent @DECIMAL_(9,4) default 0 @NOT_NULL,       -- [ReadOnlyUI] -- Aggregate effective percentage of all tax components

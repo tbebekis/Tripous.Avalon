@@ -168,15 +168,6 @@ Please restart the application.
         base.OnClosing(e);
         // TODO:
     }
-    protected override void OnClosed(EventArgs e)
-    {
-        base.OnClosed(e);
-        
-        Dispatcher.UIThread.Post(() => 
-        {  
-           AppHost.HiddenMainWindow.Close();  
-        }, DispatcherPriority.Background);  
-    }
 
 
     // ● construction

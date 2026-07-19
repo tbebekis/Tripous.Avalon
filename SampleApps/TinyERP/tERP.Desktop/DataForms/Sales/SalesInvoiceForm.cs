@@ -33,12 +33,13 @@ public class SalesInvoiceForm: DocumentDataForm
     /// </summary>
     protected virtual bool CanCreateCreditNote()
     {
-        return Module is SalesInvoiceDataModule
+        return Module is SalesInvoiceDataModule InvoiceModule
                && FormState == DataFormState.Edit
                && CurrentRow != null
                && !HasChanges()
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
-               && !CurrentRow.AsBoolean("IsCancelled");
+               && !CurrentRow.AsBoolean("IsCancelled")
+               && InvoiceModule.HasRemainingCreditQuantity();
     }
     /// <summary>
     /// Returns true when the current Sales Invoice can create a Cancellation document.

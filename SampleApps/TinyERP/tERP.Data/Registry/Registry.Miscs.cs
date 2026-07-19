@@ -302,9 +302,9 @@ where P.IsActive = 1
         DefaultValue = Db.Settings.DefaultRowLimit.ToString(CultureInfo.InvariantCulture);
         ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, Scopes: ConfigScopeFlags.System | ConfigScopeFlags.User);
 
-        // ● Show DataForm FactBox Pane
+        // ● Enable DataForm FactBox Pane
         Name = Config.SShowDataFormFactBoxPane;
-        TitleKey = "Show DataForm FactBox Pane";
+        TitleKey = "Enable DataForm FactBox Pane";
         SecurityLevel = UserLevel.User;
         Kind = ConfigValueKind.Boolean;
         DefaultValue = "true";
