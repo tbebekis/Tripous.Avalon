@@ -76,13 +76,13 @@ public class PurchaseInvoiceForm: DocumentDataForm
         PurchaseInvoiceDataModule InvoiceModule = (PurchaseInvoiceDataModule)Module;
         if (!InvoiceModule.HasRemainingCreditQuantity())
         {
-            await MessageBox.Info("The source document has no remaining quantity to credit.", this);
+            await MessageBox.Info(Texts.L("SourceDocumentHasNoRemainingQuantityToCredit", "The source document has no remaining quantity to credit."), this);
             return;
         }
 
         string Code = CurrentRow.AsString("Code");
-        string InvoiceText = string.IsNullOrWhiteSpace(Code) ? "Purchase Invoice" : $"Purchase Invoice: {Code}";
-        if (!await MessageBox.YesNo($"Create a Purchase Credit Note from {InvoiceText}?", this))
+        string InvoiceText = string.IsNullOrWhiteSpace(Code) ? Texts.L("PurchaseInvoice", "Purchase Invoice") : $"{Texts.L("PurchaseInvoice", "Purchase Invoice")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreatePurchaseCreditNoteFrom", "Create a Purchase Credit Note from")} {InvoiceText}?", this))
             return;
 
         PurchaseCreditNoteDataModule CreditNoteModule = InvoiceModule.CreateCreditNote();
@@ -101,8 +101,8 @@ public class PurchaseInvoiceForm: DocumentDataForm
 
         PurchaseInvoiceDataModule InvoiceModule = (PurchaseInvoiceDataModule)Module;
         string Code = CurrentRow.AsString("Code");
-        string InvoiceText = string.IsNullOrWhiteSpace(Code) ? "Purchase Invoice" : $"Purchase Invoice: {Code}";
-        if (!await MessageBox.YesNo($"Create a Supplier Payment from {InvoiceText}?", this))
+        string InvoiceText = string.IsNullOrWhiteSpace(Code) ? Texts.L("PurchaseInvoice", "Purchase Invoice") : $"{Texts.L("PurchaseInvoice", "Purchase Invoice")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreateSupplierPaymentFrom", "Create a Supplier Payment from")} {InvoiceText}?", this))
             return;
 
         PaymentDataModule PaymentModule = InvoiceModule.CreateSupplierPayment();
@@ -122,13 +122,13 @@ public class PurchaseInvoiceForm: DocumentDataForm
         PurchaseInvoiceDataModule InvoiceModule = (PurchaseInvoiceDataModule)Module;
         if (InvoiceModule.HasCreditedQuantity())
         {
-            await MessageBox.Info("A Purchase Invoice with posted Credit Notes cannot be cancelled.", this);
+            await MessageBox.Info(Texts.L("PurchaseInvoiceWithPostedCreditNotesCannotBeCancelled", "A Purchase Invoice with posted Credit Notes cannot be cancelled."), this);
             return;
         }
 
         string Code = CurrentRow.AsString("Code");
-        string InvoiceText = string.IsNullOrWhiteSpace(Code) ? "Purchase Invoice" : $"Purchase Invoice: {Code}";
-        if (!await MessageBox.YesNo($"Create a Purchase Cancellation from {InvoiceText}?", this))
+        string InvoiceText = string.IsNullOrWhiteSpace(Code) ? Texts.L("PurchaseInvoice", "Purchase Invoice") : $"{Texts.L("PurchaseInvoice", "Purchase Invoice")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreatePurchaseCancellationFrom", "Create a Purchase Cancellation from")} {InvoiceText}?", this))
             return;
 
         PurchaseCancellationDataModule CancellationModule = InvoiceModule.CreateCancellation();
@@ -173,11 +173,11 @@ public class PurchaseInvoiceForm: DocumentDataForm
         if (!base.CreateToolBar())
             return false;
 
-        BtnCreatePayment = ToolBar.AddButton("coins_delete.png", "Create Supplier Payment", async () => await ExecuteCustom(DocumentAction.CreatePayment));
+        BtnCreatePayment = ToolBar.AddButton("coins_delete.png", Texts.L("CreateSupplierPayment", "Create Supplier Payment"), async () => await ExecuteCustom(DocumentAction.CreatePayment));
         ToolBar.PlaceControlAfter(btnPost, BtnCreatePayment);
-        BtnCreateCreditNote = ToolBar.AddButton("document_redirect.png", "Create Purchase Credit Note", async () => await ExecuteCustom(DocumentAction.CreateCreditNote));
+        BtnCreateCreditNote = ToolBar.AddButton("document_redirect.png", Texts.L("CreatePurchaseCreditNote", "Create Purchase Credit Note"), async () => await ExecuteCustom(DocumentAction.CreateCreditNote));
         ToolBar.PlaceControlAfter(BtnCreatePayment, BtnCreateCreditNote);
-        BtnCreateCancellation = ToolBar.AddButton("document_torn.png", "Create Purchase Cancellation", async () => await ExecuteCustom(DocumentAction.CreateCancellation));
+        BtnCreateCancellation = ToolBar.AddButton("document_torn.png", Texts.L("CreatePurchaseCancellation", "Create Purchase Cancellation"), async () => await ExecuteCustom(DocumentAction.CreateCancellation));
         ToolBar.PlaceControlAfter(BtnCreateCreditNote, BtnCreateCancellation);
         return true;
     }

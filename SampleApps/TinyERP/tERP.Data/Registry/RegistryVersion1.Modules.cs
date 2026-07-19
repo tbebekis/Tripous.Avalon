@@ -953,23 +953,23 @@ from
         string SqlText;
         SqlText = @"
 select
-   Language.Id,
-   Language.Code,
-   Language.Name,
-   Language.CultureName,
-   Language.IsDefault,
-   Language.IsActive,
-   Language.IsRightToLeft,
-   Language.Color,
-   Language.IconName
+   SYS_LANG.Id,
+   SYS_LANG.Code,
+   SYS_LANG.Name,
+   SYS_LANG.CultureName,
+   SYS_LANG.IsDefault,
+   SYS_LANG.IsActive,
+   SYS_LANG.IsRightToLeft,
+   SYS_LANG.Color,
+   SYS_LANG.IconName
 from
-  Language
+  SYS_LANG
 ";
         Module = DataRegistry.AddOrUpdateModule("Language", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
             return;
         tblTop = Module.Table;
-        tblTop.Name = "Language";
+        tblTop.Name = "SYS_LANG";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
         tblTop.AddString("Code", MaxLength: 16, Flags: FieldFlags.Required | FieldFlags.ReadOnlyEdit).SetNullable(false);
@@ -1243,7 +1243,7 @@ from
     left join TaxBusinessGroup TaxBusinessGroup on TaxBusinessGroup.Id = Person.TaxBusinessGroupId
     left join Country Country on Country.Id = Person.CountryId
     left join Currency Currency on Currency.Id = Person.CurrencyId
-    left join Language Language on Language.Id = Person.LanguageId
+    left join SYS_LANG Language on Language.Id = Person.LanguageId
 ";
         Module = DataRegistry.AddOrUpdateModule("Person", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -1261,7 +1261,7 @@ from
         tblTop.AddStringLookupId("TaxBusinessGroupId", "TaxBusinessGroup", Flags: FieldFlags.None).SetNullable(true).SetGroup("Tax");
         tblTop.AddStringLookupId("CountryId", "Country", Flags: FieldFlags.None).SetNullable(true).SetGroup("Preferences");
         tblTop.AddStringLookupId("CurrencyId", "Currency", Flags: FieldFlags.None).SetNullable(true).SetGroup("Preferences");
-        tblTop.AddStringLookupId("LanguageId", "Language", Flags: FieldFlags.None).SetNullable(true).SetGroup("Preferences");
+        tblTop.AddStringLookupId("LanguageId", "SYS_LANG", Flags: FieldFlags.None).SetNullable(true).SetGroup("Preferences");
         tblTop.AddString("AddressLine1", MaxLength: 160, Flags: FieldFlags.None).SetNullable(true).SetGroup("Address");
         tblTop.AddString("AddressLine2", MaxLength: 160, Flags: FieldFlags.None).SetNullable(true).SetGroup("Address");
         tblTop.AddString("City", MaxLength: 96, Flags: FieldFlags.None).SetNullable(true).SetGroup("Address");
@@ -2061,10 +2061,13 @@ from
         SqlText = @"
 select
    SYS_STR_RES.Id,
-   SYS_STR_RES.Lang,
-   SYS_STR_RES.ResKey
+   SYS_STR_RES.LanguageId,
+   SYS_STR_RES.ResKey,
+   COALESCE(Language.Code, '') as Language__Code,
+   COALESCE(Language.Name, '') as Language__Name
 from
   SYS_STR_RES
+    left join SYS_LANG Language on Language.Id = SYS_STR_RES.LanguageId
 ";
         Module = DataRegistry.AddOrUpdateModule("ResourceStrings", ListSelectSql: SqlText);
         if (Module.Table.Fields.Count > 0)
@@ -2073,15 +2076,18 @@ from
         tblTop.Name = "SYS_STR_RES";
         tblTop.KeyField = "Id";
         tblTop.AddId("Id").SetNullable(false);
-        tblTop.AddString("Lang", MaxLength: 12, Flags: FieldFlags.Required).SetNullable(false);
+        tblTop.AddStringLookupId("LanguageId", "SYS_LANG", Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddString("ResKey", MaxLength: 96, Flags: FieldFlags.Required).SetNullable(false);
         tblTop.AddTextBlob("ResValue", Flags: FieldFlags.Required).SetNullable(false).SetMemo();
         SelectDef = Module.SelectList[0];
-        SelectDef.AddFilter("Lang", FieldName: "Lang", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Language__Code", FieldName: "Language__Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("Language__Name", FieldName: "Language__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ResKey", FieldName: "ResKey", FilterDataType: DataFieldType.String);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
-        SelectDef.ColumnTypes["Lang"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["LanguageId"] = DataColumnType.Text;
         SelectDef.ColumnTypes["ResKey"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Language__Code"] = DataColumnType.Text;
+        SelectDef.ColumnTypes["Language__Name"] = DataColumnType.Text;
     }
     static void RegisterModule_SalesPerson()
     {

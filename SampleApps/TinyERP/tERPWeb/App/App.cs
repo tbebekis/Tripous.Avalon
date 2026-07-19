@@ -173,6 +173,14 @@ static public partial class App
         if (!Form.CssFiles.Contains("/css/forms/database-workbench-form.css"))
             Form.CssFiles.Add("/css/forms/database-workbench-form.css");
 
+        Form = WebDeskRegistry.AddOrUpdateForm("ResourceTranslations", TitleKey: "ResourceTranslations", Module: string.Empty, ViewName: "/Views/WebForms/ResourceTranslations.cshtml", Group: "General", IsReadOnly: false, SecurityLevel: UserLevel.Admin);
+        Form.IsCustom = true;
+        Form.JsFormClassType = "app.ResourceTranslationsForm";
+        if (!Form.JavaScriptFiles.Contains("/js/forms/resource-translations-form.js"))
+            Form.JavaScriptFiles.Add("/js/forms/resource-translations-form.js");
+        if (!Form.CssFiles.Contains("/css/forms/resource-translations-form.css"))
+            Form.CssFiles.Add("/css/forms/resource-translations-form.css");
+
         RegisterDataModuleWebForms();
     }
     /// <summary>
@@ -279,6 +287,14 @@ static public partial class App
         DataLib.Initialize();
         WebLib.Initialize();
     }
+    /// <summary>
+    /// Applies string resource configuration.
+    /// </summary>
+    static void ApplySysStrResConfig()
+    {
+        string Value = Config.GetValue(Config.SSysStrResAutoInsertMissingKeys, ConfigScope.System, string.Empty);
+        SysStrRes.AutoInsertMissingKeys = Sys.AsBoolean(Value, true);
+    }
 
     // ● static public
     /// <summary>
@@ -297,9 +313,12 @@ static public partial class App
             RegisterSchemas();
             ExecuteSchemas();
             CreateDefaultSqlStore();
+            SysStrRes.Load(Store);
+            SysStrRes.RegisterLocalizer();
             LoadLibraries();
             RegisterTypes();
             RegisterDescriptors();
+            ApplySysStrResConfig();
             RegisterAjaxHandlers();
             InitializeLibraries();
 

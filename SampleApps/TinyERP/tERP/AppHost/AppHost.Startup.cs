@@ -56,7 +56,10 @@ static internal partial class AppHost
             DbConnectionInfo CI = CreateDefaultConnectionInfo();
             Db.Connections.Add(CI);
             Db.Connections.Save();
-            await MessageBox.Info($"A default SQLite connection has been created.{Environment.NewLine}{Environment.NewLine}{CI.ConnectionString}", StartupMainWindow);
+            await MessageBox.Info(string.Format(
+                Texts.L("DefaultSqliteConnectionCreated", "A default SQLite connection has been created.{0}{0}{1}"),
+                Environment.NewLine,
+                CI.ConnectionString), StartupMainWindow);
         }
     }
     /// <summary>
@@ -70,7 +73,11 @@ static internal partial class AppHost
         if (!Provider.DatabaseExists(ConnectionString) && Provider.CanCreateDatabases)
         {
             Provider.CreateDatabase(ConnectionString);
-            await MessageBox.Info($"An empty database has been created for connection '{ConnectionInfo.Name}'.{Environment.NewLine}{Environment.NewLine}{ConnectionString}", StartupMainWindow);
+            await MessageBox.Info(string.Format(
+                Texts.L("EmptyDatabaseCreatedForConnection", "An empty database has been created for connection '{1}'.{0}{0}{2}"),
+                Environment.NewLine,
+                ConnectionInfo.Name,
+                ConnectionString), StartupMainWindow);
         }
     }
     /// <summary>
@@ -102,6 +109,15 @@ static internal partial class AppHost
         DataLib.Initialize();
         DesktopLib.Initialize();
     }
+    static void ApplySysStrResConfig()
+    {
+        string Value = Config.GetValue(Config.SSysStrResAutoInsertMissingKeys, ConfigScope.System, string.Empty);
+        SysStrRes.AutoInsertMissingKeys = Sys.AsBoolean(Value, true);
+    }
+    static void ApplyUiConfig()
+    {
+        Ui.Settings.ShowDataFormFactBoxPane = Sys.AsBoolean(Config.GetValue(Config.SShowDataFormFactBoxPane), true);
+    }
 
     static async Task<bool> EnsureAdminUser()
     {
@@ -113,7 +129,7 @@ static internal partial class AppHost
             
             if (!Result)
             {
-                await MessageBox.Error("No Admin user. Terminating...", Ui.MainWindow);
+                await MessageBox.Error(Texts.L("NoAdminUserTerminating", "No Admin user. Terminating..."), Ui.MainWindow);
             }
             else
             {
@@ -143,13 +159,13 @@ static internal partial class AppHost
 
             if (User == null)
             {
-                BoxData.Message = "Invalid user name or password.";
+                BoxData.Message = Texts.L("InvalidUserNameOrPassword", "Invalid user name or password.");
                 continue;
             }
 
             if (!User.IsActive)
             {
-                BoxData.Message = "User account is disabled.";
+                BoxData.Message = Texts.L("UserAccountIsDisabled", "User account is disabled.");
                 continue;
             }
 
@@ -160,11 +176,12 @@ static internal partial class AppHost
 
             if (!Flag)
             {
-                BoxData.Message = "Invalid user name or password.";
+                BoxData.Message = Texts.L("InvalidUserNameOrPassword", "Invalid user name or password.");
                 continue;
             }
 
             User.CultureCode = BoxData.CultureCode;
+            User.LastLoginAt = Module.RecordLogin(User.Id, BoxData.CultureCode);
 
             Sys.Context.CurrentUser = User;
              
@@ -207,6 +224,7 @@ static internal partial class AppHost
         if (!User.IsActive)
             throw new TripousException($"Auto-login user is inactive: {UserName}");
 
+        User.LastLoginAt = Module.RecordLogin(User.Id, User.CultureCode);
         Sys.Context.CurrentUser = User;
 
         await Task.CompletedTask;
@@ -245,12 +263,15 @@ static internal partial class AppHost
             Schemas.Execute();                          // Creates database tables etc. based on the registered schemas
 
             Store = SqlStores.CreateDefaultSqlStore();
+            SysStrRes.Load(Store);
+            SysStrRes.RegisterLocalizer();
             
             StartupMainWindow.SetMessage("Loading application libraries...");
             LoadLibraries();
             TypeStore.RegisterLoadedAssemblies();
             Registry.RegisterDescriptors();             // Register data descriptors, i.e. commands, lookup sources, locators and modules.
             DesktopLib.RegisterDescriptors();           // Register desktop descriptors, i.e. forms.
+            ApplySysStrResConfig();
             
             InitializeLibraries();
             
@@ -266,6 +287,7 @@ static internal partial class AppHost
             if (Flag)
             {
                 StartupMainWindow.SetMessage("Opening main window...");
+                ApplyUiConfig();
                 RegisterCommands();
                 AppHost.MainWindow = new MainWindow();
                 Ui.MainWindow = AppHost.MainWindow;

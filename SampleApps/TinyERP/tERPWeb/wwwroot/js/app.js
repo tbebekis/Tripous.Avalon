@@ -182,9 +182,9 @@ app.MainPage = class extends tp.Component {
             ElementOrSelector: "#MainStatusBar",
             Items: [
                 { Name: "Application", Text: app.App.GetApplicationName(), Width: "200px", TextAlign: "left" },
-                { Name: "User", Text: "User: ", Width: "200px", TextAlign: "center" },
-                { Name: "Role", Text: "Role: ", Width: "240px", TextAlign: "center" },
-                { Name: "Message", Text: "Ready", Width: "1fr", TextAlign: "center" }
+                { Name: "User", Text: tp._L("User", "User") + ": ", Width: "200px", TextAlign: "center" },
+                { Name: "Role", Text: tp._L("Role", "Role") + ": ", Width: "240px", TextAlign: "center" },
+                { Name: "Message", Text: tp._L("Ready", "Ready"), Width: "1fr", TextAlign: "center" }
             ],
             DefaultItemName: "Message"
         });
@@ -197,10 +197,10 @@ app.MainPage = class extends tp.Component {
     InitializeLog() {
         if (tp.LogBox) {
             tp.LogBox.Initialize(this.LogTextArea, { MaxLines: 1000 });
-            tp.LogBox.AppendLine("Application Started.");
-            tp.LogBox.AppendLine("Ready.");
+            tp.LogBox.AppendLine(tp._L("ApplicationStarted", "Application Started."));
+            tp.LogBox.AppendLine(tp._L("Ready", "Ready") + ".");
         } else if (this.LogTextArea instanceof HTMLTextAreaElement) {
-            this.LogTextArea.value = "Application Started.\nReady.";
+            this.LogTextArea.value = tp._L("ApplicationStarted", "Application Started.") + "\n" + tp._L("Ready", "Ready") + ".";
         }
     }
     /**
@@ -279,19 +279,19 @@ app.MainPage = class extends tp.Component {
 
         try {
             if (this.StatusBar)
-                this.StatusBar.Message = "Pinging server...";
+                this.StatusBar.Message = tp._L("PingingServer", "Pinging server...");
 
             Packet = await tp.AjaxRequest.ExecuteAsync("App.Ping");
-            Text = "Ping response: " + JSON.stringify(Packet);
+            Text = tp._L("PingResponse", "Ping response") + ": " + JSON.stringify(Packet);
 
             if (tp.LogBox) {
-                tp.LogBox.AppendLine("Ping succeeded.");
+                tp.LogBox.AppendLine(tp._L("PingSucceeded", "Ping succeeded."));
                 tp.LogBox.AppendLine(Text);
             }
             if (this.StatusBar)
-                this.StatusBar.Message = "Ping OK";
+                this.StatusBar.Message = tp._L("PingOK", "Ping OK");
         } catch (e) {
-            Text = "Ping failed: " + tp.ExceptionText(e);
+            Text = tp._L("PingFailed", "Ping failed") + ": " + tp.ExceptionText(e);
 
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
@@ -309,10 +309,10 @@ app.MainPage = class extends tp.Component {
 
         try {
             if (this.StatusBar)
-                this.StatusBar.Message = "Loading web forms...";
+                this.StatusBar.Message = tp._L("LoadingWebForms", "Loading web forms...");
 
             Count = await app.App.LoadWebFormsAsync();
-            Text = "Loaded web forms: " + Count.toString();
+            Text = tp._L("LoadedWebForms", "Loaded web forms") + ": " + Count.toString();
 
             if (this.CommandTreeView)
                 this.CommandTreeView.Refresh();
@@ -321,7 +321,7 @@ app.MainPage = class extends tp.Component {
             if (this.StatusBar)
                 this.StatusBar.Message = Text;
         } catch (e) {
-            Text = "Load web forms failed: " + tp.ExceptionText(e);
+            Text = tp._L("LoadWebFormsFailed", "Load web forms failed") + ": " + tp.ExceptionText(e);
 
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
@@ -346,8 +346,8 @@ app.MainPage = class extends tp.Component {
         if (!this.StatusBar)
             return;
         this.StatusBar.SetText("Application", app.App.GetApplicationName());
-        this.StatusBar.SetText("User", "User: " + (Info.UserName || ""));
-        this.StatusBar.SetText("Role", "Role: " + (Info.UserLevel || ""));
+        this.StatusBar.SetText("User", tp._L("User", "User") + ": " + (Info.UserName || ""));
+        this.StatusBar.SetText("Role", tp._L("Role", "Role") + ": " + (Info.UserLevel || ""));
     }
     /**
      * Populates the left side bar tab control.
@@ -360,7 +360,7 @@ app.MainPage = class extends tp.Component {
         await this.SideBarHandler.OpenAsync("CommandTreeView").then(function (Page) {
             Self.CommandTreeView = Page && Page.AppComponent instanceof tp.WebForm ? Page.AppComponent : null;
         }).catch(function (e) {
-            var Text = "Open sidebar failed: " + tp.ExceptionText(e);
+            var Text = tp._L("OpenSidebarFailed", "Open sidebar failed") + ": " + tp.ExceptionText(e);
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
             if (Self.StatusBar)
@@ -369,7 +369,7 @@ app.MainPage = class extends tp.Component {
         await this.SideBarHandler.OpenAsync("DatabaseExplorer").then(function (Page) {
             Self.DatabaseExplorer = Page && Page.AppComponent instanceof tp.WebForm ? Page.AppComponent : null;
         }).catch(function (e) {
-            var Text = "Open database explorer failed: " + tp.ExceptionText(e);
+            var Text = tp._L("OpenDatabaseExplorerFailed", "Open database explorer failed") + ": " + tp.ExceptionText(e);
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
             if (Self.StatusBar)
@@ -425,7 +425,7 @@ app.MainPage = class extends tp.Component {
         this.LogPanel.style.display = IsVisible ? "none" : "";
         this.LogSplitter.Handle.style.display = IsVisible ? "none" : "";
         if (this.StatusBar)
-            this.StatusBar.Message = IsVisible ? "Log hidden." : "Log visible.";
+            this.StatusBar.Message = IsVisible ? tp._L("LogHidden", "Log hidden.") : tp._L("LogVisible", "Log visible.");
     }
 
     // ● properties
@@ -535,6 +535,7 @@ app.App = {
         "folder.png",
         "folder16.png",
         "item16.png",
+        "language.png",
         "lightning.png",
         "script_lightning.png",
         "setting_tools.png",
@@ -552,12 +553,13 @@ app.App = {
         if (this.CommandsRegistered === true)
             return;
 
-        var cmdDashboard = new tp.Command({ Name: "Dashboard", ImageFileName: "chart_bar.png", Form: "MainDashboard", Type: "Ui", IsSingleInstance: true });
-        var cmdApplicationSettings = new tp.Command({ Name: "Application Settings", ImageFileName: "setting_tools.png" });
-        var cmdChangePassword = new tp.Command({ Name: "Change Password", ImageFileName: "change_password.png" });
-        var cmdConnectionInfo = new tp.Command({ Name: "ConnectionInfo", ImageFileName: "database_edit.png" });
+        var cmdDashboard = new tp.Command({ Name: "Dashboard", Title: tp._L("Dashboard", "Dashboard"), ImageFileName: "chart_bar.png", Form: "MainDashboard", Type: "Ui", IsSingleInstance: true });
+        var cmdApplicationSettings = new tp.Command({ Name: "Application Settings", Title: tp._L("ApplicationSettings", "Application Settings"), ImageFileName: "setting_tools.png" });
+        var cmdChangePassword = new tp.Command({ Name: "Change Password", Title: tp._L("ChangePassword", "Change Password"), ImageFileName: "change_password.png" });
+        var cmdConnectionInfo = new tp.Command({ Name: "ConnectionInfo", Title: tp._L("ConnectionInfo", "Connection Info"), ImageFileName: "database_edit.png" });
         var cmdDatabaseWorkbench = new tp.Command({
             Name: "Database Workbench",
+            Title: tp._L("DatabaseWorkbench", "Database Workbench"),
             ImageFileName: "script_lightning.png",
             Form: "DatabaseWorkbench",
             Type: "Ui",
@@ -566,15 +568,30 @@ app.App = {
                 JsFormClassType: "app.DatabaseWorkbenchForm"
             }
         });
-        var cmdRegenerateDatabase = new tp.Command({ Name: "Regenerate Database", ImageFileName: "database_refresh.png" });
-        var cmdClose = new tp.Command({ Name: "Close", ImageFileName: "door_out.png" });
-        var cmdClearLog = new tp.Command({ Name: "Clear Log", ImageFileName: "bin.png" });
-        var cmdToggleLog = new tp.Command({ Name: "Toggle Log", ImageFileName: "error_log.png" });
-        var cmdToggleLogSqlStatements = new tp.Command({ Name: "Log Sql", ImageFileName: "file_extension_log.png", IsToggle: true });
-        var cmdPing = new tp.Command({ Name: "App.Ping", Title: "Ping", ImageFileName: "lightning.png" });
-        var cmdGeneral = new tp.Command("General");
+        var cmdResourceTranslations = new tp.Command({
+            Name: "Resource Translations",
+            Title: tp._L("ResourceTranslations", "Resource Translations"),
+            ImageFileName: "language.png",
+            Form: "ResourceTranslations",
+            Type: "Ui",
+            IsSingleInstance: true,
+            Params: {
+                JsFormClassType: "app.ResourceTranslationsForm"
+            }
+        });
+        var cmdRegenerateDatabase = new tp.Command({ Name: "Regenerate Database", Title: tp._L("RegenerateDatabase", "Regenerate Database"), ImageFileName: "database_refresh.png" });
+        var cmdClose = new tp.Command({ Name: "Close", Title: tp._L("Close", "Close"), ImageFileName: "door_out.png" });
+        var cmdClearLog = new tp.Command({ Name: "Clear Log", Title: tp._L("ClearLog", "Clear Log"), ImageFileName: "bin.png" });
+        var cmdToggleLog = new tp.Command({ Name: "Toggle Log", Title: tp._L("ToggleLog", "Toggle Log"), ImageFileName: "error_log.png" });
+        var cmdToggleLogSqlStatements = new tp.Command({ Name: "Log Sql", Title: tp._L("LogSql", "Log Sql"), ImageFileName: "file_extension_log.png", IsToggle: true });
+        var cmdPing = new tp.Command({ Name: "App.Ping", Title: tp._L("Ping", "Ping"), ImageFileName: "lightning.png" });
+        var cmdGeneral = new tp.Command({ Name: "General", Title: tp._L("General", "General") });
         var GeneralCommands = [cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdRegenerateDatabase, cmdClose];
         var ToolBarCommands = [cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdPing, cmdClose];
+        if (tp.CurrentUserIsAdmin === true) {
+            GeneralCommands.splice(6, 0, cmdResourceTranslations);
+            ToolBarCommands.splice(6, 0, cmdResourceTranslations);
+        }
 
         cmdGeneral.AddRange(GeneralCommands);
         this.MenuCommands.Add(cmdGeneral);
@@ -640,9 +657,46 @@ app.App = {
         var Packet = await tp.AjaxRequest.ExecuteAsync("App.GetStartupInfo");
         this.StartupInfo = Packet || {};
         tp.CurrentUserIsAdmin = this.StartupInfo.IsAdmin === true;
+        tp.ShowDataFormFactBoxPane = this.StartupInfo.ShowDataFormFactBoxPane !== false;
         if (this.StartupInfo && !tp.IsBlankString(this.StartupInfo.ApplicationName))
             this.ApplicationName = this.StartupInfo.ApplicationName;
+        this.ApplyStringResources(this.StartupInfo);
         return this.StartupInfo;
+    },
+    /**
+     * Applies server string resources to the Tripous language registry.
+     * @param {object|null|undefined} Packet The server packet.
+     * @returns {void}
+     */
+    ApplyStringResources: function (Packet) {
+        var Languages;
+        var Language;
+        var Current;
+        var Index;
+
+        if (!Packet)
+            return;
+
+        Languages = tp.IsArray(Packet.Languages) ? Packet.Languages : [];
+        for (Index = 0; Index < Languages.length; Index++) {
+            Language = Languages[Index];
+            tp.Languages.Add(Language.Name || "", Language.Code || "", Language.CultureName || "");
+        }
+
+        Current = tp.Languages.Find(Packet.CurrentLanguageCode || "");
+        if (Current) {
+            Current.AddStringList(Packet.StringResources || {});
+            tp.Languages.Current = Current;
+        }
+    },
+    /**
+     * Loads current string resources from the server.
+     * @returns {Promise<object>} Returns the server packet.
+     */
+    LoadStringResourcesAsync: async function () {
+        var Packet = await tp.AjaxRequest.ExecuteAsync("App.GetStringResources");
+        this.ApplyStringResources(Packet);
+        return Packet;
     },
     /**
      * Returns a user message for missing sample data versions.
@@ -650,9 +704,9 @@ app.App = {
      * @returns {string} Returns the message.
      */
     GetSampleDataMessage: function (Versions) {
-        var Text = "The following versions of sample data are not added to the database yet.\n\n";
+        var Text = tp._L("MissingSampleDataVersions", "The following versions of sample data are not added to the database yet.") + "\n\n";
         Text += Versions.join("\n");
-        Text += "\n\nDo you want to add those versions of sample data to the database?";
+        Text += "\n\n" + tp._L("ConfirmAddSampleDataVersions", "Do you want to add those versions of sample data to the database?");
         return Text;
     },
     /**
@@ -676,21 +730,21 @@ app.App = {
         if (Versions.length === 0)
             return true;
 
-        this.SetStartupMessage("Sample data is missing.");
+        this.SetStartupMessage(tp._L("SampleDataIsMissing", "Sample data is missing."));
         Confirmed = await tp.YesNoBoxAsync(this.GetSampleDataMessage(Versions));
         if (Confirmed !== true) {
-            this.SetStartupMessage("Sample data was not added.");
+            this.SetStartupMessage(tp._L("SampleDataWasNotAdded", "Sample data was not added."));
             return true;
         }
 
-        this.SetStartupMessage("Adding sample data. Please wait...");
+        this.SetStartupMessage(tp._L("AddingSampleDataPleaseWait", "Adding sample data. Please wait..."));
         this.SetStartupBusy(true);
         try {
             Packet = await this.AddSampleDataAsync();
         } finally {
             this.SetStartupBusy(false);
         }
-        Message = Packet && Packet.Message ? Packet.Message : "Sample data added.";
+        Message = Packet && Packet.Message ? Packet.Message : tp._L("SampleDataAdded", "Sample data added.");
         if (Packet && Packet.Success === true) {
             if (tp.IsFunction(tp.SuccessNote))
                 tp.SuccessNote(Message);
@@ -746,21 +800,23 @@ app.App = {
         var Packet;
         var NoteText;
         if (DialogData === null) {
-            this.SetStartupMessage("Login cancelled.");
+            this.SetStartupMessage(tp._L("LoginCancelled", "Login cancelled."));
             this.SetStartupLoginVisible(true);
             return;
         }
         Packet = await tp.AjaxRequest.ExecuteAsync("App.Login", DialogData);
         Message = Packet && Packet.Message ? Packet.Message : "";
         if (Packet && Packet.Success === true) {
-            NoteText = Message || "Login succeeded.";
+            tp.ShowDataFormFactBoxPane = Packet.ShowDataFormFactBoxPane !== false;
+            this.ApplyStringResources(Packet);
+            NoteText = Message || tp._L("LoginSucceeded", "Login succeeded.");
             if (tp.IsFunction(tp.SuccessNote))
                 tp.SuccessNote(NoteText);
             this.SetStartupLoginVisible(false);
             await this.OpenMainPageAfterStartupAsync();
             return;
         }
-        NoteText = Message || "Login failed.";
+        NoteText = Message || tp._L("LoginFailed", "Login failed.");
         if (tp.IsFunction(tp.ErrorNote))
             tp.ErrorNote(NoteText);
         this.SetStartupMessage(NoteText);
@@ -779,7 +835,7 @@ app.App = {
         var Message = "";
 
         if (tp("#AppShell")) {
-            this.Initialize();
+            await this.Initialize();
             return;
         }
 
@@ -788,14 +844,14 @@ app.App = {
 
         try {
             while (true) {
-                this.SetStartupMessage("Checking startup state...");
+                this.SetStartupMessage(tp._L("CheckingStartupState", "Checking startup state..."));
                 Info = await this.LoadStartupInfoAsync();
 
                 if (Info.RequiresFirstRun === true) {
-                    this.SetStartupMessage("First run setup is required.");
+                    this.SetStartupMessage(tp._L("FirstRunSetupIsRequired", "First run setup is required."));
                     DialogData = await this.ShowFirstRunDialogAsync(Info, Message);
                     if (DialogData === null) {
-                        this.SetStartupMessage("No Admin user. Terminating...");
+                        this.SetStartupMessage(tp._L("NoAdminUserTerminating", "No Admin user. Terminating..."));
                         return;
                     }
                     Packet = await tp.AjaxRequest.ExecuteAsync("App.CreateFirstRunAdmin", DialogData);
@@ -808,17 +864,17 @@ app.App = {
                 }
 
                 if (Info.UseUsers === true && Info.IsAuthenticated !== true) {
-                    this.SetStartupMessage(Message || "Login is required.");
+                    this.SetStartupMessage(Message || tp._L("LoginIsRequired", "Login is required."));
                     tp.On("#AppStartupLoginButton", tp.Events.Click, function () {
                         app.App.SetStartupLoginVisible(false);
                         app.App.StartupLoginAsync(Info, Message).catch(function (e) {
-                            app.App.SetStartupMessage("Startup failed: " + tp.ExceptionText(e));
+                            app.App.SetStartupMessage(tp._L("StartupFailed", "Startup failed") + ": " + tp.ExceptionText(e));
                             app.App.SetStartupLoginVisible(true);
                         });
                     });
                     this.SetStartupLoginVisible(false);
                     this.StartupLoginAsync(Info, Message).catch(function (e) {
-                        app.App.SetStartupMessage("Startup failed: " + tp.ExceptionText(e));
+                        app.App.SetStartupMessage(tp._L("StartupFailed", "Startup failed") + ": " + tp.ExceptionText(e));
                         app.App.SetStartupLoginVisible(true);
                     });
                     return;
@@ -828,7 +884,7 @@ app.App = {
                 return;
             }
         } catch (e) {
-            this.SetStartupMessage("Startup failed: " + tp.ExceptionText(e));
+            this.SetStartupMessage(tp._L("StartupFailed", "Startup failed") + ": " + tp.ExceptionText(e));
         }
     },
     /**
@@ -844,7 +900,7 @@ app.App = {
         if (CanContinue !== true)
             return;
 
-        this.SetStartupMessage("Opening main page...");
+        this.SetStartupMessage(tp._L("OpeningMainPage", "Opening main page..."));
         setTimeout(function () {
             tp.NavigateTo("/Home/MainPage");
         }, 600);
@@ -902,7 +958,7 @@ app.App = {
         if (!(this.MainPage && this.MainPage.PageHandler) || tp.IsBlankString(ConnectionName))
             return;
         this.InteractiveSqlCounter++;
-        Title = "Interactive SQL - " + ConnectionName;
+        Title = tp._L("InteractiveSQL", "Interactive SQL") + " - " + ConnectionName;
         Options = {
             FormId: "InteractiveSql." + ConnectionName + "." + this.InteractiveSqlCounter.toString(),
             ConnectionName: ConnectionName,
@@ -1011,7 +1067,7 @@ app.App = {
         var Dialog;
 
         if (!(Element instanceof HTMLElement))
-            throw new Error("Cannot create server dialog. No root element found.");
+            throw new Error(tp._L("CannotCreateServerDialogNoRoot", "Cannot create server dialog. No root element found."));
 
         Params = new tp.CreateParams(tp.GetDataSetupObject(Element) || {});
         CssFiles = tp.IsArray(Params.CssFiles) ? Params.CssFiles : (tp.IsArray(Params.CSS) ? Params.CSS : []);
@@ -1024,7 +1080,7 @@ app.App = {
         try {
             Type = tp.WebForm.ResolveGlobalName(ClassName);
             if (!tp.IsFunction(Type))
-                throw new Error("Cannot create server dialog. No JavaScript class type is specified.");
+                throw new Error(tp._L("CannotCreateServerDialogNoClass", "Cannot create server dialog. No JavaScript class type is specified."));
             Dialog = new Type({
                 Html: Html,
                 RootElement: Element,
@@ -1033,7 +1089,7 @@ app.App = {
                 JavaScriptFiles: JavaScriptFiles
             });
             if (!tp.IsFunction(Dialog.ShowAsync))
-                throw new Error("Cannot create server dialog. The specified class has no ShowAsync() method.");
+                throw new Error(tp._L("CannotCreateServerDialogNoShowAsync", "Cannot create server dialog. The specified class has no ShowAsync() method."));
             return Dialog;
         } catch (e) {
             tp.StaticFiles.UnLoadJavascriptFiles(JavaScriptFiles);
@@ -1073,7 +1129,7 @@ app.App = {
      */
     ShowApplicationSettingsDialog: function () {
         this.ShowApplicationSettingsDialogAsync().catch(function (e) {
-            var Text = "Application settings failed: " + tp.ExceptionText(e);
+            var Text = tp._L("ApplicationSettingsFailed", "Application settings failed") + ": " + tp.ExceptionText(e);
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
             if (app.App.MainPage && app.App.MainPage.StatusBar)
@@ -1101,7 +1157,7 @@ app.App = {
      */
     ShowChangePasswordDialog: function () {
         this.ShowChangePasswordDialogAsync().catch(function (e) {
-            var Text = "Change password failed: " + tp.ExceptionText(e);
+            var Text = tp._L("ChangePasswordFailed", "Change password failed") + ": " + tp.ExceptionText(e);
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
             if (app.App.MainPage && app.App.MainPage.StatusBar)
@@ -1129,7 +1185,7 @@ app.App = {
      */
     ShowConnectionInfoDialog: function () {
         this.ShowConnectionInfoDialogAsync().catch(function (e) {
-            var Text = "Connection info failed: " + tp.ExceptionText(e);
+            var Text = tp._L("ConnectionInfoFailed", "Connection info failed") + ": " + tp.ExceptionText(e);
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
             if (app.App.MainPage && app.App.MainPage.StatusBar)
@@ -1141,7 +1197,7 @@ app.App = {
      * @returns {Promise<object>} Returns the operation packet.
      */
     RegenerateDatabaseAsync: async function () {
-        var Message = "This will delete and recreate the sample Sqlite database.\n\nContinue?";
+        var Message = tp._L("ConfirmRegenerateWebDatabase", "This will delete and recreate the sample Sqlite database.") + "\n\n" + tp._L("Continue", "Continue?");
         var Confirmed = await tp.YesNoBoxAsync(Message);
         if (Confirmed !== true)
             return null;
@@ -1156,7 +1212,7 @@ app.App = {
             var Text;
             if (Packet === null)
                 return;
-            Text = Packet.Message || "The sample Sqlite database has been deleted. Restart the tERPWeb server process.";
+            Text = Packet.Message || tp._L("WebDatabaseDeletedRestartServer", "The sample Sqlite database has been deleted. Restart the tERPWeb server process.");
             if (tp.IsFunction(tp.InfoBox))
                 tp.InfoBox(Text);
             if (tp.IsFunction(tp.InfoNote))
@@ -1166,7 +1222,7 @@ app.App = {
             if (app.App.MainPage && app.App.MainPage.StatusBar)
                 app.App.MainPage.StatusBar.Message = Text;
         }).catch(function (e) {
-            var Text = "Regenerate database failed: " + tp.ExceptionText(e);
+            var Text = tp._L("RegenerateDatabaseFailed", "Regenerate database failed") + ": " + tp.ExceptionText(e);
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
             if (tp.IsFunction(tp.ErrorNote))
@@ -1188,7 +1244,7 @@ app.App = {
      */
     ToggleLogSql: function () {
         this.ToggleLogSqlAsync().then(function (Packet) {
-            var Text = Packet && Packet.Message ? Packet.Message : "SQL Statements Logging changed.";
+            var Text = Packet && Packet.Message ? Packet.Message : tp._L("SqlStatementsLoggingChanged", "SQL Statements Logging changed.");
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
             if (app.App.MainPage && app.App.MainPage.StatusBar)
@@ -1196,7 +1252,7 @@ app.App = {
             if (tp.IsFunction(tp.InfoNote))
                 tp.InfoNote(Text);
         }).catch(function (e) {
-            var Text = "Log Sql failed: " + tp.ExceptionText(e);
+            var Text = tp._L("LogSqlFailed", "Log Sql failed") + ": " + tp.ExceptionText(e);
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
             if (app.App.MainPage && app.App.MainPage.StatusBar)
@@ -1213,7 +1269,7 @@ app.App = {
         if (tp.LogBox)
             tp.LogBox.Clear();
         if (this.MainPage && this.MainPage.StatusBar)
-            this.MainPage.StatusBar.Message = "Log cleared.";
+            this.MainPage.StatusBar.Message = tp._L("LogCleared", "Log cleared.");
     },
     /**
      * Loads web forms from the server and creates command groups.
@@ -1240,6 +1296,7 @@ app.App = {
         var Index;
         var Form;
         var GroupName;
+        var GroupTitle;
         var GroupCommandName;
         var GroupCommand;
         var Groups = {};
@@ -1255,11 +1312,12 @@ app.App = {
             if (tp.IsBlankString(Form.JsFormClassType))
                 continue;
             GroupName = !tp.IsBlankString(Form.Group) ? Form.Group : "General Forms";
+            GroupTitle = !tp.IsBlankString(Form.Group) ? Form.Group : tp._L("GeneralForms", "General Forms");
             GroupCommandName = "WebForms." + GroupName;
             GroupCommand = Groups[GroupCommandName];
 
             if (!GroupCommand) {
-                GroupCommand = new tp.Command({ Name: GroupCommandName, Title: GroupName, ImageFileName: "folder.png" });
+                GroupCommand = new tp.Command({ Name: GroupCommandName, Title: GroupTitle, ImageFileName: "folder.png" });
                 Groups[GroupCommandName] = GroupCommand;
                 this.WebFormGroupCommandNames.push(GroupCommandName);
                 this.MenuCommands.Add(GroupCommand);
@@ -1294,7 +1352,7 @@ app.App = {
         var GroupCommand;
 
         this.MenuCommands.Remove("Views");
-        GroupCommand = new tp.Command({ Name: "Views", Title: "Views", ImageFileName: "folder.png" });
+        GroupCommand = new tp.Command({ Name: "Views", Title: tp._L("Views", "Views"), ImageFileName: "folder.png" });
         this.MenuCommands.Add(GroupCommand);
 
         for (Index = 0; Index < Views.length; Index++) {
@@ -1410,7 +1468,7 @@ app.App = {
         else if (Command.IsUiCommand() && this.MainPage && this.MainPage.PageHandler)
             this.MainPage.PageHandler.Open(Command.Form, Command.Params || null);
         else if (tp.LogBox)
-            tp.LogBox.AppendLine("Command executed: " + Command.Name);
+            tp.LogBox.AppendLine(tp._L("CommandExecuted", "Command executed") + ": " + Command.Name);
     },
     /**
      * Reports a command that is visible but not yet implemented.
@@ -1418,7 +1476,7 @@ app.App = {
      * @returns {void}
      */
     ReportCommandNotAvailable: function (Command) {
-        var Text = "Web form is not available yet: " + (Command.Title || Command.Name);
+        var Text = tp._L("WebFormIsNotAvailableYet", "Web form is not available yet") + ": " + (Command.Title || Command.Name);
         if (tp.LogBox)
             tp.LogBox.AppendLine(Text);
         if (this.MainPage && this.MainPage.StatusBar)
@@ -1432,7 +1490,7 @@ app.App = {
         this.LogoutAsync().then(function () {
             tp.NavigateTo("/Home/Startup");
         }).catch(function (e) {
-            var Text = "Close failed: " + tp.ExceptionText(e);
+            var Text = tp._L("CloseFailed", "Close failed") + ": " + tp.ExceptionText(e);
             if (tp.LogBox)
                 tp.LogBox.AppendLine(Text);
             if (app.App.MainPage && app.App.MainPage.StatusBar)
@@ -1469,6 +1527,8 @@ app.App = {
             return "fa fa-database";
         if (Command.Name === "Database Workbench")
             return "fa fa-database";
+        if (Command.Name === "Resource Translations")
+            return "fa fa-language";
         if (Command.Name === "Regenerate Database")
             return "fa fa-rotate";
         return "fa fa-circle";
@@ -1498,18 +1558,18 @@ app.App = {
      * Initializes the application.
      * @returns {void}
      */
-    Initialize: function () {
+    Initialize: async function () {
         if (this.MainPage !== null)
             return;
+        try {
+            await this.LoadStartupInfoAsync();
+        } catch (e) {
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(tp._L("LoadStartupInfoFailed", "Load startup info failed") + ": " + tp.ExceptionText(e));
+        }
         this.RegisterCommands();
         this.MainPage = new app.MainPage("#AppShell");
-        this.LoadStartupInfoAsync().then(function (Info) {
-            if (app.App.MainPage)
-                app.App.MainPage.UpdateStatusInfo(Info);
-        }).catch(function (e) {
-            if (tp.LogBox)
-                tp.LogBox.AppendLine("Load startup info failed: " + tp.ExceptionText(e));
-        });
+        this.MainPage.UpdateStatusInfo(this.StartupInfo);
         this.MainPage.LoadWebForms();
     }
 };

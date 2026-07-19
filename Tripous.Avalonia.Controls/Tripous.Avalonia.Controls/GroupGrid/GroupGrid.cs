@@ -2853,6 +2853,11 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     }
     void EndColumnDrag()
     {
+        bool IsHeaderClick = fIsColumnDragging
+                             && !fIsColumnDragActive
+                             && !fColumnDragFromGroupPanel
+                             && fColumnDragColumn != null;
+
         if (fIsColumnDragActive)
         {
             if (fColumnDragFromGroupPanel && fColumnDragDropIndex >= 0)
@@ -2867,6 +2872,10 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
                 fEngine.SetColumnVisible(fColumnDragColumn, false);
             else
                 MoveDraggedColumn();
+        }
+        else if (IsHeaderClick)
+        {
+            fEngine.ToggleSort(fColumnDragColumn);
         }
 
         fIsColumnDragging = false;

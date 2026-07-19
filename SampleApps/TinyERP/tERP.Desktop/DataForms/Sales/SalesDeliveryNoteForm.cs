@@ -62,13 +62,13 @@ public class SalesDeliveryNoteForm : DocumentDataForm
         SalesDeliveryNoteDataModule DeliveryNoteModule = (SalesDeliveryNoteDataModule)Module;
         if (!DeliveryNoteModule.HasRemainingTransformQuantity())
         {
-            await MessageBox.Info("The source document has no remaining quantity to transform.", this);
+            await MessageBox.Info(Texts.L("SourceDocumentHasNoRemainingQuantityToTransform", "The source document has no remaining quantity to transform."), this);
             return;
         }
 
         string Code = CurrentRow.AsString("Code");
-        string DeliveryText = string.IsNullOrWhiteSpace(Code) ? "Sales Delivery Note" : $"Sales Delivery Note: {Code}";
-        if (!await MessageBox.YesNo($"Create a Sales Return from {DeliveryText}?", this))
+        string DeliveryText = string.IsNullOrWhiteSpace(Code) ? Texts.L("SalesDeliveryNote", "Sales Delivery Note") : $"{Texts.L("SalesDeliveryNote", "Sales Delivery Note")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreateSalesReturnFrom", "Create a Sales Return from")} {DeliveryText}?", this))
             return;
 
         SalesReturnDataModule ReturnModule = DeliveryNoteModule.CreateReturn();
@@ -88,13 +88,13 @@ public class SalesDeliveryNoteForm : DocumentDataForm
         SalesDeliveryNoteDataModule DeliveryNoteModule = (SalesDeliveryNoteDataModule)Module;
         if (!DeliveryNoteModule.HasRemainingInvoiceQuantity())
         {
-            await MessageBox.Info("The source document has no remaining quantity to invoice.", this);
+            await MessageBox.Info(Texts.L("SourceDocumentHasNoRemainingQuantityToInvoice", "The source document has no remaining quantity to invoice."), this);
             return;
         }
 
         string Code = CurrentRow.AsString("Code");
-        string DeliveryText = string.IsNullOrWhiteSpace(Code) ? "Sales Delivery Note" : $"Sales Delivery Note: {Code}";
-        if (!await MessageBox.YesNo($"Create a Sales Invoice from {DeliveryText}?", this))
+        string DeliveryText = string.IsNullOrWhiteSpace(Code) ? Texts.L("SalesDeliveryNote", "Sales Delivery Note") : $"{Texts.L("SalesDeliveryNote", "Sales Delivery Note")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreateSalesInvoiceFrom", "Create a Sales Invoice from")} {DeliveryText}?", this))
             return;
 
         SalesInvoiceDataModule InvoiceModule = DeliveryNoteModule.CreateInvoice();
@@ -135,9 +135,9 @@ public class SalesDeliveryNoteForm : DocumentDataForm
         if (!base.CreateToolBar())
             return false;
 
-        btnCreateReturn = ToolBar.AddButton("document_redirect.png", "Create Sales Return", async () => await ExecuteCustom(DocumentAction.CreateReturn));
+        btnCreateReturn = ToolBar.AddButton("document_redirect.png", Texts.L("CreateSalesReturn", "Create Sales Return"), async () => await ExecuteCustom(DocumentAction.CreateReturn));
         ToolBar.PlaceControlAfter(btnPost, btnCreateReturn);
-        btnCreateInvoice = ToolBar.AddButton("document_export.png", "Create Sales Invoice", async () => await ExecuteCustom(DocumentAction.CreateInvoice));
+        btnCreateInvoice = ToolBar.AddButton("document_export.png", Texts.L("CreateSalesInvoice", "Create Sales Invoice"), async () => await ExecuteCustom(DocumentAction.CreateInvoice));
         ToolBar.PlaceControlAfter(btnCreateReturn, btnCreateInvoice);
         return true;
     }

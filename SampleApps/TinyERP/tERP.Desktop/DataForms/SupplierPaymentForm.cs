@@ -42,8 +42,8 @@ public class SupplierPaymentForm : DocumentDataForm
         if (!CanCreateCancellation())
             return;
         string Code = CurrentRow.AsString("Code");
-        string PaymentText = string.IsNullOrWhiteSpace(Code) ? "Supplier Payment" : $"Supplier Payment: {Code}";
-        if (!await MessageBox.YesNo($"Create a Supplier Payment Cancellation from {PaymentText}?", this))
+        string PaymentText = string.IsNullOrWhiteSpace(Code) ? Texts.L("SupplierPayment", "Supplier Payment") : $"{Texts.L("SupplierPayment", "Supplier Payment")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreateSupplierPaymentCancellationFrom", "Create a Supplier Payment Cancellation from")} {PaymentText}?", this))
             return;
         PaymentDataModule CancellationModule = ((PaymentDataModule)Module).CreateCancellation();
         DataFormContext Context = DataFormContext.Create("SupplierPaymentCancellation", CancellationModule, this);
@@ -85,7 +85,7 @@ public class SupplierPaymentForm : DocumentDataForm
     {
         if (!base.CreateToolBar())
             return false;
-        BtnCreateCancellation = ToolBar.AddButton("document_torn.png", "Create Supplier Payment Cancellation", async () => await ExecuteCustom(DocumentAction.CreateCancellation));
+        BtnCreateCancellation = ToolBar.AddButton("document_torn.png", Texts.L("CreateSupplierPaymentCancellation", "Create Supplier Payment Cancellation"), async () => await ExecuteCustom(DocumentAction.CreateCancellation));
         ToolBar.PlaceControlAfter(btnPost, BtnCreateCancellation);
         return true;
     }

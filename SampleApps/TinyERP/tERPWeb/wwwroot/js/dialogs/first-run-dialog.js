@@ -75,7 +75,7 @@ app.FirstRunDialog = class {
         Packet = Packet || {};
         var Self = this;
         var Args = {
-            Text: "First Application Run",
+            Text: tp._L("FirstApplicationRun", "First Application Run"),
             Width: 420,
             Height: 400,
             ResizeEdges: tp.Edge.None,

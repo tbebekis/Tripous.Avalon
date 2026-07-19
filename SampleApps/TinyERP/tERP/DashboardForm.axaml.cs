@@ -21,9 +21,21 @@ public partial class DashboardForm : AppForm
     {
         fToolBar = new();
         fToolBar.Panel = pnlToolBar;
-        fToolBar.AddButton("table_refresh.png", "Refresh", async () => await RefreshDashboard());
+        fToolBar.AddButton("table_refresh.png", Texts.L("Refresh", "Refresh"), async () => await RefreshDashboard());
         fToolBar.AddSeparator();
-        fToolBar.AddButton("door_out.png", "Close", CloseForm);
+        fToolBar.AddButton("door_out.png", Texts.L("Close", "Close"), CloseForm);
+    }
+    void ApplyTexts()
+    {
+        lblSales.Text = Texts.L("Sales", "Sales");
+        lblPurchases.Text = Texts.L("Purchases", "Purchases");
+        lblStockValue.Text = Texts.L("StockValue", "Stock Value");
+        lblReceivables.Text = Texts.L("Receivables", "Receivables");
+        lblPayables.Text = Texts.L("Payables", "Payables");
+        lblCashBank.Text = Texts.L("CashBank", "Cash / Bank");
+        tabTopCustomers.Header = Texts.L("TopCustomers", "Top Customers");
+        tabTopSuppliers.Header = Texts.L("TopSuppliers", "Top Suppliers");
+        tabStockSnapshot.Header = Texts.L("StockSnapshot", "Stock Snapshot");
     }
     decimal GetDecimal(string SqlText)
     {
@@ -142,6 +154,7 @@ public partial class DashboardForm : AppForm
     /// </summary>
     protected override void FormInitialize()
     {
+        ApplyTexts();
         CreateToolBar();
     }
     /// <summary>

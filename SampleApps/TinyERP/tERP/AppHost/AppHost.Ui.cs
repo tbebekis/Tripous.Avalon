@@ -23,7 +23,7 @@ static internal partial class AppHost
     static public AppForm ShowDatabaseExplorer()
     {
         FormContext Context = FormContext.Create("DatabaseExplorer", typeof(DatabaseExplorerForm).FullName, FormDisplayMode.TabItem, AppHost.MainWindow);
-        Context.Title = "Database Explorer";
+        Context.Title = Texts.L("DatabaseExplorer", "Database Explorer");
         return SideBarHandler.ShowAppForm(Context);
     }
     /// <summary>
@@ -38,7 +38,7 @@ static internal partial class AppHost
             return null;
         string FormId = "InteractiveSql." + ConnectionInfo.Name + "." + Sys.GenId();
         FormContext Context = FormContext.Create(FormId, typeof(InteractiveSqlForm).FullName, FormDisplayMode.TabItem, AppHost.MainWindow, ConnectionInfo);
-        Context.Title = "Interactive SQL - " + ConnectionInfo.Name;
+        Context.Title = Texts.L("InteractiveSQL", "Interactive SQL") + " - " + ConnectionInfo.Name;
         if (!string.IsNullOrWhiteSpace(SqlText))
             Context.Params["SqlText"] = SqlText;
         return ContentHandler.ShowAppForm(Context);

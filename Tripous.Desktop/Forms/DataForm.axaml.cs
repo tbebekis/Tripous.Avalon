@@ -59,6 +59,10 @@ public partial class DataForm : AppForm
     /// </summary>
     protected bool fApplyingIdColumnsVisible;
     /// <summary>
+    /// True while the FactBox toolbar button state is being synchronized.
+    /// </summary>
+    protected bool fApplyingFactBoxPaneVisible;
+    /// <summary>
     /// True when the filters sidebar is visible.
     /// </summary>
     protected bool fFiltersSideBarVisible = true;
@@ -74,6 +78,10 @@ public partial class DataForm : AppForm
     /// The Home toolbar button.
     /// </summary>
     protected Button btnHome;
+    /// <summary>
+    /// The FactBox toolbar button.
+    /// </summary>
+    protected ToggleButton btnFactBox;
     /// <summary>
     /// The Home toolbar separator.
     /// </summary>
@@ -452,7 +460,11 @@ public partial class DataForm : AppForm
     /// </summary>
     protected virtual void ExecuteToggleFactBoxPane()
     {
+        if (fApplyingFactBoxPaneVisible)
+            return;
+
         ItemPage?.ToggleFactBoxPane();
+        UpdateFactBoxButton();
         UpdateHomeMenuItems();
     }
     /// <summary>
@@ -862,6 +874,7 @@ public partial class DataForm : AppForm
             ToolBar.Panel = pnlToolBar;
 
             btnHome = ToolBar.AddDropDownButton("application_home.png", "Home", CreateHomeMenu(), HomeMenu_Opening);
+            btnFactBox = ToolBar.AddToggleButton("information.png", "Show FactBox", ExecuteToggleFactBoxPane);
             sepHome  = ToolBar.AddSeparator();
                 
             btnList = ToolBar.AddButton("table.png", "List (F5)", async () => await Execute(DataFormAction.List));
@@ -919,6 +932,24 @@ public partial class DataForm : AppForm
     {
         if (mnuToggleFactBoxPane != null)
             mnuToggleFactBoxPane.IsChecked = ItemPage != null && ItemPage.FactBoxPaneVisible;
+    }
+    /// <summary>
+    /// Updates the FactBox toolbar button state.
+    /// </summary>
+    protected virtual void UpdateFactBoxButton()
+    {
+        if (btnFactBox == null)
+            return;
+
+        bool IsVisible = HasVisibleFactBoxes();
+        bool IsChecked = ItemPage != null && ItemPage.FactBoxPaneVisible;
+        btnFactBox.IsVisible = IsVisible;
+        btnFactBox.IsEnabled = IsVisible && ItemPage != null && FormState != DataFormState.List;
+
+        fApplyingFactBoxPaneVisible = true;
+        btnFactBox.IsChecked = IsChecked;
+        fApplyingFactBoxPaneVisible = false;
+        ToolTip.SetTip(btnFactBox, IsChecked ? "Hide FactBox" : "Show FactBox");
     }
     /// <summary>
     /// Returns true when the form can display a FactBox pane.
@@ -1061,6 +1092,7 @@ public partial class DataForm : AppForm
     {
         // ● visible ===============================================================
         btnHome.IsVisible = true;
+        UpdateFactBoxButton();
         sepHome.IsVisible = true;
         
         btnList.IsVisible = true;
@@ -1086,6 +1118,7 @@ public partial class DataForm : AppForm
         
         // ● enable ================================================================
         btnHome.IsEnabled = btnHome.ContextMenu != null && btnHome.ContextMenu.Items.Count > 0;
+        UpdateFactBoxButton();
         
         btnList.IsEnabled = true;
         btnRefreshList.IsEnabled = btnList.IsEnabled;

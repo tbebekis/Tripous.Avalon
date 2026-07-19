@@ -101,6 +101,27 @@ public abstract class AppAjaxOperation: AjaxOperation
         Response["UserLevelId"] = User != null ? (int)User.UserLevel : (int)UserLevel.None;
         Response["IsAdmin"] = User != null && (User.IsAdmin || User.IsGod);
         Response["CultureCode"] = User != null && !string.IsNullOrWhiteSpace(User.CultureCode) ? User.CultureCode : CultureInfo.CurrentCulture.Name;
+        Response["ShowDataFormFactBoxPane"] = Sys.AsBoolean(Config.GetValue(Config.SShowDataFormFactBoxPane), true);
+    }
+    /// <summary>
+    /// Writes current string resources to a response.
+    /// </summary>
+    protected void AddStringResourceInfo(AjaxResponse Response)
+    {
+        string LanguageId = SysStrRes.GetCurrentLanguageId();
+        SysLangInfo CurrentLanguage = SysStrRes.GetLanguages().FirstOrDefault(item => item.Id.IsSameText(LanguageId));
+        Response["CurrentLanguageId"] = LanguageId;
+        Response["CurrentLanguageCode"] = CurrentLanguage != null ? CurrentLanguage.Code : string.Empty;
+        Response["CurrentCultureCode"] = CurrentLanguage != null ? CurrentLanguage.CultureName : CultureInfo.CurrentCulture.Name;
+        Response["Languages"] = SysStrRes.GetLanguages().Where(item => item.IsActive).Select(item => new Dictionary<string, object>()
+        {
+            ["Id"] = item.Id,
+            ["Code"] = item.Code,
+            ["Name"] = item.Name,
+            ["CultureName"] = item.CultureName,
+            ["IsDefault"] = item.IsDefault
+        }).ToList();
+        Response["StringResources"] = SysStrRes.GetDictionary(LanguageId);
     }
     /// <summary>
     /// Returns the physical file path of the default SQLite database.

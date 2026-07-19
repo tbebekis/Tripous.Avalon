@@ -155,17 +155,17 @@ app.DatabaseExplorerForm = class extends tp.WebForm {
             return;
         this.ToolBar = new tp.ToolBar(Element);
         tp.AddClass(this.ToolBar.Handle, "app-database-explorer-toolbar");
-        Button = this.ToolBar.AddButton("SqlEditor", "Interactive SQL", "Interactive SQL", "", "", false);
+        Button = this.ToolBar.AddButton("SqlEditor", tp._L("InteractiveSQL", "Interactive SQL"), tp._L("InteractiveSQL", "Interactive SQL"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "script_lightning.png" });
-        Button = this.ToolBar.AddButton("Connect", "Connect", "Connect", "", "", false);
+        Button = this.ToolBar.AddButton("Connect", tp._L("Connect", "Connect"), tp._L("Connect", "Connect"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "database_green.png" });
-        Button = this.ToolBar.AddButton("Refresh", "Refresh", "Refresh", "", "", false);
+        Button = this.ToolBar.AddButton("Refresh", tp._L("Refresh", "Refresh"), tp._L("Refresh", "Refresh"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "database_refresh.png" });
-        Button = this.ToolBar.AddButton("Source", "Show Source Code", "Show Source Code", "", "", false);
+        Button = this.ToolBar.AddButton("Source", tp._L("ShowSourceCode", "Show Source Code"), tp._L("ShowSourceCode", "Show Source Code"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "table.png" });
-        Button = this.ToolBar.AddButton("Fields", "Show Field List", "Show Field List", "", "", false);
+        Button = this.ToolBar.AddButton("Fields", tp._L("ShowFieldList", "Show Field List"), tp._L("ShowFieldList", "Show Field List"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "table_select_column.png" });
-        Button = this.ToolBar.AddButton("Select", "Select Table Or View", "Select Table Or View", "", "", false);
+        Button = this.ToolBar.AddButton("Select", tp._L("SelectTableOrView", "Select Table Or View"), tp._L("SelectTableOrView", "Select Table Or View"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "lightning.png" });
         this.ToolBar.On("ButtonClick", this.HandleToolBarButtonClick, this);
     }
@@ -188,13 +188,13 @@ app.DatabaseExplorerForm = class extends tp.WebForm {
      */
     CreateContextMenu() {
         this.mnuTree = new tp.ContextMenu();
-        this.mnuExpand = this.mnuTree.AddMenuItem("Expand", "Expand");
-        this.mnuCollapse = this.mnuTree.AddMenuItem("Collapse", "Collapse");
+        this.mnuExpand = this.mnuTree.AddMenuItem(tp._L("Expand", "Expand"), "Expand");
+        this.mnuCollapse = this.mnuTree.AddMenuItem(tp._L("Collapse", "Collapse"), "Collapse");
         this.mnuTree.AddSeparator();
-        this.mnuShowSourceCode = this.mnuTree.AddMenuItem("Show Source Code", "Source");
-        this.mnuShowFieldList = this.mnuTree.AddMenuItem("Show Field List", "Fields");
+        this.mnuShowSourceCode = this.mnuTree.AddMenuItem(tp._L("ShowSourceCode", "Show Source Code"), "Source");
+        this.mnuShowFieldList = this.mnuTree.AddMenuItem(tp._L("ShowFieldList", "Show Field List"), "Fields");
         this.mnuTree.AddSeparator();
-        this.mnuSelectTableOrView = this.mnuTree.AddMenuItem("Select Table Or View", "Select");
+        this.mnuSelectTableOrView = this.mnuTree.AddMenuItem(tp._L("SelectTableOrView", "Select Table Or View"), "Select");
         this.mnuTree.On("ItemClick", this.HandleContextMenuItemClick, this);
     }
     /**
@@ -342,7 +342,7 @@ app.DatabaseExplorerForm = class extends tp.WebForm {
      * @returns {void}
      */
     AddColumnFolder(Parent, Columns) {
-        this.AddItemFolder(Parent, "Columns", Columns, "Column");
+        this.AddItemFolder(Parent, tp._L("Columns", "Columns"), Columns, "Column");
     }
     /**
      * Populates a schema node.
@@ -359,7 +359,7 @@ app.DatabaseExplorerForm = class extends tp.WebForm {
         var Node;
         RootNode.Clear();
         if (tp.IsArray(Schema.Tables) && Schema.Tables.length > 0) {
-            TablesFolder = this.AddTreeNode(RootNode, "Tables", "folder16.png", { NodeType: "Folder" });
+            TablesFolder = this.AddTreeNode(RootNode, tp._L("Tables", "Tables"), "folder16.png", { NodeType: "Folder" });
             for (Index = 0; Index < Schema.Tables.length; Index++) {
                 Table = Schema.Tables[Index];
                 Node = this.AddTreeNode(TablesFolder, Table.Name, "table.png", {
@@ -370,13 +370,13 @@ app.DatabaseExplorerForm = class extends tp.WebForm {
                     SelectSql: Table.SelectSql
                 });
                 this.AddColumnFolder(Node, Table.Columns);
-                this.AddItemFolder(Node, "Indexes", Table.Indexes, "Index");
-                this.AddItemFolder(Node, "Constraints", Table.Constraints, "Constraint");
-                this.AddItemFolder(Node, "Triggers", Table.Triggers, "Trigger");
+                this.AddItemFolder(Node, tp._L("Indexes", "Indexes"), Table.Indexes, "Index");
+                this.AddItemFolder(Node, tp._L("Constraints", "Constraints"), Table.Constraints, "Constraint");
+                this.AddItemFolder(Node, tp._L("Triggers", "Triggers"), Table.Triggers, "Trigger");
             }
         }
         if (tp.IsArray(Schema.Views) && Schema.Views.length > 0) {
-            ViewsFolder = this.AddTreeNode(RootNode, "Views", "folder16.png", { NodeType: "Folder" });
+            ViewsFolder = this.AddTreeNode(RootNode, tp._L("Views", "Views"), "folder16.png", { NodeType: "Folder" });
             for (Index = 0; Index < Schema.Views.length; Index++) {
                 View = Schema.Views[Index];
                 Node = this.AddTreeNode(ViewsFolder, View.Name, "table.png", {
@@ -415,7 +415,7 @@ app.DatabaseExplorerForm = class extends tp.WebForm {
         if (Schema) {
             this.SchemaMap[ConnectionName] = Schema;
             this.PopulateSchemaNode(Node, Schema);
-            this.Log("Schema loaded: " + ConnectionName);
+            this.Log(tp._L("SchemaLoaded", "Schema loaded") + ": " + ConnectionName);
         }
     }
     /**
@@ -498,7 +498,7 @@ app.DatabaseExplorerForm = class extends tp.WebForm {
         if (tp.IsBlankString(ConnectionName) || ConnectionName === this.ActiveConnectionName)
             return;
         this.ActiveConnectionName = ConnectionName;
-        this.Log("Active connection changed to: " + ConnectionName);
+        this.Log(tp._L("ActiveConnectionChangedTo", "Active connection changed to") + ": " + ConnectionName);
     }
     /**
      * Opens interactive SQL for the selected connection.
@@ -520,7 +520,7 @@ app.DatabaseExplorerForm = class extends tp.WebForm {
         var SqlText;
         var ConnectionName;
         if (!(Node instanceof tp.TreeNode) || !Node.Tag || !(Node.Tag.NodeType === "Table" || Node.Tag.NodeType === "View")) {
-            this.Log("No table or view selected.");
+            this.Log(tp._L("NoTableOrViewSelected", "No table or view selected."));
             return;
         }
         SqlText = Node.Tag[PropertyName] || "";

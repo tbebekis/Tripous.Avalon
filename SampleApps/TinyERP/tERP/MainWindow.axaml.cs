@@ -47,18 +47,18 @@ public partial class MainWindow : Window
         if (NotAddedSampleData.Length > 0)
         {
             StringBuilder SB = new();
-            SB.AppendLine("The following versions of sample data are not added to the database yet.");
+            SB.AppendLine(Texts.L("MissingSampleDataVersions", "The following versions of sample data are not added to the database yet."));
             SB.AppendLine();
             foreach (SampleData SD in NotAddedSampleData)
                 SB.AppendLine($"{SD.VersionNumber}");
             SB.AppendLine();
-            SB.AppendLine("Do you want to add that versions of sample data to the database?");
+            SB.AppendLine(Texts.L("ConfirmAddSampleDataVersions", "Do you want to add those versions of sample data to the database?"));
             
             bool Flag = await MessageBox.YesNo(SB.ToString(), this);
             if (Flag)
             {
-                LogBox.AppendLine("Adding sample data. Please wait...");
-                BusyDialog BusyDialog = new("Adding sample data. Please wait...");
+                LogBox.AppendLine(Texts.L("AddingSampleDataPleaseWait", "Adding sample data. Please wait..."));
+                BusyDialog BusyDialog = new(Texts.L("AddingSampleDataPleaseWait", "Adding sample data. Please wait..."));
                 Task BusyDialogTask = BusyDialog.ShowDialog(this);
                 bool IsDone = false;
                 Exception Error = null;
@@ -81,10 +81,9 @@ public partial class MainWindow : Window
 
                 if (IsDone)
                 {
-                    string Message = @"DONE.
+                    string Message = $@"{Texts.L("Done", "DONE")}.
 
-The application will now terminate.
-Please restart the application.
+{Texts.L("ApplicationWillTerminateRestart", "The application will now terminate. Please restart the application.")}
 ";
                     LogBox.Append(Message);
                     await MessageBox.Info(Message, this);
@@ -115,7 +114,7 @@ Please restart the application.
     {
         bool Flag = !Db.Settings.LogSqlStatements;
         string Text = Flag ? "ON" : "OFF";
-        string Message = $"SQL Statements Logging is now: {Text}.";
+        string Message = $"{Texts.L("SqlStatementsLoggingIsNow", "SQL Statements Logging is now")}: {Text}.";
         LogBox.AppendLine(Message);
         Db.Settings.LogSqlStatements = Flag;
     }
@@ -132,9 +131,9 @@ Please restart the application.
     void UpdateStatusBar()
     {
         lblStatus.Text = $"tERP v1.0 - {Sys.Context.CultureCode}.";
-        lblMessage.Text = "Ready";
-        lblUser.Text = $"User: {Sys.Context.CurrentUser.UserName}";
-        lblUserRole.Text = $"User Role: {Sys.Context.CurrentUser.UserLevel}";
+        lblMessage.Text = Texts.L("Ready", "Ready");
+        lblUser.Text = $"{Texts.L("User", "User")}: {Sys.Context.CurrentUser.UserName}";
+        lblUserRole.Text = $"{Texts.L("UserRole", "User Role")}: {Sys.Context.CurrentUser.UserLevel}";
     }
     void Log(string Text)
     {

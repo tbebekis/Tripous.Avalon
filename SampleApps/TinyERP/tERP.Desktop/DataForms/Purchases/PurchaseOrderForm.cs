@@ -41,8 +41,8 @@ public class PurchaseOrderForm : DocumentDataForm
             return;
 
         string Code = CurrentRow.AsString("Code");
-        string OrderText = string.IsNullOrWhiteSpace(Code) ? "Purchase Order" : $"Purchase Order: {Code}";
-        if (!await MessageBox.YesNo($"Create a Purchase Delivery Note from {OrderText}?", this))
+        string OrderText = string.IsNullOrWhiteSpace(Code) ? Texts.L("PurchaseOrder", "Purchase Order") : $"{Texts.L("PurchaseOrder", "Purchase Order")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreatePurchaseDeliveryNoteFrom", "Create a Purchase Delivery Note from")} {OrderText}?", this))
             return;
 
         PurchaseOrderDataModule PurchaseOrderModule = (PurchaseOrderDataModule)Module;
@@ -80,7 +80,7 @@ public class PurchaseOrderForm : DocumentDataForm
         if (!base.CreateToolBar())
             return false;
 
-        btnCreateDeliveryNote = ToolBar.AddButton("document_export.png", "Create Purchase Delivery Note", async () => await ExecuteCustom(DocumentAction.CreateDeliveryNote));
+        btnCreateDeliveryNote = ToolBar.AddButton("document_export.png", Texts.L("CreatePurchaseDeliveryNote", "Create Purchase Delivery Note"), async () => await ExecuteCustom(DocumentAction.CreateDeliveryNote));
         ToolBar.PlaceControlAfter(btnPost, btnCreateDeliveryNote);
         return true;
     }

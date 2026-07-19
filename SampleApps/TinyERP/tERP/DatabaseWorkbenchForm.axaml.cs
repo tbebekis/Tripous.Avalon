@@ -24,10 +24,9 @@ public partial class DatabaseWorkbenchForm : AppForm
         if (!ShowWarningOnExecStatements())
             return true;
         string Message =
-            $"You are about to execute a non-SELECT SQL statement: {Statement.StatementName.ToUpperInvariant()}.{Environment.NewLine}{Environment.NewLine}" +
-            "This may change data or database structure. Continue only if you accept responsibility for the result." +
-            $"{Environment.NewLine}{Environment.NewLine}" +
-            $"You can disable this warning from Application Settings by changing {Config.SShowWarningOnExecStatements}.";
+            $"{Texts.L("ConfirmNonSelectSqlExecution", "You are about to execute a non-SELECT SQL statement.")}: {Statement.StatementName.ToUpperInvariant()}.{Environment.NewLine}{Environment.NewLine}" +
+            $"{Texts.L("NonSelectSqlMayChangeData", "This may change data or database structure. Continue only if you accept responsibility for the result.")}{Environment.NewLine}{Environment.NewLine}" +
+            Texts.L("DisableSqlWarningFromSettings", "You can disable this warning from Application Settings by changing ShowWarningOnExecStatements.");
         return await MessageBox.YesNo(Message, this);
     }
 
@@ -37,6 +36,7 @@ public partial class DatabaseWorkbenchForm : AppForm
     /// </summary>
     protected override void FormInitialize()
     {
+        TitleText = Texts.L("DatabaseWorkbench", "Database Workbench");
         Explorer.Options = new DbConnectionExplorerOptions
         {
             AllowAddConnections = false,

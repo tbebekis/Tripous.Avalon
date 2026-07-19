@@ -138,13 +138,13 @@ app.ReadOnlyViewForm = class extends tp.WebForm {
         var Button;
         if (ToolBarElement instanceof HTMLElement) {
             this.ToolBar = new tp.ToolBar(ToolBarElement);
-            Button = this.ToolBar.AddButton("Refresh", "Refresh", "Refresh", "", "", false);
+            Button = this.ToolBar.AddButton("Refresh", tp._L("Refresh", "Refresh"), tp._L("Refresh", "Refresh"), "", "", false);
             Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "table_refresh.png" });
-            Button = this.ToolBar.AddButton("Find", "Find", "Find", "", "", false);
+            Button = this.ToolBar.AddButton("Find", tp._L("Find", "Find"), tp._L("Find", "Find"), "", "", false);
             Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "lightning.png" });
-            Button = this.ToolBar.AddButton("Clear", "Clear", "Clear", "", "", false);
+            Button = this.ToolBar.AddButton("Clear", tp._L("Clear", "Clear"), tp._L("Clear", "Clear"), "", "", false);
             Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "bin.png" });
-            Button = this.ToolBar.AddButton("Filters", "Filters", "Filters", "", "", false);
+            Button = this.ToolBar.AddButton("Filters", tp._L("Filters", "Filters"), tp._L("Filters", "Filters"), "", "", false);
             Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "setting_tools.png" });
             this.ToolBar.On("ButtonClick", this.HandleToolBarButtonClick, this);
         }
@@ -254,7 +254,7 @@ app.ReadOnlyViewForm = class extends tp.WebForm {
             this.Grid.BestFitColumns();
         }
         if (tp.LogBox)
-            tp.LogBox.AppendLine("Read-only view selected: " + this.ViewName);
+            tp.LogBox.AppendLine(tp._L("ReadOnlyViewSelected", "Read-only view selected") + ": " + this.ViewName);
     }
     /**
      * Toggles the filter pane.

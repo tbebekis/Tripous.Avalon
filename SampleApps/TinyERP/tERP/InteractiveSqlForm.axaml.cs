@@ -24,10 +24,9 @@ public partial class InteractiveSqlForm : AppForm
         if (!ShowWarningOnExecStatements())
             return true;
         string Message =
-            $"You are about to execute a non-SELECT SQL statement: {Statement.StatementName.ToUpperInvariant()}.{Environment.NewLine}{Environment.NewLine}" +
-            "This may change data or database structure. Continue only if you accept responsibility for the result." +
-            $"{Environment.NewLine}{Environment.NewLine}" +
-            $"You can disable this warning from Application Settings by changing {Config.SShowWarningOnExecStatements}.";
+            $"{Texts.L("ConfirmNonSelectSqlExecution", "You are about to execute a non-SELECT SQL statement.")}: {Statement.StatementName.ToUpperInvariant()}.{Environment.NewLine}{Environment.NewLine}" +
+            $"{Texts.L("NonSelectSqlMayChangeData", "This may change data or database structure. Continue only if you accept responsibility for the result.")}{Environment.NewLine}{Environment.NewLine}" +
+            Texts.L("DisableSqlWarningFromSettings", "You can disable this warning from Application Settings by changing ShowWarningOnExecStatements.");
         return await MessageBox.YesNo(Message, this);
     }
 
@@ -40,7 +39,7 @@ public partial class InteractiveSqlForm : AppForm
         DbConnectionInfo ConnectionInfo = Context.Tag as DbConnectionInfo;
         if (ConnectionInfo != null)
         {
-            TitleText = "Interactive SQL - " + ConnectionInfo.Name;
+            TitleText = Texts.L("InteractiveSQL", "Interactive SQL") + " - " + ConnectionInfo.Name;
             SqlConsole.SetConnection(ConnectionInfo);
         }
         if (Context.Params.TryGetValue("SqlText", out object Value) && Value is string SqlText)

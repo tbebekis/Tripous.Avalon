@@ -57,18 +57,30 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_SYS_STR_RES()
+    void RegisterTable_SYS_LANG()
     {
-        string TableName = "SYS_STR_RES";
+        string TableName = "SYS_LANG";
         string SqlText = $@"
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Lang @NVARCHAR(12) @NOT_NULL,           -- e.g. en, el
-    ResKey @NVARCHAR(96) @NOT_NULL,
-    ResValue @NBLOB_TEXT @NOT_NULL,         -- Memo
+    Code @NVARCHAR(16) @NOT_NULL,                   -- ISO code, e.g. EN, EL, DE
+    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
 
-    CONSTRAINT UQ_{TableName}_Lang_ResKey UNIQUE (Lang, ResKey)
+    CultureName @NVARCHAR(32) @NULL,                -- en-US, el-GR, de-DE
+
+    IsDefault @BOOL default 0 @NOT_NULL,
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    IsRightToLeft @BOOL default 0 @NOT_NULL,        -- Arabic, Hebrew, etc.
+
+    Color @NVARCHAR(32) @NULL,                      -- ui display color
+    IconName @NVARCHAR(96) @NULL,                   -- ui icon / flag icon
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
     )
 ";
         Version.AddTable(SqlText);
@@ -438,34 +450,6 @@ CREATE TABLE {TableName} (
 ";
         Version.AddTable(SqlText);
     }
-    void RegisterTable_Language()
-    {
-        string TableName = "Language";
-        string SqlText = $@"
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-
-    Code @NVARCHAR(16) @NOT_NULL,                   -- ISO code, e.g. EN, EL, DE
-    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
-
-    CultureName @NVARCHAR(32) @NULL,                -- en-US, el-GR, de-DE
-
-    IsDefault @BOOL default 0 @NOT_NULL,
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    IsRightToLeft @BOOL default 0 @NOT_NULL,        -- Arabic, Hebrew, etc.
-
-    Color @NVARCHAR(32) @NULL,                      -- ui display color
-    IconName @NVARCHAR(96) @NULL,                   -- ui icon / flag icon
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
-    )
-";
-        Version.AddTable(SqlText);
-    }
     void RegisterTable_PersonRoleType()
     {
         string TableName = "PersonRoleType";
@@ -596,6 +580,23 @@ CREATE TABLE {TableName} (
     IsActive @BOOL default 1 @NOT_NULL,
 
     CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+";
+        Version.AddTable(SqlText);
+    }
+    void RegisterTable_SYS_STR_RES()
+    {
+        string TableName = "SYS_STR_RES";
+        string SqlText = $@"
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    LanguageId @NVARCHAR(40) @NOT_NULL,     -- Lookup SYS_LANG
+    ResKey @NVARCHAR(96) @NOT_NULL,
+    ResValue @NBLOB_TEXT @NOT_NULL,         -- Memo
+
+    CONSTRAINT UQ_{TableName}_LanguageId_ResKey UNIQUE (LanguageId, ResKey),
+    FOREIGN KEY (LanguageId) REFERENCES SYS_LANG(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -788,7 +789,7 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (TaxBusinessGroupId) REFERENCES TaxBusinessGroup(Id),
     FOREIGN KEY (CountryId) REFERENCES Country(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
-    FOREIGN KEY (LanguageId) REFERENCES Language(Id)
+    FOREIGN KEY (LanguageId) REFERENCES SYS_LANG(Id)
     )
 ";
         Version.AddTable(SqlText);
@@ -1732,7 +1733,7 @@ VALUES
     {
         RegisterTable_SYS_LOG();
         RegisterTable_SYS_NUMBER_SERIES();
-        RegisterTable_SYS_STR_RES();
+        RegisterTable_SYS_LANG();
         RegisterTable_SYS_APP_USER();
         RegisterTable_CustomerCategory();
         RegisterTable_SupplierCategory();
@@ -1754,7 +1755,6 @@ VALUES
         RegisterTable_TaxProductGroup();
         RegisterTable_TaxClause();
         RegisterTable_FiscalYear();
-        RegisterTable_Language();
         RegisterTable_PersonRoleType();
         RegisterTable_StockReason();
         RegisterTable_ContactType();
@@ -1763,6 +1763,7 @@ VALUES
         RegisterTable_AssetDepreciationMethod();
         RegisterTable_ProductDimension();
         RegisterTable_ProductAttributeGroup();
+        RegisterTable_SYS_STR_RES();
         RegisterTable_SYS_CONFIG();
         RegisterTable_PriceListType();
         RegisterTable_Company();

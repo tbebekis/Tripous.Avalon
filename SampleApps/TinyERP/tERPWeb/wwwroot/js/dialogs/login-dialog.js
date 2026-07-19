@@ -75,7 +75,7 @@ app.LoginDialog = class {
         Packet = Packet || {};
         var Self = this;
         var Args = {
-            Text: "Login",
+            Text: tp._L("Login", "Login"),
             Width: 400,
             Height: 300,
             ResizeEdges: tp.Edge.None,

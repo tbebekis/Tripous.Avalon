@@ -42,11 +42,29 @@ static public class Texts
         if (string.IsNullOrWhiteSpace(Default))
             Default = SplitKeys ? Key.SplitToWords() : Key;
 
-        string Result = Current != null ? Current.GetText(Key) : Default;
+        string Result = Current != null ? Current.GetText(Key, Default) : Default;
 
         if (!string.IsNullOrWhiteSpace(Result))
             Result = Result.Replace("__", " ");
         
+        return Result;
+    }
+    /// <summary>
+    /// Gets the localized text for the specified language and key.
+    /// </summary>
+    static public string L(string LangId, string Key, string Default)
+    {
+        if (string.IsNullOrWhiteSpace(Key))
+            return Default;
+
+        if (string.IsNullOrWhiteSpace(Default))
+            Default = SplitKeys ? Key.SplitToWords() : Key;
+
+        string Result = Current != null ? Current.GetText(LangId, Key, Default) : Default;
+
+        if (!string.IsNullOrWhiteSpace(Result))
+            Result = Result.Replace("__", " ");
+
         return Result;
     }
 

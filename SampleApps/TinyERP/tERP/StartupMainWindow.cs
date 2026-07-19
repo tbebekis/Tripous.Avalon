@@ -41,7 +41,7 @@ public class StartupMainWindow: Window
             FontSize = 18,
             FontWeight = FontWeight.Medium,
             Foreground = new SolidColorBrush(Color.FromRgb(74, 83, 92)),
-            Text = "Starting...",
+            Text = Texts.L("Starting", "Starting..."),
             TextAlignment = TextAlignment.Center,
             TextWrapping = TextWrapping.Wrap
         };

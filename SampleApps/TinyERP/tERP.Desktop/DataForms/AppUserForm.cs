@@ -41,10 +41,10 @@ public class AppUserForm : AppDataForm
         try
         {
             ((AppUserDataModule)Module).SetPassword(CurrentRow.AsString("Id"), Dialog.Password);
-            UiLog($"Password changed for user {UserName}.");
+            UiLog($"{Texts.L("PasswordChangedForUser", "Password changed for user")} {UserName}.");
             Refresh();
             UpdateUi();
-            await MessageBox.Info("Password changed.", this);
+            await MessageBox.Info(Texts.L("PasswordChanged", "Password changed."), this);
         }
         catch (Exception e)
         {
@@ -67,7 +67,7 @@ public class AppUserForm : AppDataForm
     {
         if (!base.CreateToolBar())
             return false;
-        btnSetPassword = ToolBar.AddButton("change_password.png", "Set Password", async () => await SetPassword());
+        btnSetPassword = ToolBar.AddButton("change_password.png", Texts.L("SetPassword", "Set Password"), async () => await SetPassword());
         ToolBar.PlaceControlAfter(btnSave, btnSetPassword);
         return true;
     }

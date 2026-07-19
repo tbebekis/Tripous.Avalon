@@ -43,8 +43,8 @@ public class StockTradeForm: DocumentDataForm
             return;
 
         string Code = CurrentRow.AsString("Code");
-        string DocumentText = string.IsNullOrWhiteSpace(Code) ? "Stock Transaction" : $"Stock Transaction: {Code}";
-        if (!await MessageBox.YesNo($"Create a cancellation for {DocumentText}?", this))
+        string DocumentText = string.IsNullOrWhiteSpace(Code) ? Texts.L("StockTransaction", "Stock Transaction") : $"{Texts.L("StockTransaction", "Stock Transaction")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreateCancellationFor", "Create a cancellation for")} {DocumentText}?", this))
             return;
 
         StockTradeDataModule CancellationModule = ((StockTradeDataModule)Module).CreateCancellation();
@@ -81,7 +81,7 @@ public class StockTradeForm: DocumentDataForm
         if (!base.CreateToolBar())
             return false;
 
-        BtnCreateCancellation = ToolBar.AddButton("document_torn.png", "Create Stock Cancellation", async () => await ExecuteCustom(DocumentAction.CreateCancellation));
+        BtnCreateCancellation = ToolBar.AddButton("document_torn.png", Texts.L("CreateStockCancellation", "Create Stock Cancellation"), async () => await ExecuteCustom(DocumentAction.CreateCancellation));
         ToolBar.PlaceControlAfter(btnPost, BtnCreateCancellation);
         return true;
     }

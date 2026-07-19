@@ -22,12 +22,12 @@ public partial class ChangePasswordDialog : Window
         lblMessage.Text = string.Empty;
         if (string.IsNullOrWhiteSpace(CurrentPassword) || string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(ConfirmPassword))
         {
-            lblMessage.Text = "All password fields are required.";
+            lblMessage.Text = Texts.L("AllPasswordFieldsAreRequired", "All password fields are required.");
             return false;
         }
         if (NewPassword != ConfirmPassword)
         {
-            lblMessage.Text = "Passwords differ.";
+            lblMessage.Text = Texts.L("PasswordsDiffer", "Passwords differ.");
             return false;
         }
         return true;
@@ -39,6 +39,16 @@ public partial class ChangePasswordDialog : Window
         fResult = true;
         Close();
     }
+    void ApplyTexts()
+    {
+        Title = Texts.L("ChangePassword", "Change Password");
+        lblTitle.Text = Texts.L("ChangePassword", "Change Password");
+        lblCurrentPassword.Text = Texts.L("CurrentPassword", "Current Password");
+        lblNewPassword.Text = Texts.L("NewPassword", "New Password");
+        lblConfirmPassword.Text = Texts.L("ConfirmPassword", "Confirm Password");
+        btnOK.Content = Texts.L("OK", "OK");
+        btnCancel.Content = Texts.L("Cancel", "Cancel");
+    }
 
     // ● constructors
     /// <summary>
@@ -47,6 +57,7 @@ public partial class ChangePasswordDialog : Window
     public ChangePasswordDialog()
     {
         InitializeComponent();
+        ApplyTexts();
         Loaded += (Sender, Args) => edtCurrentPassword.Focus();
         btnOK.Click += (Sender, Args) => OkClick();
         btnCancel.Click += (Sender, Args) => Close();
@@ -61,7 +72,7 @@ public partial class ChangePasswordDialog : Window
         if (Caller == null)
             Caller = Ui.MainWindow;
         ChangePasswordDialog Dialog = new();
-        Dialog.lblUser.Text = $"User: {UserName}";
+        Dialog.lblUser.Text = $"{Texts.L("User", "User")}: {UserName}";
         await Dialog.ShowDialog(Caller.GetOwnerWindow());
         return Dialog;
     }

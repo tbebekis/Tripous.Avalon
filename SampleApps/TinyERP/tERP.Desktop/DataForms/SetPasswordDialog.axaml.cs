@@ -22,12 +22,12 @@ public partial class SetPasswordDialog : Window
         lblMessage.Text = string.Empty;
         if (string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(ConfirmPassword))
         {
-            lblMessage.Text = "Password fields are required.";
+            lblMessage.Text = Texts.L("PasswordFieldsAreRequired", "Password fields are required.");
             return false;
         }
         if (Password != ConfirmPassword)
         {
-            lblMessage.Text = "Passwords differ.";
+            lblMessage.Text = Texts.L("PasswordsDiffer", "Passwords differ.");
             return false;
         }
         return true;
@@ -39,6 +39,15 @@ public partial class SetPasswordDialog : Window
         fResult = true;
         Close();
     }
+    void ApplyTexts()
+    {
+        Title = Texts.L("SetPassword", "Set Password");
+        lblTitle.Text = Texts.L("SetPassword", "Set Password");
+        lblPassword.Text = Texts.L("Password", "Password");
+        lblConfirmPassword.Text = Texts.L("ConfirmPassword", "Confirm Password");
+        btnOK.Content = Texts.L("OK", "OK");
+        btnCancel.Content = Texts.L("Cancel", "Cancel");
+    }
 
     // ● constructors
     /// <summary>
@@ -47,6 +56,7 @@ public partial class SetPasswordDialog : Window
     public SetPasswordDialog()
     {
         InitializeComponent();
+        ApplyTexts();
         Loaded += (Sender, Args) => edtPassword.Focus();
         btnOK.Click += (Sender, Args) => OkClick();
         btnCancel.Click += (Sender, Args) => Close();
@@ -61,7 +71,7 @@ public partial class SetPasswordDialog : Window
         if (Caller == null)
             Caller = Ui.MainWindow;
         SetPasswordDialog Dialog = new();
-        Dialog.lblUser.Text = $"User: {UserName}";
+        Dialog.lblUser.Text = $"{Texts.L("User", "User")}: {UserName}";
         await Dialog.ShowDialog(Caller.GetOwnerWindow());
         return Dialog;
     }

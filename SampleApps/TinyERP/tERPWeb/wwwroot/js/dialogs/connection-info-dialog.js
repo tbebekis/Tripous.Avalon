@@ -315,9 +315,9 @@ app.ConnectionInfoDialog = class {
         var Packet = await app.App.TestConnectionInfoAsync(this.CollectData());
         this.SetMessage(Window, Packet && Packet.Message ? Packet.Message : "");
         if (Packet && Packet.Success === true && tp.IsFunction(tp.SuccessNote))
-            tp.SuccessNote(Packet.Message || "Connection succeeded.");
+            tp.SuccessNote(Packet.Message || tp._L("ConnectionSucceeded", "Connection succeeded."));
         else if (tp.IsFunction(tp.ErrorNote))
-            tp.ErrorNote(Packet && Packet.Message ? Packet.Message : "Connection failed.");
+            tp.ErrorNote(Packet && Packet.Message ? Packet.Message : tp._L("ConnectionFailed", "Connection failed."));
     }
     /**
      * Handles dialog key presses.
@@ -341,7 +341,7 @@ app.ConnectionInfoDialog = class {
         Packet = Packet || {};
         var Self = this;
         var Args = {
-            Text: "Database Connection",
+            Text: tp._L("DatabaseConnection", "Database Connection"),
             Width: 500,
             Height: 700,
             ResizeEdges: tp.Edge.None,
@@ -349,7 +349,7 @@ app.ConnectionInfoDialog = class {
             ShowFunc: function (Window) {
                 var TestButton;
                 tp.AddClass(Window.Handle, "app-connection-info-window");
-                TestButton = Window.CreateFooterButton("TestConnection", "Test Connection", tp.DialogResult.None, true);
+                TestButton = Window.CreateFooterButton("TestConnection", tp._L("TestConnection", "Test Connection"), tp.DialogResult.None, true);
                 TestButton.On(tp.Events.Click, function () {
                     Self.TestConnectionAsync(Window).catch(function (e) {
                         Self.SetMessage(Window, tp.ExceptionText(e));
@@ -410,11 +410,11 @@ app.ConnectionInfoDialog = class {
             Message = Result && Result.Message ? Result.Message : "";
             if (Result && Result.Success === true) {
                 if (tp.LogBox)
-                    tp.LogBox.AppendLine(Message || "Connection information saved.");
+                    tp.LogBox.AppendLine(Message || tp._L("ConnectionInformationSaved", "Connection information saved."));
                 if (app.App.MainPage && app.App.MainPage.StatusBar)
-                    app.App.MainPage.StatusBar.Message = Message || "Connection information saved.";
+                    app.App.MainPage.StatusBar.Message = Message || tp._L("ConnectionInformationSaved", "Connection information saved.");
                 if (tp.IsFunction(tp.SuccessNote))
-                    tp.SuccessNote(Message || "Connection information saved.");
+                    tp.SuccessNote(Message || tp._L("ConnectionInformationSaved", "Connection information saved."));
                 return;
             }
         }

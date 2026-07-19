@@ -33,7 +33,6 @@ public partial class RegistryVersion1: RegistryVersion
         DataRegistry.AddOrUpdateLookupWithTableName("CustomerCategory", "CustomerCategory", FormName: "CustomerCategory");
         DataRegistry.AddOrUpdateLookupWithTableName("DiscountCategory", "DiscountCategory", FormName: "DiscountCategory");
         DataRegistry.AddOrUpdateLookupWithTableName("ExpenseCategory", "ExpenseCategory", FormName: "ExpenseCategory");
-        DataRegistry.AddOrUpdateLookupWithTableName("Language", "Language", FormName: "Language");
         DataRegistry.AddOrUpdateLookupWithTableName("PaymentMethod", "PaymentMethod", FormName: "PaymentMethod");
         DataRegistry.AddOrUpdateLookupWithTableName("PaymentTerm", "PaymentTerm", FormName: "PaymentTerm");
         DataRegistry.AddOrUpdateLookupWithTableName("PersonRoleType", "PersonRoleType", FormName: "PersonRoleType");
@@ -45,6 +44,7 @@ public partial class RegistryVersion1: RegistryVersion
         DataRegistry.AddOrUpdateLookupWithTableName("SalesPerson", "SalesPerson", FormName: "SalesPerson");
         DataRegistry.AddOrUpdateLookupWithTableName("SupplierCategory", "SupplierCategory", FormName: "SupplierCategory");
         DataRegistry.AddOrUpdateLookupWithTableName("SYS_APP_USER", "SYS_APP_USER", FormName: "AppUser");
+        DataRegistry.AddOrUpdateLookupWithTableName("SYS_LANG", "SYS_LANG", FormName: "Language");
         DataRegistry.AddOrUpdateLookupWithTableName("SYS_NUMBER_SERIES", "SYS_NUMBER_SERIES", FormName: "NumberSeries");
         DataRegistry.AddOrUpdateLookupWithTableName("TaxBusinessGroup", "TaxBusinessGroup", FormName: "TaxBusinessGroup");
         DataRegistry.AddOrUpdateLookupWithTableName("TaxClause", "TaxClause", FormName: "TaxClause");

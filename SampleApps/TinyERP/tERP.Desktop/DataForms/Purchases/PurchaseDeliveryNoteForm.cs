@@ -61,13 +61,13 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
         PurchaseDeliveryNoteDataModule DeliveryNoteModule = (PurchaseDeliveryNoteDataModule)Module;
         if (!DeliveryNoteModule.HasRemainingTransformQuantity())
         {
-            await MessageBox.Info("The source document has no remaining quantity to transform.", this);
+            await MessageBox.Info(Texts.L("SourceDocumentHasNoRemainingQuantityToTransform", "The source document has no remaining quantity to transform."), this);
             return;
         }
 
         string Code = CurrentRow.AsString("Code");
-        string DeliveryText = string.IsNullOrWhiteSpace(Code) ? "Purchase Delivery Note" : $"Purchase Delivery Note: {Code}";
-        if (!await MessageBox.YesNo($"Create a Purchase Return from {DeliveryText}?", this))
+        string DeliveryText = string.IsNullOrWhiteSpace(Code) ? Texts.L("PurchaseDeliveryNote", "Purchase Delivery Note") : $"{Texts.L("PurchaseDeliveryNote", "Purchase Delivery Note")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreatePurchaseReturnFrom", "Create a Purchase Return from")} {DeliveryText}?", this))
             return;
 
         PurchaseReturnDataModule ReturnModule = DeliveryNoteModule.CreateReturn();
@@ -87,13 +87,13 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
         PurchaseDeliveryNoteDataModule DeliveryNoteModule = (PurchaseDeliveryNoteDataModule)Module;
         if (!DeliveryNoteModule.HasRemainingInvoiceQuantity())
         {
-            await MessageBox.Info("The source document has no remaining quantity to invoice.", this);
+            await MessageBox.Info(Texts.L("SourceDocumentHasNoRemainingQuantityToInvoice", "The source document has no remaining quantity to invoice."), this);
             return;
         }
 
         string Code = CurrentRow.AsString("Code");
-        string DeliveryText = string.IsNullOrWhiteSpace(Code) ? "Purchase Delivery Note" : $"Purchase Delivery Note: {Code}";
-        if (!await MessageBox.YesNo($"Create a Purchase Invoice from {DeliveryText}?", this))
+        string DeliveryText = string.IsNullOrWhiteSpace(Code) ? Texts.L("PurchaseDeliveryNote", "Purchase Delivery Note") : $"{Texts.L("PurchaseDeliveryNote", "Purchase Delivery Note")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreatePurchaseInvoiceFrom", "Create a Purchase Invoice from")} {DeliveryText}?", this))
             return;
 
         PurchaseInvoiceDataModule InvoiceModule = DeliveryNoteModule.CreateInvoice();
@@ -134,9 +134,9 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
         if (!base.CreateToolBar())
             return false;
 
-        btnCreateReturn = ToolBar.AddButton("document_redirect.png", "Create Purchase Return", async () => await ExecuteCustom(DocumentAction.CreateReturn));
+        btnCreateReturn = ToolBar.AddButton("document_redirect.png", Texts.L("CreatePurchaseReturn", "Create Purchase Return"), async () => await ExecuteCustom(DocumentAction.CreateReturn));
         ToolBar.PlaceControlAfter(btnPost, btnCreateReturn);
-        btnCreateInvoice = ToolBar.AddButton("document_export.png", "Create Purchase Invoice", async () => await ExecuteCustom(DocumentAction.CreateInvoice));
+        btnCreateInvoice = ToolBar.AddButton("document_export.png", Texts.L("CreatePurchaseInvoice", "Create Purchase Invoice"), async () => await ExecuteCustom(DocumentAction.CreateInvoice));
         ToolBar.PlaceControlAfter(btnCreateReturn, btnCreateInvoice);
         return true;
     }

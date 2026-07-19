@@ -159,13 +159,13 @@ app.InteractiveSqlForm = class extends tp.WebForm {
             return;
         this.ToolBar = new tp.ToolBar(Element);
         tp.AddClass(this.ToolBar.Handle, "app-interactive-sql-toolbar");
-        Button = this.ToolBar.AddButton("Prior", "Previous", "Previous", "", "", false);
+        Button = this.ToolBar.AddButton("Prior", tp._L("Previous", "Previous"), tp._L("Previous", "Previous"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "arrow_left.png" });
-        Button = this.ToolBar.AddButton("Next", "Next", "Next", "", "", false);
+        Button = this.ToolBar.AddButton("Next", tp._L("Next", "Next"), tp._L("Next", "Next"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "arrow_right.png" });
-        Button = this.ToolBar.AddButton("Execute", "Execute (F5)", "Execute (F5)", "", "", false);
+        Button = this.ToolBar.AddButton("Execute", tp._L("ExecuteF5", "Execute (F5)"), tp._L("ExecuteF5", "Execute (F5)"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "lightning.png" });
-        Button = this.ToolBar.AddButton("Close", "Close", "Close", "", "", false);
+        Button = this.ToolBar.AddButton("Close", tp._L("Close", "Close"), tp._L("Close", "Close"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "door_out.png" });
         this.ToolBar.On("ButtonClick", this.HandleToolBarButtonClick, this);
     }
@@ -197,7 +197,7 @@ app.InteractiveSqlForm = class extends tp.WebForm {
         if (!(Element instanceof HTMLElement))
             return;
         this.ResultsTabControl = new tp.TabControl(Element);
-        Page = this.ResultsTabControl.AddPage("Log");
+        Page = this.ResultsTabControl.AddPage(tp._L("Log", "Log"));
         this.LogElement = this.Document.createElement("textarea");
         this.LogElement.className = "app-interactive-sql-log";
         this.LogElement.readOnly = true;
@@ -232,7 +232,7 @@ app.InteractiveSqlForm = class extends tp.WebForm {
         e.stopPropagation();
         this.ExecuteSql().catch(function (ex) {
             if (tp.LogBox)
-                tp.LogBox.AppendLine("SQL execution failed: " + tp.ExceptionText(ex));
+                tp.LogBox.AppendLine(tp._L("SqlExecutionFailed", "SQL execution failed") + ": " + tp.ExceptionText(ex));
         });
     }
     /**
@@ -332,9 +332,9 @@ app.InteractiveSqlForm = class extends tp.WebForm {
         var Message;
         if (this.ShowWarningOnExecStatements !== true || this.HasExecStatements(SqlText) !== true)
             return true;
-        Message = "You are about to execute a non-SELECT SQL statement.\n\n" +
-            "This may change data or database structure. Continue only if you accept responsibility for the result.\n\n" +
-            "You can disable this warning from Application Settings by changing ShowWarningOnExecStatements.";
+        Message = tp._L("ConfirmNonSelectSqlExecution", "You are about to execute a non-SELECT SQL statement.") + "\n\n" +
+            tp._L("NonSelectSqlMayChangeData", "This may change data or database structure. Continue only if you accept responsibility for the result.") + "\n\n" +
+            tp._L("DisableSqlWarningFromSettings", "You can disable this warning from Application Settings by changing ShowWarningOnExecStatements.");
         return await tp.YesNoBoxAsync(Message);
     }
     /**
@@ -348,7 +348,7 @@ app.InteractiveSqlForm = class extends tp.WebForm {
         if (Result.Type === "Select")
             this.AddResultGrid(Result);
         else
-            this.AppendLog("Statement " + Result.StatementCounter + " successfully executed.\nAffected rows: " + Result.AffectedRows + "\nSQL: " + Result.SqlText + "\n");
+            this.AppendLog(tp._L("Statement", "Statement") + " " + Result.StatementCounter + " " + tp._L("SuccessfullyExecuted", "successfully executed") + ".\n" + tp._L("AffectedRows", "Affected rows") + ": " + Result.AffectedRows + "\nSQL: " + Result.SqlText + "\n");
     }
     /**
      * Adds a select result grid.
@@ -361,7 +361,7 @@ app.InteractiveSqlForm = class extends tp.WebForm {
         var Grid;
         var Table = new tp.DataTable(Result.Table);
         this.SelectCounter++;
-        Page = this.ResultsTabControl.AddPage("Result " + this.SelectCounter);
+        Page = this.ResultsTabControl.AddPage(tp._L("Result", "Result") + " " + this.SelectCounter);
         GridElement = this.Document.createElement("div");
         GridElement.className = "app-interactive-sql-result-grid";
         Page.Handle.appendChild(GridElement);
@@ -379,7 +379,7 @@ app.InteractiveSqlForm = class extends tp.WebForm {
             if (!Grid.IsDisposed && tp.IsFunction(Grid.BestFitColumns))
                 Grid.BestFitColumns();
         }, 0);
-        this.AppendLog("Statement " + Result.StatementCounter + " successfully executed.\nReturned rows: " + Result.RowCount + "\nSQL: " + Result.SqlText + "\n");
+        this.AppendLog(tp._L("Statement", "Statement") + " " + Result.StatementCounter + " " + tp._L("SuccessfullyExecuted", "successfully executed") + ".\n" + tp._L("ReturnedRows", "Returned rows") + ": " + Result.RowCount + "\nSQL: " + Result.SqlText + "\n");
     }
     /**
      * Appends a log line.
@@ -405,7 +405,7 @@ app.InteractiveSqlForm = class extends tp.WebForm {
         this.ShowWarningOnExecStatements = Packet ? Packet.ShowWarningOnExecStatements === true : true;
         if (!tp.IsBlankString(this.InitialSqlText))
             this.SetEditorText(this.InitialSqlText);
-        this.AppendLog("Connection: " + this.ConnectionName);
+        this.AppendLog(tp._L("Connection", "Connection") + ": " + this.ConnectionName);
         this.FocusEditor();
     }
     /**
@@ -418,7 +418,7 @@ app.InteractiveSqlForm = class extends tp.WebForm {
         var Results;
         var Index;
         if (tp.IsBlankString(this.ConnectionName)) {
-            this.AppendLog("No connection selected.");
+            this.AppendLog(tp._L("NoConnectionSelected", "No connection selected."));
             return;
         }
         if (tp.IsBlankString(SqlText))

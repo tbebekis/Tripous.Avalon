@@ -37,6 +37,7 @@ public class GetStartupInfo: AppAjaxOperation
         else if (UsersEnabled && (Sys.Context == null || Sys.Context.CurrentUser == null))
             Result["LoginHtml"] = Context.ViewToStringConverter.ViewToString("/Views/Home/_LoginDialog.cshtml");
         AddUserInfo(Result);
+        AddStringResourceInfo(Result);
         return Result;
     }
 }

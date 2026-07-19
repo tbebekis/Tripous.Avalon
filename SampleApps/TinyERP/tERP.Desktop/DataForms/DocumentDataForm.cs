@@ -103,11 +103,9 @@ public class DocumentDataForm : AppDataForm
         }
 
         string Code = CurrentRow.AsString("Code");
-        string DocumentText = string.IsNullOrWhiteSpace(Code) ? "document" : $"document: {Code}";
-        string Message = $@"Post {DocumentText}? 
-
-After posting, the document can no longer be edited.
-";
+        string DocumentText = string.IsNullOrWhiteSpace(Code) ? Texts.L("Document", "document") : $"{Texts.L("Document", "document")}: {Code}";
+        string Message = $"{Texts.L("Post", "Post")} {DocumentText}?{Environment.NewLine}{Environment.NewLine}"
+                         + Texts.L("DocumentCannotBeEditedAfterPosting", "After posting, the document can no longer be edited.");
         if (!await MessageBox.YesNo(Message, this))
             return;
 
@@ -121,8 +119,8 @@ After posting, the document can no longer be edited.
             ItemPage?.Refresh();
             ItemPage?.RestoreDetailGridSelection(DetailGridSelection);
             Broadcaster.Send("Document.Posted", this, DocumentPostedInfo.FromModule(ModuleDef.Name, DocumentModule).ToDictionary());
-            UiLog($"Posted {GetItemLogText(Id)}");
-            Ui.SuccessNote($"Posted {GetItemLogText(Id)}");
+            UiLog($"{Texts.L("Posted", "Posted")} {GetItemLogText(Id)}");
+            Ui.SuccessNote($"{Texts.L("Posted", "Posted")} {GetItemLogText(Id)}");
             FormState = DataFormState.Edit;
             UpdateUi();
         }
@@ -176,7 +174,7 @@ After posting, the document can no longer be edited.
         if (!base.CreateToolBar())
             return false;
         
-        btnPost = ToolBar.AddButton("document_mark_as_final.png", "Post Document", async () => await ExecuteCustom(DocumentAction.Post));
+        btnPost = ToolBar.AddButton("document_mark_as_final.png", Texts.L("PostDocument", "Post Document"), async () => await ExecuteCustom(DocumentAction.Post));
         ToolBar.PlaceControlAfter(btnSave, btnPost);
         return true;
     }

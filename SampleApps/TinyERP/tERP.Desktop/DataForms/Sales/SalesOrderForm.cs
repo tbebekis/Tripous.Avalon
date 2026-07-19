@@ -41,8 +41,8 @@ public class SalesOrderForm : DocumentDataForm
             return;
 
         string Code = CurrentRow.AsString("Code");
-        string OrderText = string.IsNullOrWhiteSpace(Code) ? "Sales Order" : $"Sales Order: {Code}";
-        if (!await MessageBox.YesNo($"Create a Sales Delivery Note from {OrderText}?", this))
+        string OrderText = string.IsNullOrWhiteSpace(Code) ? Texts.L("SalesOrder", "Sales Order") : $"{Texts.L("SalesOrder", "Sales Order")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreateSalesDeliveryNoteFrom", "Create a Sales Delivery Note from")} {OrderText}?", this))
             return;
 
         SalesOrderDataModule SalesOrderModule = (SalesOrderDataModule)Module;
@@ -80,7 +80,7 @@ public class SalesOrderForm : DocumentDataForm
         if (!base.CreateToolBar())
             return false;
 
-        btnCreateDeliveryNote = ToolBar.AddButton("document_export.png", "Create Sales Delivery Note", async () => await ExecuteCustom(DocumentAction.CreateDeliveryNote));
+        btnCreateDeliveryNote = ToolBar.AddButton("document_export.png", Texts.L("CreateSalesDeliveryNote", "Create Sales Delivery Note"), async () => await ExecuteCustom(DocumentAction.CreateDeliveryNote));
         ToolBar.PlaceControlAfter(btnPost, btnCreateDeliveryNote);
         return true;
     }

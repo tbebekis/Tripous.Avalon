@@ -110,7 +110,8 @@ app.MainDashboardForm = class extends tp.WebForm {
      * @returns {void}
      */
     AddToolBarButton(Command, ImageFileName) {
-        var Button = this.ToolBar.AddButton(Command, Command, Command, "", "", false);
+        var Title = tp._L(Command, Command);
+        var Button = this.ToolBar.AddButton(Command, Title, Title, "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: ImageFileName });
     }
     /**
@@ -139,11 +140,11 @@ app.MainDashboardForm = class extends tp.WebForm {
             return;
         this.TabControl = new tp.TabControl(TabElement);
         TabControl = this.TabControl;
-        Page = TabControl.AddPage("Top Customers");
+        Page = TabControl.AddPage(tp._L("TopCustomers", "Top Customers"));
         this.CustomersGrid = this.CreateGrid(Page.Handle);
-        Page = TabControl.AddPage("Top Suppliers");
+        Page = TabControl.AddPage(tp._L("TopSuppliers", "Top Suppliers"));
         this.SuppliersGrid = this.CreateGrid(Page.Handle);
-        Page = TabControl.AddPage("Stock Snapshot");
+        Page = TabControl.AddPage(tp._L("StockSnapshot", "Stock Snapshot"));
         this.StockGrid = this.CreateGrid(Page.Handle);
         this.DashboardGrids = [this.CustomersGrid, this.SuppliersGrid, this.StockGrid];
         TabControl.On("SelectedIndexChanged", this.HandleSelectedTabChanged, this);
@@ -228,7 +229,7 @@ app.MainDashboardForm = class extends tp.WebForm {
         this.StockGrid.DataSource = new tp.DataTable(Packet.Stock);
         this.BestFitGrids();
         if (tp.LogBox)
-            tp.LogBox.AppendLine("Dashboard refreshed.");
+            tp.LogBox.AppendLine(tp._L("DashboardRefreshed", "Dashboard refreshed."));
     }
     /**
      * Refreshes dashboard data without throwing.

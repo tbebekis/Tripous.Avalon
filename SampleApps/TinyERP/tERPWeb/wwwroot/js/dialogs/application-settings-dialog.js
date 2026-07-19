@@ -125,9 +125,9 @@ app.ApplicationSettingsDialog = class {
         var Buttons = Window && Window.Footer ? Window.Footer.querySelectorAll("button") : [];
 
         if (Buttons.length > 0)
-            Buttons[0].textContent = "Save";
+            Buttons[0].textContent = tp._L("Save", "Save");
         if (Buttons.length > 1)
-            Buttons[1].textContent = "Close";
+            Buttons[1].textContent = tp._L("Close", "Close");
 
         if (Root instanceof HTMLElement) {
             tp.Ui.CreateContainerControls(Root);
@@ -162,7 +162,7 @@ app.ApplicationSettingsDialog = class {
         Packet = Packet || await app.App.GetApplicationSettingsDialogAsync("User");
         var Self = this;
         var Args = {
-            Text: "Application Settings",
+            Text: tp._L("ApplicationSettings", "Application Settings"),
             Width: 900,
             Height: 640,
             InitialFocusSelector: "select[name='Scope']",
@@ -179,9 +179,9 @@ app.ApplicationSettingsDialog = class {
         if (Window.DialogResult === tp.DialogResult.OK) {
             Result = await app.App.SaveApplicationSettingsAsync(Window.ResultData.Scope, Window.ResultData.Values);
             if (tp.LogBox)
-                tp.LogBox.AppendLine(Result && Result.Message ? Result.Message : "Settings saved.");
+                tp.LogBox.AppendLine(Result && Result.Message ? Result.Message : tp._L("SettingsSaved", "Settings saved."));
             if (app.App.MainPage && app.App.MainPage.StatusBar)
-                app.App.MainPage.StatusBar.Message = Result && Result.Message ? Result.Message : "Settings saved.";
+                app.App.MainPage.StatusBar.Message = Result && Result.Message ? Result.Message : tp._L("SettingsSaved", "Settings saved.");
         }
     }
 };

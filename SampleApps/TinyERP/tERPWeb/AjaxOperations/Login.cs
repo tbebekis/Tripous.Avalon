@@ -57,11 +57,13 @@ public class Login: AppAjaxOperation
         }
 
         User.CultureCode = !string.IsNullOrWhiteSpace(CultureCode) ? CultureCode : User.CultureCode;
+        User.LastLoginAt = Module.RecordLogin(User.Id, User.CultureCode);
         Sys.Context.CurrentUser = User;
 
         Result["Success"] = true;
         Result["Message"] = "Login succeeded.";
         AddUserInfo(Result);
+        AddStringResourceInfo(Result);
         return Result;
     }
 }

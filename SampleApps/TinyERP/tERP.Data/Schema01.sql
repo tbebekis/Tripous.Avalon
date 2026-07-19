@@ -41,6 +41,38 @@ CREATE TABLE {TableName} (
     CONSTRAINT UQ_NumberSeries_Name UNIQUE (Name)
     )
 
+
+/*---------------------------------------------------
+Table: SYS_LANG
+Module: Language
+Group: System
+IsLookup: true
+-----------------------------------------------------
+    EN   English
+    EL   Greek
+----------------------------------------------------*/
+CREATE TABLE {TableName} (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+
+    Code @NVARCHAR(16) @NOT_NULL,                   -- ISO code, e.g. EN, EL
+    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
+
+    CultureName @NVARCHAR(32) @NULL,                -- en-US, el-GR
+
+    IsDefault @BOOL default 0 @NOT_NULL,
+    IsActive @BOOL default 1 @NOT_NULL,
+
+    IsRightToLeft @BOOL default 0 @NOT_NULL,        -- Arabic, Hebrew, etc.
+
+    Color @NVARCHAR(32) @NULL,                      -- ui display color
+    IconName @NVARCHAR(96) @NULL,                   -- ui icon / flag icon
+
+    Remarks @NBLOB_TEXT @NULL,
+
+    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
+    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
+    )
+
 /*---------------------------------------------------
 Table: SYS_STR_RES
 Module: ResourceStrings
@@ -51,11 +83,12 @@ Application resource strings
 CREATE TABLE {TableName} (
     Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Lang @NVARCHAR(12) @NOT_NULL,           -- e.g. en, el
+    LanguageId @NVARCHAR(40) @NOT_NULL,     -- Lookup SYS_LANG
     ResKey @NVARCHAR(96) @NOT_NULL,
     ResValue @NBLOB_TEXT @NOT_NULL,         -- Memo
 
-    CONSTRAINT UQ_{TableName}_Lang_ResKey UNIQUE (Lang, ResKey)
+    CONSTRAINT UQ_{TableName}_LanguageId_ResKey UNIQUE (LanguageId, ResKey),
+    FOREIGN KEY (LanguageId) REFERENCES SYS_LANG(Id)
     )
 
 /*---------------------------------------------------
@@ -871,37 +904,7 @@ CREATE TABLE {TableName} (
 
 
 
-/*---------------------------------------------------
-Table: Language
-Module: Language  
-Group: System
-IsLookup: true  
------------------------------------------------------  
-    EN   English
-    EL   Greek
-    DE   German
-----------------------------------------------------*/
-CREATE TABLE {TableName} (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
 
-    Code @NVARCHAR(16) @NOT_NULL,                   -- ISO code, e.g. EN, EL, DE
-    Name @NVARCHAR(96) @NOT_NULL,                   -- display title
-
-    CultureName @NVARCHAR(32) @NULL,                -- en-US, el-GR, de-DE
-
-    IsDefault @BOOL default 0 @NOT_NULL,
-    IsActive @BOOL default 1 @NOT_NULL,
-
-    IsRightToLeft @BOOL default 0 @NOT_NULL,        -- Arabic, Hebrew, etc.
-
-    Color @NVARCHAR(32) @NULL,                      -- ui display color
-    IconName @NVARCHAR(96) @NULL,                   -- ui icon / flag icon
-
-    Remarks @NBLOB_TEXT @NULL,
-
-    CONSTRAINT UQ_{TableName}_Code UNIQUE (Code),
-    CONSTRAINT UQ_{TableName}_Name UNIQUE (Name)
-    )
 
 
 
@@ -962,7 +965,7 @@ CREATE TABLE {TableName} (
     FOREIGN KEY (TaxBusinessGroupId) REFERENCES TaxBusinessGroup(Id),
     FOREIGN KEY (CountryId) REFERENCES Country(Id),
     FOREIGN KEY (CurrencyId) REFERENCES Currency(Id),
-    FOREIGN KEY (LanguageId) REFERENCES Language(Id)
+    FOREIGN KEY (LanguageId) REFERENCES SYS_LANG(Id)
     )
 
 

@@ -39,7 +39,7 @@ public partial class DatabaseExplorerForm : AppForm
     /// </summary>
     protected override void FormInitialize()
     {
-        TitleText = "Database Explorer";
+        TitleText = Texts.L("DatabaseExplorer", "Database Explorer");
         ConfigureExplorer();
         Explorer.SetConnections(Db.Connections.List);
         Explorer.OpenSqlRequested += (Sender, Args) => OpenInteractiveSql(Args.ConnectionInfo);

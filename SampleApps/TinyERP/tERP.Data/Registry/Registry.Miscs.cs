@@ -19,6 +19,18 @@ static public partial class Registry
         LookupDef LookupDef = DataRegistry.Lookups.Find(DbConfig.SysAppUserTableName);
         if (LookupDef != null)
             LookupDef.DisplayField = "FullName";
+
+        string SqlText = @"
+select
+     CultureName
+    ,Name
+from SYS_LANG
+where IsActive = 1
+order by IsDefault desc, Name
+";
+        LookupDef = DataRegistry.AddOrUpdateLookupWithSql("AppUserCulture", SqlText, UseNullItem: true);
+        LookupDef.ValueField = "CultureName";
+        LookupDef.DisplayField = "Name";
     }
     /// <summary>
     /// Definitions added by the registration builder may be incomplete.
@@ -267,6 +279,11 @@ where P.IsActive = 1
         
         SetTradeModulePersonLocator("Customer", CustomerPaymentModules);
         SetTradeModulePersonLocator("Supplier", SupplierPaymentModules);
+
+        ModuleDef AppUserModule = DataRegistry.Modules.Find("AppUser");
+        FieldDef CultureCodeField = AppUserModule?.Table.Fields.Find("CultureCode");
+        if (CultureCodeField != null)
+            CultureCodeField.LookupSource = "AppUserCulture";
     }
 
     static public void RegisterSycConfigProperties()
@@ -292,6 +309,14 @@ where P.IsActive = 1
         SecurityLevel = UserLevel.Admin;
         Kind = ConfigValueKind.Boolean;
         DefaultValue = "false";
+        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, Scopes: ConfigScopeFlags.System);
+
+        // ● Auto Insert Missing String Resources
+        Name = Config.SSysStrResAutoInsertMissingKeys;
+        TitleKey = "Auto Insert Missing String Resources";
+        SecurityLevel = UserLevel.Admin;
+        Kind = ConfigValueKind.Boolean;
+        DefaultValue = "true";
         ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, Scopes: ConfigScopeFlags.System);
 
         // ● Select List Row Limit

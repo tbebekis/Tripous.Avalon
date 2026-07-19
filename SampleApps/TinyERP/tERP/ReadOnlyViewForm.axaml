@@ -10,7 +10,7 @@
         <Grid Name="pnlMain" ColumnDefinitions="250,4,*">
             <DockPanel Name="pnlSideBar" Grid.Column="0" MinWidth="250" Background="#F5F5F5">
                 <Border DockPanel.Dock="Top" BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="8">
-                    <TextBlock Text="Filters" FontWeight="SemiBold"/>
+                    <TextBlock Name="lblFilters" Text="Filters" FontWeight="SemiBold"/>
                 </Border>
                 <ScrollViewer>
                     <StackPanel Name="pnlFilters" Margin="10" Spacing="10">

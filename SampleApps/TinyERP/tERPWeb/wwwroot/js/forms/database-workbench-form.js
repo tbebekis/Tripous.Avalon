@@ -164,11 +164,11 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
             return;
         this.ExplorerToolBar = new tp.ToolBar(Element);
         tp.AddClass(this.ExplorerToolBar.Handle, "app-database-workbench-toolbar");
-        Button = this.ExplorerToolBar.AddButton("SqlEditor", "Interactive Sql", "Interactive Sql", "", "", false);
+        Button = this.ExplorerToolBar.AddButton("SqlEditor", tp._L("InteractiveSQL", "Interactive SQL"), tp._L("InteractiveSQL", "Interactive SQL"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "script_lightning.png" });
-        Button = this.ExplorerToolBar.AddButton("Connect", "Connect", "Connect", "", "", false);
+        Button = this.ExplorerToolBar.AddButton("Connect", tp._L("Connect", "Connect"), tp._L("Connect", "Connect"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "database_green.png" });
-        Button = this.ExplorerToolBar.AddButton("Refresh", "Refresh", "Refresh", "", "", false);
+        Button = this.ExplorerToolBar.AddButton("Refresh", tp._L("Refresh", "Refresh"), tp._L("Refresh", "Refresh"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "database_refresh.png" });
         this.ExplorerToolBar.On("ButtonClick", this.HandleExplorerToolBarButtonClick, this);
     }
@@ -183,13 +183,13 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
             return;
         this.SqlToolBar = new tp.ToolBar(Element);
         tp.AddClass(this.SqlToolBar.Handle, "app-database-workbench-toolbar");
-        Button = this.SqlToolBar.AddButton("Prior", "Previous", "Previous", "", "", false);
+        Button = this.SqlToolBar.AddButton("Prior", tp._L("Previous", "Previous"), tp._L("Previous", "Previous"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "arrow_left.png" });
-        Button = this.SqlToolBar.AddButton("Next", "Next", "Next", "", "", false);
+        Button = this.SqlToolBar.AddButton("Next", tp._L("Next", "Next"), tp._L("Next", "Next"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "arrow_right.png" });
-        Button = this.SqlToolBar.AddButton("Execute", "Execute (F5)", "Execute (F5)", "", "", false);
+        Button = this.SqlToolBar.AddButton("Execute", tp._L("ExecuteF5", "Execute (F5)"), tp._L("ExecuteF5", "Execute (F5)"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "lightning.png" });
-        Button = this.SqlToolBar.AddButton("Close", "Close", "Close", "", "", false);
+        Button = this.SqlToolBar.AddButton("Close", tp._L("Close", "Close"), tp._L("Close", "Close"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "door_out.png" });
         this.SqlToolBar.On("ButtonClick", this.HandleSqlToolBarButtonClick, this);
     }
@@ -231,7 +231,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         if (!(Element instanceof HTMLElement))
             return;
         this.ResultsTabControl = new tp.TabControl(Element);
-        Page = this.ResultsTabControl.AddPage("Log");
+        Page = this.ResultsTabControl.AddPage(tp._L("Log", "Log"));
         this.LogElement = this.Document.createElement("textarea");
         this.LogElement.className = "app-database-workbench-log";
         this.LogElement.readOnly = true;
@@ -281,7 +281,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         e.stopPropagation();
         this.ExecuteSql().catch(function (ex) {
             if (tp.LogBox)
-                tp.LogBox.AppendLine("SQL execution failed: " + tp.ExceptionText(ex));
+                tp.LogBox.AppendLine(tp._L("SqlExecutionFailed", "SQL execution failed") + ": " + tp.ExceptionText(ex));
         });
     }
     /**
@@ -371,7 +371,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
      * @returns {void}
      */
     AddColumnFolder(Parent, Columns) {
-        this.AddItemFolder(Parent, "Columns", Columns, "Column");
+        this.AddItemFolder(Parent, tp._L("Columns", "Columns"), Columns, "Column");
     }
     /**
      * Populates a schema node.
@@ -388,7 +388,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         var Node;
         RootNode.Clear();
         if (tp.IsArray(Schema.Tables) && Schema.Tables.length > 0) {
-            TablesFolder = this.AddTreeNode(RootNode, "Tables", "folder16.png", { NodeType: "Folder" });
+            TablesFolder = this.AddTreeNode(RootNode, tp._L("Tables", "Tables"), "folder16.png", { NodeType: "Folder" });
             for (Index = 0; Index < Schema.Tables.length; Index++) {
                 Table = Schema.Tables[Index];
                 Node = this.AddTreeNode(TablesFolder, Table.Name, "table.png", {
@@ -399,13 +399,13 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
                     SelectSql: Table.SelectSql
                 });
                 this.AddColumnFolder(Node, Table.Columns);
-                this.AddItemFolder(Node, "Indexes", Table.Indexes, "Index");
-                this.AddItemFolder(Node, "Constraints", Table.Constraints, "Constraint");
-                this.AddItemFolder(Node, "Triggers", Table.Triggers, "Trigger");
+                this.AddItemFolder(Node, tp._L("Indexes", "Indexes"), Table.Indexes, "Index");
+                this.AddItemFolder(Node, tp._L("Constraints", "Constraints"), Table.Constraints, "Constraint");
+                this.AddItemFolder(Node, tp._L("Triggers", "Triggers"), Table.Triggers, "Trigger");
             }
         }
         if (tp.IsArray(Schema.Views) && Schema.Views.length > 0) {
-            ViewsFolder = this.AddTreeNode(RootNode, "Views", "folder16.png", { NodeType: "Folder" });
+            ViewsFolder = this.AddTreeNode(RootNode, tp._L("Views", "Views"), "folder16.png", { NodeType: "Folder" });
             for (Index = 0; Index < Schema.Views.length; Index++) {
                 View = Schema.Views[Index];
                 Node = this.AddTreeNode(ViewsFolder, View.Name, "table.png", {
@@ -444,7 +444,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         if (Schema) {
             this.SchemaMap[ConnectionName] = Schema;
             this.PopulateSchemaNode(Node, Schema);
-            this.AppendLog("Schema loaded: " + ConnectionName);
+            this.AppendLog(tp._L("SchemaLoaded", "Schema loaded") + ": " + ConnectionName);
         }
     }
     /**
@@ -506,7 +506,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         if (tp.IsBlankString(ConnectionName) || ConnectionName === this.ActiveConnectionName)
             return;
         this.ActiveConnectionName = ConnectionName;
-        this.AppendLog("Active connection changed to: " + ConnectionName);
+        this.AppendLog(tp._L("ActiveConnectionChangedTo", "Active connection changed to") + ": " + ConnectionName);
     }
     /**
      * Focuses the SQL editor.
@@ -595,9 +595,9 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         var Message;
         if (this.ShowWarningOnExecStatements !== true || this.HasExecStatements(SqlText) !== true)
             return true;
-        Message = "You are about to execute a non-SELECT SQL statement.\n\n" +
-            "This may change data or database structure. Continue only if you accept responsibility for the result.\n\n" +
-            "You can disable this warning from Application Settings by changing ShowWarningOnExecStatements.";
+        Message = tp._L("ConfirmNonSelectSqlExecution", "You are about to execute a non-SELECT SQL statement.") + "\n\n" +
+            tp._L("NonSelectSqlMayChangeData", "This may change data or database structure. Continue only if you accept responsibility for the result.") + "\n\n" +
+            tp._L("DisableSqlWarningFromSettings", "You can disable this warning from Application Settings by changing ShowWarningOnExecStatements.");
         return await tp.YesNoBoxAsync(Message);
     }
     /**
@@ -610,7 +610,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         var Results;
         var Index;
         if (tp.IsBlankString(this.ActiveConnectionName)) {
-            this.AppendLog("No connection selected.");
+            this.AppendLog(tp._L("NoConnectionSelected", "No connection selected."));
             return;
         }
         if (tp.IsBlankString(SqlText))
@@ -637,7 +637,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         if (Result.Type === "Select")
             this.AddResultGrid(Result);
         else
-            this.AppendLog("Statement " + Result.StatementCounter + " successfully executed.\nAffected rows: " + Result.AffectedRows + "\nSQL: " + Result.SqlText + "\n");
+            this.AppendLog(tp._L("Statement", "Statement") + " " + Result.StatementCounter + " " + tp._L("SuccessfullyExecuted", "successfully executed") + ".\n" + tp._L("AffectedRows", "Affected rows") + ": " + Result.AffectedRows + "\nSQL: " + Result.SqlText + "\n");
     }
     /**
      * Adds a select result grid.
@@ -650,7 +650,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         var Grid;
         var Table = new tp.DataTable(Result.Table);
         this.SelectCounter++;
-        Page = this.ResultsTabControl.AddPage("Result " + this.SelectCounter);
+        Page = this.ResultsTabControl.AddPage(tp._L("Result", "Result") + " " + this.SelectCounter);
         GridElement = this.Document.createElement("div");
         GridElement.className = "app-database-workbench-result-grid";
         Page.Handle.appendChild(GridElement);
@@ -668,7 +668,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
             if (!Grid.IsDisposed && tp.IsFunction(Grid.BestFitColumns))
                 Grid.BestFitColumns();
         }, 0);
-        this.AppendLog("Statement " + Result.StatementCounter + " successfully executed.\nReturned rows: " + Result.RowCount + "\nSQL: " + Result.SqlText + "\n");
+        this.AppendLog(tp._L("Statement", "Statement") + " " + Result.StatementCounter + " " + tp._L("SuccessfullyExecuted", "successfully executed") + ".\n" + tp._L("ReturnedRows", "Returned rows") + ": " + Result.RowCount + "\nSQL: " + Result.SqlText + "\n");
     }
     /**
      * Appends a log line.

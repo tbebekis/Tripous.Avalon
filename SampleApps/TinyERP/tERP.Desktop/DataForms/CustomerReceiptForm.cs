@@ -42,8 +42,8 @@ public class CustomerReceiptForm : DocumentDataForm
         if (!CanCreateCancellation())
             return;
         string Code = CurrentRow.AsString("Code");
-        string PaymentText = string.IsNullOrWhiteSpace(Code) ? "Customer Receipt" : $"Customer Receipt: {Code}";
-        if (!await MessageBox.YesNo($"Create a Customer Receipt Cancellation from {PaymentText}?", this))
+        string PaymentText = string.IsNullOrWhiteSpace(Code) ? Texts.L("CustomerReceipt", "Customer Receipt") : $"{Texts.L("CustomerReceipt", "Customer Receipt")}: {Code}";
+        if (!await MessageBox.YesNo($"{Texts.L("CreateCustomerReceiptCancellationFrom", "Create a Customer Receipt Cancellation from")} {PaymentText}?", this))
             return;
         PaymentDataModule CancellationModule = ((PaymentDataModule)Module).CreateCancellation();
         DataFormContext Context = DataFormContext.Create("CustomerReceiptCancellation", CancellationModule, this);
@@ -85,7 +85,7 @@ public class CustomerReceiptForm : DocumentDataForm
     {
         if (!base.CreateToolBar())
             return false;
-        BtnCreateCancellation = ToolBar.AddButton("document_torn.png", "Create Customer Receipt Cancellation", async () => await ExecuteCustom(DocumentAction.CreateCancellation));
+        BtnCreateCancellation = ToolBar.AddButton("document_torn.png", Texts.L("CreateCustomerReceiptCancellation", "Create Customer Receipt Cancellation"), async () => await ExecuteCustom(DocumentAction.CreateCancellation));
         ToolBar.PlaceControlAfter(btnPost, BtnCreateCancellation);
         return true;
     }

@@ -80,6 +80,22 @@ public class AppUserDataModule: AppDataModule
         SetPassword(User.Id, NewPlainTextPassword);
     }
     /// <summary>
+    /// Records a successful login for an application user.
+    /// </summary>
+    public DateTime RecordLogin(string UserId, string CultureCode = "")
+    {
+        if (string.IsNullOrWhiteSpace(UserId))
+            throw new TripousException("User id is required.");
+
+        DateTime LoginTime = Store.GetServerDateTime();
+        Edit(UserId);
+        CurrentRow["LastLoginAt"] = LoginTime;
+        if (!string.IsNullOrWhiteSpace(CultureCode) && CurrentRow.Table.Columns.Contains("CultureCode"))
+            CurrentRow["CultureCode"] = CultureCode;
+        Commit();
+        return LoginTime;
+    }
+    /// <summary>
     /// Loads an application user by user name.
     /// </summary>
     public AppUser LoadByUserName(string UserName)

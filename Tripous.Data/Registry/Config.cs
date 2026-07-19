@@ -219,6 +219,10 @@ static public class Config
     /// The configuration property name used to warn before executing non-SELECT SQL statements.
     /// </summary>
     public const string SShowWarningOnExecStatements = "ShowWarningOnExecStatements";
+    /// <summary>
+    /// The configuration property name used to auto-insert missing string resource keys.
+    /// </summary>
+    public const string SSysStrResAutoInsertMissingKeys = "SysStrRes.AutoInsertMissingKeys";
 
     // ● private fields
     static SqlStore fStore;

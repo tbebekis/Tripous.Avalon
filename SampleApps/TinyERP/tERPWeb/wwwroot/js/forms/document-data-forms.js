@@ -23,14 +23,14 @@ app.AppFormDialog = class extends tp.Window {
         var ShowSpinner = tp.IsFunction(tp.ShowSpinner);
         Options = Options || {};
         if (tp.IsBlankString(WebFormName))
-            throw new Error("No WebForm name specified.");
+            throw new Error(tp._L("NoWebFormNameSpecified", "No WebForm name specified."));
         if (ShowSpinner)
             tp.ShowSpinner(true);
         try {
             Packet = await app.App.GetWebFormAsync(WebFormName);
             Form = Packet ? Packet.Form : null;
             if (!Form)
-                throw new Error("WebForm not returned: " + WebFormName);
+                throw new Error(tp._L("WebFormNotReturned", "WebForm not returned") + ": " + WebFormName);
             Dialog = new app.AppFormDialog({
                 Text: Options.Title || Form.Title || Form.Name || WebFormName,
                 Width: Options.Width || "min(1180px, calc(100vw - 32px))",
@@ -131,7 +131,7 @@ app.AppFormDialog = class extends tp.Window {
         var Options = this.WebFormOptions || {};
         var Element;
         if (!Form)
-            throw new Error("WebForm packet has no Form.");
+            throw new Error(tp._L("WebFormPacketHasNoForm", "WebForm packet has no Form."));
         if (!this.ContentWrapper) {
             this.CreateControls();
             this.SetupDragger();
@@ -140,7 +140,7 @@ app.AppFormDialog = class extends tp.Window {
         this.ContentWrapper.Handle.innerHTML = Form.Html || "";
         Element = this.FindHostedFormElement();
         if (!(Element instanceof HTMLElement))
-            throw new Error("WebForm root element not found: " + (Form.Name || ""));
+            throw new Error(tp._L("WebFormRootElementNotFound", "WebForm root element not found") + ": " + (Form.Name || ""));
         this.FormContext = new tp.WebFormContext({
             FormId: Options.FormId || Form.Name || this.WebFormName,
             ClassName: Form.JsFormClassType,
@@ -1043,7 +1043,7 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         if (!this.IsAffectedByDocumentPosted(Args) || this.FormState !== tp.WebDataFormState.Edit)
             return;
         if (this.HasChanges() === true) {
-            this.UiLog("Document changed by another form; refresh is skipped because this form has unsaved changes.");
+            this.UiLog(tp._L("RefreshSkippedUnsavedChanges", "Document changed by another form; refresh is skipped because this form has unsaved changes."));
             return;
         }
         await this.RefreshAsync();
@@ -1206,7 +1206,7 @@ app.DocumentDataForm = class extends tp.WebDataForm {
      */
     CreateToolBar(Element) {
         super.CreateToolBar(Element);
-        this.AddToolBarButton("Post", "Post Document", "document_mark_as_final.png");
+        this.AddToolBarButton("Post", tp._L("PostDocument", "Post Document"), "document_mark_as_final.png");
         if (this.ToolBar && this.Buttons.Save && this.Buttons.Post)
             this.ToolBar.PlaceControlAfter(this.Buttons.Save, this.Buttons.Post);
         this.UpdateToolBar();
@@ -1322,8 +1322,8 @@ app.DocumentDataForm = class extends tp.WebDataForm {
             return;
         }
         Code = this.Module.Row.Get("Code", "");
-        DocumentText = tp.IsBlankString(Code) ? "document" : "document: " + Code;
-        Message = "Post " + DocumentText + "?\n\nAfter posting, the document can no longer be edited.";
+        DocumentText = tp.IsBlankString(Code) ? tp._L("Document", "document") : tp._L("Document", "document") + ": " + Code;
+        Message = tp._L("Post", "Post") + " " + DocumentText + "?\n\n" + tp._L("DocumentCannotBeEditedAfterPosting", "After posting, the document can no longer be edited.");
         if (await tp.YesNoBoxAsync(Message) !== true)
             return;
         try {
@@ -1338,8 +1338,8 @@ app.DocumentDataForm = class extends tp.WebDataForm {
                 }
                 Id = this.Module.Id;
                 tp.Broadcaster.Send("Document.Posted", this, Packet && Packet.PostedInfo ? Packet.PostedInfo : this.CreateDocumentPostedArgs());
-                this.UiLog("Posted " + this.GetItemLogText(Id));
-                this.ReportSuccess("Posted " + this.GetItemLogText(Id));
+                this.UiLog(tp._L("Posted", "Posted") + " " + this.GetItemLogText(Id));
+                this.ReportSuccess(tp._L("Posted", "Posted") + " " + this.GetItemLogText(Id));
                 this.ListIsDirty = true;
                 this.FormState = tp.WebDataFormState.Edit;
                 await this.RenderItemPageAsync();
@@ -1348,7 +1348,7 @@ app.DocumentDataForm = class extends tp.WebDataForm {
                 this.UpdateToolBar();
             });
         } catch (e) {
-            this.ReportError("Post failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("PostFailed", "Post failed") + ": " + tp.ExceptionText(e));
         }
     }
     /**
@@ -1406,7 +1406,7 @@ app.DocumentDataForm = class extends tp.WebDataForm {
                 DataModuleJson: JSON.stringify(tp.IsFunction(this.Module.toDataJSON) ? this.Module.toDataJSON() : this.Module.toJSON())
             });
             this.ApplyDocumentCalculatePacket(Packet);
-            this.UiLog("Calculated " + (!tp.IsBlank(TableName) && !tp.IsBlank(FieldName) ? TableName + "." + FieldName : "document"));
+            this.UiLog(tp._L("Calculated", "Calculated") + " " + (!tp.IsBlank(TableName) && !tp.IsBlank(FieldName) ? TableName + "." + FieldName : tp._L("Document", "document")));
         } catch (e) {
             if (tp.LogBox && tp.LogBox.AppendLine)
                 tp.LogBox.AppendLine("Document calculation failed: " + tp.ExceptionText(e));
@@ -1429,7 +1429,7 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         if (!tp.IsSameText(EventName, "Document.Posted"))
             return;
         this.HandleDocumentPostedAsync(Args).catch((e) => {
-            this.ReportError("Document notification failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("DocumentNotificationFailed", "Document notification failed") + ": " + tp.ExceptionText(e));
         });
     }
 };
@@ -1456,7 +1456,7 @@ app.StockTradeForm = class extends app.DocumentDataForm {
      */
     CreateToolBar(Element) {
         super.CreateToolBar(Element);
-        this.AddToolBarButton("CreateCancellation", "Create Stock Cancellation", "document_torn.png");
+        this.AddToolBarButton("CreateCancellation", tp._L("CreateStockCancellation", "Create Stock Cancellation"), "document_torn.png");
         if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateCancellation)
             this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateCancellation);
         this.UpdateToolBar();
@@ -1511,8 +1511,8 @@ app.StockTradeForm = class extends app.DocumentDataForm {
         if (this.CanCreateCancellation() !== true)
             return;
         Code = this.Module.Row.Get("Code", "");
-        DocumentText = tp.IsBlankString(Code) ? "Stock Transaction" : "Stock Transaction: " + Code;
-        if (await tp.YesNoBoxAsync("Create a cancellation for " + DocumentText + "?") !== true)
+        DocumentText = tp.IsBlankString(Code) ? tp._L("StockTransaction", "Stock Transaction") : tp._L("StockTransaction", "Stock Transaction") + ": " + Code;
+        if (await tp.YesNoBoxAsync(tp._L("CreateCancellationFor", "Create a cancellation for") + " " + DocumentText + "?") !== true)
             return;
         try {
             await this.ExecuteWithSpinner(async function () {
@@ -1525,17 +1525,17 @@ app.StockTradeForm = class extends app.DocumentDataForm {
                 if (tp.IsBlankString(WebFormName))
                     WebFormName = DataModulePacket && DataModulePacket.Name ? DataModulePacket.Name : "";
                 if (!DataModulePacket || tp.IsBlankString(WebFormName))
-                    throw new Error("Stock Cancellation data module was not returned.");
+                    throw new Error(tp._L("StockCancellationDataModuleNotReturned", "Stock Cancellation data module was not returned."));
                 await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
                     FormId: WebFormName + "." + tp.Guid(),
-                    Title: "Stock Cancellation",
+                    Title: tp._L("StockCancellation", "Stock Cancellation"),
                     InitialDataModule: DataModulePacket,
                     InitialFormState: tp.WebDataFormState.Insert
                 });
-                this.UiLog("Created Stock Cancellation from " + this.GetItemLogText(this.Module.Id));
+                this.UiLog(tp._L("CreatedStockCancellationFrom", "Created Stock Cancellation from") + " " + this.GetItemLogText(this.Module.Id));
             });
         } catch (e) {
-            this.ReportError("Create Stock Cancellation failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("CreateStockCancellationFailed", "Create Stock Cancellation failed") + ": " + tp.ExceptionText(e));
         }
     }
 };
@@ -1656,7 +1656,7 @@ app.SalesOrderForm = class extends app.SalesDataForm {
      */
     CreateToolBar(Element) {
         super.CreateToolBar(Element);
-        this.AddToolBarButton("CreateDeliveryNote", "Create Sales Delivery Note", "document_export.png");
+        this.AddToolBarButton("CreateDeliveryNote", tp._L("CreateSalesDeliveryNote", "Create Sales Delivery Note"), "document_export.png");
         if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateDeliveryNote)
             this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateDeliveryNote);
         this.UpdateToolBar();
@@ -1709,8 +1709,8 @@ app.SalesOrderForm = class extends app.SalesDataForm {
         if (this.CanCreateDeliveryNote() !== true)
             return;
         Code = this.Module.Row.Get("Code", "");
-        OrderText = tp.IsBlankString(Code) ? "Sales Order" : "Sales Order: " + Code;
-        if (await tp.YesNoBoxAsync("Create a Sales Delivery Note from " + OrderText + "?") !== true)
+        OrderText = tp.IsBlankString(Code) ? tp._L("SalesOrder", "Sales Order") : tp._L("SalesOrder", "Sales Order") + ": " + Code;
+        if (await tp.YesNoBoxAsync(tp._L("CreateSalesDeliveryNoteFrom", "Create a Sales Delivery Note from") + " " + OrderText + "?") !== true)
             return;
         try {
             await this.ExecuteWithSpinner(async function () {
@@ -1721,17 +1721,17 @@ app.SalesOrderForm = class extends app.SalesDataForm {
                 WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : "SalesDeliveryNote";
                 DataModulePacket = Packet ? Packet.DataModule : null;
                 if (!DataModulePacket)
-                    throw new Error("Sales Delivery Note data module was not returned.");
+                    throw new Error(tp._L("SalesDeliveryNoteDataModuleNotReturned", "Sales Delivery Note data module was not returned."));
                 await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
                     FormId: WebFormName + "." + tp.Guid(),
-                    Title: "Sales Delivery Note",
+                    Title: tp._L("SalesDeliveryNote", "Sales Delivery Note"),
                     InitialDataModule: DataModulePacket,
                     InitialFormState: tp.WebDataFormState.Insert
                 });
-                this.UiLog("Created Sales Delivery Note from " + this.GetItemLogText(this.Module.Id));
+                this.UiLog(tp._L("CreatedSalesDeliveryNoteFrom", "Created Sales Delivery Note from") + " " + this.GetItemLogText(this.Module.Id));
             });
         } catch (e) {
-            this.ReportError("Create Sales Delivery Note failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("CreateSalesDeliveryNoteFailed", "Create Sales Delivery Note failed") + ": " + tp.ExceptionText(e));
         }
     }
 };
@@ -1758,8 +1758,8 @@ app.SalesDeliveryNoteForm = class extends app.SalesDataForm {
      */
     CreateToolBar(Element) {
         super.CreateToolBar(Element);
-        this.AddToolBarButton("CreateReturn", "Create Sales Return", "document_redirect.png");
-        this.AddToolBarButton("CreateInvoice", "Create Sales Invoice", "document_export.png");
+        this.AddToolBarButton("CreateReturn", tp._L("CreateSalesReturn", "Create Sales Return"), "document_redirect.png");
+        this.AddToolBarButton("CreateInvoice", tp._L("CreateSalesInvoice", "Create Sales Invoice"), "document_export.png");
         if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateReturn)
             this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateReturn);
         if (this.ToolBar && this.Buttons.CreateReturn && this.Buttons.CreateInvoice)
@@ -1860,8 +1860,8 @@ app.SalesDeliveryNoteForm = class extends app.SalesDataForm {
         if (this.CanCreateFromDeliveryNote() !== true)
             return;
         Code = this.Module.Row.Get("Code", "");
-        DeliveryText = tp.IsBlankString(Code) ? "Sales Delivery Note" : "Sales Delivery Note: " + Code;
-        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + DeliveryText + "?") !== true)
+        DeliveryText = tp.IsBlankString(Code) ? tp._L("SalesDeliveryNote", "Sales Delivery Note") : tp._L("SalesDeliveryNote", "Sales Delivery Note") + ": " + Code;
+        if (await tp.YesNoBoxAsync(tp._L("CreateA", "Create a") + " " + TargetTitle + " " + tp._L("From", "from") + " " + DeliveryText + "?") !== true)
             return;
         try {
             await this.ExecuteWithSpinner(async function () {
@@ -1872,17 +1872,17 @@ app.SalesDeliveryNoteForm = class extends app.SalesDataForm {
                 WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : DefaultWebFormName;
                 DataModulePacket = Packet ? Packet.DataModule : null;
                 if (!DataModulePacket)
-                    throw new Error(TargetTitle + " data module was not returned.");
+                    throw new Error(TargetTitle + " " + tp._L("DataModuleWasNotReturned", "data module was not returned."));
                 await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
                     FormId: WebFormName + "." + tp.Guid(),
                     Title: TargetTitle,
                     InitialDataModule: DataModulePacket,
                     InitialFormState: tp.WebDataFormState.Insert
                 });
-                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+                this.UiLog(tp._L("Created", "Created") + " " + TargetTitle + " " + tp._L("From", "from") + " " + this.GetItemLogText(this.Module.Id));
             });
         } catch (e) {
-            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("Create", "Create") + " " + TargetTitle + " " + tp._L("Failed", "failed") + ": " + tp.ExceptionText(e));
         }
     }
 
@@ -1892,14 +1892,14 @@ app.SalesDeliveryNoteForm = class extends app.SalesDataForm {
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateReturnAsync() {
-        await this.CreateTransformedDocumentAsync("App.SalesDeliveryNote.CreateReturn", "SalesReturn", "Sales Return");
+        await this.CreateTransformedDocumentAsync("App.SalesDeliveryNote.CreateReturn", "SalesReturn", tp._L("SalesReturn", "Sales Return"));
     }
     /**
      * Creates a sales invoice from the current sales delivery note.
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateInvoiceAsync() {
-        await this.CreateTransformedDocumentAsync("App.SalesDeliveryNote.CreateInvoice", "SalesInvoice", "Sales Invoice");
+        await this.CreateTransformedDocumentAsync("App.SalesDeliveryNote.CreateInvoice", "SalesInvoice", tp._L("SalesInvoice", "Sales Invoice"));
     }
 };
 
@@ -1925,9 +1925,9 @@ app.SalesInvoiceForm = class extends app.SalesDataForm {
      */
     CreateToolBar(Element) {
         super.CreateToolBar(Element);
-        this.AddToolBarButton("CreateCustomerReceipt", "Create Customer Receipt", "coins_add.png");
-        this.AddToolBarButton("CreateCreditNote", "Create Sales Credit Note", "document_redirect.png");
-        this.AddToolBarButton("CreateCancellation", "Create Sales Cancellation", "document_torn.png");
+        this.AddToolBarButton("CreateCustomerReceipt", tp._L("CreateCustomerReceipt", "Create Customer Receipt"), "coins_add.png");
+        this.AddToolBarButton("CreateCreditNote", tp._L("CreateSalesCreditNote", "Create Sales Credit Note"), "document_redirect.png");
+        this.AddToolBarButton("CreateCancellation", tp._L("CreateSalesCancellation", "Create Sales Cancellation"), "document_torn.png");
         if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateCustomerReceipt)
             this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateCustomerReceipt);
         if (this.ToolBar && this.Buttons.CreateCustomerReceipt && this.Buttons.CreateCreditNote)
@@ -1993,8 +1993,8 @@ app.SalesInvoiceForm = class extends app.SalesDataForm {
         if (this.CanCreateFromInvoice() !== true)
             return;
         Code = this.Module.Row.Get("Code", "");
-        InvoiceText = tp.IsBlankString(Code) ? "Sales Invoice" : "Sales Invoice: " + Code;
-        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + InvoiceText + "?") !== true)
+        InvoiceText = tp.IsBlankString(Code) ? tp._L("SalesInvoice", "Sales Invoice") : tp._L("SalesInvoice", "Sales Invoice") + ": " + Code;
+        if (await tp.YesNoBoxAsync(tp._L("CreateA", "Create a") + " " + TargetTitle + " " + tp._L("From", "from") + " " + InvoiceText + "?") !== true)
             return;
         try {
             await this.ExecuteWithSpinner(async function () {
@@ -2005,17 +2005,17 @@ app.SalesInvoiceForm = class extends app.SalesDataForm {
                 WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : DefaultWebFormName;
                 DataModulePacket = Packet ? Packet.DataModule : null;
                 if (!DataModulePacket)
-                    throw new Error(TargetTitle + " data module was not returned.");
+                    throw new Error(TargetTitle + " " + tp._L("DataModuleWasNotReturned", "data module was not returned."));
                 await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
                     FormId: WebFormName + "." + tp.Guid(),
                     Title: TargetTitle,
                     InitialDataModule: DataModulePacket,
                     InitialFormState: tp.WebDataFormState.Insert
                 });
-                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+                this.UiLog(tp._L("Created", "Created") + " " + TargetTitle + " " + tp._L("From", "from") + " " + this.GetItemLogText(this.Module.Id));
             });
         } catch (e) {
-            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("Create", "Create") + " " + TargetTitle + " " + tp._L("Failed", "failed") + ": " + tp.ExceptionText(e));
         }
     }
 
@@ -2025,21 +2025,21 @@ app.SalesInvoiceForm = class extends app.SalesDataForm {
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateCustomerReceiptAsync() {
-        await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCustomerReceipt", "CustomerReceipt", "Customer Receipt");
+        await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCustomerReceipt", "CustomerReceipt", tp._L("CustomerReceipt", "Customer Receipt"));
     }
     /**
      * Creates a sales credit note from the current sales invoice.
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateCreditNoteAsync() {
-        await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCreditNote", "SalesCreditNote", "Sales Credit Note");
+        await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCreditNote", "SalesCreditNote", tp._L("SalesCreditNote", "Sales Credit Note"));
     }
     /**
      * Creates a sales cancellation from the current sales invoice.
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateCancellationAsync() {
-        await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCancellation", "SalesCancellation", "Sales Cancellation");
+        await this.CreateRelatedDocumentAsync("App.SalesInvoice.CreateCancellation", "SalesCancellation", tp._L("SalesCancellation", "Sales Cancellation"));
     }
 };
 
@@ -2144,7 +2144,7 @@ app.PurchaseOrderForm = class extends app.PurchaseDataForm {
      */
     CreateToolBar(Element) {
         super.CreateToolBar(Element);
-        this.AddToolBarButton("CreateDeliveryNote", "Create Purchase Delivery Note", "document_export.png");
+        this.AddToolBarButton("CreateDeliveryNote", tp._L("CreatePurchaseDeliveryNote", "Create Purchase Delivery Note"), "document_export.png");
         if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateDeliveryNote)
             this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateDeliveryNote);
         this.UpdateToolBar();
@@ -2197,8 +2197,8 @@ app.PurchaseOrderForm = class extends app.PurchaseDataForm {
         if (this.CanCreateDeliveryNote() !== true)
             return;
         Code = this.Module.Row.Get("Code", "");
-        OrderText = tp.IsBlankString(Code) ? "Purchase Order" : "Purchase Order: " + Code;
-        if (await tp.YesNoBoxAsync("Create a Purchase Delivery Note from " + OrderText + "?") !== true)
+        OrderText = tp.IsBlankString(Code) ? tp._L("PurchaseOrder", "Purchase Order") : tp._L("PurchaseOrder", "Purchase Order") + ": " + Code;
+        if (await tp.YesNoBoxAsync(tp._L("CreatePurchaseDeliveryNoteFrom", "Create a Purchase Delivery Note from") + " " + OrderText + "?") !== true)
             return;
         try {
             await this.ExecuteWithSpinner(async function () {
@@ -2209,17 +2209,17 @@ app.PurchaseOrderForm = class extends app.PurchaseDataForm {
                 WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : "PurchaseDeliveryNote";
                 DataModulePacket = Packet ? Packet.DataModule : null;
                 if (!DataModulePacket)
-                    throw new Error("Purchase Delivery Note data module was not returned.");
+                    throw new Error(tp._L("PurchaseDeliveryNoteDataModuleNotReturned", "Purchase Delivery Note data module was not returned."));
                 await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
                     FormId: WebFormName + "." + tp.Guid(),
-                    Title: "Purchase Delivery Note",
+                    Title: tp._L("PurchaseDeliveryNote", "Purchase Delivery Note"),
                     InitialDataModule: DataModulePacket,
                     InitialFormState: tp.WebDataFormState.Insert
                 });
-                this.UiLog("Created Purchase Delivery Note from " + this.GetItemLogText(this.Module.Id));
+                this.UiLog(tp._L("CreatedPurchaseDeliveryNoteFrom", "Created Purchase Delivery Note from") + " " + this.GetItemLogText(this.Module.Id));
             });
         } catch (e) {
-            this.ReportError("Create Purchase Delivery Note failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("CreatePurchaseDeliveryNoteFailed", "Create Purchase Delivery Note failed") + ": " + tp.ExceptionText(e));
         }
     }
 };
@@ -2246,8 +2246,8 @@ app.PurchaseDeliveryNoteForm = class extends app.PurchaseDataForm {
      */
     CreateToolBar(Element) {
         super.CreateToolBar(Element);
-        this.AddToolBarButton("CreateReturn", "Create Purchase Return", "document_redirect.png");
-        this.AddToolBarButton("CreateInvoice", "Create Purchase Invoice", "document_export.png");
+        this.AddToolBarButton("CreateReturn", tp._L("CreatePurchaseReturn", "Create Purchase Return"), "document_redirect.png");
+        this.AddToolBarButton("CreateInvoice", tp._L("CreatePurchaseInvoice", "Create Purchase Invoice"), "document_export.png");
         if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateReturn)
             this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateReturn);
         if (this.ToolBar && this.Buttons.CreateReturn && this.Buttons.CreateInvoice)
@@ -2348,8 +2348,8 @@ app.PurchaseDeliveryNoteForm = class extends app.PurchaseDataForm {
         if (this.CanCreateFromDeliveryNote() !== true)
             return;
         Code = this.Module.Row.Get("Code", "");
-        DeliveryText = tp.IsBlankString(Code) ? "Purchase Delivery Note" : "Purchase Delivery Note: " + Code;
-        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + DeliveryText + "?") !== true)
+        DeliveryText = tp.IsBlankString(Code) ? tp._L("PurchaseDeliveryNote", "Purchase Delivery Note") : tp._L("PurchaseDeliveryNote", "Purchase Delivery Note") + ": " + Code;
+        if (await tp.YesNoBoxAsync(tp._L("CreateA", "Create a") + " " + TargetTitle + " " + tp._L("From", "from") + " " + DeliveryText + "?") !== true)
             return;
         try {
             await this.ExecuteWithSpinner(async function () {
@@ -2360,17 +2360,17 @@ app.PurchaseDeliveryNoteForm = class extends app.PurchaseDataForm {
                 WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : DefaultWebFormName;
                 DataModulePacket = Packet ? Packet.DataModule : null;
                 if (!DataModulePacket)
-                    throw new Error(TargetTitle + " data module was not returned.");
+                    throw new Error(TargetTitle + " " + tp._L("DataModuleWasNotReturned", "data module was not returned."));
                 await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
                     FormId: WebFormName + "." + tp.Guid(),
                     Title: TargetTitle,
                     InitialDataModule: DataModulePacket,
                     InitialFormState: tp.WebDataFormState.Insert
                 });
-                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+                this.UiLog(tp._L("Created", "Created") + " " + TargetTitle + " " + tp._L("From", "from") + " " + this.GetItemLogText(this.Module.Id));
             });
         } catch (e) {
-            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("Create", "Create") + " " + TargetTitle + " " + tp._L("Failed", "failed") + ": " + tp.ExceptionText(e));
         }
     }
 
@@ -2380,14 +2380,14 @@ app.PurchaseDeliveryNoteForm = class extends app.PurchaseDataForm {
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateReturnAsync() {
-        await this.CreateTransformedDocumentAsync("App.PurchaseDeliveryNote.CreateReturn", "PurchaseReturn", "Purchase Return");
+        await this.CreateTransformedDocumentAsync("App.PurchaseDeliveryNote.CreateReturn", "PurchaseReturn", tp._L("PurchaseReturn", "Purchase Return"));
     }
     /**
      * Creates a purchase invoice from the current purchase delivery note.
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateInvoiceAsync() {
-        await this.CreateTransformedDocumentAsync("App.PurchaseDeliveryNote.CreateInvoice", "PurchaseInvoice", "Purchase Invoice");
+        await this.CreateTransformedDocumentAsync("App.PurchaseDeliveryNote.CreateInvoice", "PurchaseInvoice", tp._L("PurchaseInvoice", "Purchase Invoice"));
     }
 };
 
@@ -2413,9 +2413,9 @@ app.PurchaseInvoiceForm = class extends app.PurchaseDataForm {
      */
     CreateToolBar(Element) {
         super.CreateToolBar(Element);
-        this.AddToolBarButton("CreateSupplierPayment", "Create Supplier Payment", "coins_delete.png");
-        this.AddToolBarButton("CreateCreditNote", "Create Purchase Credit Note", "document_redirect.png");
-        this.AddToolBarButton("CreateCancellation", "Create Purchase Cancellation", "document_torn.png");
+        this.AddToolBarButton("CreateSupplierPayment", tp._L("CreateSupplierPayment", "Create Supplier Payment"), "coins_delete.png");
+        this.AddToolBarButton("CreateCreditNote", tp._L("CreatePurchaseCreditNote", "Create Purchase Credit Note"), "document_redirect.png");
+        this.AddToolBarButton("CreateCancellation", tp._L("CreatePurchaseCancellation", "Create Purchase Cancellation"), "document_torn.png");
         if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateSupplierPayment)
             this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateSupplierPayment);
         if (this.ToolBar && this.Buttons.CreateSupplierPayment && this.Buttons.CreateCreditNote)
@@ -2481,8 +2481,8 @@ app.PurchaseInvoiceForm = class extends app.PurchaseDataForm {
         if (this.CanCreateFromInvoice() !== true)
             return;
         Code = this.Module.Row.Get("Code", "");
-        InvoiceText = tp.IsBlankString(Code) ? "Purchase Invoice" : "Purchase Invoice: " + Code;
-        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + InvoiceText + "?") !== true)
+        InvoiceText = tp.IsBlankString(Code) ? tp._L("PurchaseInvoice", "Purchase Invoice") : tp._L("PurchaseInvoice", "Purchase Invoice") + ": " + Code;
+        if (await tp.YesNoBoxAsync(tp._L("CreateA", "Create a") + " " + TargetTitle + " " + tp._L("From", "from") + " " + InvoiceText + "?") !== true)
             return;
         try {
             await this.ExecuteWithSpinner(async function () {
@@ -2493,17 +2493,17 @@ app.PurchaseInvoiceForm = class extends app.PurchaseDataForm {
                 WebFormName = Packet && Packet.WebFormName ? Packet.WebFormName : DefaultWebFormName;
                 DataModulePacket = Packet ? Packet.DataModule : null;
                 if (!DataModulePacket)
-                    throw new Error(TargetTitle + " data module was not returned.");
+                    throw new Error(TargetTitle + " " + tp._L("DataModuleWasNotReturned", "data module was not returned."));
                 await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
                     FormId: WebFormName + "." + tp.Guid(),
                     Title: TargetTitle,
                     InitialDataModule: DataModulePacket,
                     InitialFormState: tp.WebDataFormState.Insert
                 });
-                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+                this.UiLog(tp._L("Created", "Created") + " " + TargetTitle + " " + tp._L("From", "from") + " " + this.GetItemLogText(this.Module.Id));
             });
         } catch (e) {
-            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("Create", "Create") + " " + TargetTitle + " " + tp._L("Failed", "failed") + ": " + tp.ExceptionText(e));
         }
     }
 
@@ -2513,21 +2513,21 @@ app.PurchaseInvoiceForm = class extends app.PurchaseDataForm {
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateSupplierPaymentAsync() {
-        await this.CreateRelatedDocumentAsync("App.PurchaseInvoice.CreateSupplierPayment", "SupplierPayment", "Supplier Payment");
+        await this.CreateRelatedDocumentAsync("App.PurchaseInvoice.CreateSupplierPayment", "SupplierPayment", tp._L("SupplierPayment", "Supplier Payment"));
     }
     /**
      * Creates a purchase credit note from the current purchase invoice.
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateCreditNoteAsync() {
-        await this.CreateRelatedDocumentAsync("App.PurchaseInvoice.CreateCreditNote", "PurchaseCreditNote", "Purchase Credit Note");
+        await this.CreateRelatedDocumentAsync("App.PurchaseInvoice.CreateCreditNote", "PurchaseCreditNote", tp._L("PurchaseCreditNote", "Purchase Credit Note"));
     }
     /**
      * Creates a purchase cancellation from the current purchase invoice.
      * @returns {Promise<void>} Returns a Promise.
      */
     async CreateCancellationAsync() {
-        await this.CreateRelatedDocumentAsync("App.PurchaseInvoice.CreateCancellation", "PurchaseCancellation", "Purchase Cancellation");
+        await this.CreateRelatedDocumentAsync("App.PurchaseInvoice.CreateCancellation", "PurchaseCancellation", tp._L("PurchaseCancellation", "Purchase Cancellation"));
     }
 };
 
@@ -2620,7 +2620,7 @@ app.PaymentForm = class extends app.PaymentDataForm {
      */
     CreateToolBar(Element) {
         super.CreateToolBar(Element);
-        this.AddToolBarButton("CreateCancellation", "Create " + this.GetPaymentCancellationTitle(), "document_torn.png");
+        this.AddToolBarButton("CreateCancellation", tp._L("Create", "Create") + " " + this.GetPaymentCancellationTitle(), "document_torn.png");
         if (this.ToolBar && this.Buttons.Post && this.Buttons.CreateCancellation)
             this.ToolBar.PlaceControlAfter(this.Buttons.Post, this.Buttons.CreateCancellation);
         this.UpdateToolBar();
@@ -2648,14 +2648,14 @@ app.PaymentForm = class extends app.PaymentDataForm {
      * @returns {string} Returns the payment document title.
      */
     GetPaymentTitle() {
-        return this.IsSupplierPayment() ? "Supplier Payment" : "Customer Receipt";
+        return this.IsSupplierPayment() ? tp._L("SupplierPayment", "Supplier Payment") : tp._L("CustomerReceipt", "Customer Receipt");
     }
     /**
      * Returns the payment cancellation document title.
      * @returns {string} Returns the payment cancellation document title.
      */
     GetPaymentCancellationTitle() {
-        return this.IsSupplierPayment() ? "Supplier Payment Cancellation" : "Customer Receipt Cancellation";
+        return this.IsSupplierPayment() ? tp._L("SupplierPaymentCancellation", "Supplier Payment Cancellation") : tp._L("CustomerReceiptCancellation", "Customer Receipt Cancellation");
     }
     /**
      * Returns true when the current payment can create a cancellation document.
@@ -2691,7 +2691,7 @@ app.PaymentForm = class extends app.PaymentDataForm {
         super.EnableCommands();
         this.SetButtonVisible("CreateCancellation", true);
         if (this.Buttons.CreateCancellation instanceof tp.ButtonEx)
-            this.Buttons.CreateCancellation.ToolTip = "Create " + this.GetPaymentCancellationTitle();
+            this.Buttons.CreateCancellation.ToolTip = tp._L("Create", "Create") + " " + this.GetPaymentCancellationTitle();
         this.SetButtonEnabled("CreateCancellation", this.CanCreateCancellation());
     }
 
@@ -2723,7 +2723,7 @@ app.PaymentForm = class extends app.PaymentDataForm {
             return;
         Code = this.Module.Row.Get("Code", "");
         PaymentText = tp.IsBlankString(Code) ? this.GetPaymentTitle() : this.GetPaymentTitle() + ": " + Code;
-        if (await tp.YesNoBoxAsync("Create a " + TargetTitle + " from " + PaymentText + "?") !== true)
+        if (await tp.YesNoBoxAsync(tp._L("CreateA", "Create a") + " " + TargetTitle + " " + tp._L("From", "from") + " " + PaymentText + "?") !== true)
             return;
         try {
             await this.ExecuteWithSpinner(async function () {
@@ -2736,17 +2736,17 @@ app.PaymentForm = class extends app.PaymentDataForm {
                 if (tp.IsBlankString(WebFormName))
                     WebFormName = DataModulePacket && DataModulePacket.Name ? DataModulePacket.Name : "";
                 if (!DataModulePacket || tp.IsBlankString(WebFormName))
-                    throw new Error(TargetTitle + " data module was not returned.");
+                    throw new Error(TargetTitle + " " + tp._L("DataModuleWasNotReturned", "data module was not returned."));
                 await app.AppFormDialog.ShowModalDataFormAsync(WebFormName, {
                     FormId: WebFormName + "." + tp.Guid(),
                     Title: TargetTitle,
                     InitialDataModule: DataModulePacket,
                     InitialFormState: tp.WebDataFormState.Insert
                 });
-                this.UiLog("Created " + TargetTitle + " from " + this.GetItemLogText(this.Module.Id));
+                this.UiLog(tp._L("Created", "Created") + " " + TargetTitle + " " + tp._L("From", "from") + " " + this.GetItemLogText(this.Module.Id));
             });
         } catch (e) {
-            this.ReportError("Create " + TargetTitle + " failed: " + tp.ExceptionText(e));
+            this.ReportError(tp._L("Create", "Create") + " " + TargetTitle + " " + tp._L("Failed", "failed") + ": " + tp.ExceptionText(e));
         }
     }
 };

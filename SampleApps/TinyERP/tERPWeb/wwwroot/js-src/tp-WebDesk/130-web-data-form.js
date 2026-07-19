@@ -2011,11 +2011,12 @@ tp.WebDataForm = class extends tp.WebForm {
         var IsListState = this.FormState === tp.WebDataFormState.List;
         var HasModule = this.Module instanceof tp.DataModule;
         var HasSelectedListRow = IsListState === true && !tp.IsEmpty(this.GetSelectedListId());
+        var HasFactBoxContent = this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML);
         this.SetButtonEnabled("List", HasModule === true);
         this.SetButtonEnabled("RefreshList", HasModule === true);
         this.SetButtonEnabled("Find", HasModule && this.Module.UseFilters === true && IsListState === true);
-        this.SetButtonVisible("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML));
-        this.SetButtonEnabled("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML) && this.FormState !== tp.WebDataFormState.List);
+        this.SetButtonVisible("FactBox", tp.ShowDataFormFactBoxPane !== false);
+        this.SetButtonEnabled("FactBox", HasFactBoxContent === true && this.FormState !== tp.WebDataFormState.List);
         this.SetButtonVisible("Ok", this.IsModal === true);
         this.SetButtonEnabled("Home", false);
         this.SetButtonEnabled("ToggleIds", HasModule === true);
@@ -2244,6 +2245,11 @@ tp.WebDataForm.prototype.FactBoxPaneWidth = 420;
  * @type {boolean}
  */
 tp.WebDataForm.prototype.FactBoxResizeActive = false;
+/**
+ * True when the FactBox toolbar command is available.
+ * @type {boolean}
+ */
+tp.ShowDataFormFactBoxPane = true;
 /**
  * The resize start mouse X coordinate.
  * @type {number}

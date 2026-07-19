@@ -82,6 +82,10 @@ public partial class AppDefaultPropertiesEditor : UserControl, IConfigEditor
         AddLookupList("OriginTaxJurisdictionId", "TaxJurisdiction");
         AddLookupList("DestinationTaxJurisdictionId", "TaxJurisdiction");
     }
+    string L(string Key, string Default) => Texts.L(Key, Default);
+    string SalesText() => L("Sales", "Sales");
+    string PurchasesText() => L("Purchases", "Purchases");
+    bool IsCurrentLineGridSales() => fCurrentLineGridKind == SalesText();
     TextBlock CreateLabel(string Text)
     {
         TextBlock Result = new();
@@ -127,24 +131,24 @@ public partial class AppDefaultPropertiesEditor : UserControl, IConfigEditor
     void AddDefaultRows(StackPanel Panel, bool IsSales)
     {
         Panel.Children.Clear();
-        Panel.Children.Add(CreateRow("Warehouse", CreateLookupComboBox("WarehouseId", IsSales)));
-        Panel.Children.Add(CreateRow("Cost Center", CreateLookupComboBox("CostCenterId", IsSales)));
-        Panel.Children.Add(CreateRow("Branch", CreateLookupComboBox("BranchId", IsSales)));
-        Panel.Children.Add(CreateRow("Currency", CreateLookupComboBox("CurrencyId", IsSales)));
-        Panel.Children.Add(CreateRow("Payment Method", CreateLookupComboBox("PaymentMethodId", IsSales)));
-        Panel.Children.Add(CreateRow("Payment Term", CreateLookupComboBox("PaymentTermId", IsSales)));
-        Panel.Children.Add(CreateRow("Price List Type", CreateLookupComboBox("PriceListTypeId", IsSales)));
-        Panel.Children.Add(CreateRow("Tax Business Group", CreateLookupComboBox("TaxBusinessGroupId", IsSales)));
-        Panel.Children.Add(CreateRow("Origin Tax Jurisdiction", CreateLookupComboBox("OriginTaxJurisdictionId", IsSales)));
-        Panel.Children.Add(CreateRow("Destination Tax Jurisdiction", CreateLookupComboBox("DestinationTaxJurisdictionId", IsSales)));
+        Panel.Children.Add(CreateRow(L("Warehouse", "Warehouse"), CreateLookupComboBox("WarehouseId", IsSales)));
+        Panel.Children.Add(CreateRow(L("CostCenter", "Cost Center"), CreateLookupComboBox("CostCenterId", IsSales)));
+        Panel.Children.Add(CreateRow(L("Branch", "Branch"), CreateLookupComboBox("BranchId", IsSales)));
+        Panel.Children.Add(CreateRow(L("Currency", "Currency"), CreateLookupComboBox("CurrencyId", IsSales)));
+        Panel.Children.Add(CreateRow(L("PaymentMethod", "Payment Method"), CreateLookupComboBox("PaymentMethodId", IsSales)));
+        Panel.Children.Add(CreateRow(L("PaymentTerm", "Payment Term"), CreateLookupComboBox("PaymentTermId", IsSales)));
+        Panel.Children.Add(CreateRow(L("PriceListType", "Price List Type"), CreateLookupComboBox("PriceListTypeId", IsSales)));
+        Panel.Children.Add(CreateRow(L("TaxBusinessGroup", "Tax Business Group"), CreateLookupComboBox("TaxBusinessGroupId", IsSales)));
+        Panel.Children.Add(CreateRow(L("OriginTaxJurisdiction", "Origin Tax Jurisdiction"), CreateLookupComboBox("OriginTaxJurisdictionId", IsSales)));
+        Panel.Children.Add(CreateRow(L("DestinationTaxJurisdiction", "Destination Tax Jurisdiction"), CreateLookupComboBox("DestinationTaxJurisdictionId", IsSales)));
         NumericUpDown DefaultQuantity = CreateQuantityBox();
         CheckBox AllowZeroUnitPrice = CreateCheckBox();
         TextBox PriceResolverClassName = CreateTextBox();
         TextBox TaxResolverClassName = CreateTextBox();
-        Panel.Children.Add(CreateRow("Default Quantity", DefaultQuantity));
-        Panel.Children.Add(CreateRow("Allow Zero Unit Price", AllowZeroUnitPrice));
-        Panel.Children.Add(CreateRow("Price Resolver Class", PriceResolverClassName));
-        Panel.Children.Add(CreateRow("Tax Resolver Class", TaxResolverClassName));
+        Panel.Children.Add(CreateRow(L("DefaultQuantity", "Default Quantity"), DefaultQuantity));
+        Panel.Children.Add(CreateRow(L("AllowZeroUnitPrice", "Allow Zero Unit Price"), AllowZeroUnitPrice));
+        Panel.Children.Add(CreateRow(L("PriceResolverClass", "Price Resolver Class"), PriceResolverClassName));
+        Panel.Children.Add(CreateRow(L("TaxResolverClass", "Tax Resolver Class"), TaxResolverClassName));
         if (IsSales)
         {
             fSalesDefaultQuantity = DefaultQuantity;
@@ -240,14 +244,14 @@ public partial class AppDefaultPropertiesEditor : UserControl, IConfigEditor
     }
     void SaveCurrentLineGridFields()
     {
-        if (fCurrentLineGridKind == "Sales")
+        if (IsCurrentLineGridSales())
             fDefaults.Sales.TradeLineGridFields = GetSelectedLineGridFields();
         else
             fDefaults.Purchase.TradeLineGridFields = GetSelectedLineGridFields();
     }
     void LoadCurrentLineGridFields()
     {
-        if (fCurrentLineGridKind == "Sales")
+        if (IsCurrentLineGridSales())
             SetSelectedLineGridFields(fDefaults.Sales.TradeLineGridFields);
         else
             SetSelectedLineGridFields(fDefaults.Purchase.TradeLineGridFields);
@@ -296,14 +300,23 @@ public partial class AppDefaultPropertiesEditor : UserControl, IConfigEditor
                 throw new TripousException($"{Title} line grid fields must contain '{Field}'.");
         }
     }
+    void ApplyTexts()
+    {
+        tabSales.Header = SalesText();
+        tabPurchases.Header = PurchasesText();
+        tabLineGrid.Header = L("LineGrid", "Line Grid");
+        lblDocument.Text = L("Document", "Document");
+        lblAvailableFields.Text = L("AvailableFields", "Available Fields");
+        lblSelectedFields.Text = L("SelectedFields", "Selected Fields");
+    }
     void SetupLineGridTab()
     {
-        cboLineGridKind.ItemsSource = new string[] { "Sales", "Purchases" };
-        cboLineGridKind.SelectedItem = "Sales";
-        ToolTip.SetTip(btnAddField, "Add Field");
-        ToolTip.SetTip(btnRemoveField, "Remove Field");
-        ToolTip.SetTip(btnMoveFieldUp, "Move Up");
-        ToolTip.SetTip(btnMoveFieldDown, "Move Down");
+        cboLineGridKind.ItemsSource = new string[] { SalesText(), PurchasesText() };
+        cboLineGridKind.SelectedItem = SalesText();
+        ToolTip.SetTip(btnAddField, L("AddField", "Add Field"));
+        ToolTip.SetTip(btnRemoveField, L("RemoveField", "Remove Field"));
+        ToolTip.SetTip(btnMoveFieldUp, L("MoveUp", "Move Up"));
+        ToolTip.SetTip(btnMoveFieldDown, L("MoveDown", "Move Down"));
         cboLineGridKind.SelectionChanged += (Sender, Args) => ChangeLineGridKind();
         btnAddField.Click += (Sender, Args) => MoveField(lstAvailable, lstSelected);
         btnRemoveField.Click += (Sender, Args) => MoveField(lstSelected, lstAvailable);
@@ -320,8 +333,8 @@ public partial class AppDefaultPropertiesEditor : UserControl, IConfigEditor
         AddDefaultRows(pnlPurchase, IsSales: false);
         LoadDefaultValues(IsSales: true);
         LoadDefaultValues(IsSales: false);
-        fCurrentLineGridKind = "Sales";
-        cboLineGridKind.SelectedItem = "Sales";
+        fCurrentLineGridKind = SalesText();
+        cboLineGridKind.SelectedItem = SalesText();
         fLoadingControls = false;
         LoadCurrentLineGridFields();
     }
@@ -333,6 +346,7 @@ public partial class AppDefaultPropertiesEditor : UserControl, IConfigEditor
     public AppDefaultPropertiesEditor()
     {
         InitializeComponent();
+        ApplyTexts();
         SetupLineGridTab();
     }
 
@@ -353,8 +367,8 @@ public partial class AppDefaultPropertiesEditor : UserControl, IConfigEditor
         SaveDefaultValues(IsSales: true);
         SaveDefaultValues(IsSales: false);
         SaveCurrentLineGridFields();
-        ValidateLineGridFields("Sales", fDefaults.Sales.TradeLineGridFields);
-        ValidateLineGridFields("Purchases", fDefaults.Purchase.TradeLineGridFields);
+        ValidateLineGridFields(SalesText(), fDefaults.Sales.TradeLineGridFields);
+        ValidateLineGridFields(PurchasesText(), fDefaults.Purchase.TradeLineGridFields);
         return Json.Serialize(fDefaults);
     }
 

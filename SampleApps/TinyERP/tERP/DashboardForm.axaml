@@ -11,43 +11,43 @@
             <Grid Grid.Row="0" ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto">
                 <Border Grid.Row="0" Grid.Column="0" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
                     <StackPanel>
-                        <TextBlock Text="Sales" FontWeight="SemiBold"/>
+                        <TextBlock Name="lblSales" Text="Sales" FontWeight="SemiBold"/>
                         <TextBlock Name="txtSalesTotal" FontSize="22"/>
                     </StackPanel>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="1" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
                     <StackPanel>
-                        <TextBlock Text="Purchases" FontWeight="SemiBold"/>
+                        <TextBlock Name="lblPurchases" Text="Purchases" FontWeight="SemiBold"/>
                         <TextBlock Name="txtPurchasesTotal" FontSize="22"/>
                     </StackPanel>
                 </Border>
                 <Border Grid.Row="0" Grid.Column="2" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
                     <StackPanel>
-                        <TextBlock Text="Stock Value" FontWeight="SemiBold"/>
+                        <TextBlock Name="lblStockValue" Text="Stock Value" FontWeight="SemiBold"/>
                         <TextBlock Name="txtStockValue" FontSize="22"/>
                     </StackPanel>
                 </Border>
                 <Border Grid.Row="1" Grid.Column="0" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
                     <StackPanel>
-                        <TextBlock Text="Receivables" FontWeight="SemiBold"/>
+                        <TextBlock Name="lblReceivables" Text="Receivables" FontWeight="SemiBold"/>
                         <TextBlock Name="txtReceivables" FontSize="22"/>
                     </StackPanel>
                 </Border>
                 <Border Grid.Row="1" Grid.Column="1" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
                     <StackPanel>
-                        <TextBlock Text="Payables" FontWeight="SemiBold"/>
+                        <TextBlock Name="lblPayables" Text="Payables" FontWeight="SemiBold"/>
                         <TextBlock Name="txtPayables" FontSize="22"/>
                     </StackPanel>
                 </Border>
                 <Border Grid.Row="1" Grid.Column="2" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
                     <StackPanel>
-                        <TextBlock Text="Cash / Bank" FontWeight="SemiBold"/>
+                        <TextBlock Name="lblCashBank" Text="Cash / Bank" FontWeight="SemiBold"/>
                         <TextBlock Name="txtCashBank" FontSize="22"/>
                     </StackPanel>
                 </Border>
             </Grid>
             <TabControl Grid.Row="1" Margin="4,10,4,4">
-                <TabItem Header="Top Customers">
+                <TabItem Name="tabTopCustomers" Header="Top Customers">
                     <extras:GroupGrid Name="gridCustomers"
                                       IsReadOnly="True"
                                       IsToolBarVisible="False"
@@ -55,7 +55,7 @@
                                       IsFilterPanelVisible="False"
                                       IsTotalsSummaryVisible="False"/>
                 </TabItem>
-                <TabItem Header="Top Suppliers">
+                <TabItem Name="tabTopSuppliers" Header="Top Suppliers">
                     <extras:GroupGrid Name="gridSuppliers"
                                       IsReadOnly="True"
                                       IsToolBarVisible="False"
@@ -63,7 +63,7 @@
                                       IsFilterPanelVisible="False"
                                       IsTotalsSummaryVisible="False"/>
                 </TabItem>
-                <TabItem Header="Stock Snapshot">
+                <TabItem Name="tabStockSnapshot" Header="Stock Snapshot">
                     <extras:GroupGrid Name="gridStock"
                                       IsReadOnly="True"
                                       IsToolBarVisible="False"

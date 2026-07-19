@@ -24,7 +24,7 @@ static internal partial class AppHost
     {
         DbConnectionInfo ConnectionInfo = Db.GetDefaultConnectionInfo();
         if (ConnectionInfo.DbServerType != DbServerType.Sqlite)
-            throw new TripousException("Database regeneration is supported only for SQLite connections.");
+            throw new TripousException(Texts.L("DatabaseRegenerationOnlySqlite", "Database regeneration is supported only for SQLite connections."));
 
         ConnectionStringBuilder Builder = new ConnectionStringBuilder(ConnectionInfo.ConnectionString);
         string Result = Builder.Database;
@@ -37,7 +37,10 @@ static internal partial class AppHost
     static async Task RegenerateDatabase()
     {
         string DatabaseFilePath = GetDefaultDatabaseFilePath();
-        string Message = $"This will delete and recreate the sample Sqlite database.{Environment.NewLine}{Environment.NewLine}{DatabaseFilePath}{Environment.NewLine}{Environment.NewLine}Continue?";
+        string Message = string.Format(
+            Texts.L("ConfirmRegenerateDatabase", "This will delete and recreate the sample Sqlite database.{0}{0}{1}{0}{0}Continue?"),
+            Environment.NewLine,
+            DatabaseFilePath);
         bool Flag = await MessageBox.YesNo(Message, AppHost.MainWindow);
         if (!Flag)
             return;
@@ -47,7 +50,7 @@ static internal partial class AppHost
         if (File.Exists(DatabaseFilePath))
             File.Delete(DatabaseFilePath);
 
-        await MessageBox.Info("The sample Sqlite database has been deleted. The application will now terminate. Please restart the application.", AppHost.MainWindow);
+        await MessageBox.Info(Texts.L("DatabaseDeletedApplicationWillTerminate", "The sample Sqlite database has been deleted. The application will now terminate. Please restart the application."), AppHost.MainWindow);
         AppHost.MainWindow.Close();
     }
     static object ShowFormFunc(Command Cmd)
@@ -61,7 +64,16 @@ static internal partial class AppHost
     static object ShowDashboardFunc(Command Cmd)
     {
         FormContext Context = FormContext.Create("Dashboard", typeof(DashboardForm).FullName, FormDisplayMode.TabItem, AppHost.MainWindow);
-        Context.Title = "Dashboard";
+        Context.Title = Texts.L("Dashboard", "Dashboard");
+        return AppHost.ContentHandler.ShowAppForm(Context);
+    }
+    /// <summary>
+    /// Opens the resource translation editor.
+    /// </summary>
+    static object ShowResourceTranslationsFunc(Command Cmd)
+    {
+        FormContext Context = FormContext.Create("ResourceTranslations", typeof(ResourceTranslationsForm).FullName, FormDisplayMode.TabItem, AppHost.MainWindow);
+        Context.Title = Texts.L("ResourceTranslations", "Resource Translations");
         return AppHost.ContentHandler.ShowAppForm(Context);
     }
     /// <summary>
@@ -88,7 +100,7 @@ static internal partial class AppHost
         {
             AppUserDataModule Module = DataRegistry.CreateModule("AppUser") as AppUserDataModule;
             Module.ChangePassword(User.UserName, Dialog.CurrentPassword, Dialog.NewPassword);
-            await MessageBox.Info("Password changed.", AppHost.MainWindow);
+            await MessageBox.Info(Texts.L("PasswordChanged", "Password changed."), AppHost.MainWindow);
         }
         catch (Exception e)
         {
@@ -101,26 +113,28 @@ static internal partial class AppHost
         // NOTE: ToolBar commands should define an ImageFileName.
         
         // ● commands  
-        Command cmdDashboard = Command.Create("Dashboard", "chart_bar.png", ShowDashboardFunc);
+        Command cmdDashboard = Command.Create("Dashboard", "chart_bar.png", ShowDashboardFunc, "Dashboard");
         Command cmdExit = Command.Create("Exit", "door_out.png", (c) => { AppHost.MainWindow.Close(); return 0; });
-        Command cmdAppFolder = Command.Create("ShowAppFolder", "folder.png", (c) => { Sys.OpenFileExplorer(SysConfig.AppFolderPath); return 0; });
-        Command cmdApplicationSettings = Command.CreateAsync("Application Settings", "setting_tools.png", async (c) => { await ConfigDialog.ShowModal(AppHost.MainWindow); return 0; });
-        Command cmdChangePassword = Command.CreateAsync("Change Password", "change_password.png", async (c) => { await ChangePassword(); return 0; });
-        Command cmdConnectionInfo = Command.CreateAsync("ConnectionInfo", "database_edit.png", async (c) => { await ShowDbConnectionEditDialog(Db.GetDefaultConnectionInfo()); return 0; });
-        Command cmdDatabaseWorkbench = Command.Create("Database Explorer", "database.png", ShowDatabaseWorkbenchFunc);
-        Command cmdRegenerateDatabase = Command.CreateAsync("Regenerate Database", "database_refresh.png", async (c) => { await RegenerateDatabase(); return 0; });
+        Command cmdAppFolder = Command.Create("ShowAppFolder", "folder.png", (c) => { Sys.OpenFileExplorer(SysConfig.AppFolderPath); return 0; }, "ShowAppFolder");
+        Command cmdApplicationSettings = Command.CreateAsync("Application Settings", "setting_tools.png", async (c) => { await ConfigDialog.ShowModal(AppHost.MainWindow); return 0; }, "ApplicationSettings");
+        Command cmdChangePassword = Command.CreateAsync("Change Password", "change_password.png", async (c) => { await ChangePassword(); return 0; }, "ChangePassword");
+        Command cmdConnectionInfo = Command.CreateAsync("ConnectionInfo", "database_edit.png", async (c) => { await ShowDbConnectionEditDialog(Db.GetDefaultConnectionInfo()); return 0; }, "ConnectionInfo");
+        Command cmdDatabaseWorkbench = Command.Create("Database Explorer", "database.png", ShowDatabaseWorkbenchFunc, "DatabaseExplorer");
+        Command cmdResourceTranslations = Command.Create("Resource Translations", "language.png", ShowResourceTranslationsFunc, "ResourceTranslations");
+        Command cmdRegenerateDatabase = Command.CreateAsync("Regenerate Database", "database_refresh.png", async (c) => { await RegenerateDatabase(); return 0; }, "RegenerateDatabase");
         cmdConnectionInfo.SecurityLevel = UserLevel.Admin;
         cmdDatabaseWorkbench.SecurityLevel = UserLevel.Admin;
+        cmdResourceTranslations.SecurityLevel = UserLevel.Admin;
         cmdRegenerateDatabase.SecurityLevel = UserLevel.Admin;
-        Command cmdClearLog = Command.Create("Clear Log", "bin.png", (c) => { LogBox.Clear(); return 0; });
-        Command cmdToggleLog = Command.Create("Toggle Log", "error_log.png", (c) => { AppHost.MainWindow.ToggleLog(); return 0; });
-        Command cmdToggleLogSqlStatements = Command.Create("Log Sql", "file_extension_log.png", (c) => { AppHost.MainWindow.ToggleLogSqlStatements(); return 0; });
+        Command cmdClearLog = Command.Create("Clear Log", "bin.png", (c) => { LogBox.Clear(); return 0; }, "ClearLog");
+        Command cmdToggleLog = Command.Create("Toggle Log", "error_log.png", (c) => { AppHost.MainWindow.ToggleLog(); return 0; }, "ToggleLog");
+        Command cmdToggleLogSqlStatements = Command.Create("Log Sql", "file_extension_log.png", (c) => { AppHost.MainWindow.ToggleLogSqlStatements(); return 0; }, "LogSql");
         cmdToggleLogSqlStatements.IsToggle = true;
-        Command cmdTest = Command.Create("Test", "lightning.png");
+        Command cmdTest = Command.Create("Test", "lightning.png", "Test");
         
         // ● General commands  
-        Command cmdGeneral = new ("General");
-        cmdGeneral.Commands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdRegenerateDatabase, cmdExit }.Where(CanAccess));
+        Command cmdGeneral = new ("General") { TitleKey = "General" };
+        cmdGeneral.Commands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdResourceTranslations, cmdRegenerateDatabase, cmdExit }.Where(CanAccess));
 
         // ● form commands  
         foreach (FormDef FormDef in DesktopRegistry.Forms)
@@ -149,7 +163,7 @@ static internal partial class AppHost
         AppRegistry.MenuCommands.Insert(0, cmdGeneral);
         
         // ● split commands to toolbar and menu commands
-        AppRegistry.ToolBarCommands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdTest, cmdExit }.Where(CanAccess));
+        AppRegistry.ToolBarCommands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdResourceTranslations, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdTest, cmdExit }.Where(CanAccess));
         //AppRegistry.MenuCommands.AddRange(MasterCommandGroups);
     }
 }

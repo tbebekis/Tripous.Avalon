@@ -448,7 +448,259 @@ public partial class SampleData1: SampleData
 
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EN"), ("Name", "English"), ("CultureName", "en-US"), ("IsDefault", true), ("IsActive", true), ("IsRightToLeft", false), ("Color", "#2563EB"), ("IconName", "Languages"), ("Remarks", DBNull.Value));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EL"), ("Name", "Greek"), ("CultureName", "el-GR"), ("IsDefault", false), ("IsActive", true), ("IsRightToLeft", false), ("Color", "#16A34A"), ("IconName", "Languages"), ("Remarks", DBNull.Value));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "DE"), ("Name", "German"), ("CultureName", "de-DE"), ("IsDefault", false), ("IsActive", true), ("IsRightToLeft", false), ("Color", "#F59E0B"), ("IconName", "Languages"), ("Remarks", DBNull.Value));
+
+        Module.BatchInsert(tblSource);
+    }
+    static void Add_ResourceStrings()
+    {
+        string ModuleName = "ResourceStrings";
+        if (!CanAdd(ModuleName, out DataModule Module))
+            return;
+
+        MemTable tblSource = new() { TableName = Module.tblItem.TableName };
+        SampleTables[tblSource.TableName] = tblSource;
+
+        tblSource.CopyColumnsFrom(Module.tblItem);
+
+        MemTable tblLanguage = SampleTables["SYS_LANG"];
+        object EnglishId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EN"))["Id"];
+        object GreekId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EL"))["Id"];
+
+        (string Key, string English, string Greek)[] Resources = new (string Key, string English, string Greek)[]
+        {
+            ("ActiveConnectionChangedTo", "Active connection changed to", "Η ενεργή σύνδεση άλλαξε σε"),
+            ("AddingSampleDataPleaseWait", "Adding sample data. Please wait...", "Προσθήκη δοκιμαστικών δεδομένων. Παρακαλώ περιμένετε..."),
+            ("AffectedRows", "Affected rows", "Επηρεασμένες γραμμές"),
+            ("AllPasswordFieldsAreRequired", "All password fields are required.", "Όλα τα πεδία κωδικού πρόσβασης είναι υποχρεωτικά."),
+            ("ApplicationSettings", "Application Settings", "Ρυθμίσεις Εφαρμογής"),
+            ("ApplicationSettingsFailed", "Application settings failed", "Οι ρυθμίσεις εφαρμογής απέτυχαν"),
+            ("ApplicationStarted", "Application Started.", "Η εφαρμογή ξεκίνησε."),
+            ("ApplicationWillTerminateRestart", "The application will now terminate. Please restart the application.", "Η εφαρμογή θα τερματιστεί τώρα. Παρακαλώ εκκινήστε την ξανά."),
+            ("Calculated", "Calculated", "Υπολογίστηκε"),
+            ("Cancel", "Cancel", "Άκυρο"),
+            ("CannotCreateServerDialogNoClass", "Cannot create server dialog. No JavaScript class type is specified.", "Δεν είναι δυνατή η δημιουργία server dialog. Δεν έχει οριστεί τύπος κλάσης JavaScript."),
+            ("CannotCreateServerDialogNoRoot", "Cannot create server dialog. No root element found.", "Δεν είναι δυνατή η δημιουργία server dialog. Δεν βρέθηκε root element."),
+            ("CannotCreateServerDialogNoShowAsync", "Cannot create server dialog. The specified class has no ShowAsync() method.", "Δεν είναι δυνατή η δημιουργία server dialog. Η καθορισμένη κλάση δεν έχει μέθοδο ShowAsync()."),
+            ("CashBank", "Cash / Bank", "Ταμείο / Τράπεζα"),
+            ("ChangePassword", "Change Password", "Αλλαγή Κωδικού"),
+            ("ChangePasswordFailed", "Change password failed", "Η αλλαγή κωδικού απέτυχε"),
+            ("CheckingStartupState", "Checking startup state...", "Έλεγχος κατάστασης εκκίνησης..."),
+            ("Clear", "Clear", "Καθαρισμός"),
+            ("ClearFilters", "Clear Filters", "Καθαρισμός Φίλτρων"),
+            ("ClearLog", "Clear Log", "Καθαρισμός Log"),
+            ("Close", "Close", "Κλείσιμο"),
+            ("CloseFailed", "Close failed", "Το κλείσιμο απέτυχε"),
+            ("Collapse", "Collapse", "Σύμπτυξη"),
+            ("Columns", "Columns", "Στήλες"),
+            ("CommandExecuted", "Command executed", "Η εντολή εκτελέστηκε"),
+            ("ConfirmAddSampleDataVersions", "Do you want to add those versions of sample data to the database?", "Θέλετε να προσθέσετε αυτές τις εκδόσεις δοκιμαστικών δεδομένων στη βάση;"),
+            ("ConfirmNonSelectSqlExecution", "You are about to execute a non-SELECT SQL statement.", "Πρόκειται να εκτελέσετε SQL εντολή που δεν είναι SELECT."),
+            ("ConfirmPassword", "Confirm Password", "Επιβεβαίωση Κωδικού"),
+            ("ConfirmRegenerateDatabase", "This will delete and recreate the sample Sqlite database.{0}{0}{1}{0}{0}Continue?", "Αυτό θα διαγράψει και θα δημιουργήσει ξανά τη δοκιμαστική βάση Sqlite.{0}{0}{1}{0}{0}Συνέχεια;"),
+            ("ConfirmRegenerateWebDatabase", "This will delete and recreate the sample Sqlite database.", "Αυτό θα διαγράψει και θα δημιουργήσει ξανά τη δοκιμαστική βάση Sqlite."),
+            ("Connect", "Connect", "Σύνδεση"),
+            ("Connection", "Connection", "Σύνδεση"),
+            ("ConnectionFailed", "Connection failed.", "Η σύνδεση απέτυχε."),
+            ("ConnectionInfo", "Connection Info", "Πληροφορίες Σύνδεσης"),
+            ("ConnectionInfoFailed", "Connection info failed", "Οι πληροφορίες σύνδεσης απέτυχαν"),
+            ("ConnectionInformationSaved", "Connection information saved.", "Οι πληροφορίες σύνδεσης αποθηκεύτηκαν."),
+            ("ConnectionSucceeded", "Connection succeeded.", "Η σύνδεση πέτυχε."),
+            ("Constraints", "Constraints", "Περιορισμοί"),
+            ("Continue", "Continue?", "Συνέχεια;"),
+            ("Create", "Create", "Δημιουργία"),
+            ("CreateA", "Create a", "Δημιουργία"),
+            ("CreateCancellationFor", "Create a cancellation for", "Δημιουργία ακυρωτικού για"),
+            ("CreateCustomerReceipt", "Create Customer Receipt", "Δημιουργία Είσπραξης Πελάτη"),
+            ("CreateCustomerReceiptCancellation", "Create Customer Receipt Cancellation", "Δημιουργία Ακύρωσης Είσπραξης Πελάτη"),
+            ("CreateCustomerReceiptCancellationFrom", "Create a Customer Receipt Cancellation from", "Δημιουργία Ακύρωσης Είσπραξης Πελάτη από"),
+            ("CreateCustomerReceiptFrom", "Create a Customer Receipt from", "Δημιουργία Είσπραξης Πελάτη από"),
+            ("CreatePurchaseCancellation", "Create Purchase Cancellation", "Δημιουργία Ακύρωσης Αγοράς"),
+            ("CreatePurchaseCancellationFrom", "Create a Purchase Cancellation from", "Δημιουργία Ακύρωσης Αγοράς από"),
+            ("CreatePurchaseCreditNote", "Create Purchase Credit Note", "Δημιουργία Πιστωτικού Αγοράς"),
+            ("CreatePurchaseCreditNoteFrom", "Create a Purchase Credit Note from", "Δημιουργία Πιστωτικού Αγοράς από"),
+            ("CreatePurchaseDeliveryNote", "Create Purchase Delivery Note", "Δημιουργία Δελτίου Παραλαβής"),
+            ("CreatePurchaseDeliveryNoteFailed", "Create Purchase Delivery Note failed", "Η δημιουργία Δελτίου Παραλαβής απέτυχε"),
+            ("CreatePurchaseDeliveryNoteFrom", "Create a Purchase Delivery Note from", "Δημιουργία Δελτίου Παραλαβής από"),
+            ("CreatePurchaseInvoice", "Create Purchase Invoice", "Δημιουργία Τιμολογίου Αγοράς"),
+            ("CreatePurchaseInvoiceFrom", "Create a Purchase Invoice from", "Δημιουργία Τιμολογίου Αγοράς από"),
+            ("CreatePurchaseReturn", "Create Purchase Return", "Δημιουργία Επιστροφής Αγοράς"),
+            ("CreatePurchaseReturnFrom", "Create a Purchase Return from", "Δημιουργία Επιστροφής Αγοράς από"),
+            ("CreateSalesCancellation", "Create Sales Cancellation", "Δημιουργία Ακύρωσης Πώλησης"),
+            ("CreateSalesCancellationFrom", "Create a Sales Cancellation from", "Δημιουργία Ακύρωσης Πώλησης από"),
+            ("CreateSalesCreditNote", "Create Sales Credit Note", "Δημιουργία Πιστωτικού Πώλησης"),
+            ("CreateSalesCreditNoteFrom", "Create a Sales Credit Note from", "Δημιουργία Πιστωτικού Πώλησης από"),
+            ("CreateSalesDeliveryNote", "Create Sales Delivery Note", "Δημιουργία Δελτίου Αποστολής"),
+            ("CreateSalesDeliveryNoteFailed", "Create Sales Delivery Note failed", "Η δημιουργία Δελτίου Αποστολής απέτυχε"),
+            ("CreateSalesDeliveryNoteFrom", "Create a Sales Delivery Note from", "Δημιουργία Δελτίου Αποστολής από"),
+            ("CreateSalesInvoice", "Create Sales Invoice", "Δημιουργία Τιμολογίου Πώλησης"),
+            ("CreateSalesInvoiceFrom", "Create a Sales Invoice from", "Δημιουργία Τιμολογίου Πώλησης από"),
+            ("CreateSalesReturn", "Create Sales Return", "Δημιουργία Επιστροφής Πώλησης"),
+            ("CreateSalesReturnFrom", "Create a Sales Return from", "Δημιουργία Επιστροφής Πώλησης από"),
+            ("CreateStockCancellation", "Create Stock Cancellation", "Δημιουργία Ακύρωσης Αποθήκης"),
+            ("CreateStockCancellationFailed", "Create Stock Cancellation failed", "Η δημιουργία Ακύρωσης Αποθήκης απέτυχε"),
+            ("CreateSupplierPayment", "Create Supplier Payment", "Δημιουργία Πληρωμής Προμηθευτή"),
+            ("CreateSupplierPaymentCancellation", "Create Supplier Payment Cancellation", "Δημιουργία Ακύρωσης Πληρωμής Προμηθευτή"),
+            ("CreateSupplierPaymentCancellationFrom", "Create a Supplier Payment Cancellation from", "Δημιουργία Ακύρωσης Πληρωμής Προμηθευτή από"),
+            ("CreateSupplierPaymentFrom", "Create a Supplier Payment from", "Δημιουργία Πληρωμής Προμηθευτή από"),
+            ("Created", "Created", "Δημιουργήθηκε"),
+            ("CreatedPurchaseDeliveryNoteFrom", "Created Purchase Delivery Note from", "Δημιουργήθηκε Δελτίο Παραλαβής από"),
+            ("CreatedSalesDeliveryNoteFrom", "Created Sales Delivery Note from", "Δημιουργήθηκε Δελτίο Αποστολής από"),
+            ("CreatedStockCancellationFrom", "Created Stock Cancellation from", "Δημιουργήθηκε Ακύρωση Αποθήκης από"),
+            ("CurrentPassword", "Current Password", "Τρέχων Κωδικός"),
+            ("CustomerReceipt", "Customer Receipt", "Είσπραξη Πελάτη"),
+            ("CustomerReceiptCancellation", "Customer Receipt Cancellation", "Ακύρωση Είσπραξης Πελάτη"),
+            ("Dashboard", "Dashboard", "Πίνακας Ελέγχου"),
+            ("DashboardRefreshed", "Dashboard refreshed.", "Ο πίνακας ελέγχου ανανεώθηκε."),
+            ("DataModuleWasNotReturned", "data module was not returned.", "το data module δεν επιστράφηκε."),
+            ("DatabaseConnection", "Database Connection", "Σύνδεση Βάσης"),
+            ("DatabaseDeletedApplicationWillTerminate", "The sample Sqlite database has been deleted. The application will now terminate. Please restart the application.", "Η δοκιμαστική βάση Sqlite διαγράφηκε. Η εφαρμογή θα τερματιστεί τώρα. Παρακαλώ εκκινήστε την ξανά."),
+            ("DatabaseExplorer", "Database Explorer", "Εξερευνητής Βάσης"),
+            ("DatabaseRegenerationOnlySqlite", "Database regeneration is supported only for SQLite connections.", "Η αναδημιουργία βάσης υποστηρίζεται μόνο για συνδέσεις SQLite."),
+            ("DatabaseWorkbench", "Database Workbench", "Εργαλεία Βάσης"),
+            ("DefaultSqliteConnectionCreated", "A default SQLite connection has been created.{0}{0}{1}", "Δημιουργήθηκε προεπιλεγμένη σύνδεση SQLite.{0}{0}{1}"),
+            ("DisableSqlWarningFromSettings", "You can disable this warning from Application Settings by changing ShowWarningOnExecStatements.", "Μπορείτε να απενεργοποιήσετε αυτή την προειδοποίηση από τις Ρυθμίσεις Εφαρμογής αλλάζοντας το ShowWarningOnExecStatements."),
+            ("Document", "document", "παραστατικό"),
+            ("DocumentCannotBeEditedAfterPosting", "After posting, the document can no longer be edited.", "Μετά την οριστικοποίηση, το παραστατικό δεν μπορεί πλέον να τροποποιηθεί."),
+            ("DocumentNotificationFailed", "Document notification failed", "Η ειδοποίηση παραστατικού απέτυχε"),
+            ("Done", "DONE", "ΕΤΟΙΜΟ"),
+            ("EmptyDatabaseCreatedForConnection", "An empty database has been created for connection '{1}'.{0}{0}{2}", "Δημιουργήθηκε κενή βάση για τη σύνδεση '{1}'.{0}{0}{2}"),
+            ("Execute", "Execute", "Εκτέλεση"),
+            ("ExecuteF5", "Execute (F5)", "Εκτέλεση (F5)"),
+            ("Expand", "Expand", "Ανάπτυξη"),
+            ("Failed", "failed", "απέτυχε"),
+            ("Filters", "Filters", "Φίλτρα"),
+            ("Find", "Find", "Εύρεση"),
+            ("FirstApplicationRun", "First Application Run", "Πρώτη Εκκίνηση Εφαρμογής"),
+            ("FirstRunSetupIsRequired", "First run setup is required.", "Απαιτείται αρχική ρύθμιση."),
+            ("From", "from", "από"),
+            ("General", "General", "Γενικά"),
+            ("GeneralForms", "General Forms", "Γενικές Φόρμες"),
+            ("Indexes", "Indexes", "Ευρετήρια"),
+            ("InteractiveSQL", "Interactive SQL", "Interactive SQL"),
+            ("InvalidUserNameOrPassword", "Invalid user name or password.", "Λάθος όνομα χρήστη ή κωδικός."),
+            ("LoadStartupInfoFailed", "Load startup info failed", "Η φόρτωση startup info απέτυχε"),
+            ("LoadWebFormsFailed", "Load web forms failed", "Η φόρτωση web φορμών απέτυχε"),
+            ("LoadedWebForms", "Loaded web forms", "Οι web φόρμες φορτώθηκαν"),
+            ("LoadingWebForms", "Loading web forms...", "Φόρτωση web φορμών..."),
+            ("Log", "Log", "Log"),
+            ("LogCleared", "Log cleared.", "Το log καθαρίστηκε."),
+            ("LogHidden", "Log hidden.", "Το log αποκρύφθηκε."),
+            ("LogSql", "Log Sql", "Log SQL"),
+            ("LogSqlFailed", "Log Sql failed", "Το Log SQL απέτυχε"),
+            ("LogVisible", "Log visible.", "Το log εμφανίστηκε."),
+            ("Login", "Login", "Σύνδεση"),
+            ("LoginCancelled", "Login cancelled.", "Η σύνδεση ακυρώθηκε."),
+            ("LoginFailed", "Login failed.", "Η σύνδεση απέτυχε."),
+            ("LoginIsRequired", "Login is required.", "Απαιτείται σύνδεση."),
+            ("LoginSucceeded", "Login succeeded.", "Η σύνδεση πέτυχε."),
+            ("MissingSampleDataVersions", "The following versions of sample data are not added to the database yet.", "Οι παρακάτω εκδόσεις δοκιμαστικών δεδομένων δεν έχουν προστεθεί ακόμα στη βάση."),
+            ("NewPassword", "New Password", "Νέος Κωδικός"),
+            ("Next", "Next", "Επόμενο"),
+            ("NoAdminUserTerminating", "No Admin user. Terminating...", "Δεν υπάρχει χρήστης Admin. Τερματισμός..."),
+            ("NoConnectionSelected", "No connection selected.", "Δεν έχει επιλεγεί σύνδεση."),
+            ("NoTableOrViewSelected", "No table or view selected.", "Δεν έχει επιλεγεί πίνακας ή view."),
+            ("NoWebFormNameSpecified", "No WebForm name specified.", "Δεν έχει οριστεί όνομα WebForm."),
+            ("NonSelectSqlMayChangeData", "This may change data or database structure. Continue only if you accept responsibility for the result.", "Αυτό μπορεί να αλλάξει δεδομένα ή τη δομή της βάσης. Συνεχίστε μόνο αν αποδέχεστε την ευθύνη για το αποτέλεσμα."),
+            ("OK", "OK", "OK"),
+            ("OpenDatabaseExplorerFailed", "Open database explorer failed", "Το άνοιγμα του εξερευνητή βάσης απέτυχε"),
+            ("OpenSidebarFailed", "Open sidebar failed", "Το άνοιγμα του sidebar απέτυχε"),
+            ("OpeningMainPage", "Opening main page...", "Άνοιγμα κύριας σελίδας..."),
+            ("Password", "Password", "Κωδικός"),
+            ("PasswordChanged", "Password changed.", "Ο κωδικός άλλαξε."),
+            ("PasswordChangedForUser", "Password changed for user", "Ο κωδικός άλλαξε για τον χρήστη"),
+            ("PasswordFieldsAreRequired", "Password fields are required.", "Τα πεδία κωδικού είναι υποχρεωτικά."),
+            ("PasswordsDiffer", "Passwords differ.", "Οι κωδικοί διαφέρουν."),
+            ("Payables", "Payables", "Υποχρεώσεις"),
+            ("Ping", "Ping", "Ping"),
+            ("PingFailed", "Ping failed", "Το ping απέτυχε"),
+            ("PingOK", "Ping OK", "Ping OK"),
+            ("PingResponse", "Ping response", "Απάντηση ping"),
+            ("PingSucceeded", "Ping succeeded.", "Το ping πέτυχε."),
+            ("PingingServer", "Pinging server...", "Ping στον server..."),
+            ("Post", "Post", "Οριστικοποίηση"),
+            ("PostDocument", "Post Document", "Οριστικοποίηση Παραστατικού"),
+            ("PostFailed", "Post failed", "Η οριστικοποίηση απέτυχε"),
+            ("Posted", "Posted", "Οριστικοποιήθηκε"),
+            ("Previous", "Previous", "Προηγούμενο"),
+            ("PurchaseCancellation", "Purchase Cancellation", "Ακύρωση Αγοράς"),
+            ("PurchaseCreditNote", "Purchase Credit Note", "Πιστωτικό Αγοράς"),
+            ("PurchaseDeliveryNote", "Purchase Delivery Note", "Δελτίο Παραλαβής"),
+            ("PurchaseDeliveryNoteDataModuleNotReturned", "Purchase Delivery Note data module was not returned.", "Το data module Δελτίου Παραλαβής δεν επιστράφηκε."),
+            ("PurchaseInvoice", "Purchase Invoice", "Τιμολόγιο Αγοράς"),
+            ("PurchaseInvoiceWithPostedCreditNotesCannotBeCancelled", "A Purchase Invoice with posted Credit Notes cannot be cancelled.", "Τιμολόγιο Αγοράς με οριστικοποιημένα Πιστωτικά δεν μπορεί να ακυρωθεί."),
+            ("PurchaseOrder", "Purchase Order", "Παραγγελία Αγοράς"),
+            ("PurchaseReturn", "Purchase Return", "Επιστροφή Αγοράς"),
+            ("Purchases", "Purchases", "Αγορές"),
+            ("ReadOnlyViewSelected", "Read-only view selected", "Επιλέχθηκε read-only view"),
+            ("Ready", "Ready", "Έτοιμο"),
+            ("Receivables", "Receivables", "Απαιτήσεις"),
+            ("Refresh", "Refresh", "Ανανέωση"),
+            ("RefreshSkippedUnsavedChanges", "Document changed by another form; refresh is skipped because this form has unsaved changes.", "Το παραστατικό άλλαξε από άλλη φόρμα. Η ανανέωση παραλείφθηκε επειδή αυτή η φόρμα έχει μη αποθηκευμένες αλλαγές."),
+            ("RegenerateDatabase", "Regenerate Database", "Αναδημιουργία Βάσης"),
+            ("RegenerateDatabaseFailed", "Regenerate database failed", "Η αναδημιουργία βάσης απέτυχε"),
+            ("ResourceTranslations", "Resource Translations", "Μεταφράσεις Λεκτικών"),
+            ("Result", "Result", "Αποτέλεσμα"),
+            ("ReturnedRows", "Returned rows", "Επιστρεφόμενες γραμμές"),
+            ("Role", "Role", "Ρόλος"),
+            ("Sales", "Sales", "Πωλήσεις"),
+            ("SalesCancellation", "Sales Cancellation", "Ακύρωση Πώλησης"),
+            ("SalesCreditNote", "Sales Credit Note", "Πιστωτικό Πώλησης"),
+            ("SalesDeliveryNote", "Sales Delivery Note", "Δελτίο Αποστολής"),
+            ("SalesDeliveryNoteDataModuleNotReturned", "Sales Delivery Note data module was not returned.", "Το data module Δελτίου Αποστολής δεν επιστράφηκε."),
+            ("SalesInvoice", "Sales Invoice", "Τιμολόγιο Πώλησης"),
+            ("SalesInvoiceWithPostedCreditNotesCannotBeCancelled", "A Sales Invoice with posted Credit Notes cannot be cancelled.", "Τιμολόγιο Πώλησης με οριστικοποιημένα Πιστωτικά δεν μπορεί να ακυρωθεί."),
+            ("SalesOrder", "Sales Order", "Παραγγελία Πώλησης"),
+            ("SalesReturn", "Sales Return", "Επιστροφή Πώλησης"),
+            ("SampleDataAdded", "Sample data added.", "Τα δοκιμαστικά δεδομένα προστέθηκαν."),
+            ("SampleDataIsMissing", "Sample data is missing.", "Λείπουν δοκιμαστικά δεδομένα."),
+            ("SampleDataWasNotAdded", "Sample data was not added.", "Τα δοκιμαστικά δεδομένα δεν προστέθηκαν."),
+            ("Save", "Save", "Αποθήκευση"),
+            ("SchemaLoaded", "Schema loaded", "Το schema φορτώθηκε"),
+            ("SelectTableOrView", "Select Table Or View", "Επιλογή Πίνακα ή View"),
+            ("SetPassword", "Set Password", "Ορισμός Κωδικού"),
+            ("SettingsSaved", "Settings saved.", "Οι ρυθμίσεις αποθηκεύτηκαν."),
+            ("ShowFieldList", "Show Field List", "Εμφάνιση Λίστας Πεδίων"),
+            ("ShowSourceCode", "Show Source Code", "Εμφάνιση Πηγαίου Κώδικα"),
+            ("SourceDocumentHasNoRemainingQuantityToCredit", "The source document has no remaining quantity to credit.", "Το αρχικό παραστατικό δεν έχει υπόλοιπη ποσότητα για πίστωση."),
+            ("SourceDocumentHasNoRemainingQuantityToInvoice", "The source document has no remaining quantity to invoice.", "Το αρχικό παραστατικό δεν έχει υπόλοιπη ποσότητα για τιμολόγηση."),
+            ("SourceDocumentHasNoRemainingQuantityToTransform", "The source document has no remaining quantity to transform.", "Το αρχικό παραστατικό δεν έχει υπόλοιπη ποσότητα για μετασχηματισμό."),
+            ("SqlExecutionFailed", "SQL execution failed", "Η εκτέλεση SQL απέτυχε"),
+            ("SqlStatementsLoggingChanged", "SQL Statements Logging changed.", "Το SQL Statements Logging άλλαξε."),
+            ("SqlStatementsLoggingIsNow", "SQL Statements Logging is now", "Το SQL Statements Logging είναι τώρα"),
+            ("Starting", "Starting...", "Εκκίνηση..."),
+            ("StartupFailed", "Startup failed", "Η εκκίνηση απέτυχε"),
+            ("Statement", "Statement", "Εντολή"),
+            ("StockCancellation", "Stock Cancellation", "Ακύρωση Αποθήκης"),
+            ("StockCancellationDataModuleNotReturned", "Stock Cancellation data module was not returned.", "Το data module Ακύρωσης Αποθήκης δεν επιστράφηκε."),
+            ("StockSnapshot", "Stock Snapshot", "Στιγμιότυπο Αποθήκης"),
+            ("StockTransaction", "Stock Transaction", "Κίνηση Αποθήκης"),
+            ("StockValue", "Stock Value", "Αξία Αποθέματος"),
+            ("SuccessfullyExecuted", "successfully executed", "εκτελέστηκε επιτυχώς"),
+            ("SupplierPayment", "Supplier Payment", "Πληρωμή Προμηθευτή"),
+            ("SupplierPaymentCancellation", "Supplier Payment Cancellation", "Ακύρωση Πληρωμής Προμηθευτή"),
+            ("Tables", "Tables", "Πίνακες"),
+            ("TestConnection", "Test Connection", "Δοκιμή Σύνδεσης"),
+            ("ToggleFilters", "Toggle Filters", "Εναλλαγή Φίλτρων"),
+            ("ToggleLog", "Toggle Log", "Εναλλαγή Log"),
+            ("TopCustomers", "Top Customers", "Κορυφαίοι Πελάτες"),
+            ("TopSuppliers", "Top Suppliers", "Κορυφαίοι Προμηθευτές"),
+            ("Triggers", "Triggers", "Triggers"),
+            ("User", "User", "Χρήστης"),
+            ("UserAccountIsDisabled", "User account is disabled.", "Ο λογαριασμός χρήστη είναι ανενεργός."),
+            ("UserRole", "User Role", "Ρόλος Χρήστη"),
+            ("Views", "Views", "Views"),
+            ("WebDatabaseDeletedRestartServer", "The sample Sqlite database has been deleted. Restart the tERPWeb server process.", "Η δοκιμαστική βάση Sqlite διαγράφηκε. Επανεκκινήστε τη διεργασία του tERPWeb server."),
+            ("WebFormIsNotAvailableYet", "Web form is not available yet", "Η web φόρμα δεν είναι ακόμα διαθέσιμη"),
+            ("WebFormNotReturned", "WebForm not returned", "Το WebForm δεν επιστράφηκε"),
+            ("WebFormPacketHasNoForm", "WebForm packet has no Form.", "Το WebForm packet δεν έχει Form."),
+            ("WebFormRootElementNotFound", "WebForm root element not found", "Το root element του WebForm δεν βρέθηκε")
+        };
+
+        foreach ((string Key, string English, string Greek) Resource in Resources)
+        {
+            AddRow(tblSource, ("Id", Sys.GenId()), ("LanguageId", EnglishId), ("ResKey", Resource.Key), ("ResValue", Resource.English));
+            AddRow(tblSource, ("Id", Sys.GenId()), ("LanguageId", GreekId), ("ResKey", Resource.Key), ("ResValue", Resource.Greek));
+        }
 
         Module.BatchInsert(tblSource);
     }
@@ -799,7 +1051,7 @@ public partial class SampleData1: SampleData
         MemTable tblTaxOffice = SampleTables["TaxOffice"];
         MemTable tblCountry = SampleTables["Country"];
         MemTable tblCurrency = SampleTables["Currency"];
-        MemTable tblLanguage = SampleTables["Language"];
+        MemTable tblLanguage = SampleTables["SYS_LANG"];
         MemTable tblTaxBusinessGroup = SampleTables["TaxBusinessGroup"];
 
         object CentralTaxOfficeId = tblTaxOffice.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("TAX-001"))["Id"];
@@ -810,7 +1062,6 @@ public partial class SampleData1: SampleData
         object UsDollarId = tblCurrency.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("USD"))["Id"];
         object EnglishId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EN"))["Id"];
         object GreekId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("EL"))["Id"];
-        object GermanId = tblLanguage.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("DE"))["Id"];
         object RegisteredId = tblTaxBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("REGISTERED"))["Id"];
         object ConsumerId = tblTaxBusinessGroup.Rows.Cast<DataRow>().First(x => x.AsString("Code").IsSameText("CONSUMER"))["Id"];
 
@@ -819,7 +1070,7 @@ public partial class SampleData1: SampleData
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-NIKOS"), ("Name", "Nikos Demo Customer"), ("Title", "Consumer Customer"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("TaxBusinessGroupId", ConsumerId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "15 Patision Street"), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", "10434"), ("Phone", DBNull.Value), ("Mobile", "+30 694 2000001"), ("Email", "nikos.customer@example.com"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#0EA5E9"), ("IconName", "UserRound"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "CUST-LIBERTY"), ("Name", "Liberty Retail LLC"), ("Title", "Export Customer"), ("TaxNumber", "US-99887766"), ("TaxOfficeId", DBNull.Value), ("TaxBusinessGroupId", RegisteredId), ("CountryId", UnitedStatesId), ("CurrencyId", UsDollarId), ("LanguageId", EnglishId), ("AddressLine1", "100 Market Street"), ("AddressLine2", DBNull.Value), ("City", "San Francisco"), ("PostalCode", "94105"), ("Phone", "+1 415 555 0100"), ("Mobile", DBNull.Value), ("Email", "orders@liberty-retail.example"), ("Website", "https://liberty-retail.example"), ("ContactPerson", "John Miller"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#DC2626"), ("IconName", "Globe"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-HELIOS"), ("Name", "Helios Supplies OE"), ("Title", "Supplier"), ("TaxNumber", "456789123"), ("TaxOfficeId", CentralTaxOfficeId), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", "8 Piraeus Street"), ("AddressLine2", DBNull.Value), ("City", "Piraeus"), ("PostalCode", "18531"), ("Phone", "+30 210 1000003"), ("Mobile", DBNull.Value), ("Email", "sales@helios.example"), ("Website", "https://helios.example"), ("ContactPerson", "Nikos Papadopoulos"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#F59E0B"), ("IconName", "Truck"));
-        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-BERLIN"), ("Name", "Berlin Components GmbH"), ("Title", "International Supplier"), ("TaxNumber", "DE123456789"), ("TaxOfficeId", DBNull.Value), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GermanyId), ("CurrencyId", EuroId), ("LanguageId", GermanId), ("AddressLine1", "42 Alexanderplatz"), ("AddressLine2", DBNull.Value), ("City", "Berlin"), ("PostalCode", "10178"), ("Phone", "+49 30 1000004"), ("Mobile", DBNull.Value), ("Email", "info@berlincomponents.example"), ("Website", "https://berlincomponents.example"), ("ContactPerson", "Hans Becker"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#9333EA"), ("IconName", "Factory"));
+        AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "SUP-BERLIN"), ("Name", "Berlin Components GmbH"), ("Title", "International Supplier"), ("TaxNumber", "DE123456789"), ("TaxOfficeId", DBNull.Value), ("TaxBusinessGroupId", RegisteredId), ("CountryId", GermanyId), ("CurrencyId", EuroId), ("LanguageId", EnglishId), ("AddressLine1", "42 Alexanderplatz"), ("AddressLine2", DBNull.Value), ("City", "Berlin"), ("PostalCode", "10178"), ("Phone", "+49 30 1000004"), ("Mobile", DBNull.Value), ("Email", "info@berlincomponents.example"), ("Website", "https://berlincomponents.example"), ("ContactPerson", "Hans Becker"), ("Notes", DBNull.Value), ("IsCompany", true), ("IsActive", true), ("Color", "#9333EA"), ("IconName", "Factory"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-ELENA"), ("Name", "Elena Papadopoulou"), ("Title", "Sales Manager"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000001"), ("Email", "elena.papadopoulou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#0EA5E9"), ("IconName", "UserRound"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-DIMITRIS"), ("Name", "Dimitris Nikolaou"), ("Title", "Warehouse Manager"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Piraeus"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000002"), ("Email", "dimitris.nikolaou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#7C3AED"), ("IconName", "UserRound"));
         AddRow(tblSource, ("Id", Sys.GenId()), ("Code", "EMP-SOFIA"), ("Name", "Sofia Georgiou"), ("Title", "Accountant"), ("TaxNumber", DBNull.Value), ("TaxOfficeId", DBNull.Value), ("CountryId", GreeceId), ("CurrencyId", EuroId), ("LanguageId", GreekId), ("AddressLine1", DBNull.Value), ("AddressLine2", DBNull.Value), ("City", "Athens"), ("PostalCode", DBNull.Value), ("Phone", DBNull.Value), ("Mobile", "+30 694 1000003"), ("Email", "sofia.georgiou@company.example"), ("Website", DBNull.Value), ("ContactPerson", DBNull.Value), ("Notes", DBNull.Value), ("IsCompany", false), ("IsActive", true), ("Color", "#16A34A"), ("IconName", "UserRound"));
@@ -1904,6 +2155,7 @@ public partial class SampleData1: SampleData
         Add_ProductGroup();
         Add_FiscalYear();
         Add_Language();
+        Add_ResourceStrings();
         Add_PersonRoleType();
         Add_StockReason();
         Add_ContactType();

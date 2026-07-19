@@ -24,11 +24,15 @@ public partial class ReadOnlyViewForm : AppForm
     {
         fToolBar = new();
         fToolBar.Panel = pnlToolBar;
-        fToolBar.AddButton("table_refresh.png", "Refresh", async () => await RefreshView());
-        fToolBar.AddButton("find.png", "Toggle Filters", ToggleFilters);
-        fToolBar.AddButton("textfield_clear.png", "Clear Filters", async () => await ClearFilters());
+        fToolBar.AddButton("table_refresh.png", Texts.L("Refresh", "Refresh"), async () => await RefreshView());
+        fToolBar.AddButton("find.png", Texts.L("ToggleFilters", "Toggle Filters"), ToggleFilters);
+        fToolBar.AddButton("textfield_clear.png", Texts.L("ClearFilters", "Clear Filters"), async () => await ClearFilters());
         fToolBar.AddSeparator();
-        fToolBar.AddButton("door_out.png", "Close", CloseForm);
+        fToolBar.AddButton("door_out.png", Texts.L("Close", "Close"), CloseForm);
+    }
+    void ApplyTexts()
+    {
+        lblFilters.Text = Texts.L("Filters", "Filters");
     }
     void ToggleFilters()
     {
@@ -88,6 +92,7 @@ public partial class ReadOnlyViewForm : AppForm
     /// </summary>
     protected override void FormInitialize()
     {
+        ApplyTexts();
         CreateToolBar();
         fFilterPanelHandler = new(pnlFilters);
         fFilterPanelHandler.CreateFilterControls(fSelectDef.FilterDefs);

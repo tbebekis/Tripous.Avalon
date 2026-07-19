@@ -101,11 +101,11 @@ app.CommandTreeViewForm = class extends tp.WebForm {
             return;
         this.ToolBar = new tp.ToolBar(ToolBarElement);
         tp.AddClass(this.ToolBar.Handle, "app-command-tree-toolbar");
-        Button = this.ToolBar.AddButton("Expand", "Expand", "Expand", "", "", false);
+        Button = this.ToolBar.AddButton("Expand", tp._L("Expand", "Expand"), tp._L("Expand", "Expand"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "arrow_out.png" });
-        Button = this.ToolBar.AddButton("Collapse", "Collapse", "Collapse", "", "", false);
+        Button = this.ToolBar.AddButton("Collapse", tp._L("Collapse", "Collapse"), tp._L("Collapse", "Collapse"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "arrow_in.png" });
-        Button = this.ToolBar.AddButton("Execute", "Execute", "Execute", "", "", false);
+        Button = this.ToolBar.AddButton("Execute", tp._L("Execute", "Execute"), tp._L("Execute", "Execute"), "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "lightning.png" });
         this.ToolBar.On("ButtonClick", this.HandleToolBarButtonClick, this);
         this.TreeView = new tp.TreeView(TreeElement);

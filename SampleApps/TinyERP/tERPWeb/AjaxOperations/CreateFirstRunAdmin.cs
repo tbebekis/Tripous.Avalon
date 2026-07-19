@@ -48,7 +48,11 @@ public class CreateFirstRunAdmin: AppAjaxOperation
         AppUserDataModule Module = DataRegistry.CreateModule("AppUser") as AppUserDataModule;
         Module.AddUser(FullName: FullName, UserName: UserName, PlainTextPassword: Password, UserLevel: UserLevel.Admin);
         if (!UseUsers())
+        {
             Sys.Context.CurrentUser = Module.LoadByUserName(UserName);
+            if (Sys.Context.CurrentUser != null)
+                Sys.Context.CurrentUser.LastLoginAt = Module.RecordLogin(Sys.Context.CurrentUser.Id, Sys.Context.CurrentUser.CultureCode);
+        }
 
         Result["Success"] = true;
         Result["Message"] = "Administrator account created.";

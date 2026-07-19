@@ -44,7 +44,7 @@ app.ChangePasswordDialog = class {
     SetUser(Window, Packet) {
         var Element = Window && Window.Handle ? Window.Handle.querySelector("[data-role='user']") : null;
         if (Element)
-            Element.textContent = "User: " + (Packet && Packet.UserName ? Packet.UserName : "");
+            Element.textContent = tp._L("User", "User") + ": " + (Packet && Packet.UserName ? Packet.UserName : "");
     }
     /**
      * Collects values from the dialog.
@@ -84,7 +84,7 @@ app.ChangePasswordDialog = class {
         Packet = Packet || {};
         var Self = this;
         var Args = {
-            Text: "Change Password",
+            Text: tp._L("ChangePassword", "Change Password"),
             Width: 420,
             Height: 340,
             ResizeEdges: tp.Edge.None,
@@ -127,9 +127,9 @@ app.ChangePasswordDialog = class {
             Message = Result && Result.Message ? Result.Message : "";
             if (Result && Result.Success === true) {
                 if (tp.LogBox)
-                    tp.LogBox.AppendLine(Message || "Password changed.");
+                    tp.LogBox.AppendLine(Message || tp._L("PasswordChanged", "Password changed."));
                 if (app.App.MainPage && app.App.MainPage.StatusBar)
-                    app.App.MainPage.StatusBar.Message = Message || "Password changed.";
+                    app.App.MainPage.StatusBar.Message = Message || tp._L("PasswordChanged", "Password changed.");
                 return;
             }
         }
