@@ -18,6 +18,37 @@ public class StockCountDataModule: DocumentDataModule
 
     // ● private
     decimal Round(decimal Value) => Math.Round(Value, 4, MidpointRounding.AwayFromZero);
+    void ApplyJsonSource(JsonDataModule Source)
+    {
+        if (Source == null)
+            throw new TripousArgumentNullException(nameof(Source));
+
+        State = (DataMode)Source.State;
+
+        tblItem.EventsDisabled = true;
+        try
+        {
+            JsonApplyTableRows(tblItem, Source);
+        }
+        finally
+        {
+            tblItem.EventsDisabled = false;
+        }
+    }
+    DataRow GetJsonCalculateRow(string TableName, string RowKey)
+    {
+        MemTable Table = FindTable(TableName);
+        if (Table == null || Table.Rows.Count == 0)
+            return null;
+        if (!string.IsNullOrWhiteSpace(RowKey) && !string.IsNullOrWhiteSpace(Table.KeyField))
+        {
+            DataRow Result = Table.Rows.Cast<DataRow>()
+                .FirstOrDefault(Row => Row.AsString(Table.KeyField).IsSameText(RowKey));
+            if (Result != null)
+                return Result;
+        }
+        return Table.Rows.Cast<DataRow>().FirstOrDefault(Row => Row.RowState != DataRowState.Deleted);
+    }
     void CalculateLine(DataRow Row)
     {
         if (Row == null || Row.RowState == DataRowState.Deleted || Row.RowState == DataRowState.Detached)
@@ -89,6 +120,39 @@ public class StockCountDataModule: DocumentDataModule
                 throw new TripousBusinessException($"{Row.AsString("ProductName")}: Counted quantity cannot be negative.");
             if (Row.AsDecimal("UnitCost") < 0)
                 throw new TripousBusinessException($"{Row.AsString("ProductName")}: Unit cost cannot be negative.");
+        }
+    }
+    void ApplyJsonCalculateFieldChange(string TableName, string FieldName, string RowKey)
+    {
+        if (string.IsNullOrWhiteSpace(TableName) || string.IsNullOrWhiteSpace(FieldName) || fCalculationLevel > 0 || !State.In(DataMode.Insert | DataMode.Edit))
+            return;
+
+        fCalculationLevel++;
+        try
+        {
+            if (TableName.IsSameText("StockCount") && FieldName.IsSameText("WarehouseId"))
+            {
+                MemTable LineTable = FindTable("StockCountLine");
+                if (LineTable != null)
+                {
+                    foreach (DataRow Row in LineTable.Rows)
+                        LoadLineStock(Row);
+                }
+            }
+            else if (TableName.IsSameText("StockCountLine"))
+            {
+                DataRow Row = GetJsonCalculateRow(TableName, RowKey);
+                if (Row == null)
+                    return;
+                if (FieldName.IsSameText("ProductId"))
+                    LoadLineStock(Row);
+                else if (FieldName.IsSameText("CountedQuantity") || FieldName.IsSameText("UnitCost"))
+                    CalculateLine(Row);
+            }
+        }
+        finally
+        {
+            fCalculationLevel--;
         }
     }
 
@@ -343,5 +407,17 @@ public class StockCountDataModule: DocumentDataModule
                 CalculateLine(Row);
         }
         ValidateStockCount();
+    }
+    public virtual JsonDataModule JsonCalculate(JsonDataModule Source, string TableName, string FieldName, string RowKey)
+    {
+        ApplyJsonSource(Source);
+        ApplyJsonCalculateFieldChange(TableName, FieldName, RowKey);
+        MemTable LineTable = FindTable("StockCountLine");
+        if (LineTable != null)
+        {
+            foreach (DataRow Row in LineTable.Rows)
+                CalculateLine(Row);
+        }
+        return new JsonDataModule(this);
     }
 }

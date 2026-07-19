@@ -51,6 +51,14 @@ public class StockTradeDataModule: DocumentDataModule
         Row.SetValue("PrimaryQuantity", PrimaryQuantity);
         Row.SetValue("CostAmount", Round(PrimaryQuantity * Row.AsDecimal("UnitCost")));
     }
+    /// <summary>Applies header defaults to a stock transaction line when missing.</summary>
+    void ApplyLineDefaults(DataRow Row)
+    {
+        if (Row == null || Row.RowState == DataRowState.Deleted || Row.RowState == DataRowState.Detached || CurrentRow == null)
+            return;
+        if (string.IsNullOrWhiteSpace(Row.AsString("WarehouseId")))
+            Row.SetValue("WarehouseId", CurrentRow["WarehouseId"]);
+    }
     /// <summary>
     /// Applies a JSON contract object to this module before creating another document.
     /// </summary>
@@ -69,6 +77,59 @@ public class StockTradeDataModule: DocumentDataModule
         finally
         {
             tblItem.EventsDisabled = false;
+        }
+    }
+    /// <summary>
+    /// Returns the row affected by a JSON calculation request.
+    /// </summary>
+    DataRow GetJsonCalculateRow(string TableName, string RowKey)
+    {
+        MemTable Table = FindTable(TableName);
+        if (Table == null || Table.Rows.Count == 0)
+            return null;
+        if (!string.IsNullOrWhiteSpace(RowKey) && !string.IsNullOrWhiteSpace(Table.KeyField))
+        {
+            DataRow Result = Table.Rows.Cast<DataRow>()
+                .FirstOrDefault(Row => Row.AsString(Table.KeyField).IsSameText(RowKey));
+            if (Result != null)
+                return Result;
+        }
+        return Table.Rows.Cast<DataRow>().FirstOrDefault(Row => Row.RowState != DataRowState.Deleted);
+    }
+    /// <summary>
+    /// Applies server-side side effects for a web JSON calculation field change.
+    /// </summary>
+    void ApplyJsonCalculateFieldChange(string TableName, string FieldName, string RowKey)
+    {
+        if (string.IsNullOrWhiteSpace(TableName) || string.IsNullOrWhiteSpace(FieldName) || fCalculationLevel > 0 || !State.In(DataMode.Insert | DataMode.Edit))
+            return;
+        DataRow Row = GetJsonCalculateRow(TableName, RowKey);
+        if (Row == null)
+            return;
+
+        fCalculationLevel++;
+        try
+        {
+            if (TableName.IsSameText("StockTradeLine") && FieldName.IsSameText("ProductId"))
+            {
+                ApplyLineDefaults(Row);
+                LoadProduct(Row);
+            }
+            else if (TableName.IsSameText("StockTradeLine") && FieldName.IsSameText("UnitOfMeasureId"))
+            {
+                ApplyLineDefaults(Row);
+                LoadUnitOfMeasure(Row);
+            }
+            else if (TableName.IsSameText("StockTradeLine")
+                     && (FieldName.IsSameText("Quantity") || FieldName.IsSameText("UnitRatio") || FieldName.IsSameText("UnitCost")))
+            {
+                ApplyLineDefaults(Row);
+                CalculateLine(Row);
+            }
+        }
+        finally
+        {
+            fCalculationLevel--;
         }
     }
     /// <summary>Loads product snapshot and primary unit values into a line.</summary>
@@ -562,7 +623,7 @@ public class StockTradeDataModule: DocumentDataModule
         base.NewRowAdded(Table, Args);
 
         if (Table.TableName.IsSameText("StockTradeLine") && CurrentRow != null)
-            Args.Row.SetValue("WarehouseId", CurrentRow["WarehouseId"]);
+            ApplyLineDefaults(Args.Row);
     }
     /// <summary>
     /// Recalculates line values when product, quantity, ratio, or cost changes.
@@ -689,5 +750,16 @@ public class StockTradeDataModule: DocumentDataModule
         StockTradeDataModule CancellationModule = CreateCancellation();
         JsonDataModule Result = new(CancellationModule);
         return Result;
+    }
+    /// <summary>
+    /// Applies a JSON contract object, recalculates stock transaction values, and returns this data module as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataModule JsonCalculate(JsonDataModule Source, string TableName, string FieldName, string RowKey)
+    {
+        ApplyJsonSource(Source);
+        ApplyJsonCalculateFieldChange(TableName, FieldName, RowKey);
+        foreach (DataRow Row in GetLineTable().Rows)
+            CalculateLine(Row);
+        return new JsonDataModule(this);
     }
 }

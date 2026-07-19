@@ -340,6 +340,20 @@ public class JournalEntryTests
         Assert.False(Row.AsBoolean("IsCancelled"));
     }
     [Fact]
+    public void JsonCalculateUpdatesJournalEntryTotals()
+    {
+        JournalEntryDataModule Source = CreateJournalEntry();
+        DataRow FirstLine = AddLine(Source, "10-3000", 124m, 0m);
+        AddLine(Source, "70-1000", 0m, 100m);
+        AddLine(Source, "20-2000", 0m, 24m);
+
+        JournalEntryDataModule Target = CreateJournalEntryModule();
+        Target.JsonCalculate(new JsonDataModule(Source), "JournalEntryLine", "DebitAmount", FirstLine.AsString("Id"));
+
+        Assert.Equal(124m, Target.CurrentRow.AsDecimal("TotalDebit"));
+        Assert.Equal(124m, Target.CurrentRow.AsDecimal("TotalCredit"));
+    }
+    [Fact]
     public void UnbalancedJournalEntryIsRejected()
     {
         JournalEntryDataModule Module = CreateJournalEntry();

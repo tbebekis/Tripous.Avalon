@@ -1555,7 +1555,8 @@ where
             tblItem.EventsDisabled = false;
         }
         ApplyJsonCalculateFieldChange(TableName, FieldName);
-        ResolvePrices();
+        if (string.IsNullOrWhiteSpace(TableName) || string.IsNullOrWhiteSpace(FieldName))
+            ResolvePrices();
         Calculate();
 
         return new JsonDataModule(this);

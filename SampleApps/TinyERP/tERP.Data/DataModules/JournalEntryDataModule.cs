@@ -19,6 +19,26 @@ public class JournalEntryDataModule: DocumentDataModule
     /// </summary>
     decimal RoundAmount(decimal Value) => Math.Round(Value, 4, MidpointRounding.AwayFromZero);
     /// <summary>
+    /// Applies a JSON contract object to this module before calculating values.
+    /// </summary>
+    void ApplyJsonSource(JsonDataModule Source)
+    {
+        if (Source == null)
+            throw new TripousArgumentNullException(nameof(Source));
+
+        State = (DataMode)Source.State;
+
+        tblItem.EventsDisabled = true;
+        try
+        {
+            JsonApplyTableRows(tblItem, Source);
+        }
+        finally
+        {
+            tblItem.EventsDisabled = false;
+        }
+    }
+    /// <summary>
     /// Returns the journal entry line table.
     /// </summary>
     MemTable GetLineTable()
@@ -128,6 +148,17 @@ public class JournalEntryDataModule: DocumentDataModule
         if (Errors.Count > 0)
             throw new TripousBusinessException(string.Join(Environment.NewLine, Errors));
     }
+    /// <summary>
+    /// Applies server-side side effects for a web JSON calculation field change.
+    /// </summary>
+    void ApplyJsonCalculateFieldChange(string TableName, string FieldName)
+    {
+        if (string.IsNullOrWhiteSpace(TableName) || string.IsNullOrWhiteSpace(FieldName) || !State.In(DataMode.Insert | DataMode.Edit))
+            return;
+        if (TableName.IsSameText("JournalEntryLine")
+            && (FieldName.IsSameText("DebitAmount") || FieldName.IsSameText("CreditAmount")))
+            CalculateTotals();
+    }
 
     // ● protected
     /// <summary>
@@ -190,5 +221,15 @@ public class JournalEntryDataModule: DocumentDataModule
 
         CalculateTotals();
         ValidateJournalEntry();
+    }
+    /// <summary>
+    /// Applies a JSON contract object, recalculates journal entry values, and returns this data module as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataModule JsonCalculate(JsonDataModule Source, string TableName, string FieldName, string RowKey)
+    {
+        ApplyJsonSource(Source);
+        ApplyJsonCalculateFieldChange(TableName, FieldName);
+        CalculateTotals();
+        return new JsonDataModule(this);
     }
 }

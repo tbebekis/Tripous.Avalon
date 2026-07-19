@@ -182,6 +182,31 @@ public class StockCountTests
         Assert.Equal(25m, Balance.AsDecimal("AverageUnitCost"));
     }
     [Fact]
+    public void JsonCalculateUpdatesStockCountLineDifference()
+    {
+        DataRow Product = GetProduct("Orange Juice");
+        string WarehouseId = GetWarehouseId("Main Warehouse");
+        SetStockBalance(Product.AsString("Id"), WarehouseId, 10m, 25m);
+        StockCountDataModule Source = DataRegistry.CreateModule("StockCount") as StockCountDataModule;
+        if (Source == null)
+            throw new TripousDataException("Cannot create the Stock Count module.");
+        Source.Insert();
+        Source.CurrentRow.SetValue("WarehouseId", WarehouseId);
+        DataRow Line = Source.GetTable("StockCountLine").AddNewRow();
+        Line.SetValue("ProductId", Product["Id"]);
+        Line.SetValue("CountedQuantity", 12m);
+
+        StockCountDataModule Target = DataRegistry.CreateModule("StockCount") as StockCountDataModule;
+        if (Target == null)
+            throw new TripousDataException("Cannot create the Stock Count module.");
+        Target.JsonCalculate(new JsonDataModule(Source), "StockCountLine", "CountedQuantity", Line.AsString("Id"));
+        DataRow CalculatedLine = Target.GetTable("StockCountLine").Rows[0];
+
+        Assert.Equal(10m, CalculatedLine.AsDecimal("SystemQuantity"));
+        Assert.Equal(2m, CalculatedLine.AsDecimal("DifferenceQuantity"));
+        Assert.Equal(50m, CalculatedLine.AsDecimal("DifferenceCostAmount"));
+    }
+    [Fact]
     public void PostingStockCountDecreaseUsesCurrentAverageCost()
     {
         DataRow Product = GetProduct("Orange Juice");

@@ -540,6 +540,17 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
         return Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "TradeLine");
     }
     /**
+     * Returns true when the table participates in server-side document calculation.
+     * @param {tp.DataTable} Table The table to check.
+     * @returns {boolean} Returns true when calculated.
+     */
+    IsServerCalculatedTable(Table) {
+        return this.IsTradeLineTable(Table)
+            || (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "StockTradeLine"))
+            || (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "StockCountLine"))
+            || (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "JournalEntryLine"));
+    }
+    /**
      * Returns true when a column should be read-only.
      * @param {tp.DataColumn} Column The data column.
      * @returns {boolean} Returns true when read-only.
@@ -588,7 +599,15 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
      * @returns {void}
      */
     ApplyDetailRowDefaults(Table, Row) {
+        var Header = this.Row;
         this.ApplyDisplayOrderDefault(Table, Row);
+        if (Table instanceof tp.DataTable
+            && tp.IsSameText(Table.Name, "StockTradeLine")
+            && Row instanceof tp.DataRow
+            && Header instanceof tp.DataRow
+            && Table.IndexOfColumn("WarehouseId") >= 0
+            && tp.IsEmpty(Row.Get("WarehouseId")))
+            Row.Set("WarehouseId", Header.Get("WarehouseId"));
     }
     /**
      * Returns the field names to display in a document detail grid.
@@ -596,7 +615,59 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
      * @returns {string[]|null} Returns field names or null to use the default columns.
      */
     GetDetailGridFieldNames(Table) {
+        if (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "StockTradeLine")) {
+            return [
+                "DisplayOrder",
+                "ProductCode",
+                "ProductName",
+                "WarehouseId",
+                "UnitOfMeasureId",
+                "UnitRatio",
+                "Quantity",
+                "PrimaryQuantity",
+                "UnitCost",
+                "CostAmount",
+                "Remarks"
+            ];
+        }
+        if (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "StockCountLine")) {
+            return [
+                "DisplayOrder",
+                "ProductCode",
+                "ProductName",
+                "UnitOfMeasureId",
+                "SystemQuantity",
+                "CountedQuantity",
+                "DifferenceQuantity",
+                "UnitCost",
+                "DifferenceCostAmount",
+                "Remarks"
+            ];
+        }
+        if (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "JournalEntryLine")) {
+            return [
+                "DisplayOrder",
+                "AccountId",
+                "DebitAmount",
+                "CreditAmount",
+                "CurrencyId",
+                "ExchangeRate",
+                "ReferenceNo",
+                "Remarks"
+            ];
+        }
         return null;
+    }
+    /**
+     * Returns the title for a detail grid column.
+     * @param {tp.DataColumn} Column The data column.
+     * @returns {string} Returns the grid column title.
+     */
+    GetDetailGridColumnTitle(Column) {
+        var Name = Column instanceof tp.DataColumn ? Column.Name : "";
+        if (tp.EndsWith(Name, "Id", true))
+            return tp.SplitOnUpperCase(Name.substring(0, Name.length - 2));
+        return Column instanceof tp.DataColumn ? Column.DisplayTitle : "";
     }
     /**
      * Applies form context to locator columns after table metadata has been bound.
@@ -657,6 +728,23 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
      */
     IsServerCalculatedLineColumn(Column) {
         var Name = Column instanceof tp.DataColumn ? Column.Name : "";
+        var Table = Column instanceof tp.DataColumn ? Column.Table : null;
+        if (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "StockTradeLine")) {
+            return tp.IsSameText(Name, "ProductId")
+                || tp.IsSameText(Name, "UnitOfMeasureId")
+                || tp.IsSameText(Name, "UnitRatio")
+                || tp.IsSameText(Name, "Quantity")
+                || tp.IsSameText(Name, "UnitCost");
+        }
+        if (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "StockCountLine")) {
+            return tp.IsSameText(Name, "ProductId")
+                || tp.IsSameText(Name, "CountedQuantity")
+                || tp.IsSameText(Name, "UnitCost");
+        }
+        if (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "JournalEntryLine")) {
+            return tp.IsSameText(Name, "DebitAmount")
+                || tp.IsSameText(Name, "CreditAmount");
+        }
         return tp.IsSameText(Name, "ProductId")
             || tp.IsSameText(Name, "TaxProductGroupId")
             || tp.IsSameText(Name, "UnitOfMeasureId")
@@ -673,6 +761,9 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
      */
     IsServerCalculatedHeaderColumn(Column) {
         var Name = Column instanceof tp.DataColumn ? Column.Name : "";
+        var Table = Column instanceof tp.DataColumn ? Column.Table : null;
+        if (Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "StockCount"))
+            return tp.IsSameText(Name, "WarehouseId");
         return tp.IsSameText(Name, "PersonId")
             || tp.IsSameText(Name, "TradeDate")
             || tp.IsSameText(Name, "TradeTypeId")
@@ -703,7 +794,7 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
         this.fDocumentItemCalculateSource = Source;
         this.fDocumentItemCalculateListener = Source.On("RowModified", function (Args) {
             if (this.Form && this.IsServerCalculatedHeaderColumn(Args ? Args.Column : null))
-                this.Form.ScheduleDocumentCalculate(Source.Table ? Source.Table.Name : "", Args && Args.Column ? Args.Column.Name : "");
+                this.Form.ScheduleDocumentCalculate(Source.Table ? Source.Table.Name : "", Args && Args.Column ? Args.Column.Name : "", Args ? Args.Row : null);
         }, this);
     }
     /**
@@ -718,7 +809,7 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
             return;
         Source = Grid.DataSource;
         Table = Source instanceof tp.DataSource ? Source.Table : null;
-        if (!(Source instanceof tp.DataSource) || !this.IsTradeLineTable(Table))
+        if (!(Source instanceof tp.DataSource) || !this.IsServerCalculatedTable(Table))
             return;
         if (Grid.fDocumentCalculateSource === Source)
             return;
@@ -727,7 +818,7 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
         Grid.fDocumentCalculateSource = Source;
         Grid.fDocumentCalculateListener = Source.On("RowModified", function (Args) {
             if (this.Form && this.IsServerCalculatedLineColumn(Args ? Args.Column : null))
-                this.Form.ScheduleDocumentCalculate(Table ? Table.Name : "", Args && Args.Column ? Args.Column.Name : "");
+                this.Form.ScheduleDocumentCalculate(Table ? Table.Name : "", Args && Args.Column ? Args.Column.Name : "", Args ? Args.Row : null);
         }, this);
     }
 
@@ -756,6 +847,27 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
             if (Column instanceof tp.DataColumn && this.CanRenderDetailGridColumn(Column, Table))
                 this.AddDetailGridColumn(Grid, Column);
         }
+    }
+    /**
+     * Creates a detail grid column for a data column.
+     * @param {tp.Grid} Grid The detail grid.
+     * @param {tp.DataColumn} Column The data column.
+     * @returns {tp.GridColumn|null} Returns the created grid column or null.
+     */
+    AddDetailGridColumn(Grid, Column) {
+        var ListSource;
+        var Title;
+        if (!(Grid instanceof tp.Grid) || !(Column instanceof tp.DataColumn))
+            return null;
+        Title = this.GetDetailGridColumnTitle(Column);
+        if (Column.IsLocator)
+            return Grid.AddLocatorColumn(Column.Name, Title, Column.Locator);
+        if (Column.IsLookup) {
+            ListSource = this.GetServerListSource(Column.LookupSource);
+            if (ListSource instanceof tp.DataSource)
+                return Grid.AddLookUpColumn(Column.Name, Title, "Id", "Name", ListSource);
+        }
+        return Grid.AddColumn(Column.Name, Title);
     }
     /**
      * Configures a detail grid for the current form state.
@@ -867,6 +979,11 @@ app.DocumentDataForm = class extends tp.WebDataForm {
          * @type {string}
          */
         this.fDocumentCalculateFieldName = "";
+        /**
+         * Pending server calculation row key.
+         * @type {string}
+         */
+        this.fDocumentCalculateRowKey = "";
     }
     /**
      * Returns a row value by column name.
@@ -943,6 +1060,16 @@ app.DocumentDataForm = class extends tp.WebDataForm {
             return "";
         Value = Row.GetByIndex(Table.KeyFieldIndex);
         return tp.IsEmpty(Value) ? "" : String(Value);
+    }
+    /**
+     * Returns a stable row key for a calculation request.
+     * @param {tp.DataRow|null|undefined} Row The row.
+     * @returns {string} Returns the row key.
+     */
+    GetDocumentCalculateRowKey(Row) {
+        return Row instanceof tp.DataRow && Row.Table instanceof tp.DataTable
+            ? this.GetDocumentRowStateKey(Row.Table, Row)
+            : "";
     }
     /**
      * Captures non-unchanged row states before a calculation packet is applied.
@@ -1228,14 +1355,18 @@ app.DocumentDataForm = class extends tp.WebDataForm {
      * Schedules a server-side commercial document calculation.
      * @param {string|null|undefined} TableName The table name of the changed field.
      * @param {string|null|undefined} FieldName The changed field name.
+     * @param {tp.DataRow|null|undefined} Row The changed row.
      * @returns {void}
      */
-    ScheduleDocumentCalculate(TableName, FieldName) {
+    ScheduleDocumentCalculate(TableName, FieldName, Row) {
+        var RowKey;
         if (this.fDocumentApplyingServerPacket === true || this.IsReadOnly === true || !(this.Module instanceof tp.DataModule))
             return;
         if (!tp.IsBlank(TableName) && !tp.IsBlank(FieldName) && (tp.IsBlank(this.fDocumentCalculateTableName) || tp.IsBlank(this.fDocumentCalculateFieldName))) {
             this.fDocumentCalculateTableName = String(TableName);
             this.fDocumentCalculateFieldName = String(FieldName);
+            RowKey = this.GetDocumentCalculateRowKey(Row);
+            this.fDocumentCalculateRowKey = RowKey;
         }
         if (this.fDocumentCalculateTimer)
             clearTimeout(this.fDocumentCalculateTimer);
@@ -1252,6 +1383,7 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         var Packet;
         var TableName;
         var FieldName;
+        var RowKey;
         if (this.fDocumentApplyingServerPacket === true || this.IsReadOnly === true || !(this.Module instanceof tp.DataModule))
             return;
         if (this.fDocumentCalculating === true) {
@@ -1261,13 +1393,16 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         this.fDocumentCalculating = true;
         TableName = this.fDocumentCalculateTableName || "";
         FieldName = this.fDocumentCalculateFieldName || "";
+        RowKey = this.fDocumentCalculateRowKey || "";
         this.fDocumentCalculateTableName = "";
         this.fDocumentCalculateFieldName = "";
+        this.fDocumentCalculateRowKey = "";
         try {
             Packet = await tp.AjaxRequest.Execute("App.DocumentDataModule.Calculate", {
                 ModuleName: this.ModuleName,
                 TableName: TableName,
                 FieldName: FieldName,
+                RowKey: RowKey,
                 DataModuleJson: JSON.stringify(tp.IsFunction(this.Module.toDataJSON) ? this.Module.toDataJSON() : this.Module.toJSON())
             });
             this.ApplyDocumentCalculatePacket(Packet);

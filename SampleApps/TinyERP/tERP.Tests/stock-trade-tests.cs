@@ -169,6 +169,33 @@ public class StockTradeTests
         Assert.Equal(2000m, Balance.AsDecimal("TotalCostAmount"));
         Assert.Equal(133.3333m, Balance.AsDecimal("AverageUnitCost"));
     }
+    /// <summary>Verifies web JSON calculation updates the targeted stock transaction line.</summary>
+    [Fact]
+    public void JsonCalculateUpdatesStockTradeLineAmounts()
+    {
+        StockTradeDataModule Source = DataRegistry.CreateModule("StockTrade") as StockTradeDataModule;
+        if (Source == null)
+            throw new TripousDataException("Cannot create the Stock Transaction module.");
+        Source.Insert();
+        Source.CurrentRow.SetValue("OperationTypeId", (int)StockTradeOperation.Receipt);
+        Source.CurrentRow.SetValue("WarehouseId", GetWarehouseId("Main Warehouse"));
+        Source.CurrentRow.SetValue("ToWarehouseId", DBNull.Value);
+        DataRow Line = Source.GetTable("StockTradeLine").AddNewRow();
+        Line.SetValue("ProductId", GetProduct("Orange Juice")["Id"]);
+        Line.SetValue("WarehouseId", DBNull.Value);
+        Line.SetValue("Quantity", 4m);
+        Line.SetValue("UnitCost", 7m);
+
+        StockTradeDataModule Target = DataRegistry.CreateModule("StockTrade") as StockTradeDataModule;
+        if (Target == null)
+            throw new TripousDataException("Cannot create the Stock Transaction module.");
+        Target.JsonCalculate(new JsonDataModule(Source), "StockTradeLine", "Quantity", Line.AsString("Id"));
+        DataRow CalculatedLine = Target.GetTable("StockTradeLine").Rows[0];
+
+        Assert.Equal(4m, CalculatedLine.AsDecimal("PrimaryQuantity"));
+        Assert.Equal(28m, CalculatedLine.AsDecimal("CostAmount"));
+        Assert.Equal(Source.CurrentRow.AsString("WarehouseId"), CalculatedLine.AsString("WarehouseId"));
+    }
     /// <summary>Verifies conversion from an alternative unit to primary units.</summary>
     [Fact]
     public void PostingReceiptUsesProductUnitRatio()

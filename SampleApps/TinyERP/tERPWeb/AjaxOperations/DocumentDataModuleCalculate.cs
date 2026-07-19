@@ -9,7 +9,7 @@
 namespace tERPWeb.AjaxOps;
 
 /// <summary>
-/// Recalculates a commercial document data module without committing it.
+/// Recalculates a document data module without committing it.
 /// </summary>
 [AjaxOperation("App.DocumentDataModule.Calculate")]
 public class DocumentDataModuleCalculate: DataModuleAjaxOperation
@@ -96,12 +96,20 @@ public class DocumentDataModuleCalculate: DataModuleAjaxOperation
     {
         DataModule Module = CreateModule(Request);
         JsonDataModule Packet = GetRequestPacket(Request, Module);
-        if (Module is not TradeDataModule)
-            Sys.Throw($"DataModule is not a commercial document module: {Module.Name}");
-
-        TradeDataModule TradeModule = Module as TradeDataModule;
         string TableName = GetStringParam(Request, "TableName");
         string FieldName = GetStringParam(Request, "FieldName");
-        return CreateDataModuleResponse(Request, TradeModule.JsonCalculate(Packet, TableName, FieldName));
+        string RowKey = GetStringParam(Request, "RowKey");
+
+        if (Module is TradeDataModule TradeModule)
+            return CreateDataModuleResponse(Request, TradeModule.JsonCalculate(Packet, TableName, FieldName));
+        if (Module is StockTradeDataModule StockTradeModule)
+            return CreateDataModuleResponse(Request, StockTradeModule.JsonCalculate(Packet, TableName, FieldName, RowKey));
+        if (Module is StockCountDataModule StockCountModule)
+            return CreateDataModuleResponse(Request, StockCountModule.JsonCalculate(Packet, TableName, FieldName, RowKey));
+        if (Module is JournalEntryDataModule JournalEntryModule)
+            return CreateDataModuleResponse(Request, JournalEntryModule.JsonCalculate(Packet, TableName, FieldName, RowKey));
+
+        Sys.Throw($"DataModule is not a supported document calculation module: {Module.Name}");
+        return null;
     }
 }

@@ -311,6 +311,28 @@ public class SalesDocumentTests
         Assert.Equal(Sys.Context.CurrentUser.Id, Order.AsString("PostedBy"));
     }
     [Fact]
+    public void JsonCalculatePreservesManualSalesLineUnitPrice()
+    {
+        SalesInvoiceDataModule Source = DataRegistry.CreateModule("SalesInvoice") as SalesInvoiceDataModule;
+        if (Source == null)
+            throw new TripousDataException("Cannot create the Sales Invoice module.");
+
+        Source.Insert();
+        ConfigureDocument(Source, "Main Warehouse");
+        DataRow Line = AddLine(Source, "Coffee Machine", 1m, "Main Warehouse");
+        Line.SetValue("UnitPrice", 100m);
+
+        SalesInvoiceDataModule Target = DataRegistry.CreateModule("SalesInvoice") as SalesInvoiceDataModule;
+        if (Target == null)
+            throw new TripousDataException("Cannot create the Sales Invoice module.");
+
+        Target.JsonCalculate(new JsonDataModule(Source), "TradeLine", "UnitPrice");
+        DataRow CalculatedLine = Target.GetTable("TradeLine").Rows[0];
+
+        Assert.Equal(100m, CalculatedLine.AsDecimal("UnitPrice"));
+        Assert.Equal(100m, CalculatedLine.AsDecimal("GrossAmount"));
+    }
+    [Fact]
     public void SalesOrderDeliveryReturnInvoiceCreditFlowKeepsQuantityCountersIndependent()
     {
         SalesOrderDataModule OrderModule = CreateSalesOrder(10m);
