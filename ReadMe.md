@@ -13,7 +13,7 @@ Documentation:
 
 ## What Can You Build With Tripous.Avalon?
 
-Tripous.Avalon targets data-centric business software that can be delivered both as desktop applications and as WebDesk-style web applications.
+Tripous.Avalon targets data-centric business software that can be delivered both as desktop applications and as desktop-like web applications.
 
 The desktop layer is multi-OS thanks to Avalonia, while the web layer is intended for desktop-like data entry applications in the browser.
 
@@ -58,6 +58,7 @@ The framework provides infrastructure commonly needed by business applications:
 - Metadata descriptors and registries.
 - Data modules.
 - Modules, tables, fields and forms.
+- System string resources and localization.
 - Lookups and locators.
 - Select definitions and filters.
 - Code providers and number series.
@@ -111,9 +112,20 @@ The `SampleApps` folder contains progressively larger samples.
 - `03-todo`: Lookups, filters, configuration and a more realistic startup flow.
 - `04-mini-crm`: Main manual declaration sample with master/detail forms, locators, lookups and code providers.
 - `05-password-manager`: Services, encrypted fields, import/export and vault locking. Educational sample only and not intended for production security use.
-- `TinyERP`: Larger multi-project ERP-style sample using the Registration Builder and generated declarations.
+- `TinyERP`: Larger multi-project ERP-style sample using the Registration Builder and generated declarations, delivered as both a desktop ERP and a desktop-like web ERP.
 
 Sample applications are educational material and reference implementations, not production applications.
+
+TinyERP currently demonstrates:
+
+- Desktop and web ERP-style applications over the same data and business layer.
+- Multilingual application text using supported languages and system string resources.
+- Administrator-maintained resource translations with English fallback.
+- Sales, purchase, warehouse, finance and accounting workflows.
+- Document posting, cancellation, transformation and settlement flows.
+- Database Explorer, Interactive SQL, dashboards and read-only views.
+- Generated data forms plus custom desktop and web forms.
+- Workflow-oriented automated tests and targeted manual smoke tests.
 
 ## TinyERP
 
@@ -125,6 +137,8 @@ It demonstrates:
 - Automatic registration with the Registration Builder.
 - Schema metadata comments.
 - Generated modules, forms, lookups, locators, select definitions and code providers.
+- Shared desktop and web string-resource localization.
+- Administrator-maintained resource translations.
 - Sales and purchase documents.
 - Stock documents.
 - Journal entries.
@@ -170,6 +184,8 @@ The repository includes a standalone static demo site for the Tripous.Web JavaSc
 The WebDemos site is plain HTML, CSS and JavaScript. It is independent from the ASP.NET Core demo application and can be published as part of the DocFX GitHub Pages site.
 
 tERPWeb is the ASP.NET Core MVC TinyERP Web sample under `SampleApps/TinyERP/tERPWeb`.
+
+It includes a desktop-like web shell, command tree, database explorer, interactive SQL, generated data forms, document workflow forms and the Resource Translations admin form.
 
 When testing tERPWeb, run a full rebuild of the `tERPWeb` project first. The rebuild creates the generated Tripous Web bundles such as `tp.js`, `tp-Data.js`, `tp-UI.js`, `tp-Grid.js` and `tp-WebDesk.js` from the source fragments under `wwwroot/js-src`.
 
@@ -251,7 +267,7 @@ Current priorities include:
 - Registration Builder workflow.
 - XML documentation cleanup.
 - Automated testing.
-- Preparation for the future Tripous.Web platform.
+- Desktop-like web application and TinyERP web feature completion.
 
 ## License
 

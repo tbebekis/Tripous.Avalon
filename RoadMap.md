@@ -13,6 +13,9 @@
 - The old Avalonia `DataGrid` was removed completely from the Tripous desktop path.
 - The `Locator2` transition is complete; the new locator architecture is now the normal `Locator` architecture.
 - The old Desktop Locator was replaced by the new Locator runtime, UI, and `LocatorBox`.
+- TinyERP now has shared `SYS_STR_RES` localization infrastructure for desktop and web.
+- TinyERP includes desktop and web administrator forms for editing system string resources.
+- tERPWeb now includes command tree views, database explorer, interactive SQL, WebDesk data forms and resource translation editing.
 
 ## Documentation
 
@@ -20,6 +23,7 @@
 - Later apply XML documentation cleanup to tERP types.
 - Add tester guide and release documentation for tERP.
 - Keep DocFX conceptual documentation aligned with framework changes.
+- Add DocFX pages for `SysStrRes`, `SYS_LANG`, `SYS_STR_RES` and TinyERP multilingual administration.
 - Consider RegBuilder `ListFields:` metadata for controlling generated list SELECT columns.
 - If `ListFields:` is added, require `Id`, allow top fields, enum display columns and join aliases, and require `FilterFields` to be a subset of final list fields.
 
@@ -71,6 +75,7 @@
 - Collect tester feedback from zipped Linux and Windows executables.
 - Add tester guide and release notes.
 - Continue remaining supporting modules and smoke tests.
+- Continue web UI parity checks after each desktop feature lands.
 
 ## Extensibility
 

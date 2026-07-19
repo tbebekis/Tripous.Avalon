@@ -33,6 +33,8 @@ TinyERP demonstrates:
 - Locator fields.
 - Snapshot fields.
 - Generated business codes.
+- System string resources and supported languages.
+- Desktop and web resource translation administration.
 - Draft and final document numbering.
 - Posting, cancellation and transformation workflows.
 - Stock movements and balances.
@@ -75,19 +77,20 @@ Important files and folders:
 - `Program.cs`
 - `App.axaml`
 - `App.axaml.cs`
-- `HiddenMainWindow.cs`
+- `StartupMainWindow.cs`
 - `MainWindow.axaml`
 - `MainWindow.axaml.cs`
 - `DashboardForm.axaml`
 - `ReadOnlyViewForm.axaml`
+- `ResourceTranslationsForm.axaml`
 - `AppHost`
 - `tester-guide.txt`
 - `tester-guide-gr.txt`
 
 The application follows the same startup pattern as the smaller samples.
 
-- A hidden startup window is created first.
-- Early dialogs have a valid owner window.
+- A visible startup window is created first.
+- Startup dialogs have a valid owner window.
 - The database and descriptors are initialized.
 - The real main window is shown only after startup is complete.
 - `AppHost` owns the startup flow, commands, views and UI initialization.
@@ -134,6 +137,7 @@ It contains:
 - Price and tax resolvers.
 - Sample data.
 - Data defaults.
+- System string-resource services.
 - Application default properties.
 - Database log listener.
 
@@ -147,9 +151,33 @@ Important files and folders:
 - `SampleData`
 - `PriceResolver.cs`
 - `TaxResolver.cs`
+- `SysStrRes.cs`
+- `ResourceTranslationService.cs`
 - `SalesDefaults.cs`
 - `PurchaseDefaults.cs`
 - `AppDefaultProperties.cs`
+
+## Web Project
+
+The `tERPWeb` project is the ASP.NET Core MVC WebDesk version of TinyERP.
+
+It demonstrates:
+
+- Tripous WebDesk shell layout.
+- Main toolbar and command tree.
+- Generated web data forms.
+- Document workflow client extensions.
+- Database explorer and interactive SQL forms.
+- Runtime string-resource loading.
+- Resource translation administration.
+
+Important folders:
+
+- `AjaxOperations`
+- `Views/WebForms`
+- `wwwroot/js`
+- `wwwroot/js/forms`
+- `wwwroot/css/forms`
 
 ## Desktop Project
 
@@ -450,7 +478,34 @@ Read-only or system views:
 - Finance balances.
 - Logs.
 - System configuration.
+- Supported languages.
+- System string resources.
 - Number series.
+
+## Localization
+
+TinyERP uses `SYS_LANG` for supported languages and `SYS_STR_RES` for translated string resources.
+
+The shared `SysStrRes` service lives in `Tripous.Data`.
+
+It provides:
+
+- In-memory string-resource caching.
+- Current-user language lookup.
+- English fallback text.
+- Optional automatic insertion of missing English keys.
+- Dictionary output for web clients.
+- Integration with the `Texts` localization facade.
+
+The `ResourceTranslationService` in `tERP.Data` builds the editor table used by both desktop and web.
+
+The Resource Translations admin form shows one column per active language.
+
+- English is the source language and is read-only.
+- Other language columns are editable.
+- Empty translation cells mean fallback to the English text.
+- Cell edits are saved immediately.
+- Deleting a key removes all translations for that key after confirmation.
 
 ## Document Types
 
@@ -717,6 +772,8 @@ Relevant areas:
 - Password dialogs in `tERP.Desktop`
 - User-related application settings
 - User-level security metadata on modules
+- Supported language selection through user culture code
+- Last login timestamp tracking
 
 The sample demonstrates application user infrastructure.
 
@@ -735,6 +792,11 @@ Configuration values may be stored at scopes such as:
 `Registry.RegisterSycConfigProperties()` registers tERP configuration properties after descriptors are registered.
 
 Application settings are then available through the Tripous configuration system and the desktop configuration dialogs.
+
+Relevant TinyERP configuration properties include:
+
+- FactBox pane visibility command availability.
+- Automatic insertion of missing system string-resource keys.
 
 ## Sample Data
 
@@ -762,6 +824,7 @@ The desktop UI follows the Tripous pattern used by the smaller samples.
 The application includes:
 
 - Main window.
+- Startup window.
 - Dashboard form.
 - Command groups.
 - Sidebar commands.
@@ -770,6 +833,12 @@ The application includes:
 - Custom document forms.
 - Custom item pages.
 - Read-only views.
+- Database explorer and interactive SQL forms.
+- Resource translations form.
+
+FactBox panes start hidden when the related configuration flag is enabled.
+
+Users open them explicitly from the data-form toolbar.
 
 The generated form descriptors connect modules to forms.
 
@@ -780,8 +849,10 @@ Custom form classes add application-specific behavior where needed.
 In `tERP`:
 
 - `MainWindow.axaml`
+- `StartupMainWindow.cs`
 - `DashboardForm.axaml`
 - `ReadOnlyViewForm.axaml`
+- `ResourceTranslationsForm.axaml`
 - `AppHost/AppHost.Commands.cs`
 - `AppHost/AppHost.Startup.cs`
 - `AppHost/AppHost.Ui.cs`
@@ -877,6 +948,9 @@ The current tERP cycle includes:
 - Supplier payments.
 - Payment cancellations.
 - Payment settlement links.
+- Desktop and web database explorer support.
+- Desktop and web resource translation editing.
+- Shared localization through `SYS_LANG`, `SYS_STR_RES` and `SysStrRes`.
 - Unit tests and UI tests for many workflows.
 
 Known remaining work includes:
@@ -885,6 +959,7 @@ Known remaining work includes:
 - Supporting-module smoke tests.
 - More documentation.
 - Future extensions around currency rates, stock availability, configurable accounting posting profiles and production hardening.
+- UI parity audit between desktop and web.
 
 ## Current Limitations
 

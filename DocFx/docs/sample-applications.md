@@ -6,6 +6,8 @@ The first samples are small and manually declared.
 
 `TinyERP` is the larger sample and uses the Registration Builder for automatic declaration.
 
+It is delivered as both a desktop ERP sample and a desktop-like web ERP sample over the same data and business layer.
+
 ## Disclaimer
 
 - These applications are educational samples.
@@ -118,17 +120,25 @@ Folder:
 Purpose:
 
 - Shows a larger multi-project Tripous application.
-- Uses `tERP.Common`, `tERP.Data`, `tERP.Desktop`, `tERP.Tests` and the executable `tERP` project.
-- Includes the ASP.NET Core MVC `tERPWeb` project for Tripous.Web experiments.
+- Uses `tERP.Common`, `tERP.Data`, `tERP.Desktop`, `tERP.Tests`, the executable desktop `tERP` project and the ASP.NET Core MVC `tERPWeb` project.
+- Demonstrates a desktop ERP and a desktop-like web ERP using shared data modules, schema, sample data and business services.
 - Uses the Registration Builder for automatic declaration.
 - Uses schema metadata comments to generate registry code.
 - Demonstrates many modules, forms, lookups, locators, select definitions and code providers.
-- Includes business documents, stock, finance, payments and accounting-oriented workflows.
+- Includes sales, purchase, warehouse, finance, payments and accounting-oriented workflows.
+- Includes document posting, cancellation, transformation and settlement workflows.
+- Includes multilingual application text through `SYS_LANG`, `SYS_STR_RES` and the shared `SysStrRes` service.
+- Includes administrator-maintained resource translations with English fallback.
+- Includes desktop and web Resource Translations forms.
+- Includes desktop and web Database Explorer and Interactive SQL tooling.
+- Includes dashboards, read-only views, generated data forms and custom workflow forms.
 - Includes unit and UI test projects.
 
 This is the main automatic declaration sample.
 
 It is the best sample for understanding how schema comments, the Registration Builder and generated declarations scale to a larger application.
+
+It is also the main sample for studying how Tripous can share one SQL-first business layer between a native desktop client and a desktop-like browser client.
 
 When testing `tERPWeb`, run a full rebuild of the `tERPWeb` project before starting it. The rebuild generates the `tp*.js` bundles used by the MVC layout and demos.
 
