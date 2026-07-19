@@ -659,9 +659,9 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
             ReadOnly: true,
             AutoGenerateColumns: true,
             ToolBarVisible: false,
-            GroupsVisible: false,
+            GroupsVisible: true,
             FilterVisible: true,
-            FooterVisible: false,
+            FooterVisible: true,
             DataSource: Table
         });
         setTimeout(function () {

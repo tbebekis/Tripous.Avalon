@@ -24,6 +24,16 @@
                 <Button Name="btnRefreshSchema" ToolTip.Tip="Refresh Schema" Click="AnyClick">
                     <Image Source="/Images32/database_refresh.png"/>
                 </Button>
+                <Separator/>
+                <Button Name="btnShowSourceCode" ToolTip.Tip="Show Source Code" Click="AnyClick">
+                    <Image Source="/Images32/table.png"/>
+                </Button>
+                <Button Name="btnShowFieldList" ToolTip.Tip="Show Field List" Click="AnyClick">
+                    <Image Source="/Images32/table_select_column.png"/>
+                </Button>
+                <Button Name="btnSelectTableOrView" ToolTip.Tip="Select Table Or View" Click="AnyClick">
+                    <Image Source="/Images32/lightning.png"/>
+                </Button>
             </StackPanel>
         </Border>
         <TreeView Name="tv"

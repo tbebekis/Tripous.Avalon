@@ -80,6 +80,11 @@ app.MainPage = class extends tp.Component {
          */
         this.CommandTreeView = null;
         /**
+         * Database explorer view.
+         * @type {app.DatabaseExplorerForm|null}
+         */
+        this.DatabaseExplorer = null;
+        /**
          * Workspace web form page handler.
          * @type {tp.WebFormPageHandler|null}
          */
@@ -306,9 +311,8 @@ app.MainPage = class extends tp.Component {
             if (this.StatusBar)
                 this.StatusBar.Message = "Loading web forms...";
 
-            await app.App.LoadWebFormsAsync();
-            //Count = await app.App.LoadWebFormsAsync();
-            //Text = "Loaded web forms: " + Count.toString();
+            Count = await app.App.LoadWebFormsAsync();
+            Text = "Loaded web forms: " + Count.toString();
 
             if (this.CommandTreeView)
                 this.CommandTreeView.Refresh();
@@ -349,11 +353,11 @@ app.MainPage = class extends tp.Component {
      * Populates the left side bar tab control.
      * @returns {void}
      */
-    PopulateLeftSideBar() {
+    async PopulateLeftSideBar() {
         var Self = this;
         if (!this.SideBarHandler)
             return;
-        this.SideBarHandler.OpenAsync("CommandTreeView").then(function (Page) {
+        await this.SideBarHandler.OpenAsync("CommandTreeView").then(function (Page) {
             Self.CommandTreeView = Page && Page.AppComponent instanceof tp.WebForm ? Page.AppComponent : null;
         }).catch(function (e) {
             var Text = "Open sidebar failed: " + tp.ExceptionText(e);
@@ -362,6 +366,17 @@ app.MainPage = class extends tp.Component {
             if (Self.StatusBar)
                 Self.StatusBar.Message = Text;
         });
+        await this.SideBarHandler.OpenAsync("DatabaseExplorer").then(function (Page) {
+            Self.DatabaseExplorer = Page && Page.AppComponent instanceof tp.WebForm ? Page.AppComponent : null;
+        }).catch(function (e) {
+            var Text = "Open database explorer failed: " + tp.ExceptionText(e);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (Self.StatusBar)
+                Self.StatusBar.Message = Text;
+        });
+        if (Self.LeftTabControl instanceof tp.TabControl)
+            Self.LeftTabControl.SelectedIndex = 0;
     }
     /**
      * Finds a workspace page by application page name.
@@ -482,6 +497,16 @@ app.App = {
      */
     WebForms: [],
     /**
+     * Counter used for interactive SQL page ids.
+     * @type {number}
+     */
+    InteractiveSqlCounter: 0,
+    /**
+     * Read-only view metadata loaded from the server.
+     * @type {object[]}
+     */
+    ReadOnlyViews: [],
+    /**
      * Menu command group names created from web forms.
      * @type {string[]}
      */
@@ -499,6 +524,8 @@ app.App = {
         "change_password.png",
         "chart_bar.png",
         "database.png",
+        "database_add.png",
+        "database_delete.png",
         "database_edit.png",
         "database_green.png",
         "database_refresh.png",
@@ -512,6 +539,7 @@ app.App = {
         "script_lightning.png",
         "setting_tools.png",
         "table.png",
+        "table_select_column.png",
         "table_refresh.png"
     ],
 
@@ -851,6 +879,40 @@ app.App = {
         });
     },
     /**
+     * Selects a registered read-only view.
+     * @param {string} ViewName The read-only view name.
+     * @param {object[]|null|undefined} Filters The active structured filters.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    SelectReadOnlyViewAsync: async function (ViewName, Filters) {
+        return await tp.AjaxRequest.ExecuteAsync("App.SelectReadOnlyView", {
+            ViewName: ViewName,
+            Filters: tp.IsArray(Filters) ? Filters : []
+        });
+    },
+    /**
+     * Opens an interactive SQL page for a database connection.
+     * @param {string} ConnectionName The connection name.
+     * @param {string|null|undefined} SqlText Optional initial SQL text.
+     * @returns {void}
+     */
+    OpenInteractiveSql: function (ConnectionName, SqlText) {
+        var Title;
+        var Options;
+        if (!(this.MainPage && this.MainPage.PageHandler) || tp.IsBlankString(ConnectionName))
+            return;
+        this.InteractiveSqlCounter++;
+        Title = "Interactive SQL - " + ConnectionName;
+        Options = {
+            FormId: "InteractiveSql." + ConnectionName + "." + this.InteractiveSqlCounter.toString(),
+            ConnectionName: ConnectionName,
+            InitialSqlText: SqlText || "",
+            Title: Title,
+            JsFormClassType: "app.InteractiveSqlForm"
+        };
+        this.MainPage.PageHandler.Open("InteractiveSql", Options);
+    },
+    /**
      * Returns main dashboard data.
      * @returns {Promise<object>} Returns a Promise with dashboard data.
      */
@@ -1159,10 +1221,14 @@ app.App = {
      */
     LoadWebFormsAsync: async function () {
         var Packet = await tp.AjaxRequest.ExecuteAsync("App.GetWebForms");
+        var ViewPacket = await tp.AjaxRequest.ExecuteAsync("App.GetReadOnlyViews");
         var Forms = Packet && tp.IsArray(Packet.WebForms) ? Packet.WebForms : [];
+        var Views = ViewPacket && tp.IsArray(ViewPacket.Views) ? ViewPacket.Views : [];
 
         this.WebForms = Forms;
+        this.ReadOnlyViews = Views;
         this.BuildWebFormCommands(Forms);
+        this.BuildReadOnlyViewCommands(Views);
         return Forms.length;
     },
     /**
@@ -1213,6 +1279,41 @@ app.App = {
                     ItemViewName: Form.ItemViewName,
                     JsFormClassType: Form.JsFormClassType,
                     IsReadOnly: Form.IsReadOnly === true
+                }
+            });
+        }
+    },
+    /**
+     * Builds read-only view commands.
+     * @param {object[]} Views The read-only view metadata array.
+     * @returns {void}
+     */
+    BuildReadOnlyViewCommands: function (Views) {
+        var Index;
+        var View;
+        var GroupCommand;
+
+        this.MenuCommands.Remove("Views");
+        GroupCommand = new tp.Command({ Name: "Views", Title: "Views", ImageFileName: "folder.png" });
+        this.MenuCommands.Add(GroupCommand);
+
+        for (Index = 0; Index < Views.length; Index++) {
+            View = Views[Index];
+            if (tp.IsBlankString(View.Name))
+                continue;
+            GroupCommand.Add({
+                Name: "ReadOnlyView." + View.Name,
+                TitleKey: View.TitleKey,
+                Title: View.Title || View.Name,
+                ImageFileName: "table.png",
+                Form: "ReadOnlyView",
+                Type: "Ui",
+                IsSingleInstance: true,
+                Params: {
+                    FormId: "ReadOnlyView." + View.Name,
+                    ViewName: View.Name,
+                    Title: View.Title || View.Name,
+                    JsFormClassType: "app.ReadOnlyViewForm"
                 }
             });
         }
@@ -1307,7 +1408,7 @@ app.App = {
         else if (Command.IsUiCommand() && tp.IsBlankString(Command.Params ? Command.Params.JsFormClassType : ""))
             this.ReportCommandNotAvailable(Command);
         else if (Command.IsUiCommand() && this.MainPage && this.MainPage.PageHandler)
-            this.MainPage.PageHandler.Open(Command.Form);
+            this.MainPage.PageHandler.Open(Command.Form, Command.Params || null);
         else if (tp.LogBox)
             tp.LogBox.AppendLine("Command executed: " + Command.Name);
     },

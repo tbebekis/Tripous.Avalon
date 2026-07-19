@@ -1,0 +1,49 @@
+@model Tripous.WebDesk.WebFormDef
+@{
+    string DataSetup = Tripous.Json.Serialize(new
+    {
+        WebFormName = Model.Name,
+        JavaScriptFiles = Model.JavaScriptFiles,
+        CssFiles = Model.CssFiles,
+        JsFormClassType = Model.JsFormClassType
+    });
+}
+<div class="app-read-only-view" data-setup='@Html.Raw(DataSetup)'>
+    <div data-role="toolbar"></div>
+    <div data-role="body" class="app-read-only-view-body">
+        <aside data-role="filters" class="app-read-only-view-filter-pane" hidden>
+            <div data-role="filter-panel-list">
+                @foreach (Tripous.Data.SelectDef SelectDef in tERPWeb.ReadOnlyViews.GetAll())
+                {
+                    <div data-select-name="@SelectDef.Name">
+                        @if (SelectDef.FilterDefs.Count > 0)
+                        {
+                            foreach (Tripous.Data.SqlFilterDef FilterDef in SelectDef.FilterDefs)
+                            {
+                                string FilterSetup = Tripous.Json.Serialize(new
+                                {
+                                    SelectName = SelectDef.Name,
+                                    Name = FilterDef.Name,
+                                    FilterName = FilterDef.Name,
+                                    Title = FilterDef.Title,
+                                    TitleKey = FilterDef.TitleKey,
+                                    FieldName = FilterDef.FieldName,
+                                    FilterDataType = FilterDef.FilterDataType.ToString(),
+                                    BoolOp = FilterDef.BoolOp.ToString(),
+                                    ConditionOp = FilterDef.ConditionOp.ToString()
+                                });
+                                <div class="tp-SelectFilterRow" data-setup="@FilterSetup"></div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="tp-Text">No filters</div>
+                        }
+                    </div>
+                }
+            </div>
+        </aside>
+        <div data-role="filter-splitter" class="tp-Splitter" hidden></div>
+        <section data-role="grid" class="app-read-only-view-grid"></section>
+    </div>
+</div>

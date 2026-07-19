@@ -143,6 +143,28 @@ static public partial class App
         if (!Form.JavaScriptFiles.Contains("/js/forms/command-tree-view-form.js"))
             Form.JavaScriptFiles.Add("/js/forms/command-tree-view-form.js");
 
+        Form = WebDeskRegistry.AddOrUpdateForm("DatabaseExplorer", TitleKey: "Database Explorer", Module: string.Empty, ViewName: "/Views/WebForms/DatabaseExplorer.cshtml", Group: "General", IsReadOnly: true, SecurityLevel: UserLevel.Admin);
+        Form.IsCustom = true;
+        Form.JsFormClassType = "app.DatabaseExplorerForm";
+        if (!Form.JavaScriptFiles.Contains("/js/forms/database-explorer-form.js"))
+            Form.JavaScriptFiles.Add("/js/forms/database-explorer-form.js");
+        if (!Form.CssFiles.Contains("/css/forms/database-explorer-form.css"))
+            Form.CssFiles.Add("/css/forms/database-explorer-form.css");
+
+        Form = WebDeskRegistry.AddOrUpdateForm("InteractiveSql", TitleKey: "Interactive SQL", Module: string.Empty, ViewName: "/Views/WebForms/InteractiveSql.cshtml", Group: "General", IsReadOnly: true, SecurityLevel: UserLevel.Admin);
+        Form.IsCustom = true;
+        Form.JsFormClassType = "app.InteractiveSqlForm";
+        if (!Form.JavaScriptFiles.Contains("/js/forms/interactive-sql-form.js"))
+            Form.JavaScriptFiles.Add("/js/forms/interactive-sql-form.js");
+        if (!Form.CssFiles.Contains("/css/forms/interactive-sql-form.css"))
+            Form.CssFiles.Add("/css/forms/interactive-sql-form.css");
+
+        Form = WebDeskRegistry.AddOrUpdateForm("ReadOnlyView", TitleKey: "Read Only View", Module: string.Empty, ViewName: "/Views/WebForms/ReadOnlyView.cshtml", Group: "General", IsReadOnly: true);
+        Form.IsCustom = true;
+        Form.JsFormClassType = "app.ReadOnlyViewForm";
+        if (!Form.JavaScriptFiles.Contains("/js/forms/read-only-view-form.js"))
+            Form.JavaScriptFiles.Add("/js/forms/read-only-view-form.js");
+
         Form = WebDeskRegistry.AddOrUpdateForm("DatabaseWorkbench", TitleKey: "Database Workbench", Module: string.Empty, ViewName: "/Views/WebForms/DatabaseWorkbench.cshtml", Group: "General", IsReadOnly: true, SecurityLevel: UserLevel.Admin);
         Form.IsCustom = true;
         Form.JsFormClassType = "app.DatabaseWorkbenchForm";

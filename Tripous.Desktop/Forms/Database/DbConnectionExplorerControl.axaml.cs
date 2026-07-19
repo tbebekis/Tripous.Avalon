@@ -38,6 +38,12 @@ public partial class DbConnectionExplorerControl : UserControl
             await ToggleConnect();
         else if (Sender == btnRefreshSchema)
             await RefreshSchema();
+        else if (Sender == btnShowSourceCode)
+            ShowCode(ShowCodeMode.SourceCode);
+        else if (Sender == btnShowFieldList)
+            ShowCode(ShowCodeMode.FieldList);
+        else if (Sender == btnSelectTableOrView)
+            ShowCode(ShowCodeMode.Select);
         else if (Sender == mnuExpand)
             Expand();
         else if (Sender == mnuCollapse)
@@ -210,13 +216,10 @@ public partial class DbConnectionExplorerControl : UserControl
     {
         TreeViewItem Node = FindSchemaNode();
         if (Node == null)
-        {
-            Log("Cannot open SQL editor. No connection selected.");
             return;
-        }
         DbSchema Schema = Node.Tag as DbSchema;
         if (!Schema.IsLoaded)
-            await ConnectSchema(Schema, Node);
+            return;
         OpenSqlRequested?.Invoke(this, new DbConnectionExplorerEventArgs(Schema.ConnectionInfo));
     }
     async Task Insert()

@@ -1,0 +1,15 @@
+@model Tripous.WebDesk.WebFormDef
+@{
+    string DataSetup = Tripous.Json.Serialize(new
+    {
+        WebFormName = Model.Name,
+        JavaScriptFiles = Model.JavaScriptFiles,
+        CssFiles = Model.CssFiles,
+        JsFormClassType = Model.JsFormClassType
+    });
+}
+<div class="app-interactive-sql" data-setup='@Html.Raw(DataSetup)'>
+    <div data-role="toolbar"></div>
+    <div data-role="editor"></div>
+    <div data-role="results"></div>
+</div>

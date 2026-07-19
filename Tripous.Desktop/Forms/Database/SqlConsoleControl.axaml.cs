@@ -128,9 +128,10 @@ SQL: {Statement.SqlText.Trim()}
         GroupGrid Result = new GroupGrid();
         Result.IsReadOnly = true;
         Result.IsToolBarVisible = false;
-        Result.IsGroupPanelVisible = false;
+        Result.IsGroupPanelVisible = true;
         Result.IsFilterPanelVisible = true;
-        Result.IsTotalsSummaryVisible = false;
+        Result.IsTotalsSummaryVisible = true;
+        Result.IsSettingsMenuItemsVisible = false;
         GroupGridBinder.BindGrid(Result, Table.DataView, true);
         return Result;
     }

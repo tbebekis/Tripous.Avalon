@@ -65,13 +65,13 @@ static internal partial class AppHost
         return AppHost.ContentHandler.ShowAppForm(Context);
     }
     /// <summary>
-    /// Opens the database workbench.
+    /// Selects the database explorer.
     /// </summary>
     static object ShowDatabaseWorkbenchFunc(Command Cmd)
     {
-        FormContext Context = FormContext.Create("DatabaseWorkbench", typeof(DatabaseWorkbenchForm).FullName, FormDisplayMode.TabItem, AppHost.MainWindow);
-        Context.Title = "Database Workbench";
-        return AppHost.ContentHandler.ShowAppForm(Context);
+        AppForm Result = AppHost.ShowDatabaseExplorer();
+        Result?.SetAsSelectedForm();
+        return Result;
     }
     /// <summary>
     /// Changes the current user password.
@@ -107,7 +107,7 @@ static internal partial class AppHost
         Command cmdApplicationSettings = Command.CreateAsync("Application Settings", "setting_tools.png", async (c) => { await ConfigDialog.ShowModal(AppHost.MainWindow); return 0; });
         Command cmdChangePassword = Command.CreateAsync("Change Password", "change_password.png", async (c) => { await ChangePassword(); return 0; });
         Command cmdConnectionInfo = Command.CreateAsync("ConnectionInfo", "database_edit.png", async (c) => { await ShowDbConnectionEditDialog(Db.GetDefaultConnectionInfo()); return 0; });
-        Command cmdDatabaseWorkbench = Command.Create("Database Workbench", "script_lightning.png", ShowDatabaseWorkbenchFunc);
+        Command cmdDatabaseWorkbench = Command.Create("Database Explorer", "database.png", ShowDatabaseWorkbenchFunc);
         Command cmdRegenerateDatabase = Command.CreateAsync("Regenerate Database", "database_refresh.png", async (c) => { await RegenerateDatabase(); return 0; });
         cmdConnectionInfo.SecurityLevel = UserLevel.Admin;
         cmdDatabaseWorkbench.SecurityLevel = UserLevel.Admin;

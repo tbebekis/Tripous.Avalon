@@ -27,11 +27,11 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     int fNoteDurationSeconds;
     double fNoteWidth;
     double fNoteHeight;
-    string fNoteForeground = "#FFFFFFFF";
-    string fNoteInfoBackground = "#FF2563EB";
-    string fNoteSuccessBackground = "#FF16A34A";
-    string fNoteWarningBackground = "#FFF59E0B";
-    string fNoteErrorBackground = "#FFDC2626";
+    string fNoteForeground = "#FF000000";
+    string fNoteInfoBackground = "#FFFFFFD7";
+    string fNoteSuccessBackground = "#FFE7FFFF";
+    string fNoteWarningBackground = "#FFE7FFE7";
+    string fNoteErrorBackground = "#FFFFE7E7";
 
     
     // ● private  
@@ -171,7 +171,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public int NoteDurationSeconds
     {
-        get => fNoteDurationSeconds >= 1 && fNoteDurationSeconds <= 30 ? fNoteDurationSeconds : 4;
+        get => fNoteDurationSeconds >= 1 && fNoteDurationSeconds <= 30 ? fNoteDurationSeconds : 10;
         set { if (fNoteDurationSeconds != value) { fNoteDurationSeconds = value; NotifyPropertyChanged(nameof(NoteDurationSeconds)); } }
     }
     /// <summary>
@@ -179,7 +179,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public double NoteWidth
     {
-        get => fNoteWidth >= 220 && fNoteWidth <= 600 ? fNoteWidth : 360;
+        get => fNoteWidth >= 220 && fNoteWidth <= 600 ? fNoteWidth : 350;
         set { if (fNoteWidth != value) { fNoteWidth = value; NotifyPropertyChanged(nameof(NoteWidth)); } }
     }
     /// <summary>
@@ -187,7 +187,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public double NoteHeight
     {
-        get => fNoteHeight >= 52 && fNoteHeight <= 160 ? fNoteHeight : 76;
+        get => fNoteHeight >= 70 && fNoteHeight <= 220 ? fNoteHeight : 100;
         set { if (fNoteHeight != value) { fNoteHeight = value; NotifyPropertyChanged(nameof(NoteHeight)); } }
     }
     /// <summary>
@@ -195,7 +195,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public string NoteForeground
     {
-        get => !string.IsNullOrWhiteSpace(fNoteForeground) ? fNoteForeground : "#FFFFFFFF";
+        get => !string.IsNullOrWhiteSpace(fNoteForeground) ? fNoteForeground : "#FF000000";
         set { if (fNoteForeground != value) { fNoteForeground = value; NotifyPropertyChanged(nameof(NoteForeground)); } }
     }
     /// <summary>
@@ -203,7 +203,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public string NoteInfoBackground
     {
-        get => !string.IsNullOrWhiteSpace(fNoteInfoBackground) ? fNoteInfoBackground : "#FF2563EB";
+        get => !string.IsNullOrWhiteSpace(fNoteInfoBackground) ? fNoteInfoBackground : "#FFFFFFD7";
         set { if (fNoteInfoBackground != value) { fNoteInfoBackground = value; NotifyPropertyChanged(nameof(NoteInfoBackground)); } }
     }
     /// <summary>
@@ -211,7 +211,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public string NoteSuccessBackground
     {
-        get => !string.IsNullOrWhiteSpace(fNoteSuccessBackground) ? fNoteSuccessBackground : "#FF16A34A";
+        get => !string.IsNullOrWhiteSpace(fNoteSuccessBackground) ? fNoteSuccessBackground : "#FFE7FFFF";
         set { if (fNoteSuccessBackground != value) { fNoteSuccessBackground = value; NotifyPropertyChanged(nameof(NoteSuccessBackground)); } }
     }
     /// <summary>
@@ -219,7 +219,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public string NoteWarningBackground
     {
-        get => !string.IsNullOrWhiteSpace(fNoteWarningBackground) ? fNoteWarningBackground : "#FFF59E0B";
+        get => !string.IsNullOrWhiteSpace(fNoteWarningBackground) ? fNoteWarningBackground : "#FFE7FFE7";
         set { if (fNoteWarningBackground != value) { fNoteWarningBackground = value; NotifyPropertyChanged(nameof(NoteWarningBackground)); } }
     }
     /// <summary>
@@ -227,7 +227,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     /// </summary>
     public string NoteErrorBackground
     {
-        get => !string.IsNullOrWhiteSpace(fNoteErrorBackground) ? fNoteErrorBackground : "#FFDC2626";
+        get => !string.IsNullOrWhiteSpace(fNoteErrorBackground) ? fNoteErrorBackground : "#FFFFE7E7";
         set { if (fNoteErrorBackground != value) { fNoteErrorBackground = value; NotifyPropertyChanged(nameof(NoteErrorBackground)); } }
     }
 
