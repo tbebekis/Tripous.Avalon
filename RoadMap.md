@@ -10,6 +10,7 @@
 - The `GroupGrid` completion checkpoint was reached successfully and checked repeatedly.
 - `GroupGrid` lives in the separate `Tripous.Avalonia.Controls` project.
 - `GroupGrid` is now the Tripous data-aware grid foundation.
+- `PivotGrid` v1 was added to `Tripous.Avalonia.Controls` as a framework-neutral custom-rendered pivot grid.
 - The old Avalonia `DataGrid` was removed completely from the Tripous desktop path.
 - The `Locator2` transition is complete; the new locator architecture is now the normal `Locator` architecture.
 - The old Desktop Locator was replaced by the new Locator runtime, UI, and `LocatorBox`.
@@ -42,7 +43,7 @@
 - Review whether a dedicated `LookUpBox` is still needed after the current lookup combo box and locator work.
 - Continue polishing the new `LocatorBox` where real usage reveals details.
 - Continue polishing `GroupGrid` where real usage reveals details.
-- Add `PivotGrid`.
+- Continue polishing `PivotGrid` where real usage reveals details.
 
 ## Completed Milestones
 
@@ -55,6 +56,9 @@
 - Replace Avalonia `DataGrid`.
 - Status: Completed.
 - Migrated forms, lookup dialogs, document editors, tests, and performance tuning to `GroupGrid`.
+- Add `PivotGrid`.
+- Status: Completed.
+- Added a framework-neutral custom-rendered pivot grid with POCO/DataTable/DataView adapters, row and column axes, measures, aggregates, filtering, sorting, drag/drop field layout, totals, settings, export, demos, and unit tests.
 
 ## Planned Milestones
 

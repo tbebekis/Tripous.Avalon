@@ -1,0 +1,56 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Tripous.Avalonia.Controls"
+        mc:Ignorable="d" d:DesignWidth="1180" d:DesignHeight="760"
+        x:Class="Demo00.PivotGrid.MainWindow"
+        Width="1180"
+        Height="760"
+        WindowState="Maximized"
+        Title="PivotGrid Demo">
+    <DockPanel>
+        <Border DockPanel.Dock="Top"
+                Padding="8"
+                BorderThickness="0,0,0,1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Spacing="6">
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8">
+                    <ComboBox x:Name="SourceComboBox"
+                              Width="150"
+                              SelectionChanged="SourceComboBox_SelectionChanged">
+                        <ComboBoxItem>POCO List</ComboBoxItem>
+                        <ComboBoxItem>DataTable</ComboBoxItem>
+                        <ComboBoxItem>DataView</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox x:Name="DatasetComboBox"
+                              Width="120"
+                              SelectionChanged="DatasetComboBox_SelectionChanged">
+                        <ComboBoxItem>Small</ComboBoxItem>
+                        <ComboBoxItem>Large</ComboBoxItem>
+                    </ComboBox>
+                    <Button Content="Region x Quarter"
+                            Click="RegionQuarterButton_Click" />
+                    <Button Content="Region + Salesperson x Quarter"
+                            Click="RegionSalespersonQuarterButton_Click" />
+                    <Button Content="Large Navigation"
+                            Click="LargeNavigationButton_Click" />
+                    <Button Content="Long Row Header"
+                            Click="LongRowHeaderButton_Click" />
+                    <Button Content="Salesperson x Product"
+                            Click="SalespersonProductButton_Click" />
+                    <Button Content="Settings..."
+                            Click="SettingsButton_Click" />
+                    <Button Content="Reload"
+                            Click="ReloadButton_Click" />
+                </StackPanel>
+                <TextBlock x:Name="StatusTextBlock"
+                           FontSize="12"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+            </StackPanel>
+        </Border>
+        <controls:PivotGrid x:Name="Grid" />
+    </DockPanel>
+</Window>

@@ -94,6 +94,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupGrid-Demo-00", "Tripou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupGrid-Tests", "Tripous.Avalonia.Controls\Tests\GroupGrid-Tests\GroupGrid-Tests.csproj", "{98A3B6C5-D27E-4C4B-A456-562B533ED795}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotGrid-Demo-00", "Tripous.Avalonia.Controls\Demos\PivotGrid-Demo-00\PivotGrid-Demo-00.csproj", "{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotGrid-Tests", "Tripous.Avalonia.Controls\Tests\PivotGrid-Tests\PivotGrid-Tests.csproj", "{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -452,6 +456,30 @@ Global
 		{98A3B6C5-D27E-4C4B-A456-562B533ED795}.Release|x64.Build.0 = Release|Any CPU
 		{98A3B6C5-D27E-4C4B-A456-562B533ED795}.Release|x86.ActiveCfg = Release|Any CPU
 		{98A3B6C5-D27E-4C4B-A456-562B533ED795}.Release|x86.Build.0 = Release|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Debug|x64.Build.0 = Debug|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Debug|x86.Build.0 = Debug|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Release|x64.ActiveCfg = Release|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Release|x64.Build.0 = Release|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Release|x86.ActiveCfg = Release|Any CPU
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC}.Release|x86.Build.0 = Release|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Debug|x64.Build.0 = Debug|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Debug|x86.Build.0 = Debug|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Release|x64.Build.0 = Release|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -489,6 +517,8 @@ Global
 		{2285B4AE-3D2F-42EE-8493-69A34AAAF014} = {BD672589-6B71-43A5-B8ED-8719206D3E9C}
 		{376965DF-13B9-4FD2-A63D-5364B971AD57} = {8281BAE1-3245-48D9-82F5-00ED66C605BE}
 		{98A3B6C5-D27E-4C4B-A456-562B533ED795} = {2285B4AE-3D2F-42EE-8493-69A34AAAF014}
+		{C00F31EB-A9FF-4674-BA8C-7D74E206FAAC} = {8281BAE1-3245-48D9-82F5-00ED66C605BE}
+		{D896F8B9-D6F1-4C2B-B0CF-FD2EF79898ED} = {2285B4AE-3D2F-42EE-8493-69A34AAAF014}
 	EndGlobalSection
 	GlobalSection(RiderSharedRunConfigurations) = postSolution
 		File = .run\Vitest_Tripous_Web_JavaScript_Tests.run.xml

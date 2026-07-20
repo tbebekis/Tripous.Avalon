@@ -76,8 +76,19 @@ The repository contains the following framework libraries.
 - `Tripous`: Core utilities, configuration, type services, collections, descriptors and shared infrastructure.
 - `Tripous.Data`: Database access, schema execution, SQL providers, data modules, table sets, lookups, locators and data descriptors.
 - `Tripous.Logging`: Logging infrastructure and diagnostics.
+- `Tripous.Avalonia.Controls`: Framework-neutral Avalonia controls such as `GroupGrid` and `PivotGrid`.
 - `Tripous.Desktop`: Avalonia-based desktop layer with forms, menus, toolbars, commands, data forms and application UI infrastructure.
 - `Tripous.Web`: ASP.NET Core infrastructure and WebDesk browser UI layer for desktop-like business data applications.
+
+## Controls
+
+### Group Grid
+
+![GroupGrid](Tripous.Avalonia.Controls/Docs/Images/GroupGrid.png)
+
+### Pivot Grid
+
+![PivotGrid](Tripous.Avalonia.Controls/Docs/Images/PivotGrid.png)
 
 ## Application Declaration
 
@@ -127,13 +138,44 @@ TinyERP currently demonstrates:
 - Generated data forms plus custom desktop and web forms.
 - Workflow-oriented automated tests and targeted manual smoke tests.
 
+## Tripous.Avalonia.Controls
+
+`Tripous.Avalonia.Controls` is a reusable Avalonia controls library hosted in this repository.
+
+It remains independent from the Tripous framework:
+
+- no dependency on `Tripous`
+- no dependency on `Tripous.Data`
+- no Tripous descriptors, registries, data modules, lookups, or locators in the public API
+
+Current controls:
+
+- `GroupGrid`: a custom-rendered business grid for dense data-entry screens, grouping, summaries, filtering, sorting, editing, settings, and export.
+- `PivotGrid`: a custom-rendered pivot grid for row/column axes, measures, aggregates, filtering, sorting, field drag/drop, settings, and export.
+
+The controls project includes demos and tests:
+
+- `Tripous.Avalonia.Controls/Demos/GroupGrid-Demo-00`
+- `Tripous.Avalonia.Controls/Demos/PivotGrid-Demo-00`
+- `Tripous.Avalonia.Controls/Tests/GroupGrid-Tests`
+- `Tripous.Avalonia.Controls/Tests/PivotGrid-Tests`
+
+See:
+
+- `Tripous.Avalonia.Controls/ReadMe.md`
+- `Tripous.Avalonia.Controls/Docs/GroupGrid-Concepts.md`
+- `Tripous.Avalonia.Controls/Docs/PivotGrid-Concepts.md`
+
 ## TinyERP
 
 `SampleApps/TinyERP` is the largest sample application.
 
+It is the same sample ERP implemented in two front ends: an Avalonia desktop application and an ASP.NET Core desktop-like web application. Both use the same shared TinyERP data/business layer and demonstrate the same ERP domain from desktop and web.
+
 It demonstrates:
 
 - Multi-project application structure.
+- One ERP sample delivered as both desktop and web applications.
 - Automatic registration with the Registration Builder.
 - Schema metadata comments.
 - Generated modules, forms, lookups, locators, select definitions and code providers.

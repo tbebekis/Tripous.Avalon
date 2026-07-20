@@ -1,3 +1,5 @@
+# Tripous.Avalonia.Controls
+
 > [!IMPORTANT]
 > ## Repository Moved
 >
@@ -13,19 +15,124 @@
 >
 > Although the project is now hosted inside the Tripous.Avalon repository, **Tripous.Avalonia.Controls continues to be licensed under the MIT License**. The remainder of the Tripous.Avalon repository is licensed under the **Tripous License**. Please refer to the corresponding `LICENSE` files for details.
 
-# Tripous.Avalonia.Controls
-
 Reusable Avalonia controls with no external dependencies.
 
-The first control is `GroupGrid`, a general-purpose grid for data-entry and business applications. It is designed as a clean Avalonia control that can later be adapted by external frameworks, but the library itself remains framework-neutral.
+The library currently contains:
+
+- `GroupGrid`: a general-purpose grid for data-entry and business applications.
+- `PivotGrid`: a custom-painted pivot grid for interactive cross-tab analysis.
+
+Both controls are clean Avalonia controls that can later be adapted by external frameworks, but the library itself remains framework-neutral.
+
+## Group Grid
 
 ![GroupGrid](Docs/Images/GroupGrid.png)
+
+## Pivot Grid
+
+![PivotGrid](Docs/Images/PivotGrid.png)
 
 ## Documentation
 
 - [GroupGrid Concepts](Docs/GroupGrid-Concepts.md)
+- [GroupGrid Design](Docs/GroupGrid-Design.md)
+- [PivotGrid Concepts](Docs/PivotGrid-Concepts.md)
+- [PivotGrid Design](Docs/PivotGrid-Design.md)
 - [Designing a Business Grid](Docs/Articles/1.Designing-a-Business-Grid.md)
 - [Building a Business Grid Runtime](Docs/Articles/2.Building-a-Business-Grid-runtime.md)
+
+## PivotGrid Features
+
+Current implemented v1 feature map for `PivotGrid`.
+
+### Architecture
+
+- Avalonia `Control` with custom rendering.
+- Separate non-visual `PivotGridEngine`.
+- Framework-neutral core, with no Tripous dependency.
+- Adapter-based source access through `IPivotGridDataAdapter`.
+- Convenience `ItemsSource` support for POCO `IList<T>`, `DataTable`, and `DataView`.
+- Built-in list and `DataView` adapters.
+- Valid source field discovery with unsupported complex fields ignored.
+- Public control-level `HitTest(Point)` and `GetToolTipText(Point)`.
+
+### Fields And Layout
+
+- Source fields are assigned to row fields, column fields, value measures, or available fields.
+- Market-standard pivot layout with row fields on the left, column fields on top, values in the corner, and optional available fields panel.
+- Drag/drop field assignment and reordering.
+- Context menu field move commands, including move back to available fields.
+- Settings dialog for field roles, value aggregate, value format, row totals, column totals, field panel visibility, and tooltips.
+- Top field panel can be shown or hidden.
+
+### Pivot Projection
+
+- Expandable row-axis tree for multi-field row groups.
+- Parent row nodes aggregate descendant leaf values.
+- Column-axis projection.
+- Value matrix with one or more measures.
+- Row grand-total column.
+- Column grand-total row.
+- Grand-total corner cells.
+- Numeric and date/time fields are right-aligned.
+- Expanded parent row values are emphasized.
+
+### Aggregates, Sorting, And Filtering
+
+- Aggregate kinds:
+  - Count
+  - Sum
+  - Min
+  - Max
+  - Average
+- Measure aggregate can be changed from the settings dialog or field context menu.
+- Single active row/column sort using the cycle `None -> Ascending -> Descending -> None`.
+- Sort glyphs on field chips.
+- Field value-list filters with a dedicated dialog.
+- Filter dialog includes search, select all, deselect all, and selected/total counts.
+- Active filters are persisted using invariant value keys.
+
+### Interaction
+
+- Current value cell selection.
+- Keyboard navigation with arrows, `Home`, `End`, `Ctrl+Home`, `Ctrl+End`, `PageUp`, and `PageDown`.
+- `Ctrl+C` copies the current cell.
+- `Ctrl+Shift+C` copies the visible pivot matrix as tab-separated text.
+- Programmatic current-cell selection scrolls the selected cell into view.
+- Public `ScrollCurrentCellIntoView()`.
+- Vertical and horizontal scrollbars with thumb dragging and track page scrolling.
+- Mouse wheel scrolls vertically.
+- `Shift + Wheel` scrolls horizontally.
+- Hover tooltips for field chips, row headers, column headers, and value cells.
+- Tooltips can be enabled or disabled.
+
+### Sizing
+
+- Value column resize by dragging column header dividers.
+- Row header resize by dragging the row/value boundary.
+- Double-click value column divider auto-fits the clicked visible value column.
+- Double-click row-header divider auto-fits the row header.
+- Auto-fit all visible value columns.
+- Auto-fit row header.
+- Reset row header width.
+- Reset visible value column width overrides.
+- Column auto-fit includes column group headers, measure headers, totals, and visible cells.
+
+### Settings And Export
+
+- Serializable `PivotGridSettings`.
+- `CreateSettings()` and `ApplySettings()` provide in-memory layout snapshot and restore.
+- `SaveSettings()` and `LoadSettings()` persist layout settings as JSON through a caller-provided full file path.
+- Settings include field roles, measures, aggregates, formats, row/column totals, field panel visibility, tooltips, row header width, visible value column widths, sorting, filters, and collapsed row nodes.
+- Built-in CSV, JSON, and HTML exporters.
+- `CreateExportSnapshot()` exposes the visible pivot matrix.
+- `SaveExport()` writes an export through a selected exporter and caller-provided full file path.
+- HTML export marks totals in bold.
+
+### Demo And Tests
+
+- `PivotGrid-Demo-00` covers POCO, `DataTable`, and `DataView` sources, small and large datasets, long row headers, scrolling, resizing, sorting, filtering, settings, and export.
+- `PivotGrid-Tests` covers engine projection, adapters, settings, exporters, hit testing, navigation, sizing, filters, and public control APIs.
 
 ## GroupGrid Features
 
@@ -259,14 +366,25 @@ The repository includes:
 - Unit tests for engine projection, filtering, sorting, grouping, summaries, editing, adapters, settings, exporters, and public control APIs.
 - A `Demo00.GroupGrid` application covering list sources, `DataTable` / `DataView`, grouping, filters, summaries, editors, settings, export, and public API helpers.
 
+## PivotGrid V1 Status
+
+`PivotGrid` v1 functionality is complete for the current milestone.
+
+The repository includes:
+
+- Unit tests for pivot projection, totals, sorting, filtering, adapters, settings, exporters, sizing, hit testing, navigation, and public control APIs.
+- A `Demo00.PivotGrid` application covering POCO, `DataTable`, and `DataView` sources, sample datasets, drag/drop layout editing, filters, settings, scrolling, resizing, auto-fit, copy, and export.
+
 ## Hardening TODO
 
 - Review in-place editor drop-down clipping near the bottom edge of the grid. Consider flip-up placement or moving only the drop-down host to a `Popup` / overlay layer.
 - Consider Avalonia headless tests for visual editing lifecycle, editor positioning, and drop-down positioning.
+- Consider Avalonia headless tests for `PivotGrid` visual drag/drop and dialog workflows.
 
 ## V2 Roadmap
 
 - Typed filter descriptors beyond the current text-based column filters.
+- Additional `PivotGrid` hardening should be driven by real usage feedback.
 
 ## License
 

@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2026-07-20
+
+### Tripous.Avalonia.Controls
+- Added `PivotGrid`, a framework-neutral custom-rendered Avalonia pivot grid
+- Added neutral pivot data adapters for POCO `IList<T>`, `DataTable`, and `DataView` sources
+- Added pivot row fields, column fields, measures, available fields, drag/drop field assignment, and field reordering
+- Added expandable row-axis tree nodes with parent aggregate rows
+- Added row grand totals, column grand totals, and grand-total cells
+- Added value aggregates: Count, Sum, Min, Max, and Average
+- Added row/column sorting, field value-list filtering, filter dialog, and settings dialog
+- Added current-cell selection, keyboard navigation, scrollbars, copy current cell, and copy visible pivot as tab-separated text
+- Added value column resize, row header resize, auto-fit, reset width commands, and double-click auto-fit
+- Added hover tooltips with enable/disable setting
+- Added `PivotGridSettings` JSON save/load support including fields, measures, aggregates, filters, sort state, totals, field panel visibility, tooltip visibility, row header width, value column widths, and collapsed row keys
+- Added CSV, JSON, and HTML pivot exporters
+- Added `PivotGrid-Demo-00` sample application
+- Added `PivotGrid-Tests` unit test project
+- Added `PivotGrid` documentation under `Tripous.Avalonia.Controls/Docs`
+
 ## 2026-07-19
 
 ### TinyERP
