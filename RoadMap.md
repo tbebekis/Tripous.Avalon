@@ -2,8 +2,8 @@
 
 ## Current Status
 
-- Tripous.Avalon v1.0.0 has been released.
-- The first public release cycle is closed.
+- Tripous.Avalon v2.0.0 has been released.
+- The second public release cycle is closed.
 - The solution has been upgraded from Avalonia 11.3.12 to Avalonia 12.0.4.
 - AvaloniaEdit has been upgraded from 11.4.1 to 12.0.0.
 - All sample applications and tERP have been smoke-tested after the Avalonia upgrade.
@@ -67,10 +67,10 @@
 - Implement the Locator architecture on the Web platform.
 - Includes lookup dialogs, incremental search, popup selector, callbacks, and integration with the new Web runtime.
 - The goal is a common Desktop and Web Locator architecture.
-- Complete `Tripous.Web` and `tERP.Web`.
+- Stabilize `Tripous.Web` and `tERP.Web` runtime parity.
 - Status: Planned.
-- Includes desktop-like shell, pages, dialogs, toolbars, data-aware controls, ajax runtime, document editing, transactions, reporting, and full `tERP.Web` functionality.
-- Release the next Tripous.Avalon version.
+- Includes desktop and web parity checks, runtime hardening, workflow polish, document editing, transactions, and reporting follow-up.
+- Prepare the next Tripous.Avalon maintenance release.
 - Status: Planned.
 - Includes stabilization, documentation, demos, samples, release notes, and GitHub Release.
 

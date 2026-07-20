@@ -9,7 +9,7 @@ Documentation:
 - https://tbebekis.github.io/Tripous.Avalon/
 - https://tbebekis.github.io/Tripous.Avalon/web-demos/
 
-> First public release of the sixth-generation Tripous framework family, built on .NET and Avalonia UI.
+> Second public release of the sixth-generation Tripous framework family, built on .NET and Avalonia UI.
 
 ## What Can You Build With Tripous.Avalon?
 
@@ -309,7 +309,7 @@ Current priorities include:
 - Registration Builder workflow.
 - XML documentation cleanup.
 - Automated testing.
-- Desktop-like web application and TinyERP web feature completion.
+- Desktop and web runtime stabilization and feature parity.
 
 ## License
 
