@@ -1,6 +1,6 @@
 # Tripous.Avalon
 
-Tripous.Avalon is a .NET framework for building data-centric business applications on desktop, service, and database platforms.
+Tripous.Avalon is a .NET framework for building data-centric business applications on desktop, web, service, and database platforms.
 
 It combines SQL-first data access, database metadata, application descriptors, reusable data modules, generated or manual application registration, and an Avalonia-based desktop layer.
 
