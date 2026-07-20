@@ -1,0 +1,1091 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SysStrRes
+  commentId: T:Tripous.Data.SysStrRes
+  id: SysStrRes
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SysStrRes.AutoInsertMissingKeys
+  - Tripous.Data.SysStrRes.GetCurrentDictionary
+  - Tripous.Data.SysStrRes.GetCurrentLanguageId(Tripous.Data.SqlStore)
+  - Tripous.Data.SysStrRes.GetDictionary(System.String,System.Boolean)
+  - Tripous.Data.SysStrRes.GetLanguageId(System.String,Tripous.Data.SqlStore)
+  - Tripous.Data.SysStrRes.GetLanguages(Tripous.Data.SqlStore)
+  - Tripous.Data.SysStrRes.GetTable(Tripous.Data.SqlStore)
+  - Tripous.Data.SysStrRes.IsDirty
+  - Tripous.Data.SysStrRes.L(System.String,System.String)
+  - Tripous.Data.SysStrRes.L(System.String,System.String,System.String)
+  - Tripous.Data.SysStrRes.Load(Tripous.Data.SqlStore)
+  - Tripous.Data.SysStrRes.MarkDirty
+  - Tripous.Data.SysStrRes.RegisterLocalizer
+  - Tripous.Data.SysStrRes.Table
+  langs:
+  - csharp
+  - vb
+  name: SysStrRes
+  nameWithType: SysStrRes
+  fullName: Tripous.Data.SysStrRes
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SysStrRes
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 45
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Provides cached access to the system string resource table.
+  example: []
+  syntax:
+    content: public static class SysStrRes
+    content.vb: Public Module SysStrRes
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.SysStrRes.Load(Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.SysStrRes.Load(Tripous.Data.SqlStore)
+  id: Load(Tripous.Data.SqlStore)
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: Load(SqlStore)
+  nameWithType: SysStrRes.Load(SqlStore)
+  fullName: Tripous.Data.SysStrRes.Load(Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Load
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 164
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Loads the system string resource table.
+  example: []
+  syntax:
+    content: public static void Load(SqlStore Store = null)
+    parameters:
+    - id: Store
+      type: Tripous.Data.SqlStore
+      description: The SQL store.
+    content.vb: Public Shared Sub Load(Store As SqlStore = Nothing)
+  overload: Tripous.Data.SysStrRes.Load*
+- uid: Tripous.Data.SysStrRes.GetTable(Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.SysStrRes.GetTable(Tripous.Data.SqlStore)
+  id: GetTable(Tripous.Data.SqlStore)
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: GetTable(SqlStore)
+  nameWithType: SysStrRes.GetTable(SqlStore)
+  fullName: Tripous.Data.SysStrRes.GetTable(Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetTable
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 192
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the cached system string resource table.
+  example: []
+  syntax:
+    content: public static MemTable GetTable(SqlStore Store = null)
+    parameters:
+    - id: Store
+      type: Tripous.Data.SqlStore
+      description: The SQL store.
+    return:
+      type: Tripous.Data.MemTable
+      description: The cached system string resource table.
+    content.vb: Public Shared Function GetTable(Store As SqlStore = Nothing) As MemTable
+  overload: Tripous.Data.SysStrRes.GetTable*
+- uid: Tripous.Data.SysStrRes.MarkDirty
+  commentId: M:Tripous.Data.SysStrRes.MarkDirty
+  id: MarkDirty
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: MarkDirty()
+  nameWithType: SysStrRes.MarkDirty()
+  fullName: Tripous.Data.SysStrRes.MarkDirty()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MarkDirty
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 201
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Marks the cached system string resource table as dirty.
+  example: []
+  syntax:
+    content: public static void MarkDirty()
+    content.vb: Public Shared Sub MarkDirty()
+  overload: Tripous.Data.SysStrRes.MarkDirty*
+- uid: Tripous.Data.SysStrRes.RegisterLocalizer
+  commentId: M:Tripous.Data.SysStrRes.RegisterLocalizer
+  id: RegisterLocalizer
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: RegisterLocalizer()
+  nameWithType: SysStrRes.RegisterLocalizer()
+  fullName: Tripous.Data.SysStrRes.RegisterLocalizer()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RegisterLocalizer
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 208
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Installs a system string resource localizer as the current text localizer.
+  example: []
+  syntax:
+    content: public static void RegisterLocalizer()
+    content.vb: Public Shared Sub RegisterLocalizer()
+  overload: Tripous.Data.SysStrRes.RegisterLocalizer*
+- uid: Tripous.Data.SysStrRes.GetLanguages(Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.SysStrRes.GetLanguages(Tripous.Data.SqlStore)
+  id: GetLanguages(Tripous.Data.SqlStore)
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: GetLanguages(SqlStore)
+  nameWithType: SysStrRes.GetLanguages(SqlStore)
+  fullName: Tripous.Data.SysStrRes.GetLanguages(Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetLanguages
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 217
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the cached languages.
+  example: []
+  syntax:
+    content: public static List<SysLangInfo> GetLanguages(SqlStore Store = null)
+    parameters:
+    - id: Store
+      type: Tripous.Data.SqlStore
+      description: The SQL store.
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.SysLangInfo}
+      description: The cached languages.
+    content.vb: Public Shared Function GetLanguages(Store As SqlStore = Nothing) As List(Of SysLangInfo)
+  overload: Tripous.Data.SysStrRes.GetLanguages*
+- uid: Tripous.Data.SysStrRes.GetLanguageId(System.String,Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.SysStrRes.GetLanguageId(System.String,Tripous.Data.SqlStore)
+  id: GetLanguageId(System.String,Tripous.Data.SqlStore)
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: GetLanguageId(string, SqlStore)
+  nameWithType: SysStrRes.GetLanguageId(string, SqlStore)
+  fullName: Tripous.Data.SysStrRes.GetLanguageId(string, Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetLanguageId
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 229
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the language id for a culture code.
+  example: []
+  syntax:
+    content: public static string GetLanguageId(string CultureCode, SqlStore Store = null)
+    parameters:
+    - id: CultureCode
+      type: System.String
+      description: The culture code.
+    - id: Store
+      type: Tripous.Data.SqlStore
+      description: The SQL store.
+    return:
+      type: System.String
+      description: The language id.
+    content.vb: Public Shared Function GetLanguageId(CultureCode As String, Store As SqlStore = Nothing) As String
+  overload: Tripous.Data.SysStrRes.GetLanguageId*
+  nameWithType.vb: SysStrRes.GetLanguageId(String, SqlStore)
+  fullName.vb: Tripous.Data.SysStrRes.GetLanguageId(String, Tripous.Data.SqlStore)
+  name.vb: GetLanguageId(String, SqlStore)
+- uid: Tripous.Data.SysStrRes.GetCurrentLanguageId(Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.SysStrRes.GetCurrentLanguageId(Tripous.Data.SqlStore)
+  id: GetCurrentLanguageId(Tripous.Data.SqlStore)
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: GetCurrentLanguageId(SqlStore)
+  nameWithType: SysStrRes.GetCurrentLanguageId(SqlStore)
+  fullName: Tripous.Data.SysStrRes.GetCurrentLanguageId(Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetCurrentLanguageId
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 252
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the current user language id.
+  example: []
+  syntax:
+    content: public static string GetCurrentLanguageId(SqlStore Store = null)
+    parameters:
+    - id: Store
+      type: Tripous.Data.SqlStore
+      description: The SQL store.
+    return:
+      type: System.String
+      description: The current user language id.
+    content.vb: Public Shared Function GetCurrentLanguageId(Store As SqlStore = Nothing) As String
+  overload: Tripous.Data.SysStrRes.GetCurrentLanguageId*
+- uid: Tripous.Data.SysStrRes.L(System.String,System.String,System.String)
+  commentId: M:Tripous.Data.SysStrRes.L(System.String,System.String,System.String)
+  id: L(System.String,System.String,System.String)
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: L(string, string, string)
+  nameWithType: SysStrRes.L(string, string, string)
+  fullName: Tripous.Data.SysStrRes.L(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: L
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 266
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the localized text for a language and key.
+  example: []
+  syntax:
+    content: public static string L(string LangId, string Key, string Default = null)
+    parameters:
+    - id: LangId
+      type: System.String
+      description: The language id.
+    - id: Key
+      type: System.String
+      description: The resource key.
+    - id: Default
+      type: System.String
+      description: The default text.
+    return:
+      type: System.String
+      description: The localized text.
+    content.vb: Public Shared Function L(LangId As String, Key As String, [Default] As String = Nothing) As String
+  overload: Tripous.Data.SysStrRes.L*
+  nameWithType.vb: SysStrRes.L(String, String, String)
+  fullName.vb: Tripous.Data.SysStrRes.L(String, String, String)
+  name.vb: L(String, String, String)
+- uid: Tripous.Data.SysStrRes.L(System.String,System.String)
+  commentId: M:Tripous.Data.SysStrRes.L(System.String,System.String)
+  id: L(System.String,System.String)
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: L(string, string)
+  nameWithType: SysStrRes.L(string, string)
+  fullName: Tripous.Data.SysStrRes.L(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: L
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 294
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the localized text for the current user language and key.
+  example: []
+  syntax:
+    content: public static string L(string Key, string Default = null)
+    parameters:
+    - id: Key
+      type: System.String
+      description: The resource key.
+    - id: Default
+      type: System.String
+      description: The default text.
+    return:
+      type: System.String
+      description: The localized text.
+    content.vb: Public Shared Function L(Key As String, [Default] As String = Nothing) As String
+  overload: Tripous.Data.SysStrRes.L*
+  nameWithType.vb: SysStrRes.L(String, String)
+  fullName.vb: Tripous.Data.SysStrRes.L(String, String)
+  name.vb: L(String, String)
+- uid: Tripous.Data.SysStrRes.GetDictionary(System.String,System.Boolean)
+  commentId: M:Tripous.Data.SysStrRes.GetDictionary(System.String,System.Boolean)
+  id: GetDictionary(System.String,System.Boolean)
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: GetDictionary(string, bool)
+  nameWithType: SysStrRes.GetDictionary(string, bool)
+  fullName: Tripous.Data.SysStrRes.GetDictionary(string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDictionary
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 304
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a key-text dictionary for a language.
+  example: []
+  syntax:
+    content: public static Dictionary<string, string> GetDictionary(string LangId, bool IncludeEnglishFallback = true)
+    parameters:
+    - id: LangId
+      type: System.String
+      description: The language id.
+    - id: IncludeEnglishFallback
+      type: System.Boolean
+      description: True to include English fallback values.
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.String}
+      description: The key-text dictionary.
+    content.vb: Public Shared Function GetDictionary(LangId As String, IncludeEnglishFallback As Boolean = True) As Dictionary(Of String, String)
+  overload: Tripous.Data.SysStrRes.GetDictionary*
+  nameWithType.vb: SysStrRes.GetDictionary(String, Boolean)
+  fullName.vb: Tripous.Data.SysStrRes.GetDictionary(String, Boolean)
+  name.vb: GetDictionary(String, Boolean)
+- uid: Tripous.Data.SysStrRes.GetCurrentDictionary
+  commentId: M:Tripous.Data.SysStrRes.GetCurrentDictionary
+  id: GetCurrentDictionary
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: GetCurrentDictionary()
+  nameWithType: SysStrRes.GetCurrentDictionary()
+  fullName: Tripous.Data.SysStrRes.GetCurrentDictionary()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetCurrentDictionary
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 330
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a key-text dictionary for the current user language.
+  example: []
+  syntax:
+    content: public static Dictionary<string, string> GetCurrentDictionary()
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.String}
+      description: The key-text dictionary.
+    content.vb: Public Shared Function GetCurrentDictionary() As Dictionary(Of String, String)
+  overload: Tripous.Data.SysStrRes.GetCurrentDictionary*
+- uid: Tripous.Data.SysStrRes.IsDirty
+  commentId: P:Tripous.Data.SysStrRes.IsDirty
+  id: IsDirty
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: IsDirty
+  nameWithType: SysStrRes.IsDirty
+  fullName: Tripous.Data.SysStrRes.IsDirty
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDirty
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 339
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets a value indicating that the cached system string resource table must be reloaded.
+  example: []
+  syntax:
+    content: public static bool IsDirty { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Property IsDirty As Boolean
+  overload: Tripous.Data.SysStrRes.IsDirty*
+- uid: Tripous.Data.SysStrRes.AutoInsertMissingKeys
+  commentId: P:Tripous.Data.SysStrRes.AutoInsertMissingKeys
+  id: AutoInsertMissingKeys
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: AutoInsertMissingKeys
+  nameWithType: SysStrRes.AutoInsertMissingKeys
+  fullName: Tripous.Data.SysStrRes.AutoInsertMissingKeys
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AutoInsertMissingKeys
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 347
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets a value indicating whether missing resource keys should be inserted into the English language.
+  example: []
+  syntax:
+    content: public static bool AutoInsertMissingKeys { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Property AutoInsertMissingKeys As Boolean
+  overload: Tripous.Data.SysStrRes.AutoInsertMissingKeys*
+- uid: Tripous.Data.SysStrRes.Table
+  commentId: P:Tripous.Data.SysStrRes.Table
+  id: Table
+  parent: Tripous.Data.SysStrRes
+  langs:
+  - csharp
+  - vb
+  name: Table
+  nameWithType: SysStrRes.Table
+  fullName: Tripous.Data.SysStrRes.Table
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SysStrRes.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Table
+    path: ../Tripous.Data/SysStrRes.cs
+    startLine: 351
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the cached system string resource table.
+  example: []
+  syntax:
+    content: public static MemTable Table { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public Shared ReadOnly Property Table As MemTable
+  overload: Tripous.Data.SysStrRes.Table*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.SysStrRes.Load*
+  commentId: Overload:Tripous.Data.SysStrRes.Load
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_Load_Tripous_Data_SqlStore_
+  name: Load
+  nameWithType: SysStrRes.Load
+  fullName: Tripous.Data.SysStrRes.Load
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: Tripous.Data.SysStrRes.GetTable*
+  commentId: Overload:Tripous.Data.SysStrRes.GetTable
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_GetTable_Tripous_Data_SqlStore_
+  name: GetTable
+  nameWithType: SysStrRes.GetTable
+  fullName: Tripous.Data.SysStrRes.GetTable
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable
+- uid: Tripous.Data.SysStrRes.MarkDirty*
+  commentId: Overload:Tripous.Data.SysStrRes.MarkDirty
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_MarkDirty
+  name: MarkDirty
+  nameWithType: SysStrRes.MarkDirty
+  fullName: Tripous.Data.SysStrRes.MarkDirty
+- uid: Tripous.Data.SysStrRes.RegisterLocalizer*
+  commentId: Overload:Tripous.Data.SysStrRes.RegisterLocalizer
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_RegisterLocalizer
+  name: RegisterLocalizer
+  nameWithType: SysStrRes.RegisterLocalizer
+  fullName: Tripous.Data.SysStrRes.RegisterLocalizer
+- uid: Tripous.Data.SysStrRes.GetLanguages*
+  commentId: Overload:Tripous.Data.SysStrRes.GetLanguages
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_GetLanguages_Tripous_Data_SqlStore_
+  name: GetLanguages
+  nameWithType: SysStrRes.GetLanguages
+  fullName: Tripous.Data.SysStrRes.GetLanguages
+- uid: System.Collections.Generic.List{Tripous.Data.SysLangInfo}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.SysLangInfo}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<SysLangInfo>
+  nameWithType: List<SysLangInfo>
+  fullName: System.Collections.Generic.List<Tripous.Data.SysLangInfo>
+  nameWithType.vb: List(Of SysLangInfo)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.SysLangInfo)
+  name.vb: List(Of SysLangInfo)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.SysLangInfo
+    name: SysLangInfo
+    href: Tripous.Data.SysLangInfo.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SysLangInfo
+    name: SysLangInfo
+    href: Tripous.Data.SysLangInfo.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.SysStrRes.GetLanguageId*
+  commentId: Overload:Tripous.Data.SysStrRes.GetLanguageId
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_GetLanguageId_System_String_Tripous_Data_SqlStore_
+  name: GetLanguageId
+  nameWithType: SysStrRes.GetLanguageId
+  fullName: Tripous.Data.SysStrRes.GetLanguageId
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SysStrRes.GetCurrentLanguageId*
+  commentId: Overload:Tripous.Data.SysStrRes.GetCurrentLanguageId
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_GetCurrentLanguageId_Tripous_Data_SqlStore_
+  name: GetCurrentLanguageId
+  nameWithType: SysStrRes.GetCurrentLanguageId
+  fullName: Tripous.Data.SysStrRes.GetCurrentLanguageId
+- uid: Tripous.Data.SysStrRes.L*
+  commentId: Overload:Tripous.Data.SysStrRes.L
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_L_System_String_System_String_System_String_
+  name: L
+  nameWithType: SysStrRes.L
+  fullName: Tripous.Data.SysStrRes.L
+- uid: Tripous.Data.SysStrRes.GetDictionary*
+  commentId: Overload:Tripous.Data.SysStrRes.GetDictionary
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_GetDictionary_System_String_System_Boolean_
+  name: GetDictionary
+  nameWithType: SysStrRes.GetDictionary
+  fullName: Tripous.Data.SysStrRes.GetDictionary
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Collections.Generic.Dictionary{System.String,System.String}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, string>
+  nameWithType: Dictionary<string, string>
+  fullName: System.Collections.Generic.Dictionary<string, string>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, String)
+  name.vb: Dictionary(Of String, String)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Tripous.Data.SysStrRes.GetCurrentDictionary*
+  commentId: Overload:Tripous.Data.SysStrRes.GetCurrentDictionary
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_GetCurrentDictionary
+  name: GetCurrentDictionary
+  nameWithType: SysStrRes.GetCurrentDictionary
+  fullName: Tripous.Data.SysStrRes.GetCurrentDictionary
+- uid: Tripous.Data.SysStrRes.IsDirty*
+  commentId: Overload:Tripous.Data.SysStrRes.IsDirty
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_IsDirty
+  name: IsDirty
+  nameWithType: SysStrRes.IsDirty
+  fullName: Tripous.Data.SysStrRes.IsDirty
+- uid: Tripous.Data.SysStrRes.AutoInsertMissingKeys*
+  commentId: Overload:Tripous.Data.SysStrRes.AutoInsertMissingKeys
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_AutoInsertMissingKeys
+  name: AutoInsertMissingKeys
+  nameWithType: SysStrRes.AutoInsertMissingKeys
+  fullName: Tripous.Data.SysStrRes.AutoInsertMissingKeys
+- uid: Tripous.Data.SysStrRes.Table*
+  commentId: Overload:Tripous.Data.SysStrRes.Table
+  href: Tripous.Data.SysStrRes.html#Tripous_Data_SysStrRes_Table
+  name: Table
+  nameWithType: SysStrRes.Table
+  fullName: Tripous.Data.SysStrRes.Table

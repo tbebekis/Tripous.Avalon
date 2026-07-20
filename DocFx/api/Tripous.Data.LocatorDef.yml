@@ -601,7 +601,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClassName
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 208
+    startLine: 215
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -632,7 +632,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Source
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 217
+    startLine: 224
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -667,7 +667,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: KeyField
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 225
+    startLine: 232
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -698,7 +698,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Form
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 233
+    startLine: 240
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -729,7 +729,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WebForm
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 241
+    startLine: 248
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -760,7 +760,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OrderBy
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 249
+    startLine: 256
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -791,7 +791,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Fields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 257
+    startLine: 264
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -822,7 +822,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SingleRowSearchFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 265
+    startLine: 272
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -853,7 +853,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MultiRowSearchFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 273
+    startLine: 280
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -884,7 +884,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ResultFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 281
+    startLine: 288
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -915,7 +915,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListVisibleFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 289
+    startLine: 296
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -946,7 +946,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MinimumSearchLength
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 297
+    startLine: 304
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -977,7 +977,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MaximumResultCount
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 305
+    startLine: 312
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

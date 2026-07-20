@@ -7,10 +7,12 @@ items:
   children:
   - Tripous.Data.JsonLocatorDef.#ctor
   - Tripous.Data.JsonLocatorDef.#ctor(Tripous.Data.LocatorDef)
+  - Tripous.Data.JsonLocatorDef.#ctor(Tripous.Data.LocatorDef,Tripous.Data.LocatorMapPlan)
   - Tripous.Data.JsonLocatorDef.Fields
   - Tripous.Data.JsonLocatorDef.Form
   - Tripous.Data.JsonLocatorDef.KeyField
   - Tripous.Data.JsonLocatorDef.ListVisibleFields
+  - Tripous.Data.JsonLocatorDef.MapPlan
   - Tripous.Data.JsonLocatorDef.MaximumResultCount
   - Tripous.Data.JsonLocatorDef.MinimumSearchLength
   - Tripous.Data.JsonLocatorDef.MultiRowSearchFields
@@ -118,6 +120,42 @@ items:
   nameWithType.vb: JsonLocatorDef.New(LocatorDef)
   fullName.vb: Tripous.Data.JsonLocatorDef.New(Tripous.Data.LocatorDef)
   name.vb: New(LocatorDef)
+- uid: Tripous.Data.JsonLocatorDef.#ctor(Tripous.Data.LocatorDef,Tripous.Data.LocatorMapPlan)
+  commentId: M:Tripous.Data.JsonLocatorDef.#ctor(Tripous.Data.LocatorDef,Tripous.Data.LocatorMapPlan)
+  id: '#ctor(Tripous.Data.LocatorDef,Tripous.Data.LocatorMapPlan)'
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: JsonLocatorDef(LocatorDef, LocatorMapPlan)
+  nameWithType: JsonLocatorDef.JsonLocatorDef(LocatorDef, LocatorMapPlan)
+  fullName: Tripous.Data.JsonLocatorDef.JsonLocatorDef(Tripous.Data.LocatorDef, Tripous.Data.LocatorMapPlan)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public JsonLocatorDef(LocatorDef Source, LocatorMapPlan MapPlan)
+    parameters:
+    - id: Source
+      type: Tripous.Data.LocatorDef
+    - id: MapPlan
+      type: Tripous.Data.LocatorMapPlan
+    content.vb: Public Sub New(Source As LocatorDef, MapPlan As LocatorMapPlan)
+  overload: Tripous.Data.JsonLocatorDef.#ctor*
+  nameWithType.vb: JsonLocatorDef.New(LocatorDef, LocatorMapPlan)
+  fullName.vb: Tripous.Data.JsonLocatorDef.New(Tripous.Data.LocatorDef, Tripous.Data.LocatorMapPlan)
+  name.vb: New(LocatorDef, LocatorMapPlan)
 - uid: Tripous.Data.JsonLocatorDef.Name
   commentId: P:Tripous.Data.JsonLocatorDef.Name
   id: Name
@@ -136,7 +174,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Name
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 49
+    startLine: 57
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -167,7 +205,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: KeyField
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 53
+    startLine: 61
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -198,7 +236,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Form
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 57
+    startLine: 65
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -229,7 +267,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WebForm
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 61
+    startLine: 69
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -260,7 +298,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MinimumSearchLength
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 65
+    startLine: 73
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -291,7 +329,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MaximumResultCount
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 69
+    startLine: 77
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -304,6 +342,37 @@ items:
       type: System.Int32
     content.vb: Public Property MaximumResultCount As Integer
   overload: Tripous.Data.JsonLocatorDef.MaximumResultCount*
+- uid: Tripous.Data.JsonLocatorDef.MapPlan
+  commentId: P:Tripous.Data.JsonLocatorDef.MapPlan
+  id: MapPlan
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: MapPlan
+  nameWithType: JsonLocatorDef.MapPlan
+  fullName: Tripous.Data.JsonLocatorDef.MapPlan
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MapPlan
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 81
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Optional table-specific mapping plan.
+  example: []
+  syntax:
+    content: public JsonLocatorMapPlan MapPlan { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.JsonLocatorMapPlan
+    content.vb: Public Property MapPlan As JsonLocatorMapPlan
+  overload: Tripous.Data.JsonLocatorDef.MapPlan*
 - uid: Tripous.Data.JsonLocatorDef.Fields
   commentId: P:Tripous.Data.JsonLocatorDef.Fields
   id: Fields
@@ -322,7 +391,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Fields
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 73
+    startLine: 85
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -353,7 +422,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SingleRowSearchFields
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 77
+    startLine: 89
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -384,7 +453,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MultiRowSearchFields
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 81
+    startLine: 93
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -415,7 +484,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ResultFields
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 85
+    startLine: 97
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -446,7 +515,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListVisibleFields
     path: ../Tripous.Data/Json/JsonLocatorDef.cs
-    startLine: 89
+    startLine: 101
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -833,6 +902,13 @@ references:
   name: LocatorDef
   nameWithType: LocatorDef
   fullName: Tripous.Data.LocatorDef
+- uid: Tripous.Data.LocatorMapPlan
+  commentId: T:Tripous.Data.LocatorMapPlan
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorMapPlan.html
+  name: LocatorMapPlan
+  nameWithType: LocatorMapPlan
+  fullName: Tripous.Data.LocatorMapPlan
 - uid: Tripous.Data.JsonLocatorDef.Name*
   commentId: Overload:Tripous.Data.JsonLocatorDef.Name
   href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_Name
@@ -891,6 +967,19 @@ references:
   name: MaximumResultCount
   nameWithType: JsonLocatorDef.MaximumResultCount
   fullName: Tripous.Data.JsonLocatorDef.MaximumResultCount
+- uid: Tripous.Data.JsonLocatorDef.MapPlan*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.MapPlan
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_MapPlan
+  name: MapPlan
+  nameWithType: JsonLocatorDef.MapPlan
+  fullName: Tripous.Data.JsonLocatorDef.MapPlan
+- uid: Tripous.Data.JsonLocatorMapPlan
+  commentId: T:Tripous.Data.JsonLocatorMapPlan
+  parent: Tripous.Data
+  href: Tripous.Data.JsonLocatorMapPlan.html
+  name: JsonLocatorMapPlan
+  nameWithType: JsonLocatorMapPlan
+  fullName: Tripous.Data.JsonLocatorMapPlan
 - uid: Tripous.Data.JsonLocatorDef.Fields*
   commentId: Overload:Tripous.Data.JsonLocatorDef.Fields
   href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_Fields

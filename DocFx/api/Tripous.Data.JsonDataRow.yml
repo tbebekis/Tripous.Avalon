@@ -8,6 +8,9 @@ items:
   - Tripous.Data.JsonDataRow.#ctor
   - Tripous.Data.JsonDataRow.#ctor(System.Data.DataRow)
   - Tripous.Data.JsonDataRow.Data
+  - Tripous.Data.JsonDataRow.GetValue(System.Data.DataTable,System.String)
+  - Tripous.Data.JsonDataRow.GetValue(System.Int32)
+  - Tripous.Data.JsonDataRow.GetValue(Tripous.Data.JsonDataTable,System.String)
   - Tripous.Data.JsonDataRow.State
   langs:
   - csharp
@@ -109,6 +112,118 @@ items:
   nameWithType.vb: JsonDataRow.New(DataRow)
   fullName.vb: Tripous.Data.JsonDataRow.New(System.Data.DataRow)
   name.vb: New(DataRow)
+- uid: Tripous.Data.JsonDataRow.GetValue(System.Int32)
+  commentId: M:Tripous.Data.JsonDataRow.GetValue(System.Int32)
+  id: GetValue(System.Int32)
+  parent: Tripous.Data.JsonDataRow
+  langs:
+  - csharp
+  - vb
+  name: GetValue(int)
+  nameWithType: JsonDataRow.GetValue(int)
+  fullName: Tripous.Data.JsonDataRow.GetValue(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataRow.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Data/Json/JsonDataRow.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a value by column index.
+  example: []
+  syntax:
+    content: public object GetValue(int ColumnIndex)
+    parameters:
+    - id: ColumnIndex
+      type: System.Int32
+    return:
+      type: System.Object
+    content.vb: Public Function GetValue(ColumnIndex As Integer) As Object
+  overload: Tripous.Data.JsonDataRow.GetValue*
+  nameWithType.vb: JsonDataRow.GetValue(Integer)
+  fullName.vb: Tripous.Data.JsonDataRow.GetValue(Integer)
+  name.vb: GetValue(Integer)
+- uid: Tripous.Data.JsonDataRow.GetValue(Tripous.Data.JsonDataTable,System.String)
+  commentId: M:Tripous.Data.JsonDataRow.GetValue(Tripous.Data.JsonDataTable,System.String)
+  id: GetValue(Tripous.Data.JsonDataTable,System.String)
+  parent: Tripous.Data.JsonDataRow
+  langs:
+  - csharp
+  - vb
+  name: GetValue(JsonDataTable, string)
+  nameWithType: JsonDataRow.GetValue(JsonDataTable, string)
+  fullName: Tripous.Data.JsonDataRow.GetValue(Tripous.Data.JsonDataTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataRow.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Data/Json/JsonDataRow.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a value by column name, using a <xref href="Tripous.Data.JsonDataTable" data-throw-if-not-resolved="false"></xref> for column lookup.
+  example: []
+  syntax:
+    content: public object GetValue(JsonDataTable Table, string ColumnName)
+    parameters:
+    - id: Table
+      type: Tripous.Data.JsonDataTable
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Function GetValue(Table As JsonDataTable, ColumnName As String) As Object
+  overload: Tripous.Data.JsonDataRow.GetValue*
+  nameWithType.vb: JsonDataRow.GetValue(JsonDataTable, String)
+  fullName.vb: Tripous.Data.JsonDataRow.GetValue(Tripous.Data.JsonDataTable, String)
+  name.vb: GetValue(JsonDataTable, String)
+- uid: Tripous.Data.JsonDataRow.GetValue(System.Data.DataTable,System.String)
+  commentId: M:Tripous.Data.JsonDataRow.GetValue(System.Data.DataTable,System.String)
+  id: GetValue(System.Data.DataTable,System.String)
+  parent: Tripous.Data.JsonDataRow
+  langs:
+  - csharp
+  - vb
+  name: GetValue(DataTable, string)
+  nameWithType: JsonDataRow.GetValue(DataTable, string)
+  fullName: Tripous.Data.JsonDataRow.GetValue(System.Data.DataTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataRow.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Data/Json/JsonDataRow.cs
+    startLine: 64
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a value by column name, using a <xref href="System.Data.DataTable" data-throw-if-not-resolved="false"></xref> for column lookup.
+  example: []
+  syntax:
+    content: public object GetValue(DataTable Table, string ColumnName)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Function GetValue(Table As DataTable, ColumnName As String) As Object
+  overload: Tripous.Data.JsonDataRow.GetValue*
+  nameWithType.vb: JsonDataRow.GetValue(DataTable, String)
+  fullName.vb: Tripous.Data.JsonDataRow.GetValue(System.Data.DataTable, String)
+  name.vb: GetValue(DataTable, String)
 - uid: Tripous.Data.JsonDataRow.State
   commentId: P:Tripous.Data.JsonDataRow.State
   id: State
@@ -127,7 +242,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: State
     path: ../Tripous.Data/Json/JsonDataRow.cs
-    startLine: 47
+    startLine: 85
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -158,7 +273,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Data
     path: ../Tripous.Data/Json/JsonDataRow.cs
-    startLine: 51
+    startLine: 89
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -573,6 +688,49 @@ references:
     name: Data
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: Tripous.Data.JsonDataRow.GetValue*
+  commentId: Overload:Tripous.Data.JsonDataRow.GetValue
+  href: Tripous.Data.JsonDataRow.html#Tripous_Data_JsonDataRow_GetValue_System_Int32_
+  name: GetValue
+  nameWithType: JsonDataRow.GetValue
+  fullName: Tripous.Data.JsonDataRow.GetValue
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.JsonDataTable
+  commentId: T:Tripous.Data.JsonDataTable
+  parent: Tripous.Data
+  href: Tripous.Data.JsonDataTable.html
+  name: JsonDataTable
+  nameWithType: JsonDataTable
+  fullName: Tripous.Data.JsonDataTable
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
 - uid: Tripous.Data.JsonDataRow.State*
   commentId: Overload:Tripous.Data.JsonDataRow.State
   href: Tripous.Data.JsonDataRow.html#Tripous_Data_JsonDataRow_State

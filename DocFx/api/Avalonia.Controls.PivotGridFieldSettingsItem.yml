@@ -1,0 +1,798 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem
+  commentId: T:Avalonia.Controls.PivotGridFieldSettingsItem
+  id: PivotGridFieldSettingsItem
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.PivotGridFieldSettingsItem.#ctor
+  - Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
+  - Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
+  - Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
+  - Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
+  - Avalonia.Controls.PivotGridFieldSettingsItem.Header
+  - Avalonia.Controls.PivotGridFieldSettingsItem.Name
+  - Avalonia.Controls.PivotGridFieldSettingsItem.Role
+  - Avalonia.Controls.PivotGridFieldSettingsItem.Width
+  langs:
+  - csharp
+  - vb
+  name: PivotGridFieldSettingsItem
+  nameWithType: PivotGridFieldSettingsItem
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PivotGridFieldSettingsItem
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Represents a source field while editing pivot grid layout settings.
+  example: []
+  syntax:
+    content: public class PivotGridFieldSettingsItem
+    content.vb: Public Class PivotGridFieldSettingsItem
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.#ctor
+  commentId: M:Avalonia.Controls.PivotGridFieldSettingsItem.#ctor
+  id: '#ctor'
+  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  langs:
+  - csharp
+  - vb
+  name: PivotGridFieldSettingsItem()
+  nameWithType: PivotGridFieldSettingsItem.PivotGridFieldSettingsItem()
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.PivotGridFieldSettingsItem()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.PivotGridFieldSettingsItem" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public PivotGridFieldSettingsItem()
+    content.vb: Public Sub New()
+  overload: Avalonia.Controls.PivotGridFieldSettingsItem.#ctor*
+  nameWithType.vb: PivotGridFieldSettingsItem.New()
+  fullName.vb: Avalonia.Controls.PivotGridFieldSettingsItem.New()
+  name.vb: New()
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Name
+  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.Name
+  id: Name
+  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: PivotGridFieldSettingsItem.Name
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the source field name.
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Avalonia.Controls.PivotGridFieldSettingsItem.Name*
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Header
+  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.Header
+  id: Header
+  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  langs:
+  - csharp
+  - vb
+  name: Header
+  nameWithType: PivotGridFieldSettingsItem.Header
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Header
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Header
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the display header.
+  example: []
+  syntax:
+    content: public string Header { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Header As String
+  overload: Avalonia.Controls.PivotGridFieldSettingsItem.Header*
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
+  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
+  id: CanUseAsAxis
+  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  langs:
+  - csharp
+  - vb
+  name: CanUseAsAxis
+  nameWithType: PivotGridFieldSettingsItem.CanUseAsAxis
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanUseAsAxis
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets a value indicating whether the field can be used in an axis.
+  example: []
+  syntax:
+    content: public bool CanUseAsAxis { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CanUseAsAxis As Boolean
+  overload: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis*
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
+  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
+  id: CanUseAsMeasure
+  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  langs:
+  - csharp
+  - vb
+  name: CanUseAsMeasure
+  nameWithType: PivotGridFieldSettingsItem.CanUseAsMeasure
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanUseAsMeasure
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets a value indicating whether the field can be used as a value measure.
+  example: []
+  syntax:
+    content: public bool CanUseAsMeasure { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CanUseAsMeasure As Boolean
+  overload: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure*
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Role
+  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.Role
+  id: Role
+  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  langs:
+  - csharp
+  - vb
+  name: Role
+  nameWithType: PivotGridFieldSettingsItem.Role
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Role
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Role
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the current layout role.
+  example: []
+  syntax:
+    content: public PivotGridFieldRole Role { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.PivotGridFieldRole
+    content.vb: Public Property Role As PivotGridFieldRole
+  overload: Avalonia.Controls.PivotGridFieldSettingsItem.Role*
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
+  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
+  id: AggregateKind
+  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  langs:
+  - csharp
+  - vb
+  name: AggregateKind
+  nameWithType: PivotGridFieldSettingsItem.AggregateKind
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AggregateKind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the aggregate operation used when the field is a value measure.
+  example: []
+  syntax:
+    content: public PivotGridAggregateKind AggregateKind { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.PivotGridAggregateKind
+    content.vb: Public Property AggregateKind As PivotGridAggregateKind
+  overload: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind*
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
+  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
+  id: DisplayFormat
+  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  langs:
+  - csharp
+  - vb
+  name: DisplayFormat
+  nameWithType: PivotGridFieldSettingsItem.DisplayFormat
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DisplayFormat
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 46
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the display format used when the field is a value measure.
+  example: []
+  syntax:
+    content: public string DisplayFormat { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DisplayFormat As String
+  overload: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat*
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Width
+  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.Width
+  id: Width
+  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  langs:
+  - csharp
+  - vb
+  name: Width
+  nameWithType: PivotGridFieldSettingsItem.Width
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Width
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Width
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the cell width used when the field is a value measure.
+  example: []
+  syntax:
+    content: public double Width { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Width As Double
+  overload: Avalonia.Controls.PivotGridFieldSettingsItem.Width*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem
+  commentId: T:Avalonia.Controls.PivotGridFieldSettingsItem
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html
+  name: PivotGridFieldSettingsItem
+  nameWithType: PivotGridFieldSettingsItem
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.#ctor*
+  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.#ctor
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem__ctor
+  name: PivotGridFieldSettingsItem
+  nameWithType: PivotGridFieldSettingsItem.PivotGridFieldSettingsItem
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.PivotGridFieldSettingsItem
+  nameWithType.vb: PivotGridFieldSettingsItem.New
+  fullName.vb: Avalonia.Controls.PivotGridFieldSettingsItem.New
+  name.vb: New
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Name*
+  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.Name
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_Name
+  name: Name
+  nameWithType: PivotGridFieldSettingsItem.Name
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Header*
+  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.Header
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_Header
+  name: Header
+  nameWithType: PivotGridFieldSettingsItem.Header
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Header
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis*
+  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_CanUseAsAxis
+  name: CanUseAsAxis
+  nameWithType: PivotGridFieldSettingsItem.CanUseAsAxis
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure*
+  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_CanUseAsMeasure
+  name: CanUseAsMeasure
+  nameWithType: PivotGridFieldSettingsItem.CanUseAsMeasure
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Role*
+  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.Role
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_Role
+  name: Role
+  nameWithType: PivotGridFieldSettingsItem.Role
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Role
+- uid: Avalonia.Controls.PivotGridFieldRole
+  commentId: T:Avalonia.Controls.PivotGridFieldRole
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridFieldRole.html
+  name: PivotGridFieldRole
+  nameWithType: PivotGridFieldRole
+  fullName: Avalonia.Controls.PivotGridFieldRole
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind*
+  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_AggregateKind
+  name: AggregateKind
+  nameWithType: PivotGridFieldSettingsItem.AggregateKind
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
+- uid: Avalonia.Controls.PivotGridAggregateKind
+  commentId: T:Avalonia.Controls.PivotGridAggregateKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridAggregateKind.html
+  name: PivotGridAggregateKind
+  nameWithType: PivotGridAggregateKind
+  fullName: Avalonia.Controls.PivotGridAggregateKind
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat*
+  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_DisplayFormat
+  name: DisplayFormat
+  nameWithType: PivotGridFieldSettingsItem.DisplayFormat
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Width*
+  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.Width
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_Width
+  name: Width
+  nameWithType: PivotGridFieldSettingsItem.Width
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Width
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double

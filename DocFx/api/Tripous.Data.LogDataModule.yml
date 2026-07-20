@@ -48,9 +48,9 @@ items:
   - Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
   - Tripous.Data.DataModule.LoadDefaultValues
   - Tripous.Data.DataModule.SetDefaultValues
-  - Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
-  - Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
-  - Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
   - Tripous.Data.DataModule.EndEdit
   - Tripous.Data.DataModule.UpdateTableSchema
   - Tripous.Data.DataModule.Inserting
@@ -471,23 +471,21 @@ references:
     href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues
   - name: (
   - name: )
-- uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
-  commentId: M:Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+- uid: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,Tripous.Data.TableDef)
   parent: Tripous.Data.DataModule
-  isExternal: true
-  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_Tripous_Data_TableDef_
-  name: SetDefaultValues(DataTable, TableDef)
-  nameWithType: DataModule.SetDefaultValues(DataTable, TableDef)
-  fullName: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable, Tripous.Data.TableDef)
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_Tripous_Data_MemTable_Tripous_Data_TableDef_
+  name: SetDefaultValues(MemTable, TableDef)
+  nameWithType: DataModule.SetDefaultValues(MemTable, TableDef)
+  fullName: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable, Tripous.Data.TableDef)
   spec.csharp:
-  - uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  - uid: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,Tripous.Data.TableDef)
     name: SetDefaultValues
-    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_Tripous_Data_TableDef_
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_Tripous_Data_MemTable_Tripous_Data_TableDef_
   - name: (
-  - uid: System.Data.DataTable
-    name: DataTable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
   - name: ','
   - name: " "
   - uid: Tripous.Data.TableDef
@@ -495,37 +493,35 @@ references:
     href: Tripous.Data.TableDef.html
   - name: )
   spec.vb:
-  - uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  - uid: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,Tripous.Data.TableDef)
     name: SetDefaultValues
-    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_Tripous_Data_TableDef_
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_Tripous_Data_MemTable_Tripous_Data_TableDef_
   - name: (
-  - uid: System.Data.DataTable
-    name: DataTable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
   - name: ','
   - name: " "
   - uid: Tripous.Data.TableDef
     name: TableDef
     href: Tripous.Data.TableDef.html
   - name: )
-- uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
-  commentId: M:Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+- uid: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
   parent: Tripous.Data.DataModule
   isExternal: true
-  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
-  name: SetDefaultValues(DataTable, DataRow, TableDef)
-  nameWithType: DataModule.SetDefaultValues(DataTable, DataRow, TableDef)
-  fullName: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable, System.Data.DataRow, Tripous.Data.TableDef)
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_Tripous_Data_MemTable_System_Data_DataRow_Tripous_Data_TableDef_
+  name: SetDefaultValues(MemTable, DataRow, TableDef)
+  nameWithType: DataModule.SetDefaultValues(MemTable, DataRow, TableDef)
+  fullName: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable, System.Data.DataRow, Tripous.Data.TableDef)
   spec.csharp:
-  - uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - uid: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
     name: SetDefaultValues
-    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_Tripous_Data_MemTable_System_Data_DataRow_Tripous_Data_TableDef_
   - name: (
-  - uid: System.Data.DataTable
-    name: DataTable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
   - name: ','
   - name: " "
   - uid: System.Data.DataRow
@@ -539,14 +535,13 @@ references:
     href: Tripous.Data.TableDef.html
   - name: )
   spec.vb:
-  - uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - uid: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
     name: SetDefaultValues
-    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_Tripous_Data_MemTable_System_Data_DataRow_Tripous_Data_TableDef_
   - name: (
-  - uid: System.Data.DataTable
-    name: DataTable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
   - name: ','
   - name: " "
   - uid: System.Data.DataRow
@@ -559,23 +554,22 @@ references:
     name: TableDef
     href: Tripous.Data.TableDef.html
   - name: )
-- uid: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
-  commentId: M:Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+- uid: Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
   parent: Tripous.Data.DataModule
   isExternal: true
-  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
-  name: SetAuditDefaultValues(DataTable, DataRow, TableDef)
-  nameWithType: DataModule.SetAuditDefaultValues(DataTable, DataRow, TableDef)
-  fullName: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable, System.Data.DataRow, Tripous.Data.TableDef)
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_Tripous_Data_MemTable_System_Data_DataRow_Tripous_Data_TableDef_
+  name: SetAuditDefaultValues(MemTable, DataRow, TableDef)
+  nameWithType: DataModule.SetAuditDefaultValues(MemTable, DataRow, TableDef)
+  fullName: Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable, System.Data.DataRow, Tripous.Data.TableDef)
   spec.csharp:
-  - uid: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - uid: Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
     name: SetAuditDefaultValues
-    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_Tripous_Data_MemTable_System_Data_DataRow_Tripous_Data_TableDef_
   - name: (
-  - uid: System.Data.DataTable
-    name: DataTable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
   - name: ','
   - name: " "
   - uid: System.Data.DataRow
@@ -589,14 +583,13 @@ references:
     href: Tripous.Data.TableDef.html
   - name: )
   spec.vb:
-  - uid: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - uid: Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
     name: SetAuditDefaultValues
-    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_Tripous_Data_MemTable_System_Data_DataRow_Tripous_Data_TableDef_
   - name: (
-  - uid: System.Data.DataTable
-    name: DataTable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
   - name: ','
   - name: " "
   - uid: System.Data.DataRow

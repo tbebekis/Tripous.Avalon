@@ -6,9 +6,12 @@ items:
   parent: Tripous.Desktop
   children:
   - Tripous.Desktop.AppFormPagerHandler.#ctor(Avalonia.Controls.TabControl)
+  - Tripous.Desktop.AppFormPagerHandler.CanUserReorderTabs
   - Tripous.Desktop.AppFormPagerHandler.CloseForm(System.String)
   - Tripous.Desktop.AppFormPagerHandler.FindAppForm(System.String)
   - Tripous.Desktop.AppFormPagerHandler.FindTabItem(System.String)
+  - Tripous.Desktop.AppFormPagerHandler.IsTabHeaderContextMenuVisible
+  - Tripous.Desktop.AppFormPagerHandler.MaxAllowedTabPages
   - Tripous.Desktop.AppFormPagerHandler.Pager
   - Tripous.Desktop.AppFormPagerHandler.ShowAppForm(Tripous.Desktop.FormContext)
   - Tripous.Desktop.AppFormPagerHandler.ShowDataForm(System.String,Avalonia.Controls.Control)
@@ -22,11 +25,11 @@ items:
   type: Class
   source:
     remote:
-      path: Tripous.Desktop/AppFormPagerHandler.cs
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AppFormPagerHandler
-    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
     startLine: 13
   assemblies:
   - Tripous.Desktop
@@ -61,12 +64,12 @@ items:
   type: Constructor
   source:
     remote:
-      path: Tripous.Desktop/AppFormPagerHandler.cs
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Desktop/AppFormPagerHandler.cs
-    startLine: 50
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 396
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -96,12 +99,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormPagerHandler.cs
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FindTabItem
-    path: ../Tripous.Desktop/AppFormPagerHandler.cs
-    startLine: 61
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 408
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -134,12 +137,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormPagerHandler.cs
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FindAppForm
-    path: ../Tripous.Desktop/AppFormPagerHandler.cs
-    startLine: 83
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 430
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -172,12 +175,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormPagerHandler.cs
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowAppForm
-    path: ../Tripous.Desktop/AppFormPagerHandler.cs
-    startLine: 106
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 453
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -207,12 +210,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormPagerHandler.cs
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowDataForm
-    path: ../Tripous.Desktop/AppFormPagerHandler.cs
-    startLine: 134
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 483
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -242,12 +245,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormPagerHandler.cs
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowDataForm
-    path: ../Tripous.Desktop/AppFormPagerHandler.cs
-    startLine: 141
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 490
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -283,12 +286,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormPagerHandler.cs
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CloseForm
-    path: ../Tripous.Desktop/AppFormPagerHandler.cs
-    startLine: 147
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 496
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -318,12 +321,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppFormPagerHandler.cs
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Pager
-    path: ../Tripous.Desktop/AppFormPagerHandler.cs
-    startLine: 158
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 507
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -336,6 +339,99 @@ items:
       type: Avalonia.Controls.TabControl
     content.vb: Public Property Pager As TabControl
   overload: Tripous.Desktop.AppFormPagerHandler.Pager*
+- uid: Tripous.Desktop.AppFormPagerHandler.CanUserReorderTabs
+  commentId: P:Tripous.Desktop.AppFormPagerHandler.CanUserReorderTabs
+  id: CanUserReorderTabs
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: CanUserReorderTabs
+  nameWithType: AppFormPagerHandler.CanUserReorderTabs
+  fullName: Tripous.Desktop.AppFormPagerHandler.CanUserReorderTabs
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanUserReorderTabs
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 511
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets a value indicating whether the user can reorder tabs by dragging them.
+  example: []
+  syntax:
+    content: public bool CanUserReorderTabs { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CanUserReorderTabs As Boolean
+  overload: Tripous.Desktop.AppFormPagerHandler.CanUserReorderTabs*
+- uid: Tripous.Desktop.AppFormPagerHandler.IsTabHeaderContextMenuVisible
+  commentId: P:Tripous.Desktop.AppFormPagerHandler.IsTabHeaderContextMenuVisible
+  id: IsTabHeaderContextMenuVisible
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: IsTabHeaderContextMenuVisible
+  nameWithType: AppFormPagerHandler.IsTabHeaderContextMenuVisible
+  fullName: Tripous.Desktop.AppFormPagerHandler.IsTabHeaderContextMenuVisible
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsTabHeaderContextMenuVisible
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 515
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets a value indicating whether tab header context menus are visible.
+  example: []
+  syntax:
+    content: public bool IsTabHeaderContextMenuVisible { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsTabHeaderContextMenuVisible As Boolean
+  overload: Tripous.Desktop.AppFormPagerHandler.IsTabHeaderContextMenuVisible*
+- uid: Tripous.Desktop.AppFormPagerHandler.MaxAllowedTabPages
+  commentId: P:Tripous.Desktop.AppFormPagerHandler.MaxAllowedTabPages
+  id: MaxAllowedTabPages
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: MaxAllowedTabPages
+  nameWithType: AppFormPagerHandler.MaxAllowedTabPages
+  fullName: Tripous.Desktop.AppFormPagerHandler.MaxAllowedTabPages
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MaxAllowedTabPages
+    path: ../Tripous.Desktop/Forms/AppFormPagerHandler.cs
+    startLine: 519
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the maximum allowed tab pages. A value of -1 means unlimited.
+  example: []
+  syntax:
+    content: public int MaxAllowedTabPages { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MaxAllowedTabPages As Integer
+  overload: Tripous.Desktop.AppFormPagerHandler.MaxAllowedTabPages*
 references:
 - uid: Tripous.Desktop
   commentId: N:Tripous.Desktop
@@ -827,3 +923,43 @@ references:
   name: Pager
   nameWithType: AppFormPagerHandler.Pager
   fullName: Tripous.Desktop.AppFormPagerHandler.Pager
+- uid: Tripous.Desktop.AppFormPagerHandler.CanUserReorderTabs*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.CanUserReorderTabs
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_CanUserReorderTabs
+  name: CanUserReorderTabs
+  nameWithType: AppFormPagerHandler.CanUserReorderTabs
+  fullName: Tripous.Desktop.AppFormPagerHandler.CanUserReorderTabs
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Desktop.AppFormPagerHandler.IsTabHeaderContextMenuVisible*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.IsTabHeaderContextMenuVisible
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_IsTabHeaderContextMenuVisible
+  name: IsTabHeaderContextMenuVisible
+  nameWithType: AppFormPagerHandler.IsTabHeaderContextMenuVisible
+  fullName: Tripous.Desktop.AppFormPagerHandler.IsTabHeaderContextMenuVisible
+- uid: Tripous.Desktop.AppFormPagerHandler.MaxAllowedTabPages*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.MaxAllowedTabPages
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_MaxAllowedTabPages
+  name: MaxAllowedTabPages
+  nameWithType: AppFormPagerHandler.MaxAllowedTabPages
+  fullName: Tripous.Desktop.AppFormPagerHandler.MaxAllowedTabPages
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer

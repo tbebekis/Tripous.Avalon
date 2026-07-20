@@ -561,11 +561,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WindowInitialize
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 39
   assemblies:
   - Tripous.Desktop
@@ -592,11 +592,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemToControls
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 58
   assemblies:
   - Tripous.Desktop
@@ -623,11 +623,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ControlsToItem
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 70
   assemblies:
   - Tripous.Desktop
@@ -654,11 +654,11 @@ items:
   type: Constructor
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 92
   assemblies:
   - Tripous.Desktop
@@ -685,11 +685,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowModal
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 104
   assemblies:
   - Tripous.Desktop

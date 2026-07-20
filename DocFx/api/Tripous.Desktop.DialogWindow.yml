@@ -692,7 +692,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowModal
     path: ../Tripous.Desktop/Dialogs/DialogWindow.cs
-    startLine: 67
+    startLine: 69
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -733,7 +733,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowModal
     path: ../Tripous.Desktop/Dialogs/DialogWindow.cs
-    startLine: 77
+    startLine: 79
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -774,7 +774,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowModal
     path: ../Tripous.Desktop/Dialogs/DialogWindow.cs
-    startLine: 90
+    startLine: 92
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -818,7 +818,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModalResult
     path: ../Tripous.Desktop/Dialogs/DialogWindow.cs
-    startLine: 103
+    startLine: 105
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -849,7 +849,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: InputData
     path: ../Tripous.Desktop/Dialogs/DialogWindow.cs
-    startLine: 121
+    startLine: 123
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -880,7 +880,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ResultData
     path: ../Tripous.Desktop/Dialogs/DialogWindow.cs
-    startLine: 125
+    startLine: 127
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -911,7 +911,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Info
     path: ../Tripous.Desktop/Dialogs/DialogWindow.cs
-    startLine: 137
+    startLine: 139
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop

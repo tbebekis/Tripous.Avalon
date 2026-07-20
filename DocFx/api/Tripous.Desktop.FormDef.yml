@@ -10,6 +10,7 @@ items:
   - Tripous.Desktop.FormDef.Create
   - Tripous.Desktop.FormDef.CreateReferenceContextMenu
   - Tripous.Desktop.FormDef.CreateShowCommand(System.Func{Tripous.Command,System.Object},System.String)
+  - Tripous.Desktop.FormDef.FactBoxes
   - Tripous.Desktop.FormDef.GetTitleKey
   - Tripous.Desktop.FormDef.Group
   - Tripous.Desktop.FormDef.IsReadOnly
@@ -93,7 +94,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetTitleKey
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 44
+    startLine: 45
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -124,7 +125,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Create
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 51
+    startLine: 52
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -155,7 +156,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateReferenceContextMenu
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 55
+    startLine: 56
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -185,7 +186,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateShowCommand
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 62
+    startLine: 63
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -226,7 +227,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanAccess
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 71
+    startLine: 72
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -259,7 +260,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClassName
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 87
+    startLine: 88
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -304,7 +305,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemClassName
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 101
+    startLine: 102
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -349,7 +350,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReferenceMenuClassName
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 109
+    startLine: 110
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -380,7 +381,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Module
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 117
+    startLine: 118
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -411,7 +412,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Group
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 126
+    startLine: 127
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -446,7 +447,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsReadOnly
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 134
+    startLine: 135
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -477,7 +478,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SecurityLevel
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 142
+    startLine: 143
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -490,6 +491,37 @@ items:
       type: Tripous.UserLevel
     content.vb: Public Property SecurityLevel As UserLevel
   overload: Tripous.Desktop.FormDef.SecurityLevel*
+- uid: Tripous.Desktop.FormDef.FactBoxes
+  commentId: P:Tripous.Desktop.FormDef.FactBoxes
+  id: FactBoxes
+  parent: Tripous.Desktop.FormDef
+  langs:
+  - csharp
+  - vb
+  name: FactBoxes
+  nameWithType: FormDef.FactBoxes
+  fullName: Tripous.Desktop.FormDef.FactBoxes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Registry/FormDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FactBoxes
+    path: ../Tripous.Desktop/Registry/FormDef.cs
+    startLine: 151
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The FactBoxes displayed by the item page of this form.
+  example: []
+  syntax:
+    content: public DefList<ItemFactBoxDef> FactBoxes { get; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.ItemFactBoxDef}
+    content.vb: Public ReadOnly Property FactBoxes As DefList(Of ItemFactBoxDef)
+  overload: Tripous.Desktop.FormDef.FactBoxes*
 references:
 - uid: Tripous.Desktop
   commentId: N:Tripous.Desktop
@@ -1400,3 +1432,63 @@ references:
   name: UserLevel
   nameWithType: UserLevel
   fullName: Tripous.UserLevel
+- uid: Tripous.Desktop.FormDef.FactBoxes*
+  commentId: Overload:Tripous.Desktop.FormDef.FactBoxes
+  href: Tripous.Desktop.FormDef.html#Tripous_Desktop_FormDef_FactBoxes
+  name: FactBoxes
+  nameWithType: FormDef.FactBoxes
+  fullName: Tripous.Desktop.FormDef.FactBoxes
+- uid: Tripous.DefList{Tripous.Data.ItemFactBoxDef}
+  commentId: T:Tripous.DefList{Tripous.Data.ItemFactBoxDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.ItemFactBoxDef.html
+  name: DefList<ItemFactBoxDef>
+  nameWithType: DefList<ItemFactBoxDef>
+  fullName: Tripous.DefList<Tripous.Data.ItemFactBoxDef>
+  nameWithType.vb: DefList(Of ItemFactBoxDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.ItemFactBoxDef)
+  name.vb: DefList(Of ItemFactBoxDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.ItemFactBoxDef
+    name: ItemFactBoxDef
+    href: Tripous.Data.ItemFactBoxDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ItemFactBoxDef
+    name: ItemFactBoxDef
+    href: Tripous.Data.ItemFactBoxDef.html
+  - name: )
+- uid: Tripous.DefList`1
+  commentId: T:Tripous.DefList`1
+  href: Tripous.DefList-1.html
+  name: DefList<T>
+  nameWithType: DefList<T>
+  fullName: Tripous.DefList<T>
+  nameWithType.vb: DefList(Of T)
+  fullName.vb: Tripous.DefList(Of T)
+  name.vb: DefList(Of T)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )

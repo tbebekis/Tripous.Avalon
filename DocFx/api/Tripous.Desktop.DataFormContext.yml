@@ -27,11 +27,11 @@ items:
   type: Class
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataFormContext
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 13
   assemblies:
   - Tripous.Desktop
@@ -85,11 +85,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Create
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 57
   assemblies:
   - Tripous.Desktop
@@ -126,11 +126,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Create
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 68
   assemblies:
   - Tripous.Desktop
@@ -170,11 +170,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Create
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 82
   assemblies:
   - Tripous.Desktop
@@ -214,11 +214,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateForm
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 91
   assemblies:
   - Tripous.Desktop
@@ -246,11 +246,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowFormModal
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 105
   assemblies:
   - Tripous.Desktop
@@ -293,11 +293,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RegistryName
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 121
   assemblies:
   - Tripous.Desktop
@@ -324,11 +324,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormDef
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 125
   assemblies:
   - Tripous.Desktop
@@ -355,11 +355,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModuleDef
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 129
   assemblies:
   - Tripous.Desktop
@@ -386,11 +386,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Module
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 133
   assemblies:
   - Tripous.Desktop
@@ -417,11 +417,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataForm
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 137
   assemblies:
   - Tripous.Desktop
@@ -448,11 +448,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: StartAction
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 142
   assemblies:
   - Tripous.Desktop
@@ -479,11 +479,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: InvalidActions
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 146
   assemblies:
   - Tripous.Desktop
@@ -510,11 +510,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataFormContext.cs
+      path: Tripous.Desktop/Forms/DataFormContext.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowId
-    path: ../Tripous.Desktop/DataFormContext.cs
+    path: ../Tripous.Desktop/Forms/DataFormContext.cs
     startLine: 150
   assemblies:
   - Tripous.Desktop

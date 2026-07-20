@@ -16,8 +16,15 @@ items:
   - Tripous.Desktop.DataFormAction
   - Tripous.Desktop.DataFormContext
   - Tripous.Desktop.DataFormState
+  - Tripous.Desktop.DatabaseWorkbenchForm
   - Tripous.Desktop.DbConnectionEditDialog
+  - Tripous.Desktop.DbConnectionExplorerControl
+  - Tripous.Desktop.DbConnectionExplorerEventArgs
+  - Tripous.Desktop.DbConnectionExplorerOptions
+  - Tripous.Desktop.DbConnectionExplorerSqlTextEventArgs
   - Tripous.Desktop.DesktopExceptionHandler
+  - Tripous.Desktop.DesktopNote
+  - Tripous.Desktop.DesktopNoteType
   - Tripous.Desktop.DesktopRegistry
   - Tripous.Desktop.DetailGridCommandContext
   - Tripous.Desktop.DialogInfo
@@ -43,7 +50,10 @@ items:
   - Tripous.Desktop.InputBox
   - Tripous.Desktop.InputBoxData
   - Tripous.Desktop.ItemBinder
+  - Tripous.Desktop.ItemFactBoxControl
+  - Tripous.Desktop.ItemInfoFactBoxControl
   - Tripous.Desktop.ItemPage
+  - Tripous.Desktop.ItemStructureFactBoxControl
   - Tripous.Desktop.LocatorBox
   - Tripous.Desktop.LocatorBoxRowEventArgs
   - Tripous.Desktop.LogBox
@@ -57,6 +67,10 @@ items:
   - Tripous.Desktop.ReferenceContextMenu
   - Tripous.Desktop.ReferenceMenuActionType
   - Tripous.Desktop.ReferenceMenuCommandContext
+  - Tripous.Desktop.SqlConsoleControl
+  - Tripous.Desktop.SqlConsoleHistory
+  - Tripous.Desktop.SqlConsoleHistoryItem
+  - Tripous.Desktop.SqlConsoleStatementItem
   - Tripous.Desktop.SqlFilterInfo
   - Tripous.Desktop.SqlFilterPanelHandler
   - Tripous.Desktop.ToolBar
@@ -83,25 +97,6 @@ items:
   assemblies:
   - Tripous.Desktop
 references:
-- uid: Tripous.Desktop.AppForm
-  commentId: T:Tripous.Desktop.AppForm
-  parent: Tripous.Desktop
-  href: Tripous.Desktop.AppForm.html
-  name: AppForm
-  nameWithType: AppForm
-  fullName: Tripous.Desktop.AppForm
-- uid: Tripous.Desktop.AppFormDialog
-  commentId: T:Tripous.Desktop.AppFormDialog
-  href: Tripous.Desktop.AppFormDialog.html
-  name: AppFormDialog
-  nameWithType: AppFormDialog
-  fullName: Tripous.Desktop.AppFormDialog
-- uid: Tripous.Desktop.AppFormPagerHandler
-  commentId: T:Tripous.Desktop.AppFormPagerHandler
-  href: Tripous.Desktop.AppFormPagerHandler.html
-  name: AppFormPagerHandler
-  nameWithType: AppFormPagerHandler
-  fullName: Tripous.Desktop.AppFormPagerHandler
 - uid: Tripous.Desktop.AvaloniaAssets
   commentId: T:Tripous.Desktop.AvaloniaAssets
   href: Tripous.Desktop.AvaloniaAssets.html
@@ -135,26 +130,6 @@ references:
   name: TripousBinding
   nameWithType: TripousBinding
   fullName: Tripous.Desktop.TripousBinding
-- uid: Tripous.Desktop.CommandTreeViewForm
-  commentId: T:Tripous.Desktop.CommandTreeViewForm
-  href: Tripous.Desktop.CommandTreeViewForm.html
-  name: CommandTreeViewForm
-  nameWithType: CommandTreeViewForm
-  fullName: Tripous.Desktop.CommandTreeViewForm
-- uid: Tripous.Desktop.DataForm
-  commentId: T:Tripous.Desktop.DataForm
-  parent: Tripous.Desktop
-  href: Tripous.Desktop.DataForm.html
-  name: DataForm
-  nameWithType: DataForm
-  fullName: Tripous.Desktop.DataForm
-- uid: Tripous.Desktop.DataFormContext
-  commentId: T:Tripous.Desktop.DataFormContext
-  parent: Tripous.Desktop
-  href: Tripous.Desktop.DataFormContext.html
-  name: DataFormContext
-  nameWithType: DataFormContext
-  fullName: Tripous.Desktop.DataFormContext
 - uid: Tripous.Desktop.GridActionType
   commentId: T:Tripous.Desktop.GridActionType
   parent: Tripous.Desktop
@@ -208,6 +183,20 @@ references:
   name: DesktopExceptionHandler
   nameWithType: DesktopExceptionHandler
   fullName: Tripous.Desktop.DesktopExceptionHandler
+- uid: Tripous.Desktop.DesktopNoteType
+  commentId: T:Tripous.Desktop.DesktopNoteType
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DesktopNoteType.html
+  name: DesktopNoteType
+  nameWithType: DesktopNoteType
+  fullName: Tripous.Desktop.DesktopNoteType
+- uid: Tripous.Desktop.DesktopNote
+  commentId: T:Tripous.Desktop.DesktopNote
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DesktopNote.html
+  name: DesktopNote
+  nameWithType: DesktopNote
+  fullName: Tripous.Desktop.DesktopNote
 - uid: Tripous.Desktop.ConfigDialog
   commentId: T:Tripous.Desktop.ConfigDialog
   href: Tripous.Desktop.ConfigDialog.html
@@ -264,6 +253,19 @@ references:
   name: InputBoxData
   nameWithType: InputBoxData
   fullName: Tripous.Desktop.InputBoxData
+- uid: Tripous.Desktop.LoginDialog
+  commentId: T:Tripous.Desktop.LoginDialog
+  href: Tripous.Desktop.LoginDialog.html
+  name: LoginDialog
+  nameWithType: LoginDialog
+  fullName: Tripous.Desktop.LoginDialog
+- uid: Tripous.Desktop.LoginBoxData
+  commentId: T:Tripous.Desktop.LoginBoxData
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.LoginBoxData.html
+  name: LoginBoxData
+  nameWithType: LoginBoxData
+  fullName: Tripous.Desktop.LoginBoxData
 - uid: Tripous.Desktop.MessageBoxMode
   commentId: T:Tripous.Desktop.MessageBoxMode
   parent: Tripous.Desktop
@@ -345,6 +347,125 @@ references:
   name: TripousAvalonExtensions
   nameWithType: TripousAvalonExtensions
   fullName: Tripous.Desktop.TripousAvalonExtensions
+- uid: Tripous.Desktop.ItemFactBoxControl
+  commentId: T:Tripous.Desktop.ItemFactBoxControl
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ItemFactBoxControl.html
+  name: ItemFactBoxControl
+  nameWithType: ItemFactBoxControl
+  fullName: Tripous.Desktop.ItemFactBoxControl
+- uid: Tripous.Desktop.ItemInfoFactBoxControl
+  commentId: T:Tripous.Desktop.ItemInfoFactBoxControl
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ItemInfoFactBoxControl.html
+  name: ItemInfoFactBoxControl
+  nameWithType: ItemInfoFactBoxControl
+  fullName: Tripous.Desktop.ItemInfoFactBoxControl
+- uid: Tripous.Desktop.ItemStructureFactBoxControl
+  commentId: T:Tripous.Desktop.ItemStructureFactBoxControl
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ItemStructureFactBoxControl.html
+  name: ItemStructureFactBoxControl
+  nameWithType: ItemStructureFactBoxControl
+  fullName: Tripous.Desktop.ItemStructureFactBoxControl
+- uid: Tripous.Desktop.AppForm
+  commentId: T:Tripous.Desktop.AppForm
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.AppForm.html
+  name: AppForm
+  nameWithType: AppForm
+  fullName: Tripous.Desktop.AppForm
+- uid: Tripous.Desktop.AppFormDialog
+  commentId: T:Tripous.Desktop.AppFormDialog
+  href: Tripous.Desktop.AppFormDialog.html
+  name: AppFormDialog
+  nameWithType: AppFormDialog
+  fullName: Tripous.Desktop.AppFormDialog
+- uid: Tripous.Desktop.AppFormPagerHandler
+  commentId: T:Tripous.Desktop.AppFormPagerHandler
+  href: Tripous.Desktop.AppFormPagerHandler.html
+  name: AppFormPagerHandler
+  nameWithType: AppFormPagerHandler
+  fullName: Tripous.Desktop.AppFormPagerHandler
+- uid: Tripous.Desktop.CommandTreeViewForm
+  commentId: T:Tripous.Desktop.CommandTreeViewForm
+  href: Tripous.Desktop.CommandTreeViewForm.html
+  name: CommandTreeViewForm
+  nameWithType: CommandTreeViewForm
+  fullName: Tripous.Desktop.CommandTreeViewForm
+- uid: Tripous.Desktop.DatabaseWorkbenchForm
+  commentId: T:Tripous.Desktop.DatabaseWorkbenchForm
+  href: Tripous.Desktop.DatabaseWorkbenchForm.html
+  name: DatabaseWorkbenchForm
+  nameWithType: DatabaseWorkbenchForm
+  fullName: Tripous.Desktop.DatabaseWorkbenchForm
+- uid: Tripous.Desktop.DbConnectionExplorerControl
+  commentId: T:Tripous.Desktop.DbConnectionExplorerControl
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DbConnectionExplorerControl.html
+  name: DbConnectionExplorerControl
+  nameWithType: DbConnectionExplorerControl
+  fullName: Tripous.Desktop.DbConnectionExplorerControl
+- uid: Tripous.Desktop.DbConnectionExplorerEventArgs
+  commentId: T:Tripous.Desktop.DbConnectionExplorerEventArgs
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DbConnectionExplorerEventArgs.html
+  name: DbConnectionExplorerEventArgs
+  nameWithType: DbConnectionExplorerEventArgs
+  fullName: Tripous.Desktop.DbConnectionExplorerEventArgs
+- uid: Tripous.Desktop.DbConnectionExplorerOptions
+  commentId: T:Tripous.Desktop.DbConnectionExplorerOptions
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DbConnectionExplorerOptions.html
+  name: DbConnectionExplorerOptions
+  nameWithType: DbConnectionExplorerOptions
+  fullName: Tripous.Desktop.DbConnectionExplorerOptions
+- uid: Tripous.Desktop.DbConnectionExplorerSqlTextEventArgs
+  commentId: T:Tripous.Desktop.DbConnectionExplorerSqlTextEventArgs
+  href: Tripous.Desktop.DbConnectionExplorerSqlTextEventArgs.html
+  name: DbConnectionExplorerSqlTextEventArgs
+  nameWithType: DbConnectionExplorerSqlTextEventArgs
+  fullName: Tripous.Desktop.DbConnectionExplorerSqlTextEventArgs
+- uid: Tripous.Desktop.SqlConsoleControl
+  commentId: T:Tripous.Desktop.SqlConsoleControl
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.SqlConsoleControl.html
+  name: SqlConsoleControl
+  nameWithType: SqlConsoleControl
+  fullName: Tripous.Desktop.SqlConsoleControl
+- uid: Tripous.Desktop.SqlConsoleHistory
+  commentId: T:Tripous.Desktop.SqlConsoleHistory
+  href: Tripous.Desktop.SqlConsoleHistory.html
+  name: SqlConsoleHistory
+  nameWithType: SqlConsoleHistory
+  fullName: Tripous.Desktop.SqlConsoleHistory
+- uid: Tripous.Desktop.SqlConsoleHistoryItem
+  commentId: T:Tripous.Desktop.SqlConsoleHistoryItem
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.SqlConsoleHistoryItem.html
+  name: SqlConsoleHistoryItem
+  nameWithType: SqlConsoleHistoryItem
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem
+- uid: Tripous.Desktop.SqlConsoleStatementItem
+  commentId: T:Tripous.Desktop.SqlConsoleStatementItem
+  href: Tripous.Desktop.SqlConsoleStatementItem.html
+  name: SqlConsoleStatementItem
+  nameWithType: SqlConsoleStatementItem
+  fullName: Tripous.Desktop.SqlConsoleStatementItem
+- uid: Tripous.Desktop.DataForm
+  commentId: T:Tripous.Desktop.DataForm
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DataForm.html
+  name: DataForm
+  nameWithType: DataForm
+  fullName: Tripous.Desktop.DataForm
+- uid: Tripous.Desktop.DataFormContext
+  commentId: T:Tripous.Desktop.DataFormContext
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DataFormContext.html
+  name: DataFormContext
+  nameWithType: DataFormContext
+  fullName: Tripous.Desktop.DataFormContext
 - uid: Tripous.Desktop.FormContext
   commentId: T:Tripous.Desktop.FormContext
   parent: Tripous.Desktop
@@ -477,19 +598,6 @@ references:
   name: LogBox
   nameWithType: LogBox
   fullName: Tripous.Desktop.LogBox
-- uid: Tripous.Desktop.LoginDialog
-  commentId: T:Tripous.Desktop.LoginDialog
-  href: Tripous.Desktop.LoginDialog.html
-  name: LoginDialog
-  nameWithType: LoginDialog
-  fullName: Tripous.Desktop.LoginDialog
-- uid: Tripous.Desktop.LoginBoxData
-  commentId: T:Tripous.Desktop.LoginBoxData
-  parent: Tripous.Desktop
-  href: Tripous.Desktop.LoginBoxData.html
-  name: LoginBoxData
-  nameWithType: LoginBoxData
-  fullName: Tripous.Desktop.LoginBoxData
 - uid: Tripous.Desktop.DesktopRegistry
   commentId: T:Tripous.Desktop.DesktopRegistry
   href: Tripous.Desktop.DesktopRegistry.html

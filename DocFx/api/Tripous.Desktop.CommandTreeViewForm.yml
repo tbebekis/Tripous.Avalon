@@ -28,8 +28,8 @@ items:
   summary: Displays application commands in a tree view.
   example: []
   syntax:
-    content: 'public class CommandTreeViewForm : AppForm, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue'
-    content.vb: Public Class CommandTreeViewForm Inherits AppForm Implements INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue
+    content: 'public class CommandTreeViewForm : AppForm, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, IBroadcasterListener'
+    content.vb: Public Class CommandTreeViewForm Inherits AppForm Implements INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, IBroadcasterListener
   inheritance:
   - System.Object
   - Avalonia.AvaloniaObject
@@ -59,6 +59,7 @@ items:
   - Avalonia.Input.IInputElement
   - Avalonia.Controls.Templates.IDataTemplateHost
   - Avalonia.Styling.ISetterValue
+  - Tripous.IBroadcasterListener
   inheritedMembers:
   - Tripous.Desktop.AppForm.fTitleText
   - Tripous.Desktop.AppForm.FormInitializing
@@ -72,8 +73,12 @@ items:
   - Tripous.Desktop.AppForm.FindFirstFocusableControl(Avalonia.Controls.Control)
   - Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
   - Tripous.Desktop.AppForm.ProcessEscapeKey
+  - Tripous.Desktop.AppForm.RegisterBroadcaster
+  - Tripous.Desktop.AppForm.UnregisterBroadcaster
   - Tripous.Desktop.AppForm.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  - Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   - Tripous.Desktop.AppForm.Setup(Tripous.Desktop.FormContext)
+  - Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
   - Tripous.Desktop.AppForm.SetAsSelectedForm
   - Tripous.Desktop.AppForm.CanCloseForm
   - Tripous.Desktop.AppForm.CloseForm
@@ -354,7 +359,6 @@ items:
   - Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
   - Avalonia.Visual.AffectsRender``1(Avalonia.AvaloniaProperty[])
   - Avalonia.Visual.LogicalChildrenCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)
-  - Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   - Avalonia.Visual.InvalidateMirrorTransform
   - Avalonia.Visual.Bounds
   - Avalonia.Visual.ClipToBounds
@@ -469,11 +473,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/CommandTreeViewForm.axaml.cs
+      path: Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormInitialize
-    path: ../Tripous.Desktop/CommandTreeViewForm.axaml.cs
+    path: ../Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
     startLine: 114
   assemblies:
   - Tripous.Desktop
@@ -498,11 +502,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/CommandTreeViewForm.axaml.cs
+      path: Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Setup
-    path: ../Tripous.Desktop/CommandTreeViewForm.axaml.cs
+    path: ../Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
     startLine: 127
   assemblies:
   - Tripous.Desktop
@@ -531,11 +535,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/CommandTreeViewForm.axaml.cs
+      path: Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessKeyDown
-    path: ../Tripous.Desktop/CommandTreeViewForm.axaml.cs
+    path: ../Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
     startLine: 139
   assemblies:
   - Tripous.Desktop
@@ -571,11 +575,11 @@ items:
   type: Constructor
   source:
     remote:
-      path: Tripous.Desktop/CommandTreeViewForm.axaml.cs
+      path: Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Desktop/CommandTreeViewForm.axaml.cs
+    path: ../Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
     startLine: 149
   assemblies:
   - Tripous.Desktop
@@ -602,11 +606,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/CommandTreeViewForm.axaml.cs
+      path: Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateFormContext
-    path: ../Tripous.Desktop/CommandTreeViewForm.axaml.cs
+    path: ../Tripous.Desktop/Forms/CommandTreeViewForm.axaml.cs
     startLine: 160
   assemblies:
   - Tripous.Desktop
@@ -886,6 +890,13 @@ references:
   name: ISetterValue
   nameWithType: ISetterValue
   fullName: Avalonia.Styling.ISetterValue
+- uid: Tripous.IBroadcasterListener
+  commentId: T:Tripous.IBroadcasterListener
+  parent: Tripous
+  href: Tripous.IBroadcasterListener.html
+  name: IBroadcasterListener
+  nameWithType: IBroadcasterListener
+  fullName: Tripous.IBroadcasterListener
 - uid: Tripous.Desktop.AppForm.fTitleText
   commentId: F:Tripous.Desktop.AppForm.fTitleText
   parent: Tripous.Desktop.AppForm
@@ -1159,6 +1170,44 @@ references:
     href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ProcessEscapeKey
   - name: (
   - name: )
+- uid: Tripous.Desktop.AppForm.RegisterBroadcaster
+  commentId: M:Tripous.Desktop.AppForm.RegisterBroadcaster
+  parent: Tripous.Desktop.AppForm
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_RegisterBroadcaster
+  name: RegisterBroadcaster()
+  nameWithType: AppForm.RegisterBroadcaster()
+  fullName: Tripous.Desktop.AppForm.RegisterBroadcaster()
+  spec.csharp:
+  - uid: Tripous.Desktop.AppForm.RegisterBroadcaster
+    name: RegisterBroadcaster
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_RegisterBroadcaster
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.AppForm.RegisterBroadcaster
+    name: RegisterBroadcaster
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_RegisterBroadcaster
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.AppForm.UnregisterBroadcaster
+  commentId: M:Tripous.Desktop.AppForm.UnregisterBroadcaster
+  parent: Tripous.Desktop.AppForm
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_UnregisterBroadcaster
+  name: UnregisterBroadcaster()
+  nameWithType: AppForm.UnregisterBroadcaster()
+  fullName: Tripous.Desktop.AppForm.UnregisterBroadcaster()
+  spec.csharp:
+  - uid: Tripous.Desktop.AppForm.UnregisterBroadcaster
+    name: UnregisterBroadcaster
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_UnregisterBroadcaster
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.AppForm.UnregisterBroadcaster
+    name: UnregisterBroadcaster
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_UnregisterBroadcaster
+  - name: (
+  - name: )
 - uid: Tripous.Desktop.AppForm.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   commentId: M:Tripous.Desktop.AppForm.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   parent: Tripous.Desktop.AppForm
@@ -1180,6 +1229,32 @@ references:
   - uid: Tripous.Desktop.AppForm.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
     name: OnAttachedToVisualTree
     href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_OnAttachedToVisualTree_Avalonia_VisualTreeAttachmentEventArgs_
+  - name: (
+  - uid: Avalonia.VisualTreeAttachmentEventArgs
+    name: VisualTreeAttachmentEventArgs
+    isExternal: true
+  - name: )
+- uid: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  commentId: M:Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  parent: Tripous.Desktop.AppForm
+  isExternal: true
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_OnDetachedFromVisualTree_Avalonia_VisualTreeAttachmentEventArgs_
+  name: OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
+  nameWithType: AppForm.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
+  fullName: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  spec.csharp:
+  - uid: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+    name: OnDetachedFromVisualTree
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_OnDetachedFromVisualTree_Avalonia_VisualTreeAttachmentEventArgs_
+  - name: (
+  - uid: Avalonia.VisualTreeAttachmentEventArgs
+    name: VisualTreeAttachmentEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+    name: OnDetachedFromVisualTree
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_OnDetachedFromVisualTree_Avalonia_VisualTreeAttachmentEventArgs_
   - name: (
   - uid: Avalonia.VisualTreeAttachmentEventArgs
     name: VisualTreeAttachmentEventArgs
@@ -1209,6 +1284,29 @@ references:
   - uid: Tripous.Desktop.FormContext
     name: FormContext
     href: Tripous.Desktop.FormContext.html
+  - name: )
+- uid: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  commentId: M:Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  parent: Tripous.Desktop.AppForm
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  name: ProcessBroadcasterMessage(BroadcasterArgs)
+  nameWithType: AppForm.ProcessBroadcasterMessage(BroadcasterArgs)
+  fullName: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  spec.csharp:
+  - uid: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+    name: ProcessBroadcasterMessage
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  - name: (
+  - uid: Tripous.BroadcasterArgs
+    name: BroadcasterArgs
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+    name: ProcessBroadcasterMessage
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  - name: (
+  - uid: Tripous.BroadcasterArgs
+    name: BroadcasterArgs
   - name: )
 - uid: Tripous.Desktop.AppForm.SetAsSelectedForm
   commentId: M:Tripous.Desktop.AppForm.SetAsSelectedForm
@@ -4869,31 +4967,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.specialized.notifycollectionchangedeventargs
   - name: )
-- uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-  commentId: M:Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-  parent: Avalonia.Visual
-  isExternal: true
-  name: OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
-  nameWithType: Visual.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
-  fullName: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-    name: OnDetachedFromVisualTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.VisualTreeAttachmentEventArgs
-    name: VisualTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-    name: OnDetachedFromVisualTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.VisualTreeAttachmentEventArgs
-    name: VisualTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
 - uid: Avalonia.Visual.InvalidateMirrorTransform
   commentId: M:Avalonia.Visual.InvalidateMirrorTransform
   parent: Avalonia.Visual
@@ -7459,6 +7532,12 @@ references:
   - uid: Avalonia.Controls.Templates
     name: Templates
     isExternal: true
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
 - uid: Avalonia.Interactivity.Interactive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)
   commentId: M:Avalonia.Interactivity.Interactive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)
   isExternal: true
@@ -8692,12 +8771,6 @@ references:
   name: TypeExtensions
   nameWithType: TypeExtensions
   fullName: Tripous.TypeExtensions
-- uid: Tripous
-  commentId: N:Tripous
-  href: Tripous.html
-  name: Tripous
-  nameWithType: Tripous
-  fullName: Tripous
 - uid: Tripous.Desktop.AppForm.FormInitialize
   commentId: M:Tripous.Desktop.AppForm.FormInitialize
   parent: Tripous.Desktop.AppForm

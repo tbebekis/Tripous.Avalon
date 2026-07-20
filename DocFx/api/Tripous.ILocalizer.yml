@@ -6,6 +6,8 @@ items:
   parent: Tripous
   children:
   - Tripous.ILocalizer.GetText(System.String)
+  - Tripous.ILocalizer.GetText(System.String,System.String)
+  - Tripous.ILocalizer.GetText(System.String,System.String,System.String)
   langs:
   - csharp
   - vb
@@ -29,6 +31,8 @@ items:
   syntax:
     content: public interface ILocalizer
     content.vb: Public Interface ILocalizer
+  derivedClasses:
+  - Tripous.Data.SysStrResLocalizer
   extensionMethods:
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
 - uid: Tripous.ILocalizer.GetText(System.String)
@@ -67,6 +71,84 @@ items:
   nameWithType.vb: ILocalizer.GetText(String)
   fullName.vb: Tripous.ILocalizer.GetText(String)
   name.vb: GetText(String)
+- uid: Tripous.ILocalizer.GetText(System.String,System.String)
+  commentId: M:Tripous.ILocalizer.GetText(System.String,System.String)
+  id: GetText(System.String,System.String)
+  parent: Tripous.ILocalizer
+  langs:
+  - csharp
+  - vb
+  name: GetText(string, string)
+  nameWithType: ILocalizer.GetText(string, string)
+  fullName: Tripous.ILocalizer.GetText(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Localization/ILocalizer.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetText
+    path: ../Tripous/Localization/ILocalizer.cs
+    startLine: 23
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the localized text for the specified key.
+  example: []
+  syntax:
+    content: string GetText(string Key, string Default)
+    parameters:
+    - id: Key
+      type: System.String
+    - id: Default
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Function GetText(Key As String, [Default] As String) As String
+  overload: Tripous.ILocalizer.GetText*
+  nameWithType.vb: ILocalizer.GetText(String, String)
+  fullName.vb: Tripous.ILocalizer.GetText(String, String)
+  name.vb: GetText(String, String)
+- uid: Tripous.ILocalizer.GetText(System.String,System.String,System.String)
+  commentId: M:Tripous.ILocalizer.GetText(System.String,System.String,System.String)
+  id: GetText(System.String,System.String,System.String)
+  parent: Tripous.ILocalizer
+  langs:
+  - csharp
+  - vb
+  name: GetText(string, string, string)
+  nameWithType: ILocalizer.GetText(string, string, string)
+  fullName: Tripous.ILocalizer.GetText(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Localization/ILocalizer.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetText
+    path: ../Tripous/Localization/ILocalizer.cs
+    startLine: 27
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the localized text for the specified language and key.
+  example: []
+  syntax:
+    content: string GetText(string LangId, string Key, string Default)
+    parameters:
+    - id: LangId
+      type: System.String
+    - id: Key
+      type: System.String
+    - id: Default
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Function GetText(LangId As String, Key As String, [Default] As String) As String
+  overload: Tripous.ILocalizer.GetText*
+  nameWithType.vb: ILocalizer.GetText(String, String, String)
+  fullName.vb: Tripous.ILocalizer.GetText(String, String, String)
+  name.vb: GetText(String, String, String)
 references:
 - uid: Tripous
   commentId: N:Tripous

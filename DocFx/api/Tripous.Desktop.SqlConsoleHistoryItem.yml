@@ -1,0 +1,691 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.SqlConsoleHistoryItem
+  commentId: T:Tripous.Desktop.SqlConsoleHistoryItem
+  id: SqlConsoleHistoryItem
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.SqlConsoleHistoryItem.#ctor(System.String)
+  - Tripous.Desktop.SqlConsoleHistoryItem.SqlStatements
+  - Tripous.Desktop.SqlConsoleHistoryItem.SqlText
+  - Tripous.Desktop.SqlConsoleHistoryItem.StatementNames
+  langs:
+  - csharp
+  - vb
+  name: SqlConsoleHistoryItem
+  nameWithType: SqlConsoleHistoryItem
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlConsoleHistoryItem
+    path: ../Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Represents an SQL text entry in the SQL console history.
+  example: []
+  syntax:
+    content: public class SqlConsoleHistoryItem
+    content.vb: Public Class SqlConsoleHistoryItem
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.SqlConsoleHistoryItem.#ctor(System.String)
+  commentId: M:Tripous.Desktop.SqlConsoleHistoryItem.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Tripous.Desktop.SqlConsoleHistoryItem
+  langs:
+  - csharp
+  - vb
+  name: SqlConsoleHistoryItem(string)
+  nameWithType: SqlConsoleHistoryItem.SqlConsoleHistoryItem(string)
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem.SqlConsoleHistoryItem(string)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+    startLine: 60
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public SqlConsoleHistoryItem(string SqlText)
+    parameters:
+    - id: SqlText
+      type: System.String
+      description: The SQL text.
+    content.vb: Public Sub New(SqlText As String)
+  overload: Tripous.Desktop.SqlConsoleHistoryItem.#ctor*
+  nameWithType.vb: SqlConsoleHistoryItem.New(String)
+  fullName.vb: Tripous.Desktop.SqlConsoleHistoryItem.New(String)
+  name.vb: New(String)
+- uid: Tripous.Desktop.SqlConsoleHistoryItem.SqlText
+  commentId: P:Tripous.Desktop.SqlConsoleHistoryItem.SqlText
+  id: SqlText
+  parent: Tripous.Desktop.SqlConsoleHistoryItem
+  langs:
+  - csharp
+  - vb
+  name: SqlText
+  nameWithType: SqlConsoleHistoryItem.SqlText
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem.SqlText
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlText
+    path: ../Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the original SQL text.
+  example: []
+  syntax:
+    content: public string SqlText { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property SqlText As String
+  overload: Tripous.Desktop.SqlConsoleHistoryItem.SqlText*
+- uid: Tripous.Desktop.SqlConsoleHistoryItem.SqlStatements
+  commentId: P:Tripous.Desktop.SqlConsoleHistoryItem.SqlStatements
+  id: SqlStatements
+  parent: Tripous.Desktop.SqlConsoleHistoryItem
+  langs:
+  - csharp
+  - vb
+  name: SqlStatements
+  nameWithType: SqlConsoleHistoryItem.SqlStatements
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem.SqlStatements
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlStatements
+    path: ../Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the parsed SQL statements.
+  example: []
+  syntax:
+    content: public IReadOnlyList<SqlConsoleStatementItem> SqlStatements { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Tripous.Desktop.SqlConsoleStatementItem}
+    content.vb: Public ReadOnly Property SqlStatements As IReadOnlyList(Of SqlConsoleStatementItem)
+  overload: Tripous.Desktop.SqlConsoleHistoryItem.SqlStatements*
+- uid: Tripous.Desktop.SqlConsoleHistoryItem.StatementNames
+  commentId: P:Tripous.Desktop.SqlConsoleHistoryItem.StatementNames
+  id: StatementNames
+  parent: Tripous.Desktop.SqlConsoleHistoryItem
+  langs:
+  - csharp
+  - vb
+  name: StatementNames
+  nameWithType: SqlConsoleHistoryItem.StatementNames
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem.StatementNames
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StatementNames
+    path: ../Tripous.Desktop/Forms/Database/SqlConsoleHistoryItem.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the known statement names.
+  example: []
+  syntax:
+    content: public static string[] StatementNames { get; }
+    parameters: []
+    return:
+      type: System.String[]
+    content.vb: Public Shared ReadOnly Property StatementNames As String()
+  overload: Tripous.Desktop.SqlConsoleHistoryItem.StatementNames*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.SqlConsoleHistoryItem.#ctor*
+  commentId: Overload:Tripous.Desktop.SqlConsoleHistoryItem.#ctor
+  href: Tripous.Desktop.SqlConsoleHistoryItem.html#Tripous_Desktop_SqlConsoleHistoryItem__ctor_System_String_
+  name: SqlConsoleHistoryItem
+  nameWithType: SqlConsoleHistoryItem.SqlConsoleHistoryItem
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem.SqlConsoleHistoryItem
+  nameWithType.vb: SqlConsoleHistoryItem.New
+  fullName.vb: Tripous.Desktop.SqlConsoleHistoryItem.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Desktop.SqlConsoleHistoryItem.SqlText*
+  commentId: Overload:Tripous.Desktop.SqlConsoleHistoryItem.SqlText
+  href: Tripous.Desktop.SqlConsoleHistoryItem.html#Tripous_Desktop_SqlConsoleHistoryItem_SqlText
+  name: SqlText
+  nameWithType: SqlConsoleHistoryItem.SqlText
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem.SqlText
+- uid: Tripous.Desktop.SqlConsoleHistoryItem.SqlStatements*
+  commentId: Overload:Tripous.Desktop.SqlConsoleHistoryItem.SqlStatements
+  href: Tripous.Desktop.SqlConsoleHistoryItem.html#Tripous_Desktop_SqlConsoleHistoryItem_SqlStatements
+  name: SqlStatements
+  nameWithType: SqlConsoleHistoryItem.SqlStatements
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem.SqlStatements
+- uid: System.Collections.Generic.IReadOnlyList{Tripous.Desktop.SqlConsoleStatementItem}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Tripous.Desktop.SqlConsoleStatementItem}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<SqlConsoleStatementItem>
+  nameWithType: IReadOnlyList<SqlConsoleStatementItem>
+  fullName: System.Collections.Generic.IReadOnlyList<Tripous.Desktop.SqlConsoleStatementItem>
+  nameWithType.vb: IReadOnlyList(Of SqlConsoleStatementItem)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Tripous.Desktop.SqlConsoleStatementItem)
+  name.vb: IReadOnlyList(Of SqlConsoleStatementItem)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Tripous.Desktop.SqlConsoleStatementItem
+    name: SqlConsoleStatementItem
+    href: Tripous.Desktop.SqlConsoleStatementItem.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.SqlConsoleStatementItem
+    name: SqlConsoleStatementItem
+    href: Tripous.Desktop.SqlConsoleStatementItem.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Desktop.SqlConsoleHistoryItem.StatementNames*
+  commentId: Overload:Tripous.Desktop.SqlConsoleHistoryItem.StatementNames
+  href: Tripous.Desktop.SqlConsoleHistoryItem.html#Tripous_Desktop_SqlConsoleHistoryItem_StatementNames
+  name: StatementNames
+  nameWithType: SqlConsoleHistoryItem.StatementNames
+  fullName: Tripous.Desktop.SqlConsoleHistoryItem.StatementNames
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )

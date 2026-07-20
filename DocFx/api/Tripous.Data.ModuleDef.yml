@@ -13,6 +13,7 @@ items:
   - Tripous.Data.ModuleDef.Create(System.Boolean)
   - Tripous.Data.ModuleDef.Description
   - Tripous.Data.ModuleDef.DetailOrder
+  - Tripous.Data.ModuleDef.FactBoxes
   - Tripous.Data.ModuleDef.GetTables
   - Tripous.Data.ModuleDef.Group
   - Tripous.Data.ModuleDef.GuidOids
@@ -99,7 +100,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Create
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 68
+    startLine: 69
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -135,7 +136,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckDescriptor
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 79
+    startLine: 80
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -164,7 +165,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UpdateReferences
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 92
+    startLine: 93
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -193,7 +194,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetTables
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 106
+    startLine: 107
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -223,7 +224,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanAccess
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 130
+    startLine: 131
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -256,7 +257,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Group
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 140
+    startLine: 141
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -287,7 +288,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClassName
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 154
+    startLine: 155
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -332,7 +333,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConnectionName
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 162
+    startLine: 163
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -363,7 +364,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Description
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 170
+    startLine: 171
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -394,7 +395,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSingleSelect
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 178
+    startLine: 179
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -425,7 +426,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UseFilters
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 186
+    startLine: 187
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -456,7 +457,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SecurityLevel
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 194
+    startLine: 195
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -487,7 +488,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GuidOids
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 202
+    startLine: 203
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -518,7 +519,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CascadeDeletes
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 212
+    startLine: 213
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -554,7 +555,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemCaptionField
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 219
+    startLine: 220
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -585,7 +586,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailOrder
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 227
+    startLine: 228
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -598,6 +599,37 @@ items:
       type: System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}}
     content.vb: Public Property DetailOrder As Dictionary(Of String, List(Of String))
   overload: Tripous.Data.ModuleDef.DetailOrder*
+- uid: Tripous.Data.ModuleDef.FactBoxes
+  commentId: P:Tripous.Data.ModuleDef.FactBoxes
+  id: FactBoxes
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: FactBoxes
+  nameWithType: ModuleDef.FactBoxes
+  fullName: Tripous.Data.ModuleDef.FactBoxes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FactBoxes
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 236
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: FactBox definitions displayed by item pages for this module.
+  example: []
+  syntax:
+    content: public DefList<ItemFactBoxDef> FactBoxes { get; set; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.ItemFactBoxDef}
+    content.vb: Public Property FactBoxes As DefList(Of ItemFactBoxDef)
+  overload: Tripous.Data.ModuleDef.FactBoxes*
 - uid: Tripous.Data.ModuleDef.Table
   commentId: P:Tripous.Data.ModuleDef.Table
   id: Table
@@ -616,7 +648,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Table
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 237
+    startLine: 246
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -647,7 +679,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectList
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 245
+    startLine: 254
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -678,7 +710,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Stocks
     path: ../Tripous.Data/Registry/ModuleDef.cs
-    startLine: 254
+    startLine: 263
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1734,6 +1766,66 @@ references:
   - name: ','
   - name: " "
   - name: TValue
+  - name: )
+- uid: Tripous.Data.ModuleDef.FactBoxes*
+  commentId: Overload:Tripous.Data.ModuleDef.FactBoxes
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_FactBoxes
+  name: FactBoxes
+  nameWithType: ModuleDef.FactBoxes
+  fullName: Tripous.Data.ModuleDef.FactBoxes
+- uid: Tripous.DefList{Tripous.Data.ItemFactBoxDef}
+  commentId: T:Tripous.DefList{Tripous.Data.ItemFactBoxDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.ItemFactBoxDef.html
+  name: DefList<ItemFactBoxDef>
+  nameWithType: DefList<ItemFactBoxDef>
+  fullName: Tripous.DefList<Tripous.Data.ItemFactBoxDef>
+  nameWithType.vb: DefList(Of ItemFactBoxDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.ItemFactBoxDef)
+  name.vb: DefList(Of ItemFactBoxDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.ItemFactBoxDef
+    name: ItemFactBoxDef
+    href: Tripous.Data.ItemFactBoxDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ItemFactBoxDef
+    name: ItemFactBoxDef
+    href: Tripous.Data.ItemFactBoxDef.html
+  - name: )
+- uid: Tripous.DefList`1
+  commentId: T:Tripous.DefList`1
+  href: Tripous.DefList-1.html
+  name: DefList<T>
+  nameWithType: DefList<T>
+  fullName: Tripous.DefList<T>
+  nameWithType.vb: DefList(Of T)
+  fullName.vb: Tripous.DefList(Of T)
+  name.vb: DefList(Of T)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
   - name: )
 - uid: Tripous.Data.ModuleDef.Table*
   commentId: Overload:Tripous.Data.ModuleDef.Table

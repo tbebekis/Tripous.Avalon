@@ -1,0 +1,1011 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.PivotGridExportSnapshot
+  commentId: T:Avalonia.Controls.PivotGridExportSnapshot
+  id: PivotGridExportSnapshot
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.PivotGridExportSnapshot.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportMeasure},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportValueColumn},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportRow})
+  - Avalonia.Controls.PivotGridExportSnapshot.ColumnFields
+  - Avalonia.Controls.PivotGridExportSnapshot.Measures
+  - Avalonia.Controls.PivotGridExportSnapshot.RowFields
+  - Avalonia.Controls.PivotGridExportSnapshot.Rows
+  - Avalonia.Controls.PivotGridExportSnapshot.ValueColumns
+  langs:
+  - csharp
+  - vb
+  name: PivotGridExportSnapshot
+  nameWithType: PivotGridExportSnapshot
+  fullName: Avalonia.Controls.PivotGridExportSnapshot
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PivotGridExportSnapshot
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Contains the current pivot grid projection prepared for export.
+  example: []
+  syntax:
+    content: public class PivotGridExportSnapshot
+    content.vb: Public Class PivotGridExportSnapshot
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.PivotGridExportSnapshot.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportMeasure},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportValueColumn},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportRow})
+  commentId: M:Avalonia.Controls.PivotGridExportSnapshot.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportMeasure},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportValueColumn},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportRow})
+  id: '#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportMeasure},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportValueColumn},System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportRow})'
+  parent: Avalonia.Controls.PivotGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: PivotGridExportSnapshot(IEnumerable<PivotGridExportField>, IEnumerable<PivotGridExportField>, IEnumerable<PivotGridExportMeasure>, IEnumerable<PivotGridExportValueColumn>, IEnumerable<PivotGridExportRow>)
+  nameWithType: PivotGridExportSnapshot.PivotGridExportSnapshot(IEnumerable<PivotGridExportField>, IEnumerable<PivotGridExportField>, IEnumerable<PivotGridExportMeasure>, IEnumerable<PivotGridExportValueColumn>, IEnumerable<PivotGridExportRow>)
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.PivotGridExportSnapshot(System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridExportField>, System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridExportField>, System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridExportMeasure>, System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridExportValueColumn>, System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridExportRow>)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.PivotGridExportSnapshot" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public PivotGridExportSnapshot(IEnumerable<PivotGridExportField> RowFields, IEnumerable<PivotGridExportField> ColumnFields, IEnumerable<PivotGridExportMeasure> Measures, IEnumerable<PivotGridExportValueColumn> ValueColumns, IEnumerable<PivotGridExportRow> Rows)
+    parameters:
+    - id: RowFields
+      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField}
+      description: The exported row-axis fields.
+    - id: ColumnFields
+      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField}
+      description: The exported column-axis fields.
+    - id: Measures
+      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportMeasure}
+      description: The exported measures.
+    - id: ValueColumns
+      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportValueColumn}
+      description: The exported value columns.
+    - id: Rows
+      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportRow}
+      description: The exported rows.
+    content.vb: Public Sub New(RowFields As IEnumerable(Of PivotGridExportField), ColumnFields As IEnumerable(Of PivotGridExportField), Measures As IEnumerable(Of PivotGridExportMeasure), ValueColumns As IEnumerable(Of PivotGridExportValueColumn), Rows As IEnumerable(Of PivotGridExportRow))
+  overload: Avalonia.Controls.PivotGridExportSnapshot.#ctor*
+  nameWithType.vb: PivotGridExportSnapshot.New(IEnumerable(Of PivotGridExportField), IEnumerable(Of PivotGridExportField), IEnumerable(Of PivotGridExportMeasure), IEnumerable(Of PivotGridExportValueColumn), IEnumerable(Of PivotGridExportRow))
+  fullName.vb: Avalonia.Controls.PivotGridExportSnapshot.New(System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridExportField), System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridExportField), System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridExportMeasure), System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridExportValueColumn), System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridExportRow))
+  name.vb: New(IEnumerable(Of PivotGridExportField), IEnumerable(Of PivotGridExportField), IEnumerable(Of PivotGridExportMeasure), IEnumerable(Of PivotGridExportValueColumn), IEnumerable(Of PivotGridExportRow))
+- uid: Avalonia.Controls.PivotGridExportSnapshot.RowFields
+  commentId: P:Avalonia.Controls.PivotGridExportSnapshot.RowFields
+  id: RowFields
+  parent: Avalonia.Controls.PivotGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: RowFields
+  nameWithType: PivotGridExportSnapshot.RowFields
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.RowFields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowFields
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+    startLine: 32
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the exported row-axis fields.
+  example: []
+  syntax:
+    content: public IReadOnlyList<PivotGridExportField> RowFields { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportField}
+    content.vb: Public ReadOnly Property RowFields As IReadOnlyList(Of PivotGridExportField)
+  overload: Avalonia.Controls.PivotGridExportSnapshot.RowFields*
+- uid: Avalonia.Controls.PivotGridExportSnapshot.ColumnFields
+  commentId: P:Avalonia.Controls.PivotGridExportSnapshot.ColumnFields
+  id: ColumnFields
+  parent: Avalonia.Controls.PivotGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: ColumnFields
+  nameWithType: PivotGridExportSnapshot.ColumnFields
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.ColumnFields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnFields
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+    startLine: 36
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the exported column-axis fields.
+  example: []
+  syntax:
+    content: public IReadOnlyList<PivotGridExportField> ColumnFields { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportField}
+    content.vb: Public ReadOnly Property ColumnFields As IReadOnlyList(Of PivotGridExportField)
+  overload: Avalonia.Controls.PivotGridExportSnapshot.ColumnFields*
+- uid: Avalonia.Controls.PivotGridExportSnapshot.Measures
+  commentId: P:Avalonia.Controls.PivotGridExportSnapshot.Measures
+  id: Measures
+  parent: Avalonia.Controls.PivotGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: Measures
+  nameWithType: PivotGridExportSnapshot.Measures
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.Measures
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Measures
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+    startLine: 40
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the exported measures.
+  example: []
+  syntax:
+    content: public IReadOnlyList<PivotGridExportMeasure> Measures { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportMeasure}
+    content.vb: Public ReadOnly Property Measures As IReadOnlyList(Of PivotGridExportMeasure)
+  overload: Avalonia.Controls.PivotGridExportSnapshot.Measures*
+- uid: Avalonia.Controls.PivotGridExportSnapshot.ValueColumns
+  commentId: P:Avalonia.Controls.PivotGridExportSnapshot.ValueColumns
+  id: ValueColumns
+  parent: Avalonia.Controls.PivotGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: ValueColumns
+  nameWithType: PivotGridExportSnapshot.ValueColumns
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.ValueColumns
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ValueColumns
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+    startLine: 44
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the exported value columns.
+  example: []
+  syntax:
+    content: public IReadOnlyList<PivotGridExportValueColumn> ValueColumns { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportValueColumn}
+    content.vb: Public ReadOnly Property ValueColumns As IReadOnlyList(Of PivotGridExportValueColumn)
+  overload: Avalonia.Controls.PivotGridExportSnapshot.ValueColumns*
+- uid: Avalonia.Controls.PivotGridExportSnapshot.Rows
+  commentId: P:Avalonia.Controls.PivotGridExportSnapshot.Rows
+  id: Rows
+  parent: Avalonia.Controls.PivotGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: Rows
+  nameWithType: PivotGridExportSnapshot.Rows
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.Rows
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Rows
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridExportSnapshot.cs
+    startLine: 48
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the exported rows.
+  example: []
+  syntax:
+    content: public IReadOnlyList<PivotGridExportRow> Rows { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportRow}
+    content.vb: Public ReadOnly Property Rows As IReadOnlyList(Of PivotGridExportRow)
+  overload: Avalonia.Controls.PivotGridExportSnapshot.Rows*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.PivotGridExportSnapshot
+  commentId: T:Avalonia.Controls.PivotGridExportSnapshot
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridExportSnapshot.html
+  name: PivotGridExportSnapshot
+  nameWithType: PivotGridExportSnapshot
+  fullName: Avalonia.Controls.PivotGridExportSnapshot
+- uid: Avalonia.Controls.PivotGridExportSnapshot.#ctor*
+  commentId: Overload:Avalonia.Controls.PivotGridExportSnapshot.#ctor
+  href: Avalonia.Controls.PivotGridExportSnapshot.html#Avalonia_Controls_PivotGridExportSnapshot__ctor_System_Collections_Generic_IEnumerable_Avalonia_Controls_PivotGridExportField__System_Collections_Generic_IEnumerable_Avalonia_Controls_PivotGridExportField__System_Collections_Generic_IEnumerable_Avalonia_Controls_PivotGridExportMeasure__System_Collections_Generic_IEnumerable_Avalonia_Controls_PivotGridExportValueColumn__System_Collections_Generic_IEnumerable_Avalonia_Controls_PivotGridExportRow__
+  name: PivotGridExportSnapshot
+  nameWithType: PivotGridExportSnapshot.PivotGridExportSnapshot
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.PivotGridExportSnapshot
+  nameWithType.vb: PivotGridExportSnapshot.New
+  fullName.vb: Avalonia.Controls.PivotGridExportSnapshot.New
+  name.vb: New
+- uid: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField}
+  commentId: T:System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportField}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<PivotGridExportField>
+  nameWithType: IEnumerable<PivotGridExportField>
+  fullName: System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridExportField>
+  nameWithType.vb: IEnumerable(Of PivotGridExportField)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridExportField)
+  name.vb: IEnumerable(Of PivotGridExportField)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridExportField
+    name: PivotGridExportField
+    href: Avalonia.Controls.PivotGridExportField.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridExportField
+    name: PivotGridExportField
+    href: Avalonia.Controls.PivotGridExportField.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportMeasure}
+  commentId: T:System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportMeasure}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<PivotGridExportMeasure>
+  nameWithType: IEnumerable<PivotGridExportMeasure>
+  fullName: System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridExportMeasure>
+  nameWithType.vb: IEnumerable(Of PivotGridExportMeasure)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridExportMeasure)
+  name.vb: IEnumerable(Of PivotGridExportMeasure)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridExportMeasure
+    name: PivotGridExportMeasure
+    href: Avalonia.Controls.PivotGridExportMeasure.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridExportMeasure
+    name: PivotGridExportMeasure
+    href: Avalonia.Controls.PivotGridExportMeasure.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportValueColumn}
+  commentId: T:System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportValueColumn}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<PivotGridExportValueColumn>
+  nameWithType: IEnumerable<PivotGridExportValueColumn>
+  fullName: System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridExportValueColumn>
+  nameWithType.vb: IEnumerable(Of PivotGridExportValueColumn)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridExportValueColumn)
+  name.vb: IEnumerable(Of PivotGridExportValueColumn)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridExportValueColumn
+    name: PivotGridExportValueColumn
+    href: Avalonia.Controls.PivotGridExportValueColumn.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridExportValueColumn
+    name: PivotGridExportValueColumn
+    href: Avalonia.Controls.PivotGridExportValueColumn.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportRow}
+  commentId: T:System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridExportRow}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<PivotGridExportRow>
+  nameWithType: IEnumerable<PivotGridExportRow>
+  fullName: System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridExportRow>
+  nameWithType.vb: IEnumerable(Of PivotGridExportRow)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridExportRow)
+  name.vb: IEnumerable(Of PivotGridExportRow)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridExportRow
+    name: PivotGridExportRow
+    href: Avalonia.Controls.PivotGridExportRow.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridExportRow
+    name: PivotGridExportRow
+    href: Avalonia.Controls.PivotGridExportRow.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Avalonia.Controls.PivotGridExportSnapshot.RowFields*
+  commentId: Overload:Avalonia.Controls.PivotGridExportSnapshot.RowFields
+  href: Avalonia.Controls.PivotGridExportSnapshot.html#Avalonia_Controls_PivotGridExportSnapshot_RowFields
+  name: RowFields
+  nameWithType: PivotGridExportSnapshot.RowFields
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.RowFields
+- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportField}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportField}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<PivotGridExportField>
+  nameWithType: IReadOnlyList<PivotGridExportField>
+  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.PivotGridExportField>
+  nameWithType.vb: IReadOnlyList(Of PivotGridExportField)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.PivotGridExportField)
+  name.vb: IReadOnlyList(Of PivotGridExportField)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridExportField
+    name: PivotGridExportField
+    href: Avalonia.Controls.PivotGridExportField.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridExportField
+    name: PivotGridExportField
+    href: Avalonia.Controls.PivotGridExportField.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Avalonia.Controls.PivotGridExportSnapshot.ColumnFields*
+  commentId: Overload:Avalonia.Controls.PivotGridExportSnapshot.ColumnFields
+  href: Avalonia.Controls.PivotGridExportSnapshot.html#Avalonia_Controls_PivotGridExportSnapshot_ColumnFields
+  name: ColumnFields
+  nameWithType: PivotGridExportSnapshot.ColumnFields
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.ColumnFields
+- uid: Avalonia.Controls.PivotGridExportSnapshot.Measures*
+  commentId: Overload:Avalonia.Controls.PivotGridExportSnapshot.Measures
+  href: Avalonia.Controls.PivotGridExportSnapshot.html#Avalonia_Controls_PivotGridExportSnapshot_Measures
+  name: Measures
+  nameWithType: PivotGridExportSnapshot.Measures
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.Measures
+- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportMeasure}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportMeasure}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<PivotGridExportMeasure>
+  nameWithType: IReadOnlyList<PivotGridExportMeasure>
+  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.PivotGridExportMeasure>
+  nameWithType.vb: IReadOnlyList(Of PivotGridExportMeasure)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.PivotGridExportMeasure)
+  name.vb: IReadOnlyList(Of PivotGridExportMeasure)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridExportMeasure
+    name: PivotGridExportMeasure
+    href: Avalonia.Controls.PivotGridExportMeasure.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridExportMeasure
+    name: PivotGridExportMeasure
+    href: Avalonia.Controls.PivotGridExportMeasure.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridExportSnapshot.ValueColumns*
+  commentId: Overload:Avalonia.Controls.PivotGridExportSnapshot.ValueColumns
+  href: Avalonia.Controls.PivotGridExportSnapshot.html#Avalonia_Controls_PivotGridExportSnapshot_ValueColumns
+  name: ValueColumns
+  nameWithType: PivotGridExportSnapshot.ValueColumns
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.ValueColumns
+- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportValueColumn}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportValueColumn}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<PivotGridExportValueColumn>
+  nameWithType: IReadOnlyList<PivotGridExportValueColumn>
+  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.PivotGridExportValueColumn>
+  nameWithType.vb: IReadOnlyList(Of PivotGridExportValueColumn)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.PivotGridExportValueColumn)
+  name.vb: IReadOnlyList(Of PivotGridExportValueColumn)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridExportValueColumn
+    name: PivotGridExportValueColumn
+    href: Avalonia.Controls.PivotGridExportValueColumn.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridExportValueColumn
+    name: PivotGridExportValueColumn
+    href: Avalonia.Controls.PivotGridExportValueColumn.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridExportSnapshot.Rows*
+  commentId: Overload:Avalonia.Controls.PivotGridExportSnapshot.Rows
+  href: Avalonia.Controls.PivotGridExportSnapshot.html#Avalonia_Controls_PivotGridExportSnapshot_Rows
+  name: Rows
+  nameWithType: PivotGridExportSnapshot.Rows
+  fullName: Avalonia.Controls.PivotGridExportSnapshot.Rows
+- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportRow}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridExportRow}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<PivotGridExportRow>
+  nameWithType: IReadOnlyList<PivotGridExportRow>
+  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.PivotGridExportRow>
+  nameWithType.vb: IReadOnlyList(Of PivotGridExportRow)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.PivotGridExportRow)
+  name.vb: IReadOnlyList(Of PivotGridExportRow)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridExportRow
+    name: PivotGridExportRow
+    href: Avalonia.Controls.PivotGridExportRow.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridExportRow
+    name: PivotGridExportRow
+    href: Avalonia.Controls.PivotGridExportRow.html
+  - name: )

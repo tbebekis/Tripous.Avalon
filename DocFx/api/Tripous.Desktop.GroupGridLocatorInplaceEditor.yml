@@ -5,7 +5,7 @@ items:
   id: GroupGridLocatorInplaceEditor
   parent: Tripous.Desktop
   children:
-  - Tripous.Desktop.GroupGridLocatorInplaceEditor.#ctor(Tripous.Data.LocatorDef,System.String,System.Data.DataRowView)
+  - Tripous.Desktop.GroupGridLocatorInplaceEditor.#ctor(Tripous.Data.LocatorDef,System.String,System.Data.DataRowView,Tripous.Desktop.ReferenceContextMenu)
   - Tripous.Desktop.GroupGridLocatorInplaceEditor.Cleanup
   - Tripous.Desktop.GroupGridLocatorInplaceEditor.CreateDropDownControl
   - Tripous.Desktop.GroupGridLocatorInplaceEditor.DropDownHeight
@@ -447,7 +447,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToggleDropDown
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 256
+    startLine: 257
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -476,7 +476,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetDropDownSelectedValue
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 261
+    startLine: 262
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -490,16 +490,16 @@ items:
     content.vb: Protected Overrides Function GetDropDownSelectedValue() As Object
   overridden: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.GetDropDownSelectedValue
   overload: Tripous.Desktop.GroupGridLocatorInplaceEditor.GetDropDownSelectedValue*
-- uid: Tripous.Desktop.GroupGridLocatorInplaceEditor.#ctor(Tripous.Data.LocatorDef,System.String,System.Data.DataRowView)
-  commentId: M:Tripous.Desktop.GroupGridLocatorInplaceEditor.#ctor(Tripous.Data.LocatorDef,System.String,System.Data.DataRowView)
-  id: '#ctor(Tripous.Data.LocatorDef,System.String,System.Data.DataRowView)'
+- uid: Tripous.Desktop.GroupGridLocatorInplaceEditor.#ctor(Tripous.Data.LocatorDef,System.String,System.Data.DataRowView,Tripous.Desktop.ReferenceContextMenu)
+  commentId: M:Tripous.Desktop.GroupGridLocatorInplaceEditor.#ctor(Tripous.Data.LocatorDef,System.String,System.Data.DataRowView,Tripous.Desktop.ReferenceContextMenu)
+  id: '#ctor(Tripous.Data.LocatorDef,System.String,System.Data.DataRowView,Tripous.Desktop.ReferenceContextMenu)'
   parent: Tripous.Desktop.GroupGridLocatorInplaceEditor
   langs:
   - csharp
   - vb
-  name: GroupGridLocatorInplaceEditor(LocatorDef, string, DataRowView)
-  nameWithType: GroupGridLocatorInplaceEditor.GroupGridLocatorInplaceEditor(LocatorDef, string, DataRowView)
-  fullName: Tripous.Desktop.GroupGridLocatorInplaceEditor.GroupGridLocatorInplaceEditor(Tripous.Data.LocatorDef, string, System.Data.DataRowView)
+  name: GroupGridLocatorInplaceEditor(LocatorDef, string, DataRowView, ReferenceContextMenu)
+  nameWithType: GroupGridLocatorInplaceEditor.GroupGridLocatorInplaceEditor(LocatorDef, string, DataRowView, ReferenceContextMenu)
+  fullName: Tripous.Desktop.GroupGridLocatorInplaceEditor.GroupGridLocatorInplaceEditor(Tripous.Data.LocatorDef, string, System.Data.DataRowView, Tripous.Desktop.ReferenceContextMenu)
   type: Constructor
   source:
     remote:
@@ -508,14 +508,14 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 270
+    startLine: 271
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: Constructor.
   example: []
   syntax:
-    content: public GroupGridLocatorInplaceEditor(LocatorDef LocatorDef, string SearchField, DataRowView TargetRowView)
+    content: public GroupGridLocatorInplaceEditor(LocatorDef LocatorDef, string SearchField, DataRowView TargetRowView, ReferenceContextMenu ReferenceContextMenu = null)
     parameters:
     - id: LocatorDef
       type: Tripous.Data.LocatorDef
@@ -523,11 +523,13 @@ items:
       type: System.String
     - id: TargetRowView
       type: System.Data.DataRowView
-    content.vb: Public Sub New(LocatorDef As LocatorDef, SearchField As String, TargetRowView As DataRowView)
+    - id: ReferenceContextMenu
+      type: Tripous.Desktop.ReferenceContextMenu
+    content.vb: Public Sub New(LocatorDef As LocatorDef, SearchField As String, TargetRowView As DataRowView, ReferenceContextMenu As ReferenceContextMenu = Nothing)
   overload: Tripous.Desktop.GroupGridLocatorInplaceEditor.#ctor*
-  nameWithType.vb: GroupGridLocatorInplaceEditor.New(LocatorDef, String, DataRowView)
-  fullName.vb: Tripous.Desktop.GroupGridLocatorInplaceEditor.New(Tripous.Data.LocatorDef, String, System.Data.DataRowView)
-  name.vb: New(LocatorDef, String, DataRowView)
+  nameWithType.vb: GroupGridLocatorInplaceEditor.New(LocatorDef, String, DataRowView, ReferenceContextMenu)
+  fullName.vb: Tripous.Desktop.GroupGridLocatorInplaceEditor.New(Tripous.Data.LocatorDef, String, System.Data.DataRowView, Tripous.Desktop.ReferenceContextMenu)
+  name.vb: New(LocatorDef, String, DataRowView, ReferenceContextMenu)
 - uid: Tripous.Desktop.GroupGridLocatorInplaceEditor.Cleanup
   commentId: M:Tripous.Desktop.GroupGridLocatorInplaceEditor.Cleanup
   id: Cleanup
@@ -546,7 +548,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Cleanup
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 284
+    startLine: 286
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -575,7 +577,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectDropDownItem
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 290
+    startLine: 292
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -611,7 +613,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDropDownControl
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 296
+    startLine: 298
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -643,7 +645,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DropDownOpened
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 302
+    startLine: 304
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -676,7 +678,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Value
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 321
+    startLine: 323
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -708,7 +710,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DropDownHeight
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 336
+    startLine: 338
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -740,7 +742,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DropDownWidth
     path: ../Tripous.Desktop/Locator/GroupGridLocatorInplaceEditor.cs
-    startLine: 338
+    startLine: 340
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -8375,7 +8377,7 @@ references:
   fullName: Tripous.Desktop.GroupGridLocatorInplaceEditor.GetDropDownSelectedValue
 - uid: Tripous.Desktop.GroupGridLocatorInplaceEditor.#ctor*
   commentId: Overload:Tripous.Desktop.GroupGridLocatorInplaceEditor.#ctor
-  href: Tripous.Desktop.GroupGridLocatorInplaceEditor.html#Tripous_Desktop_GroupGridLocatorInplaceEditor__ctor_Tripous_Data_LocatorDef_System_String_System_Data_DataRowView_
+  href: Tripous.Desktop.GroupGridLocatorInplaceEditor.html#Tripous_Desktop_GroupGridLocatorInplaceEditor__ctor_Tripous_Data_LocatorDef_System_String_System_Data_DataRowView_Tripous_Desktop_ReferenceContextMenu_
   name: GroupGridLocatorInplaceEditor
   nameWithType: GroupGridLocatorInplaceEditor.GroupGridLocatorInplaceEditor
   fullName: Tripous.Desktop.GroupGridLocatorInplaceEditor.GroupGridLocatorInplaceEditor
@@ -8408,6 +8410,13 @@ references:
   name: DataRowView
   nameWithType: DataRowView
   fullName: System.Data.DataRowView
+- uid: Tripous.Desktop.ReferenceContextMenu
+  commentId: T:Tripous.Desktop.ReferenceContextMenu
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ReferenceContextMenu.html
+  name: ReferenceContextMenu
+  nameWithType: ReferenceContextMenu
+  fullName: Tripous.Desktop.ReferenceContextMenu
 - uid: Tripous.Data
   commentId: N:Tripous.Data
   href: Tripous.html

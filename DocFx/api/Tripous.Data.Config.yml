@@ -13,6 +13,9 @@ items:
   - Tripous.Data.Config.GetValue(System.String,Tripous.Data.ConfigScope,System.String)
   - Tripous.Data.Config.Module
   - Tripous.Data.Config.SSelectListRowLimit
+  - Tripous.Data.Config.SShowDataFormFactBoxPane
+  - Tripous.Data.Config.SShowWarningOnExecStatements
+  - Tripous.Data.Config.SSysStrResAutoInsertMissingKeys
   - Tripous.Data.Config.SetUserValue(System.String,System.String)
   - Tripous.Data.Config.SetValue(System.String,System.String,Tripous.Data.ConfigScope,System.String)
   - Tripous.Data.Config.Store
@@ -112,6 +115,93 @@ items:
     return:
       type: System.String
     content.vb: Public Const SSelectListRowLimit As String = "SelectListRowLimit"
+- uid: Tripous.Data.Config.SShowDataFormFactBoxPane
+  commentId: F:Tripous.Data.Config.SShowDataFormFactBoxPane
+  id: SShowDataFormFactBoxPane
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: SShowDataFormFactBoxPane
+  nameWithType: Config.SShowDataFormFactBoxPane
+  fullName: Tripous.Data.Config.SShowDataFormFactBoxPane
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SShowDataFormFactBoxPane
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 216
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The configuration property name used to enable the DataForm FactBox pane.
+  example: []
+  syntax:
+    content: public const string SShowDataFormFactBoxPane = "ShowDataFormFactBoxPane"
+    return:
+      type: System.String
+    content.vb: Public Const SShowDataFormFactBoxPane As String = "ShowDataFormFactBoxPane"
+- uid: Tripous.Data.Config.SShowWarningOnExecStatements
+  commentId: F:Tripous.Data.Config.SShowWarningOnExecStatements
+  id: SShowWarningOnExecStatements
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: SShowWarningOnExecStatements
+  nameWithType: Config.SShowWarningOnExecStatements
+  fullName: Tripous.Data.Config.SShowWarningOnExecStatements
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SShowWarningOnExecStatements
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 220
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The configuration property name used to warn before executing non-SELECT SQL statements.
+  example: []
+  syntax:
+    content: public const string SShowWarningOnExecStatements = "ShowWarningOnExecStatements"
+    return:
+      type: System.String
+    content.vb: Public Const SShowWarningOnExecStatements As String = "ShowWarningOnExecStatements"
+- uid: Tripous.Data.Config.SSysStrResAutoInsertMissingKeys
+  commentId: F:Tripous.Data.Config.SSysStrResAutoInsertMissingKeys
+  id: SSysStrResAutoInsertMissingKeys
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: SSysStrResAutoInsertMissingKeys
+  nameWithType: Config.SSysStrResAutoInsertMissingKeys
+  fullName: Tripous.Data.Config.SSysStrResAutoInsertMissingKeys
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SSysStrResAutoInsertMissingKeys
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 224
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The configuration property name used to auto-insert missing string resource keys.
+  example: []
+  syntax:
+    content: public const string SSysStrResAutoInsertMissingKeys = "SysStrRes.AutoInsertMissingKeys"
+    return:
+      type: System.String
+    content.vb: Public Const SSysStrResAutoInsertMissingKeys As String = "SysStrRes.AutoInsertMissingKeys"
 - uid: Tripous.Data.Config.GetValue(System.String)
   commentId: M:Tripous.Data.Config.GetValue(System.String)
   id: GetValue(System.String)
@@ -130,7 +220,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 313
+    startLine: 325
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -172,7 +262,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 321
+    startLine: 333
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -216,7 +306,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 344
+    startLine: 356
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -256,7 +346,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetObjectValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 354
+    startLine: 366
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -298,7 +388,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetObjectValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 362
+    startLine: 374
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -344,7 +434,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetObjectValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 371
+    startLine: 383
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -386,7 +476,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 381
+    startLine: 393
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -426,7 +516,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetUserValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 392
+    startLine: 404
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -462,7 +552,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Store
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 403
+    startLine: 415
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -493,7 +583,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Module
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 407
+    startLine: 419
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

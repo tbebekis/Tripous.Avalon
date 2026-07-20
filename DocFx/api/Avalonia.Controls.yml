@@ -57,6 +57,45 @@ items:
   - Avalonia.Controls.GroupGridViewport
   - Avalonia.Controls.IGroupGridDataAdapter
   - Avalonia.Controls.IGroupGridDropDownEditorHost
+  - Avalonia.Controls.IPivotGridDataAdapter
+  - Avalonia.Controls.PivotGrid
+  - Avalonia.Controls.PivotGridAggregateKind
+  - Avalonia.Controls.PivotGridAxisItem
+  - Avalonia.Controls.PivotGridAxisNode
+  - Avalonia.Controls.PivotGridBand
+  - Avalonia.Controls.PivotGridCsvExporter
+  - Avalonia.Controls.PivotGridDataChangedEventArgs
+  - Avalonia.Controls.PivotGridDataViewDataAdapter
+  - Avalonia.Controls.PivotGridEngine
+  - Avalonia.Controls.PivotGridExportCell
+  - Avalonia.Controls.PivotGridExportField
+  - Avalonia.Controls.PivotGridExportMeasure
+  - Avalonia.Controls.PivotGridExportRow
+  - Avalonia.Controls.PivotGridExportSnapshot
+  - Avalonia.Controls.PivotGridExportValueColumn
+  - Avalonia.Controls.PivotGridExporter
+  - Avalonia.Controls.PivotGridExporters
+  - Avalonia.Controls.PivotGridField
+  - Avalonia.Controls.PivotGridFieldRole
+  - Avalonia.Controls.PivotGridFieldRules
+  - Avalonia.Controls.PivotGridFieldSettings
+  - Avalonia.Controls.PivotGridFieldSettingsItem
+  - Avalonia.Controls.PivotGridFilterDialog
+  - Avalonia.Controls.PivotGridFilterSettings
+  - Avalonia.Controls.PivotGridFilterValueItem
+  - Avalonia.Controls.PivotGridHitTestKind
+  - Avalonia.Controls.PivotGridHitTestResult
+  - Avalonia.Controls.PivotGridHtmlExporter
+  - Avalonia.Controls.PivotGridJsonExporter
+  - Avalonia.Controls.PivotGridLayoutMetrics
+  - Avalonia.Controls.PivotGridListDataAdapter`1
+  - Avalonia.Controls.PivotGridMeasure
+  - Avalonia.Controls.PivotGridMeasureSettings
+  - Avalonia.Controls.PivotGridSettings
+  - Avalonia.Controls.PivotGridSettingsDialog
+  - Avalonia.Controls.PivotGridSortDirection
+  - Avalonia.Controls.PivotGridSourceField
+  - Avalonia.Controls.PivotGridValueCell
   langs:
   - csharp
   - vb
@@ -142,7 +181,6 @@ references:
   fullName: Avalonia.Controls.GroupGridCellHorizontalAlignment
 - uid: Avalonia.Controls.GroupGridCellPointerEventArgs
   commentId: T:Avalonia.Controls.GroupGridCellPointerEventArgs
-  parent: Avalonia.Controls
   href: Avalonia.Controls.GroupGridCellPointerEventArgs.html
   name: GroupGridCellPointerEventArgs
   nameWithType: GroupGridCellPointerEventArgs
@@ -438,6 +476,281 @@ references:
   name: IGroupGridDropDownEditorHost
   nameWithType: IGroupGridDropDownEditorHost
   fullName: Avalonia.Controls.IGroupGridDropDownEditorHost
+- uid: Avalonia.Controls.IPivotGridDataAdapter
+  commentId: T:Avalonia.Controls.IPivotGridDataAdapter
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.IPivotGridDataAdapter.html
+  name: IPivotGridDataAdapter
+  nameWithType: IPivotGridDataAdapter
+  fullName: Avalonia.Controls.IPivotGridDataAdapter
+- uid: Avalonia.Controls.PivotGrid
+  commentId: T:Avalonia.Controls.PivotGrid
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGrid.html
+  name: PivotGrid
+  nameWithType: PivotGrid
+  fullName: Avalonia.Controls.PivotGrid
+- uid: Avalonia.Controls.PivotGridAggregateKind
+  commentId: T:Avalonia.Controls.PivotGridAggregateKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridAggregateKind.html
+  name: PivotGridAggregateKind
+  nameWithType: PivotGridAggregateKind
+  fullName: Avalonia.Controls.PivotGridAggregateKind
+- uid: Avalonia.Controls.PivotGridAxisItem
+  commentId: T:Avalonia.Controls.PivotGridAxisItem
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridAxisItem.html
+  name: PivotGridAxisItem
+  nameWithType: PivotGridAxisItem
+  fullName: Avalonia.Controls.PivotGridAxisItem
+- uid: Avalonia.Controls.PivotGridAxisNode
+  commentId: T:Avalonia.Controls.PivotGridAxisNode
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridAxisNode.html
+  name: PivotGridAxisNode
+  nameWithType: PivotGridAxisNode
+  fullName: Avalonia.Controls.PivotGridAxisNode
+- uid: Avalonia.Controls.PivotGridBand
+  commentId: T:Avalonia.Controls.PivotGridBand
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridBand.html
+  name: PivotGridBand
+  nameWithType: PivotGridBand
+  fullName: Avalonia.Controls.PivotGridBand
+- uid: Avalonia.Controls.PivotGridCsvExporter
+  commentId: T:Avalonia.Controls.PivotGridCsvExporter
+  href: Avalonia.Controls.PivotGridCsvExporter.html
+  name: PivotGridCsvExporter
+  nameWithType: PivotGridCsvExporter
+  fullName: Avalonia.Controls.PivotGridCsvExporter
+- uid: Avalonia.Controls.PivotGridDataChangedEventArgs
+  commentId: T:Avalonia.Controls.PivotGridDataChangedEventArgs
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridDataChangedEventArgs.html
+  name: PivotGridDataChangedEventArgs
+  nameWithType: PivotGridDataChangedEventArgs
+  fullName: Avalonia.Controls.PivotGridDataChangedEventArgs
+- uid: Avalonia.Controls.PivotGridDataViewDataAdapter
+  commentId: T:Avalonia.Controls.PivotGridDataViewDataAdapter
+  href: Avalonia.Controls.PivotGridDataViewDataAdapter.html
+  name: PivotGridDataViewDataAdapter
+  nameWithType: PivotGridDataViewDataAdapter
+  fullName: Avalonia.Controls.PivotGridDataViewDataAdapter
+- uid: Avalonia.Controls.PivotGridEngine
+  commentId: T:Avalonia.Controls.PivotGridEngine
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridEngine.html
+  name: PivotGridEngine
+  nameWithType: PivotGridEngine
+  fullName: Avalonia.Controls.PivotGridEngine
+- uid: Avalonia.Controls.PivotGridExportCell
+  commentId: T:Avalonia.Controls.PivotGridExportCell
+  href: Avalonia.Controls.PivotGridExportCell.html
+  name: PivotGridExportCell
+  nameWithType: PivotGridExportCell
+  fullName: Avalonia.Controls.PivotGridExportCell
+- uid: Avalonia.Controls.PivotGridExporter
+  commentId: T:Avalonia.Controls.PivotGridExporter
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridExporter.html
+  name: PivotGridExporter
+  nameWithType: PivotGridExporter
+  fullName: Avalonia.Controls.PivotGridExporter
+- uid: Avalonia.Controls.PivotGridExporters
+  commentId: T:Avalonia.Controls.PivotGridExporters
+  href: Avalonia.Controls.PivotGridExporters.html
+  name: PivotGridExporters
+  nameWithType: PivotGridExporters
+  fullName: Avalonia.Controls.PivotGridExporters
+- uid: Avalonia.Controls.PivotGridExportField
+  commentId: T:Avalonia.Controls.PivotGridExportField
+  href: Avalonia.Controls.PivotGridExportField.html
+  name: PivotGridExportField
+  nameWithType: PivotGridExportField
+  fullName: Avalonia.Controls.PivotGridExportField
+- uid: Avalonia.Controls.PivotGridExportMeasure
+  commentId: T:Avalonia.Controls.PivotGridExportMeasure
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridExportMeasure.html
+  name: PivotGridExportMeasure
+  nameWithType: PivotGridExportMeasure
+  fullName: Avalonia.Controls.PivotGridExportMeasure
+- uid: Avalonia.Controls.PivotGridExportRow
+  commentId: T:Avalonia.Controls.PivotGridExportRow
+  href: Avalonia.Controls.PivotGridExportRow.html
+  name: PivotGridExportRow
+  nameWithType: PivotGridExportRow
+  fullName: Avalonia.Controls.PivotGridExportRow
+- uid: Avalonia.Controls.PivotGridExportSnapshot
+  commentId: T:Avalonia.Controls.PivotGridExportSnapshot
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridExportSnapshot.html
+  name: PivotGridExportSnapshot
+  nameWithType: PivotGridExportSnapshot
+  fullName: Avalonia.Controls.PivotGridExportSnapshot
+- uid: Avalonia.Controls.PivotGridExportValueColumn
+  commentId: T:Avalonia.Controls.PivotGridExportValueColumn
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridExportValueColumn.html
+  name: PivotGridExportValueColumn
+  nameWithType: PivotGridExportValueColumn
+  fullName: Avalonia.Controls.PivotGridExportValueColumn
+- uid: Avalonia.Controls.PivotGridField
+  commentId: T:Avalonia.Controls.PivotGridField
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridField.html
+  name: PivotGridField
+  nameWithType: PivotGridField
+  fullName: Avalonia.Controls.PivotGridField
+- uid: Avalonia.Controls.PivotGridFieldRole
+  commentId: T:Avalonia.Controls.PivotGridFieldRole
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridFieldRole.html
+  name: PivotGridFieldRole
+  nameWithType: PivotGridFieldRole
+  fullName: Avalonia.Controls.PivotGridFieldRole
+- uid: Avalonia.Controls.PivotGridFieldRules
+  commentId: T:Avalonia.Controls.PivotGridFieldRules
+  href: Avalonia.Controls.PivotGridFieldRules.html
+  name: PivotGridFieldRules
+  nameWithType: PivotGridFieldRules
+  fullName: Avalonia.Controls.PivotGridFieldRules
+- uid: Avalonia.Controls.PivotGridFieldSettings
+  commentId: T:Avalonia.Controls.PivotGridFieldSettings
+  href: Avalonia.Controls.PivotGridFieldSettings.html
+  name: PivotGridFieldSettings
+  nameWithType: PivotGridFieldSettings
+  fullName: Avalonia.Controls.PivotGridFieldSettings
+- uid: Avalonia.Controls.PivotGridFieldSettingsItem
+  commentId: T:Avalonia.Controls.PivotGridFieldSettingsItem
+  href: Avalonia.Controls.PivotGridFieldSettingsItem.html
+  name: PivotGridFieldSettingsItem
+  nameWithType: PivotGridFieldSettingsItem
+  fullName: Avalonia.Controls.PivotGridFieldSettingsItem
+- uid: Avalonia.Controls.PivotGridFilterDialog
+  commentId: T:Avalonia.Controls.PivotGridFilterDialog
+  href: Avalonia.Controls.PivotGridFilterDialog.html
+  name: PivotGridFilterDialog
+  nameWithType: PivotGridFilterDialog
+  fullName: Avalonia.Controls.PivotGridFilterDialog
+- uid: Avalonia.Controls.PivotGridFilterSettings
+  commentId: T:Avalonia.Controls.PivotGridFilterSettings
+  href: Avalonia.Controls.PivotGridFilterSettings.html
+  name: PivotGridFilterSettings
+  nameWithType: PivotGridFilterSettings
+  fullName: Avalonia.Controls.PivotGridFilterSettings
+- uid: Avalonia.Controls.PivotGridFilterValueItem
+  commentId: T:Avalonia.Controls.PivotGridFilterValueItem
+  href: Avalonia.Controls.PivotGridFilterValueItem.html
+  name: PivotGridFilterValueItem
+  nameWithType: PivotGridFilterValueItem
+  fullName: Avalonia.Controls.PivotGridFilterValueItem
+- uid: Avalonia.Controls.PivotGridHitTestKind
+  commentId: T:Avalonia.Controls.PivotGridHitTestKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridHitTestKind.html
+  name: PivotGridHitTestKind
+  nameWithType: PivotGridHitTestKind
+  fullName: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestResult
+  commentId: T:Avalonia.Controls.PivotGridHitTestResult
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridHitTestResult.html
+  name: PivotGridHitTestResult
+  nameWithType: PivotGridHitTestResult
+  fullName: Avalonia.Controls.PivotGridHitTestResult
+- uid: Avalonia.Controls.PivotGridHtmlExporter
+  commentId: T:Avalonia.Controls.PivotGridHtmlExporter
+  href: Avalonia.Controls.PivotGridHtmlExporter.html
+  name: PivotGridHtmlExporter
+  nameWithType: PivotGridHtmlExporter
+  fullName: Avalonia.Controls.PivotGridHtmlExporter
+- uid: Avalonia.Controls.PivotGridJsonExporter
+  commentId: T:Avalonia.Controls.PivotGridJsonExporter
+  href: Avalonia.Controls.PivotGridJsonExporter.html
+  name: PivotGridJsonExporter
+  nameWithType: PivotGridJsonExporter
+  fullName: Avalonia.Controls.PivotGridJsonExporter
+- uid: Avalonia.Controls.PivotGridLayoutMetrics
+  commentId: T:Avalonia.Controls.PivotGridLayoutMetrics
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridLayoutMetrics.html
+  name: PivotGridLayoutMetrics
+  nameWithType: PivotGridLayoutMetrics
+  fullName: Avalonia.Controls.PivotGridLayoutMetrics
+- uid: Avalonia.Controls.PivotGridListDataAdapter`1
+  commentId: T:Avalonia.Controls.PivotGridListDataAdapter`1
+  href: Avalonia.Controls.PivotGridListDataAdapter-1.html
+  name: PivotGridListDataAdapter<T>
+  nameWithType: PivotGridListDataAdapter<T>
+  fullName: Avalonia.Controls.PivotGridListDataAdapter<T>
+  nameWithType.vb: PivotGridListDataAdapter(Of T)
+  fullName.vb: Avalonia.Controls.PivotGridListDataAdapter(Of T)
+  name.vb: PivotGridListDataAdapter(Of T)
+  spec.csharp:
+  - uid: Avalonia.Controls.PivotGridListDataAdapter`1
+    name: PivotGridListDataAdapter
+    href: Avalonia.Controls.PivotGridListDataAdapter-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Avalonia.Controls.PivotGridListDataAdapter`1
+    name: PivotGridListDataAdapter
+    href: Avalonia.Controls.PivotGridListDataAdapter-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Avalonia.Controls.PivotGridMeasure
+  commentId: T:Avalonia.Controls.PivotGridMeasure
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridMeasure.html
+  name: PivotGridMeasure
+  nameWithType: PivotGridMeasure
+  fullName: Avalonia.Controls.PivotGridMeasure
+- uid: Avalonia.Controls.PivotGridMeasureSettings
+  commentId: T:Avalonia.Controls.PivotGridMeasureSettings
+  href: Avalonia.Controls.PivotGridMeasureSettings.html
+  name: PivotGridMeasureSettings
+  nameWithType: PivotGridMeasureSettings
+  fullName: Avalonia.Controls.PivotGridMeasureSettings
+- uid: Avalonia.Controls.PivotGridSettings
+  commentId: T:Avalonia.Controls.PivotGridSettings
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridSettings.html
+  name: PivotGridSettings
+  nameWithType: PivotGridSettings
+  fullName: Avalonia.Controls.PivotGridSettings
+- uid: Avalonia.Controls.PivotGridSettingsDialog
+  commentId: T:Avalonia.Controls.PivotGridSettingsDialog
+  href: Avalonia.Controls.PivotGridSettingsDialog.html
+  name: PivotGridSettingsDialog
+  nameWithType: PivotGridSettingsDialog
+  fullName: Avalonia.Controls.PivotGridSettingsDialog
+- uid: Avalonia.Controls.PivotGridSortDirection
+  commentId: T:Avalonia.Controls.PivotGridSortDirection
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridSortDirection.html
+  name: PivotGridSortDirection
+  nameWithType: PivotGridSortDirection
+  fullName: Avalonia.Controls.PivotGridSortDirection
+- uid: Avalonia.Controls.PivotGridSourceField
+  commentId: T:Avalonia.Controls.PivotGridSourceField
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridSourceField.html
+  name: PivotGridSourceField
+  nameWithType: PivotGridSourceField
+  fullName: Avalonia.Controls.PivotGridSourceField
+- uid: Avalonia.Controls.PivotGridValueCell
+  commentId: T:Avalonia.Controls.PivotGridValueCell
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridValueCell.html
+  name: PivotGridValueCell
+  nameWithType: PivotGridValueCell
+  fullName: Avalonia.Controls.PivotGridValueCell
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
   href: Avalonia.html

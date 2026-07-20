@@ -9,13 +9,26 @@ items:
   - Tripous.Desktop.ItemPage.ApplyIdColumnsVisible(System.Boolean)
   - Tripous.Desktop.ItemPage.Bind
   - Tripous.Desktop.ItemPage.Bind(System.Int32)
+  - Tripous.Desktop.ItemPage.BindDataFactBoxGrid(Tripous.Data.MemTable)
   - Tripous.Desktop.ItemPage.Binders
   - Tripous.Desktop.ItemPage.CanExecute(Tripous.Desktop.GridCommandContext)
   - Tripous.Desktop.ItemPage.CanExecute(Tripous.Desktop.ReferenceMenuCommandContext)
   - Tripous.Desktop.ItemPage.CanOpenRefContextMenu(Tripous.Desktop.ReferenceContextMenu)
+  - Tripous.Desktop.ItemPage.CanShowDataFactBox
   - Tripous.Desktop.ItemPage.CaptureDetailGridSelection
   - Tripous.Desktop.ItemPage.Context
+  - Tripous.Desktop.ItemPage.CreateDataFactBoxControl
   - Tripous.Desktop.ItemPage.CreateEditor(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
+  - Tripous.Desktop.ItemPage.CreateFactBoxContext(Tripous.Data.ItemFactBoxDef)
+  - Tripous.Desktop.ItemPage.CreateFactBoxControl(Tripous.Data.ItemFactBoxDef)
+  - Tripous.Desktop.ItemPage.CreateFactBoxMessage(System.String)
+  - Tripous.Desktop.ItemPage.CreateFactBoxPane(System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  - Tripous.Desktop.ItemPage.CreateFactBoxPlaceholder(Tripous.Data.ItemFactBoxDef)
+  - Tripous.Desktop.ItemPage.CreateFactBoxTab(Tripous.Data.ItemFactBoxDef)
+  - Tripous.Desktop.ItemPage.CreateFactBoxTabs(System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  - Tripous.Desktop.ItemPage.CreateItemPageRoot(Avalonia.Controls.Control,System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  - Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxControl
+  - Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxData(Tripous.Data.ItemFactBoxContext)
   - Tripous.Desktop.ItemPage.CurrentRow
   - Tripous.Desktop.ItemPage.CurrentRowChanged
   - Tripous.Desktop.ItemPage.CurrentRowChanging
@@ -30,8 +43,13 @@ items:
   - Tripous.Desktop.ItemPage.ExecuteReferenceEdit(Tripous.Desktop.ReferenceMenuCommandContext)
   - Tripous.Desktop.ItemPage.ExecuteReferenceReload(Tripous.Desktop.ReferenceMenuCommandContext)
   - Tripous.Desktop.ItemPage.ExecuteReferenceShowList(Tripous.Desktop.ReferenceMenuCommandContext)
+  - Tripous.Desktop.ItemPage.FactBoxPaneVisible
   - Tripous.Desktop.ItemPage.FormDef
+  - Tripous.Desktop.ItemPage.GetDataFactBoxTables
+  - Tripous.Desktop.ItemPage.GetFactBoxData(Tripous.Data.ItemFactBoxDef,Tripous.Data.ItemFactBoxContext)
   - Tripous.Desktop.ItemPage.GetGridCommands
+  - Tripous.Desktop.ItemPage.GetVisibleFactBoxes
+  - Tripous.Desktop.ItemPage.HasFactBoxPane
   - Tripous.Desktop.ItemPage.InvalidActions
   - Tripous.Desktop.ItemPage.IsBindingDone
   - Tripous.Desktop.ItemPage.IsBindingReadOnly(Tripous.Desktop.TripousBinding)
@@ -41,7 +59,10 @@ items:
   - Tripous.Desktop.ItemPage.Module
   - Tripous.Desktop.ItemPage.ModuleDef
   - Tripous.Desktop.ItemPage.Refresh
+  - Tripous.Desktop.ItemPage.RefreshDataFactBox
+  - Tripous.Desktop.ItemPage.RefreshFactBoxes
   - Tripous.Desktop.ItemPage.RefreshReferenceBinding(Tripous.Desktop.ReferenceMenuCommandContext)
+  - Tripous.Desktop.ItemPage.RefreshStandardInfoFactBox
   - Tripous.Desktop.ItemPage.ReloadReferenceLookup(Tripous.Desktop.ReferenceMenuCommandContext)
   - Tripous.Desktop.ItemPage.RestoreDetailGridSelection(System.Collections.Generic.Dictionary{Avalonia.Controls.GroupGrid,System.Tuple{System.Int32,Avalonia.Controls.GroupGridColumn}})
   - Tripous.Desktop.ItemPage.SetControlReadOnly(Tripous.Desktop.ControlBinding,System.Boolean)
@@ -49,10 +70,22 @@ items:
   - Tripous.Desktop.ItemPage.SetReadOnly(System.Boolean)
   - Tripous.Desktop.ItemPage.SetReferenceValue(Tripous.Desktop.ReferenceMenuCommandContext,System.Object)
   - Tripous.Desktop.ItemPage.StartAction
+  - Tripous.Desktop.ItemPage.ToggleFactBoxPane
+  - Tripous.Desktop.ItemPage.fDataFactBoxGrid
+  - Tripous.Desktop.ItemPage.fDataFactBoxTableList
   - Tripous.Desktop.ItemPage.fDataForm
+  - Tripous.Desktop.ItemPage.fFactBoxColumn
+  - Tripous.Desktop.ItemPage.fFactBoxControls
+  - Tripous.Desktop.ItemPage.fFactBoxPane
+  - Tripous.Desktop.ItemPage.fFactBoxPaneVisible
+  - Tripous.Desktop.ItemPage.fFactBoxPaneWidth
+  - Tripous.Desktop.ItemPage.fFactBoxSplitter
+  - Tripous.Desktop.ItemPage.fFactBoxSplitterColumn
+  - Tripous.Desktop.ItemPage.fFactBoxTabs
   - Tripous.Desktop.ItemPage.fGridColumnReadOnlyStates
   - Tripous.Desktop.ItemPage.fGridReadOnlyStates
   - Tripous.Desktop.ItemPage.fIsReadOnly
+  - Tripous.Desktop.ItemPage.fStandardInfoFactBoxControl
   langs:
   - csharp
   - vb
@@ -628,6 +661,325 @@ items:
     return:
       type: System.Collections.Generic.Dictionary{Avalonia.Controls.GroupGridColumn,System.Boolean}
     content.vb: Protected fGridColumnReadOnlyStates As Dictionary(Of GroupGridColumn, Boolean)
+- uid: Tripous.Desktop.ItemPage.fFactBoxSplitter
+  commentId: F:Tripous.Desktop.ItemPage.fFactBoxSplitter
+  id: fFactBoxSplitter
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fFactBoxSplitter
+  nameWithType: ItemPage.fFactBoxSplitter
+  fullName: Tripous.Desktop.ItemPage.fFactBoxSplitter
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fFactBoxSplitter
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 40
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The splitter between the main item page content and the FactBox pane.
+  example: []
+  syntax:
+    content: protected GridSplitter fFactBoxSplitter
+    return:
+      type: Avalonia.Controls.GridSplitter
+    content.vb: Protected fFactBoxSplitter As GridSplitter
+- uid: Tripous.Desktop.ItemPage.fFactBoxPane
+  commentId: F:Tripous.Desktop.ItemPage.fFactBoxPane
+  id: fFactBoxPane
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fFactBoxPane
+  nameWithType: ItemPage.fFactBoxPane
+  fullName: Tripous.Desktop.ItemPage.fFactBoxPane
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fFactBoxPane
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 44
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The right-side FactBox pane.
+  example: []
+  syntax:
+    content: protected Border fFactBoxPane
+    return:
+      type: Avalonia.Controls.Border
+    content.vb: Protected fFactBoxPane As Border
+- uid: Tripous.Desktop.ItemPage.fFactBoxTabs
+  commentId: F:Tripous.Desktop.ItemPage.fFactBoxTabs
+  id: fFactBoxTabs
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fFactBoxTabs
+  nameWithType: ItemPage.fFactBoxTabs
+  fullName: Tripous.Desktop.ItemPage.fFactBoxTabs
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fFactBoxTabs
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 48
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The tab control hosting FactBoxes.
+  example: []
+  syntax:
+    content: protected TabControl fFactBoxTabs
+    return:
+      type: Avalonia.Controls.TabControl
+    content.vb: Protected fFactBoxTabs As TabControl
+- uid: Tripous.Desktop.ItemPage.fStandardInfoFactBoxControl
+  commentId: F:Tripous.Desktop.ItemPage.fStandardInfoFactBoxControl
+  id: fStandardInfoFactBoxControl
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fStandardInfoFactBoxControl
+  nameWithType: ItemPage.fStandardInfoFactBoxControl
+  fullName: Tripous.Desktop.ItemPage.fStandardInfoFactBoxControl
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fStandardInfoFactBoxControl
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 52
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The built-in item information FactBox control.
+  example: []
+  syntax:
+    content: protected ItemInfoFactBoxControl fStandardInfoFactBoxControl
+    return:
+      type: Tripous.Desktop.ItemInfoFactBoxControl
+    content.vb: Protected fStandardInfoFactBoxControl As ItemInfoFactBoxControl
+- uid: Tripous.Desktop.ItemPage.fDataFactBoxTableList
+  commentId: F:Tripous.Desktop.ItemPage.fDataFactBoxTableList
+  id: fDataFactBoxTableList
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fDataFactBoxTableList
+  nameWithType: ItemPage.fDataFactBoxTableList
+  fullName: Tripous.Desktop.ItemPage.fDataFactBoxTableList
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fDataFactBoxTableList
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The table list of the built-in item data FactBox.
+  example: []
+  syntax:
+    content: protected ListBox fDataFactBoxTableList
+    return:
+      type: Avalonia.Controls.ListBox
+    content.vb: Protected fDataFactBoxTableList As ListBox
+- uid: Tripous.Desktop.ItemPage.fDataFactBoxGrid
+  commentId: F:Tripous.Desktop.ItemPage.fDataFactBoxGrid
+  id: fDataFactBoxGrid
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fDataFactBoxGrid
+  nameWithType: ItemPage.fDataFactBoxGrid
+  fullName: Tripous.Desktop.ItemPage.fDataFactBoxGrid
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fDataFactBoxGrid
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 60
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The grid of the built-in item data FactBox.
+  example: []
+  syntax:
+    content: protected GroupGrid fDataFactBoxGrid
+    return:
+      type: Avalonia.Controls.GroupGrid
+    content.vb: Protected fDataFactBoxGrid As GroupGrid
+- uid: Tripous.Desktop.ItemPage.fFactBoxControls
+  commentId: F:Tripous.Desktop.ItemPage.fFactBoxControls
+  id: fFactBoxControls
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fFactBoxControls
+  nameWithType: ItemPage.fFactBoxControls
+  fullName: Tripous.Desktop.ItemPage.fFactBoxControls
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fFactBoxControls
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 64
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The created FactBox controls by definition.
+  example: []
+  syntax:
+    content: protected List<Tuple<ItemFactBoxDef, ItemFactBoxControl>> fFactBoxControls
+    return:
+      type: System.Collections.Generic.List{System.Tuple{Tripous.Data.ItemFactBoxDef,Tripous.Desktop.ItemFactBoxControl}}
+    content.vb: Protected fFactBoxControls As List(Of Tuple(Of ItemFactBoxDef, ItemFactBoxControl))
+- uid: Tripous.Desktop.ItemPage.fFactBoxSplitterColumn
+  commentId: F:Tripous.Desktop.ItemPage.fFactBoxSplitterColumn
+  id: fFactBoxSplitterColumn
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fFactBoxSplitterColumn
+  nameWithType: ItemPage.fFactBoxSplitterColumn
+  fullName: Tripous.Desktop.ItemPage.fFactBoxSplitterColumn
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fFactBoxSplitterColumn
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The splitter column of the FactBox pane.
+  example: []
+  syntax:
+    content: protected ColumnDefinition fFactBoxSplitterColumn
+    return:
+      type: Avalonia.Controls.ColumnDefinition
+    content.vb: Protected fFactBoxSplitterColumn As ColumnDefinition
+- uid: Tripous.Desktop.ItemPage.fFactBoxColumn
+  commentId: F:Tripous.Desktop.ItemPage.fFactBoxColumn
+  id: fFactBoxColumn
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fFactBoxColumn
+  nameWithType: ItemPage.fFactBoxColumn
+  fullName: Tripous.Desktop.ItemPage.fFactBoxColumn
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fFactBoxColumn
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 72
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The column of the FactBox pane.
+  example: []
+  syntax:
+    content: protected ColumnDefinition fFactBoxColumn
+    return:
+      type: Avalonia.Controls.ColumnDefinition
+    content.vb: Protected fFactBoxColumn As ColumnDefinition
+- uid: Tripous.Desktop.ItemPage.fFactBoxPaneWidth
+  commentId: F:Tripous.Desktop.ItemPage.fFactBoxPaneWidth
+  id: fFactBoxPaneWidth
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fFactBoxPaneWidth
+  nameWithType: ItemPage.fFactBoxPaneWidth
+  fullName: Tripous.Desktop.ItemPage.fFactBoxPaneWidth
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fFactBoxPaneWidth
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 76
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The default width of the FactBox pane.
+  example: []
+  syntax:
+    content: protected double fFactBoxPaneWidth
+    return:
+      type: System.Double
+    content.vb: Protected fFactBoxPaneWidth As Double
+- uid: Tripous.Desktop.ItemPage.fFactBoxPaneVisible
+  commentId: F:Tripous.Desktop.ItemPage.fFactBoxPaneVisible
+  id: fFactBoxPaneVisible
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: fFactBoxPaneVisible
+  nameWithType: ItemPage.fFactBoxPaneVisible
+  fullName: Tripous.Desktop.ItemPage.fFactBoxPaneVisible
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fFactBoxPaneVisible
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 80
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: True when the FactBox pane is visible.
+  example: []
+  syntax:
+    content: protected bool fFactBoxPaneVisible
+    return:
+      type: System.Boolean
+    content.vb: Protected fFactBoxPaneVisible As Boolean
 - uid: Tripous.Desktop.ItemPage.IsBindingReadOnly(Tripous.Desktop.TripousBinding)
   commentId: M:Tripous.Desktop.ItemPage.IsBindingReadOnly(Tripous.Desktop.TripousBinding)
   id: IsBindingReadOnly(Tripous.Desktop.TripousBinding)
@@ -646,7 +998,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsBindingReadOnly
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 44
+    startLine: 88
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -681,7 +1033,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetControlReadOnly
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 66
+    startLine: 110
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -719,7 +1071,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetGridReadOnly
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 92
+    startLine: 136
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -739,6 +1091,645 @@ items:
   nameWithType.vb: ItemPage.SetGridReadOnly(UiDetailTableInfo, Boolean)
   fullName.vb: Tripous.Desktop.ItemPage.SetGridReadOnly(Tripous.Desktop.UiDetailTableInfo, Boolean)
   name.vb: SetGridReadOnly(UiDetailTableInfo, Boolean)
+- uid: Tripous.Desktop.ItemPage.GetVisibleFactBoxes
+  commentId: M:Tripous.Desktop.ItemPage.GetVisibleFactBoxes
+  id: GetVisibleFactBoxes
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: GetVisibleFactBoxes()
+  nameWithType: ItemPage.GetVisibleFactBoxes()
+  fullName: Tripous.Desktop.ItemPage.GetVisibleFactBoxes()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetVisibleFactBoxes
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 163
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the visible FactBox definitions of the current form.
+  example: []
+  syntax:
+    content: protected virtual List<ItemFactBoxDef> GetVisibleFactBoxes()
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef}
+      description: The visible FactBox definitions.
+    content.vb: Protected Overridable Function GetVisibleFactBoxes() As List(Of ItemFactBoxDef)
+  overload: Tripous.Desktop.ItemPage.GetVisibleFactBoxes*
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxPlaceholder(Tripous.Data.ItemFactBoxDef)
+  commentId: M:Tripous.Desktop.ItemPage.CreateFactBoxPlaceholder(Tripous.Data.ItemFactBoxDef)
+  id: CreateFactBoxPlaceholder(Tripous.Data.ItemFactBoxDef)
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateFactBoxPlaceholder(ItemFactBoxDef)
+  nameWithType: ItemPage.CreateFactBoxPlaceholder(ItemFactBoxDef)
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxPlaceholder(Tripous.Data.ItemFactBoxDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFactBoxPlaceholder
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 193
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a placeholder control for a FactBox tab.
+  example: []
+  syntax:
+    content: protected virtual Control CreateFactBoxPlaceholder(ItemFactBoxDef Def)
+    parameters:
+    - id: Def
+      type: Tripous.Data.ItemFactBoxDef
+      description: The FactBox definition.
+    return:
+      type: Avalonia.Controls.Control
+      description: The created placeholder control.
+    content.vb: Protected Overridable Function CreateFactBoxPlaceholder(Def As ItemFactBoxDef) As Control
+  overload: Tripous.Desktop.ItemPage.CreateFactBoxPlaceholder*
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxContext(Tripous.Data.ItemFactBoxDef)
+  commentId: M:Tripous.Desktop.ItemPage.CreateFactBoxContext(Tripous.Data.ItemFactBoxDef)
+  id: CreateFactBoxContext(Tripous.Data.ItemFactBoxDef)
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateFactBoxContext(ItemFactBoxDef)
+  nameWithType: ItemPage.CreateFactBoxContext(ItemFactBoxDef)
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxContext(Tripous.Data.ItemFactBoxDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFactBoxContext
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 207
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the context passed to a FactBox provider and control.
+  example: []
+  syntax:
+    content: protected virtual ItemFactBoxContext CreateFactBoxContext(ItemFactBoxDef Def)
+    parameters:
+    - id: Def
+      type: Tripous.Data.ItemFactBoxDef
+      description: The FactBox definition.
+    return:
+      type: Tripous.Data.ItemFactBoxContext
+      description: The created context.
+    content.vb: Protected Overridable Function CreateFactBoxContext(Def As ItemFactBoxDef) As ItemFactBoxContext
+  overload: Tripous.Desktop.ItemPage.CreateFactBoxContext*
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxControl(Tripous.Data.ItemFactBoxDef)
+  commentId: M:Tripous.Desktop.ItemPage.CreateFactBoxControl(Tripous.Data.ItemFactBoxDef)
+  id: CreateFactBoxControl(Tripous.Data.ItemFactBoxDef)
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateFactBoxControl(ItemFactBoxDef)
+  nameWithType: ItemPage.CreateFactBoxControl(ItemFactBoxDef)
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxControl(Tripous.Data.ItemFactBoxDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFactBoxControl
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 231
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the control that renders a FactBox.
+  example: []
+  syntax:
+    content: protected virtual Control CreateFactBoxControl(ItemFactBoxDef Def)
+    parameters:
+    - id: Def
+      type: Tripous.Data.ItemFactBoxDef
+      description: The FactBox definition.
+    return:
+      type: Avalonia.Controls.Control
+      description: The created control.
+    content.vb: Protected Overridable Function CreateFactBoxControl(Def As ItemFactBoxDef) As Control
+  overload: Tripous.Desktop.ItemPage.CreateFactBoxControl*
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxMessage(System.String)
+  commentId: M:Tripous.Desktop.ItemPage.CreateFactBoxMessage(System.String)
+  id: CreateFactBoxMessage(System.String)
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateFactBoxMessage(string)
+  nameWithType: ItemPage.CreateFactBoxMessage(string)
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxMessage(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFactBoxMessage
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 258
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a FactBox message control.
+  example: []
+  syntax:
+    content: protected virtual Control CreateFactBoxMessage(string Message)
+    parameters:
+    - id: Message
+      type: System.String
+      description: The message text.
+    return:
+      type: Avalonia.Controls.Control
+      description: The created message control.
+    content.vb: Protected Overridable Function CreateFactBoxMessage(Message As String) As Control
+  overload: Tripous.Desktop.ItemPage.CreateFactBoxMessage*
+  nameWithType.vb: ItemPage.CreateFactBoxMessage(String)
+  fullName.vb: Tripous.Desktop.ItemPage.CreateFactBoxMessage(String)
+  name.vb: CreateFactBoxMessage(String)
+- uid: Tripous.Desktop.ItemPage.GetFactBoxData(Tripous.Data.ItemFactBoxDef,Tripous.Data.ItemFactBoxContext)
+  commentId: M:Tripous.Desktop.ItemPage.GetFactBoxData(Tripous.Data.ItemFactBoxDef,Tripous.Data.ItemFactBoxContext)
+  id: GetFactBoxData(Tripous.Data.ItemFactBoxDef,Tripous.Data.ItemFactBoxContext)
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: GetFactBoxData(ItemFactBoxDef, ItemFactBoxContext)
+  nameWithType: ItemPage.GetFactBoxData(ItemFactBoxDef, ItemFactBoxContext)
+  fullName: Tripous.Desktop.ItemPage.GetFactBoxData(Tripous.Data.ItemFactBoxDef, Tripous.Data.ItemFactBoxContext)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetFactBoxData
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 273
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the data produced by a FactBox provider.
+  example: []
+  syntax:
+    content: protected virtual object GetFactBoxData(ItemFactBoxDef Def, ItemFactBoxContext Context)
+    parameters:
+    - id: Def
+      type: Tripous.Data.ItemFactBoxDef
+      description: The FactBox definition.
+    - id: Context
+      type: Tripous.Data.ItemFactBoxContext
+      description: The FactBox context.
+    return:
+      type: System.Object
+      description: The FactBox data.
+    content.vb: Protected Overridable Function GetFactBoxData(Def As ItemFactBoxDef, Context As ItemFactBoxContext) As Object
+  overload: Tripous.Desktop.ItemPage.GetFactBoxData*
+- uid: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxData(Tripous.Data.ItemFactBoxContext)
+  commentId: M:Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxData(Tripous.Data.ItemFactBoxContext)
+  id: CreateStandardInfoFactBoxData(Tripous.Data.ItemFactBoxContext)
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateStandardInfoFactBoxData(ItemFactBoxContext)
+  nameWithType: ItemPage.CreateStandardInfoFactBoxData(ItemFactBoxContext)
+  fullName: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxData(Tripous.Data.ItemFactBoxContext)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateStandardInfoFactBoxData
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 283
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the data for the built-in item information FactBox.
+  example: []
+  syntax:
+    content: protected virtual ItemStandardInfoFactBoxData CreateStandardInfoFactBoxData(ItemFactBoxContext Context)
+    parameters:
+    - id: Context
+      type: Tripous.Data.ItemFactBoxContext
+      description: The FactBox context.
+    return:
+      type: Tripous.Data.ItemStandardInfoFactBoxData
+      description: The created data.
+    content.vb: Protected Overridable Function CreateStandardInfoFactBoxData(Context As ItemFactBoxContext) As ItemStandardInfoFactBoxData
+  overload: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxData*
+- uid: Tripous.Desktop.ItemPage.CanShowDataFactBox
+  commentId: M:Tripous.Desktop.ItemPage.CanShowDataFactBox
+  id: CanShowDataFactBox
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CanShowDataFactBox()
+  nameWithType: ItemPage.CanShowDataFactBox()
+  fullName: Tripous.Desktop.ItemPage.CanShowDataFactBox()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanShowDataFactBox
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 295
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns true when the current user may see the built-in item data FactBox.
+  example: []
+  syntax:
+    content: protected virtual bool CanShowDataFactBox()
+    return:
+      type: System.Boolean
+      description: True when the current user is an administrator.
+    content.vb: Protected Overridable Function CanShowDataFactBox() As Boolean
+  overload: Tripous.Desktop.ItemPage.CanShowDataFactBox*
+- uid: Tripous.Desktop.ItemPage.GetDataFactBoxTables
+  commentId: M:Tripous.Desktop.ItemPage.GetDataFactBoxTables
+  id: GetDataFactBoxTables
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: GetDataFactBoxTables()
+  nameWithType: ItemPage.GetDataFactBoxTables()
+  fullName: Tripous.Desktop.ItemPage.GetDataFactBoxTables()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDataFactBoxTables
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 304
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the tables displayed by the built-in item data FactBox.
+  example: []
+  syntax:
+    content: protected virtual List<MemTable> GetDataFactBoxTables()
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.MemTable}
+      description: The item tables.
+    content.vb: Protected Overridable Function GetDataFactBoxTables() As List(Of MemTable)
+  overload: Tripous.Desktop.ItemPage.GetDataFactBoxTables*
+- uid: Tripous.Desktop.ItemPage.BindDataFactBoxGrid(Tripous.Data.MemTable)
+  commentId: M:Tripous.Desktop.ItemPage.BindDataFactBoxGrid(Tripous.Data.MemTable)
+  id: BindDataFactBoxGrid(Tripous.Data.MemTable)
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: BindDataFactBoxGrid(MemTable)
+  nameWithType: ItemPage.BindDataFactBoxGrid(MemTable)
+  fullName: Tripous.Desktop.ItemPage.BindDataFactBoxGrid(Tripous.Data.MemTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BindDataFactBoxGrid
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 312
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Binds the item data FactBox grid to a table.
+  example: []
+  syntax:
+    content: protected virtual void BindDataFactBoxGrid(MemTable Table)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+      description: The table.
+    content.vb: Protected Overridable Sub BindDataFactBoxGrid(Table As MemTable)
+  overload: Tripous.Desktop.ItemPage.BindDataFactBoxGrid*
+- uid: Tripous.Desktop.ItemPage.RefreshDataFactBox
+  commentId: M:Tripous.Desktop.ItemPage.RefreshDataFactBox
+  id: RefreshDataFactBox
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: RefreshDataFactBox()
+  nameWithType: ItemPage.RefreshDataFactBox()
+  fullName: Tripous.Desktop.ItemPage.RefreshDataFactBox()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RefreshDataFactBox
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 334
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Refreshes the built-in item data FactBox.
+  example: []
+  syntax:
+    content: protected virtual void RefreshDataFactBox()
+    content.vb: Protected Overridable Sub RefreshDataFactBox()
+  overload: Tripous.Desktop.ItemPage.RefreshDataFactBox*
+- uid: Tripous.Desktop.ItemPage.CreateDataFactBoxControl
+  commentId: M:Tripous.Desktop.ItemPage.CreateDataFactBoxControl
+  id: CreateDataFactBoxControl
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateDataFactBoxControl()
+  nameWithType: ItemPage.CreateDataFactBoxControl()
+  fullName: Tripous.Desktop.ItemPage.CreateDataFactBoxControl()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateDataFactBoxControl
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 347
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the built-in item data FactBox control.
+  example: []
+  syntax:
+    content: protected virtual Control CreateDataFactBoxControl()
+    return:
+      type: Avalonia.Controls.Control
+      description: The created control.
+    content.vb: Protected Overridable Function CreateDataFactBoxControl() As Control
+  overload: Tripous.Desktop.ItemPage.CreateDataFactBoxControl*
+- uid: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxControl
+  commentId: M:Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxControl
+  id: CreateStandardInfoFactBoxControl
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateStandardInfoFactBoxControl()
+  nameWithType: ItemPage.CreateStandardInfoFactBoxControl()
+  fullName: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxControl()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateStandardInfoFactBoxControl
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 386
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the built-in item information FactBox control.
+  example: []
+  syntax:
+    content: protected virtual Control CreateStandardInfoFactBoxControl()
+    return:
+      type: Avalonia.Controls.Control
+      description: The created control.
+    content.vb: Protected Overridable Function CreateStandardInfoFactBoxControl() As Control
+  overload: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxControl*
+- uid: Tripous.Desktop.ItemPage.RefreshStandardInfoFactBox
+  commentId: M:Tripous.Desktop.ItemPage.RefreshStandardInfoFactBox
+  id: RefreshStandardInfoFactBox
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: RefreshStandardInfoFactBox()
+  nameWithType: ItemPage.RefreshStandardInfoFactBox()
+  fullName: Tripous.Desktop.ItemPage.RefreshStandardInfoFactBox()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RefreshStandardInfoFactBox
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 403
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Refreshes the built-in item information FactBox.
+  example: []
+  syntax:
+    content: protected virtual void RefreshStandardInfoFactBox()
+    content.vb: Protected Overridable Sub RefreshStandardInfoFactBox()
+  overload: Tripous.Desktop.ItemPage.RefreshStandardInfoFactBox*
+- uid: Tripous.Desktop.ItemPage.RefreshFactBoxes
+  commentId: M:Tripous.Desktop.ItemPage.RefreshFactBoxes
+  id: RefreshFactBoxes
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: RefreshFactBoxes()
+  nameWithType: ItemPage.RefreshFactBoxes()
+  fullName: Tripous.Desktop.ItemPage.RefreshFactBoxes()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RefreshFactBoxes
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 421
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Refreshes all created FactBoxes.
+  example: []
+  syntax:
+    content: protected virtual void RefreshFactBoxes()
+    content.vb: Protected Overridable Sub RefreshFactBoxes()
+  overload: Tripous.Desktop.ItemPage.RefreshFactBoxes*
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxTab(Tripous.Data.ItemFactBoxDef)
+  commentId: M:Tripous.Desktop.ItemPage.CreateFactBoxTab(Tripous.Data.ItemFactBoxDef)
+  id: CreateFactBoxTab(Tripous.Data.ItemFactBoxDef)
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateFactBoxTab(ItemFactBoxDef)
+  nameWithType: ItemPage.CreateFactBoxTab(ItemFactBoxDef)
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxTab(Tripous.Data.ItemFactBoxDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFactBoxTab
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 444
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a tab for a FactBox definition.
+  example: []
+  syntax:
+    content: protected virtual TabItem CreateFactBoxTab(ItemFactBoxDef Def)
+    parameters:
+    - id: Def
+      type: Tripous.Data.ItemFactBoxDef
+      description: The FactBox definition.
+    return:
+      type: Avalonia.Controls.TabItem
+      description: The created tab item.
+    content.vb: Protected Overridable Function CreateFactBoxTab(Def As ItemFactBoxDef) As TabItem
+  overload: Tripous.Desktop.ItemPage.CreateFactBoxTab*
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxTabs(System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  commentId: M:Tripous.Desktop.ItemPage.CreateFactBoxTabs(System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  id: CreateFactBoxTabs(System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateFactBoxTabs(List<ItemFactBoxDef>)
+  nameWithType: ItemPage.CreateFactBoxTabs(List<ItemFactBoxDef>)
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxTabs(System.Collections.Generic.List<Tripous.Data.ItemFactBoxDef>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFactBoxTabs
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 457
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the tab control hosting the FactBoxes.
+  example: []
+  syntax:
+    content: protected virtual TabControl CreateFactBoxTabs(List<ItemFactBoxDef> FactBoxes)
+    parameters:
+    - id: FactBoxes
+      type: System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef}
+      description: The FactBox definitions.
+    return:
+      type: Avalonia.Controls.TabControl
+      description: The created tab control.
+    content.vb: Protected Overridable Function CreateFactBoxTabs(FactBoxes As List(Of ItemFactBoxDef)) As TabControl
+  overload: Tripous.Desktop.ItemPage.CreateFactBoxTabs*
+  nameWithType.vb: ItemPage.CreateFactBoxTabs(List(Of ItemFactBoxDef))
+  fullName.vb: Tripous.Desktop.ItemPage.CreateFactBoxTabs(System.Collections.Generic.List(Of Tripous.Data.ItemFactBoxDef))
+  name.vb: CreateFactBoxTabs(List(Of ItemFactBoxDef))
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxPane(System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  commentId: M:Tripous.Desktop.ItemPage.CreateFactBoxPane(System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  id: CreateFactBoxPane(System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateFactBoxPane(List<ItemFactBoxDef>)
+  nameWithType: ItemPage.CreateFactBoxPane(List<ItemFactBoxDef>)
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxPane(System.Collections.Generic.List<Tripous.Data.ItemFactBoxDef>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFactBoxPane
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 485
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the right-side FactBox pane.
+  example: []
+  syntax:
+    content: protected virtual Border CreateFactBoxPane(List<ItemFactBoxDef> FactBoxes)
+    parameters:
+    - id: FactBoxes
+      type: System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef}
+      description: The FactBox definitions.
+    return:
+      type: Avalonia.Controls.Border
+      description: The created pane.
+    content.vb: Protected Overridable Function CreateFactBoxPane(FactBoxes As List(Of ItemFactBoxDef)) As Border
+  overload: Tripous.Desktop.ItemPage.CreateFactBoxPane*
+  nameWithType.vb: ItemPage.CreateFactBoxPane(List(Of ItemFactBoxDef))
+  fullName.vb: Tripous.Desktop.ItemPage.CreateFactBoxPane(System.Collections.Generic.List(Of Tripous.Data.ItemFactBoxDef))
+  name.vb: CreateFactBoxPane(List(Of ItemFactBoxDef))
+- uid: Tripous.Desktop.ItemPage.CreateItemPageRoot(Avalonia.Controls.Control,System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  commentId: M:Tripous.Desktop.ItemPage.CreateItemPageRoot(Avalonia.Controls.Control,System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  id: CreateItemPageRoot(Avalonia.Controls.Control,System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef})
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: CreateItemPageRoot(Control, List<ItemFactBoxDef>)
+  nameWithType: ItemPage.CreateItemPageRoot(Control, List<ItemFactBoxDef>)
+  fullName: Tripous.Desktop.ItemPage.CreateItemPageRoot(Avalonia.Controls.Control, System.Collections.Generic.List<Tripous.Data.ItemFactBoxDef>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateItemPageRoot
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 502
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the item page root content.
+  example: []
+  syntax:
+    content: protected virtual Control CreateItemPageRoot(Control MainContent, List<ItemFactBoxDef> FactBoxes)
+    parameters:
+    - id: MainContent
+      type: Avalonia.Controls.Control
+      description: The main item page content.
+    - id: FactBoxes
+      type: System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef}
+      description: The visible FactBox definitions.
+    return:
+      type: Avalonia.Controls.Control
+      description: The created root content.
+    content.vb: Protected Overridable Function CreateItemPageRoot(MainContent As Control, FactBoxes As List(Of ItemFactBoxDef)) As Control
+  overload: Tripous.Desktop.ItemPage.CreateItemPageRoot*
+  nameWithType.vb: ItemPage.CreateItemPageRoot(Control, List(Of ItemFactBoxDef))
+  fullName.vb: Tripous.Desktop.ItemPage.CreateItemPageRoot(Avalonia.Controls.Control, System.Collections.Generic.List(Of Tripous.Data.ItemFactBoxDef))
+  name.vb: CreateItemPageRoot(Control, List(Of ItemFactBoxDef))
 - uid: Tripous.Desktop.ItemPage.CreateEditor(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
   commentId: M:Tripous.Desktop.ItemPage.CreateEditor(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
   id: CreateEditor(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
@@ -757,7 +1748,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateEditor
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 122
+    startLine: 536
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -795,7 +1786,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSuccessfulReferenceResult
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 196
+    startLine: 610
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -830,7 +1821,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReloadReferenceLookup
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 201
+    startLine: 615
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -862,7 +1853,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RefreshReferenceBinding
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 234
+    startLine: 648
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -894,7 +1885,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetReferenceValue
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 252
+    startLine: 666
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -932,7 +1923,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Refresh
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 301
+    startLine: 715
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -960,7 +1951,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CaptureDetailGridSelection
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 310
+    startLine: 725
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -991,7 +1982,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RestoreDetailGridSelection
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 328
+    startLine: 743
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1026,7 +2017,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ApplyIdColumnsVisible
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 355
+    startLine: 770
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1043,6 +2034,34 @@ items:
   nameWithType.vb: ItemPage.ApplyIdColumnsVisible(Boolean)
   fullName.vb: Tripous.Desktop.ItemPage.ApplyIdColumnsVisible(Boolean)
   name.vb: ApplyIdColumnsVisible(Boolean)
+- uid: Tripous.Desktop.ItemPage.ToggleFactBoxPane
+  commentId: M:Tripous.Desktop.ItemPage.ToggleFactBoxPane
+  id: ToggleFactBoxPane
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: ToggleFactBoxPane()
+  nameWithType: ItemPage.ToggleFactBoxPane()
+  fullName: Tripous.Desktop.ItemPage.ToggleFactBoxPane()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToggleFactBoxPane
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 788
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Toggles the FactBox pane.
+  example: []
+  syntax:
+    content: public virtual void ToggleFactBoxPane()
+    content.vb: Public Overridable Sub ToggleFactBoxPane()
+  overload: Tripous.Desktop.ItemPage.ToggleFactBoxPane*
 - uid: Tripous.Desktop.ItemPage.SetReadOnly(System.Boolean)
   commentId: M:Tripous.Desktop.ItemPage.SetReadOnly(System.Boolean)
   id: SetReadOnly(System.Boolean)
@@ -1061,7 +2080,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetReadOnly
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 374
+    startLine: 796
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1096,7 +2115,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 392
+    startLine: 814
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1127,7 +2146,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 402
+    startLine: 824
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1155,7 +2174,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 407
+    startLine: 829
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1190,7 +2209,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanOpenRefContextMenu
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 439
+    startLine: 865
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1227,7 +2246,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanExecute
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 452
+    startLine: 878
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1264,7 +2283,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Execute
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 477
+    startLine: 903
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1301,7 +2320,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteReferenceShowList
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 505
+    startLine: 931
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1336,7 +2355,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteReferenceReload
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 517
+    startLine: 943
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1371,7 +2390,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteReferenceEdit
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 528
+    startLine: 954
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1406,7 +2425,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteReferenceAdd
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 543
+    startLine: 969
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1441,7 +2460,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteReferenceClear
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 558
+    startLine: 984
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1476,7 +2495,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemBinder
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 568
+    startLine: 994
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1507,7 +2526,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Binders
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 572
+    startLine: 998
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1538,7 +2557,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRow
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 576
+    startLine: 1002
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1569,7 +2588,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataForm
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 580
+    startLine: 1006
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1600,7 +2619,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataFormContext
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 597
+    startLine: 1023
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1631,7 +2650,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormDef
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 601
+    startLine: 1027
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1662,7 +2681,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModuleDef
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 605
+    startLine: 1031
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1693,7 +2712,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Module
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 609
+    startLine: 1035
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1724,7 +2743,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: InvalidActions
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 613
+    startLine: 1039
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1755,7 +2774,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: StartAction
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 617
+    startLine: 1043
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1786,7 +2805,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsBindingDone
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 621
+    startLine: 1047
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1799,6 +2818,68 @@ items:
       type: System.Boolean
     content.vb: Public Property IsBindingDone As Boolean
   overload: Tripous.Desktop.ItemPage.IsBindingDone*
+- uid: Tripous.Desktop.ItemPage.HasFactBoxPane
+  commentId: P:Tripous.Desktop.ItemPage.HasFactBoxPane
+  id: HasFactBoxPane
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: HasFactBoxPane
+  nameWithType: ItemPage.HasFactBoxPane
+  fullName: Tripous.Desktop.ItemPage.HasFactBoxPane
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasFactBoxPane
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 1051
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: True when this item page has a FactBox pane.
+  example: []
+  syntax:
+    content: public bool HasFactBoxPane { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property HasFactBoxPane As Boolean
+  overload: Tripous.Desktop.ItemPage.HasFactBoxPane*
+- uid: Tripous.Desktop.ItemPage.FactBoxPaneVisible
+  commentId: P:Tripous.Desktop.ItemPage.FactBoxPaneVisible
+  id: FactBoxPaneVisible
+  parent: Tripous.Desktop.ItemPage
+  langs:
+  - csharp
+  - vb
+  name: FactBoxPaneVisible
+  nameWithType: ItemPage.FactBoxPaneVisible
+  fullName: Tripous.Desktop.ItemPage.FactBoxPaneVisible
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ItemPage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FactBoxPaneVisible
+    path: ../Tripous.Desktop/ItemUi/ItemPage.cs
+    startLine: 1055
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets whether the FactBox pane is visible.
+  example: []
+  syntax:
+    content: public bool FactBoxPaneVisible { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property FactBoxPaneVisible As Boolean
+  overload: Tripous.Desktop.ItemPage.FactBoxPaneVisible*
 - uid: Tripous.Desktop.ItemPage.IsReadOnly
   commentId: P:Tripous.Desktop.ItemPage.IsReadOnly
   id: IsReadOnly
@@ -1817,7 +2898,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsReadOnly
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 625
+    startLine: 1074
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1848,7 +2929,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRowChanging
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 631
+    startLine: 1080
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1877,7 +2958,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRowChanged
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 635
+    startLine: 1084
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1906,7 +2987,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetGridCommands
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 642
+    startLine: 1091
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1939,7 +3020,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanExecute
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 683
+    startLine: 1132
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1976,7 +3057,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Execute
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 712
+    startLine: 1161
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2013,7 +3094,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteGridAdd
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 732
+    startLine: 1181
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2048,7 +3129,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteGridDelete
     path: ../Tripous.Desktop/ItemUi/ItemPage.cs
-    startLine: 757
+    startLine: 1206
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -9836,6 +10917,151 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
+- uid: Avalonia.Controls.GridSplitter
+  commentId: T:Avalonia.Controls.GridSplitter
+  parent: Avalonia.Controls
+  isExternal: true
+  name: GridSplitter
+  nameWithType: GridSplitter
+  fullName: Avalonia.Controls.GridSplitter
+- uid: Avalonia.Controls.Border
+  commentId: T:Avalonia.Controls.Border
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Border
+  nameWithType: Border
+  fullName: Avalonia.Controls.Border
+- uid: Avalonia.Controls.TabControl
+  commentId: T:Avalonia.Controls.TabControl
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TabControl
+  nameWithType: TabControl
+  fullName: Avalonia.Controls.TabControl
+- uid: Tripous.Desktop.ItemInfoFactBoxControl
+  commentId: T:Tripous.Desktop.ItemInfoFactBoxControl
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ItemInfoFactBoxControl.html
+  name: ItemInfoFactBoxControl
+  nameWithType: ItemInfoFactBoxControl
+  fullName: Tripous.Desktop.ItemInfoFactBoxControl
+- uid: Avalonia.Controls.ListBox
+  commentId: T:Avalonia.Controls.ListBox
+  parent: Avalonia.Controls
+  isExternal: true
+  name: ListBox
+  nameWithType: ListBox
+  fullName: Avalonia.Controls.ListBox
+- uid: Avalonia.Controls.GroupGrid
+  commentId: T:Avalonia.Controls.GroupGrid
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGrid.html
+  name: GroupGrid
+  nameWithType: GroupGrid
+  fullName: Avalonia.Controls.GroupGrid
+- uid: System.Collections.Generic.List{System.Tuple{Tripous.Data.ItemFactBoxDef,Tripous.Desktop.ItemFactBoxControl}}
+  commentId: T:System.Collections.Generic.List{System.Tuple{Tripous.Data.ItemFactBoxDef,Tripous.Desktop.ItemFactBoxControl}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Tuple<ItemFactBoxDef, ItemFactBoxControl>>
+  nameWithType: List<Tuple<ItemFactBoxDef, ItemFactBoxControl>>
+  fullName: System.Collections.Generic.List<System.Tuple<Tripous.Data.ItemFactBoxDef, Tripous.Desktop.ItemFactBoxControl>>
+  nameWithType.vb: List(Of Tuple(Of ItemFactBoxDef, ItemFactBoxControl))
+  fullName.vb: System.Collections.Generic.List(Of System.Tuple(Of Tripous.Data.ItemFactBoxDef, Tripous.Desktop.ItemFactBoxControl))
+  name.vb: List(Of Tuple(Of ItemFactBoxDef, ItemFactBoxControl))
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.Tuple`2
+    name: Tuple
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.tuple-2
+  - name: <
+  - uid: Tripous.Data.ItemFactBoxDef
+    name: ItemFactBoxDef
+    href: Tripous.Data.ItemFactBoxDef.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ItemFactBoxControl
+    name: ItemFactBoxControl
+    href: Tripous.Desktop.ItemFactBoxControl.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Tuple`2
+    name: Tuple
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.tuple-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ItemFactBoxDef
+    name: ItemFactBoxDef
+    href: Tripous.Data.ItemFactBoxDef.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ItemFactBoxControl
+    name: ItemFactBoxControl
+    href: Tripous.Desktop.ItemFactBoxControl.html
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Avalonia.Controls.ColumnDefinition
+  commentId: T:Avalonia.Controls.ColumnDefinition
+  parent: Avalonia.Controls
+  isExternal: true
+  name: ColumnDefinition
+  nameWithType: ColumnDefinition
+  fullName: Avalonia.Controls.ColumnDefinition
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
 - uid: Tripous.Desktop.ItemPage.IsBindingReadOnly*
   commentId: Overload:Tripous.Desktop.ItemPage.IsBindingReadOnly
   href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_IsBindingReadOnly_Tripous_Desktop_TripousBinding_
@@ -9875,26 +11101,58 @@ references:
   name: UiDetailTableInfo
   nameWithType: UiDetailTableInfo
   fullName: Tripous.Desktop.UiDetailTableInfo
-- uid: Tripous.Desktop.ItemPage.CreateEditor*
-  commentId: Overload:Tripous.Desktop.ItemPage.CreateEditor
-  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateEditor_Tripous_Data_FieldDef_Tripous_Desktop_ItemBinder_
-  name: CreateEditor
-  nameWithType: ItemPage.CreateEditor
-  fullName: Tripous.Desktop.ItemPage.CreateEditor
-- uid: Tripous.Data.FieldDef
-  commentId: T:Tripous.Data.FieldDef
+- uid: Tripous.Desktop.ItemPage.GetVisibleFactBoxes*
+  commentId: Overload:Tripous.Desktop.ItemPage.GetVisibleFactBoxes
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_GetVisibleFactBoxes
+  name: GetVisibleFactBoxes
+  nameWithType: ItemPage.GetVisibleFactBoxes
+  fullName: Tripous.Desktop.ItemPage.GetVisibleFactBoxes
+- uid: System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.ItemFactBoxDef}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<ItemFactBoxDef>
+  nameWithType: List<ItemFactBoxDef>
+  fullName: System.Collections.Generic.List<Tripous.Data.ItemFactBoxDef>
+  nameWithType.vb: List(Of ItemFactBoxDef)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.ItemFactBoxDef)
+  name.vb: List(Of ItemFactBoxDef)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.ItemFactBoxDef
+    name: ItemFactBoxDef
+    href: Tripous.Data.ItemFactBoxDef.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ItemFactBoxDef
+    name: ItemFactBoxDef
+    href: Tripous.Data.ItemFactBoxDef.html
+  - name: )
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxPlaceholder*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateFactBoxPlaceholder
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateFactBoxPlaceholder_Tripous_Data_ItemFactBoxDef_
+  name: CreateFactBoxPlaceholder
+  nameWithType: ItemPage.CreateFactBoxPlaceholder
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxPlaceholder
+- uid: Tripous.Data.ItemFactBoxDef
+  commentId: T:Tripous.Data.ItemFactBoxDef
   parent: Tripous.Data
-  href: Tripous.Data.FieldDef.html
-  name: FieldDef
-  nameWithType: FieldDef
-  fullName: Tripous.Data.FieldDef
-- uid: Tripous.Desktop.ItemBinder
-  commentId: T:Tripous.Desktop.ItemBinder
-  parent: Tripous.Desktop
-  href: Tripous.Desktop.ItemBinder.html
-  name: ItemBinder
-  nameWithType: ItemBinder
-  fullName: Tripous.Desktop.ItemBinder
+  href: Tripous.Data.ItemFactBoxDef.html
+  name: ItemFactBoxDef
+  nameWithType: ItemFactBoxDef
+  fullName: Tripous.Data.ItemFactBoxDef
 - uid: Tripous.Data
   commentId: N:Tripous.Data
   href: Tripous.html
@@ -9917,6 +11175,200 @@ references:
   - uid: Tripous.Data
     name: Data
     href: Tripous.Data.html
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxContext*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateFactBoxContext
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateFactBoxContext_Tripous_Data_ItemFactBoxDef_
+  name: CreateFactBoxContext
+  nameWithType: ItemPage.CreateFactBoxContext
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxContext
+- uid: Tripous.Data.ItemFactBoxContext
+  commentId: T:Tripous.Data.ItemFactBoxContext
+  parent: Tripous.Data
+  href: Tripous.Data.ItemFactBoxContext.html
+  name: ItemFactBoxContext
+  nameWithType: ItemFactBoxContext
+  fullName: Tripous.Data.ItemFactBoxContext
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxControl*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateFactBoxControl
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateFactBoxControl_Tripous_Data_ItemFactBoxDef_
+  name: CreateFactBoxControl
+  nameWithType: ItemPage.CreateFactBoxControl
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxControl
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxMessage*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateFactBoxMessage
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateFactBoxMessage_System_String_
+  name: CreateFactBoxMessage
+  nameWithType: ItemPage.CreateFactBoxMessage
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxMessage
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Desktop.ItemPage.GetFactBoxData*
+  commentId: Overload:Tripous.Desktop.ItemPage.GetFactBoxData
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_GetFactBoxData_Tripous_Data_ItemFactBoxDef_Tripous_Data_ItemFactBoxContext_
+  name: GetFactBoxData
+  nameWithType: ItemPage.GetFactBoxData
+  fullName: Tripous.Desktop.ItemPage.GetFactBoxData
+- uid: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxData*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxData
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateStandardInfoFactBoxData_Tripous_Data_ItemFactBoxContext_
+  name: CreateStandardInfoFactBoxData
+  nameWithType: ItemPage.CreateStandardInfoFactBoxData
+  fullName: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxData
+- uid: Tripous.Data.ItemStandardInfoFactBoxData
+  commentId: T:Tripous.Data.ItemStandardInfoFactBoxData
+  parent: Tripous.Data
+  href: Tripous.Data.ItemStandardInfoFactBoxData.html
+  name: ItemStandardInfoFactBoxData
+  nameWithType: ItemStandardInfoFactBoxData
+  fullName: Tripous.Data.ItemStandardInfoFactBoxData
+- uid: Tripous.Desktop.ItemPage.CanShowDataFactBox*
+  commentId: Overload:Tripous.Desktop.ItemPage.CanShowDataFactBox
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CanShowDataFactBox
+  name: CanShowDataFactBox
+  nameWithType: ItemPage.CanShowDataFactBox
+  fullName: Tripous.Desktop.ItemPage.CanShowDataFactBox
+- uid: Tripous.Desktop.ItemPage.GetDataFactBoxTables*
+  commentId: Overload:Tripous.Desktop.ItemPage.GetDataFactBoxTables
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_GetDataFactBoxTables
+  name: GetDataFactBoxTables
+  nameWithType: ItemPage.GetDataFactBoxTables
+  fullName: Tripous.Desktop.ItemPage.GetDataFactBoxTables
+- uid: System.Collections.Generic.List{Tripous.Data.MemTable}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.MemTable}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<MemTable>
+  nameWithType: List<MemTable>
+  fullName: System.Collections.Generic.List<Tripous.Data.MemTable>
+  nameWithType.vb: List(Of MemTable)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.MemTable)
+  name.vb: List(Of MemTable)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: )
+- uid: Tripous.Desktop.ItemPage.BindDataFactBoxGrid*
+  commentId: Overload:Tripous.Desktop.ItemPage.BindDataFactBoxGrid
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_BindDataFactBoxGrid_Tripous_Data_MemTable_
+  name: BindDataFactBoxGrid
+  nameWithType: ItemPage.BindDataFactBoxGrid
+  fullName: Tripous.Desktop.ItemPage.BindDataFactBoxGrid
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable
+- uid: Tripous.Desktop.ItemPage.RefreshDataFactBox*
+  commentId: Overload:Tripous.Desktop.ItemPage.RefreshDataFactBox
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_RefreshDataFactBox
+  name: RefreshDataFactBox
+  nameWithType: ItemPage.RefreshDataFactBox
+  fullName: Tripous.Desktop.ItemPage.RefreshDataFactBox
+- uid: Tripous.Desktop.ItemPage.CreateDataFactBoxControl*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateDataFactBoxControl
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateDataFactBoxControl
+  name: CreateDataFactBoxControl
+  nameWithType: ItemPage.CreateDataFactBoxControl
+  fullName: Tripous.Desktop.ItemPage.CreateDataFactBoxControl
+- uid: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxControl*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxControl
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateStandardInfoFactBoxControl
+  name: CreateStandardInfoFactBoxControl
+  nameWithType: ItemPage.CreateStandardInfoFactBoxControl
+  fullName: Tripous.Desktop.ItemPage.CreateStandardInfoFactBoxControl
+- uid: Tripous.Desktop.ItemPage.RefreshStandardInfoFactBox*
+  commentId: Overload:Tripous.Desktop.ItemPage.RefreshStandardInfoFactBox
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_RefreshStandardInfoFactBox
+  name: RefreshStandardInfoFactBox
+  nameWithType: ItemPage.RefreshStandardInfoFactBox
+  fullName: Tripous.Desktop.ItemPage.RefreshStandardInfoFactBox
+- uid: Tripous.Desktop.ItemPage.RefreshFactBoxes*
+  commentId: Overload:Tripous.Desktop.ItemPage.RefreshFactBoxes
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_RefreshFactBoxes
+  name: RefreshFactBoxes
+  nameWithType: ItemPage.RefreshFactBoxes
+  fullName: Tripous.Desktop.ItemPage.RefreshFactBoxes
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxTab*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateFactBoxTab
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateFactBoxTab_Tripous_Data_ItemFactBoxDef_
+  name: CreateFactBoxTab
+  nameWithType: ItemPage.CreateFactBoxTab
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxTab
+- uid: Avalonia.Controls.TabItem
+  commentId: T:Avalonia.Controls.TabItem
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TabItem
+  nameWithType: TabItem
+  fullName: Avalonia.Controls.TabItem
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxTabs*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateFactBoxTabs
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateFactBoxTabs_System_Collections_Generic_List_Tripous_Data_ItemFactBoxDef__
+  name: CreateFactBoxTabs
+  nameWithType: ItemPage.CreateFactBoxTabs
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxTabs
+- uid: Tripous.Desktop.ItemPage.CreateFactBoxPane*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateFactBoxPane
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateFactBoxPane_System_Collections_Generic_List_Tripous_Data_ItemFactBoxDef__
+  name: CreateFactBoxPane
+  nameWithType: ItemPage.CreateFactBoxPane
+  fullName: Tripous.Desktop.ItemPage.CreateFactBoxPane
+- uid: Tripous.Desktop.ItemPage.CreateItemPageRoot*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateItemPageRoot
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateItemPageRoot_Avalonia_Controls_Control_System_Collections_Generic_List_Tripous_Data_ItemFactBoxDef__
+  name: CreateItemPageRoot
+  nameWithType: ItemPage.CreateItemPageRoot
+  fullName: Tripous.Desktop.ItemPage.CreateItemPageRoot
+- uid: Tripous.Desktop.ItemPage.CreateEditor*
+  commentId: Overload:Tripous.Desktop.ItemPage.CreateEditor
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CreateEditor_Tripous_Data_FieldDef_Tripous_Desktop_ItemBinder_
+  name: CreateEditor
+  nameWithType: ItemPage.CreateEditor
+  fullName: Tripous.Desktop.ItemPage.CreateEditor
+- uid: Tripous.Data.FieldDef
+  commentId: T:Tripous.Data.FieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.FieldDef.html
+  name: FieldDef
+  nameWithType: FieldDef
+  fullName: Tripous.Data.FieldDef
+- uid: Tripous.Desktop.ItemBinder
+  commentId: T:Tripous.Desktop.ItemBinder
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ItemBinder.html
+  name: ItemBinder
+  nameWithType: ItemBinder
+  fullName: Tripous.Desktop.ItemBinder
 - uid: Tripous.Desktop.ItemPage.IsSuccessfulReferenceResult*
   commentId: Overload:Tripous.Desktop.ItemPage.IsSuccessfulReferenceResult
   href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_IsSuccessfulReferenceResult_Tripous_Desktop_ReferenceMenuCommandContext_
@@ -10037,6 +11489,12 @@ references:
   name: ApplyIdColumnsVisible
   nameWithType: ItemPage.ApplyIdColumnsVisible
   fullName: Tripous.Desktop.ItemPage.ApplyIdColumnsVisible
+- uid: Tripous.Desktop.ItemPage.ToggleFactBoxPane*
+  commentId: Overload:Tripous.Desktop.ItemPage.ToggleFactBoxPane
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_ToggleFactBoxPane
+  name: ToggleFactBoxPane
+  nameWithType: ItemPage.ToggleFactBoxPane
+  fullName: Tripous.Desktop.ItemPage.ToggleFactBoxPane
 - uid: Tripous.Desktop.ItemPage.SetReadOnly*
   commentId: Overload:Tripous.Desktop.ItemPage.SetReadOnly
   href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_SetReadOnly_System_Boolean_
@@ -10342,34 +11800,6 @@ references:
     name: ItemBinder
     href: Tripous.Desktop.ItemBinder.html
   - name: )
-- uid: System.Collections.Generic.List`1
-  commentId: T:System.Collections.Generic.List`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<T>
-  nameWithType: List<T>
-  fullName: System.Collections.Generic.List<T>
-  nameWithType.vb: List(Of T)
-  fullName.vb: System.Collections.Generic.List(Of T)
-  name.vb: List(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
 - uid: Tripous.Desktop.ItemPage.CurrentRow*
   commentId: Overload:Tripous.Desktop.ItemPage.CurrentRow
   href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_CurrentRow
@@ -10494,6 +11924,18 @@ references:
   name: IsBindingDone
   nameWithType: ItemPage.IsBindingDone
   fullName: Tripous.Desktop.ItemPage.IsBindingDone
+- uid: Tripous.Desktop.ItemPage.HasFactBoxPane*
+  commentId: Overload:Tripous.Desktop.ItemPage.HasFactBoxPane
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_HasFactBoxPane
+  name: HasFactBoxPane
+  nameWithType: ItemPage.HasFactBoxPane
+  fullName: Tripous.Desktop.ItemPage.HasFactBoxPane
+- uid: Tripous.Desktop.ItemPage.FactBoxPaneVisible*
+  commentId: Overload:Tripous.Desktop.ItemPage.FactBoxPaneVisible
+  href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_FactBoxPaneVisible
+  name: FactBoxPaneVisible
+  nameWithType: ItemPage.FactBoxPaneVisible
+  fullName: Tripous.Desktop.ItemPage.FactBoxPaneVisible
 - uid: Tripous.Desktop.ItemPage.IsReadOnly*
   commentId: Overload:Tripous.Desktop.ItemPage.IsReadOnly
   href: Tripous.Desktop.ItemPage.html#Tripous_Desktop_ItemPage_IsReadOnly

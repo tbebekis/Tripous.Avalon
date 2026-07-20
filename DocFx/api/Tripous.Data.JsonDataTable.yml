@@ -13,7 +13,11 @@ items:
   - Tripous.Data.JsonDataTable.Deleted
   - Tripous.Data.JsonDataTable.DetailField
   - Tripous.Data.JsonDataTable.Details
+  - Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow,System.Data.DataTable,System.String)
+  - Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow,System.String)
+  - Tripous.Data.JsonDataTable.IndexOfColumn(System.String)
   - Tripous.Data.JsonDataTable.KeyField
+  - Tripous.Data.JsonDataTable.Locators
   - Tripous.Data.JsonDataTable.MasterField
   - Tripous.Data.JsonDataTable.MasterTableName
   - Tripous.Data.JsonDataTable.Name
@@ -22,6 +26,7 @@ items:
   - Tripous.Data.JsonDataTable.ToJObject
   - Tripous.Data.JsonDataTable.ToJObject(System.Data.DataTable,Tripous.Data.TableDef)
   - Tripous.Data.JsonDataTable.ToJson
+  - Tripous.Data.JsonDataTable.ToString
   langs:
   - csharp
   - vb
@@ -54,7 +59,6 @@ items:
   - System.Object.GetType
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
-  - System.Object.ToString
   extensionMethods:
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
 - uid: Tripous.Data.JsonDataTable.#ctor
@@ -176,7 +180,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToJObject
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 145
+    startLine: 148
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -193,6 +197,151 @@ items:
       type: System.Text.Json.Nodes.JsonObject
     content.vb: Public Shared Function ToJObject(Source As DataTable, TableDef As TableDef = Nothing) As JsonObject
   overload: Tripous.Data.JsonDataTable.ToJObject*
+- uid: Tripous.Data.JsonDataTable.ToString
+  commentId: M:Tripous.Data.JsonDataTable.ToString
+  id: ToString
+  parent: Tripous.Data.JsonDataTable
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: JsonDataTable.ToString()
+  fullName: Tripous.Data.JsonDataTable.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataTable.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous.Data/Json/JsonDataTable.cs
+    startLine: 158
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string representation of this instance.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: Tripous.Data.JsonDataTable.ToString*
+- uid: Tripous.Data.JsonDataTable.IndexOfColumn(System.String)
+  commentId: M:Tripous.Data.JsonDataTable.IndexOfColumn(System.String)
+  id: IndexOfColumn(System.String)
+  parent: Tripous.Data.JsonDataTable
+  langs:
+  - csharp
+  - vb
+  name: IndexOfColumn(string)
+  nameWithType: JsonDataTable.IndexOfColumn(string)
+  fullName: Tripous.Data.JsonDataTable.IndexOfColumn(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataTable.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IndexOfColumn
+    path: ../Tripous.Data/Json/JsonDataTable.cs
+    startLine: 162
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the index of a column by name.
+  example: []
+  syntax:
+    content: public int IndexOfColumn(string ColumnName)
+    parameters:
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Function IndexOfColumn(ColumnName As String) As Integer
+  overload: Tripous.Data.JsonDataTable.IndexOfColumn*
+  nameWithType.vb: JsonDataTable.IndexOfColumn(String)
+  fullName.vb: Tripous.Data.JsonDataTable.IndexOfColumn(String)
+  name.vb: IndexOfColumn(String)
+- uid: Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow,System.String)
+  commentId: M:Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow,System.String)
+  id: GetValue(Tripous.Data.JsonDataRow,System.String)
+  parent: Tripous.Data.JsonDataTable
+  langs:
+  - csharp
+  - vb
+  name: GetValue(JsonDataRow, string)
+  nameWithType: JsonDataTable.GetValue(JsonDataRow, string)
+  fullName: Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataTable.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Data/Json/JsonDataTable.cs
+    startLine: 176
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a row value by column name, using this JSON table for column lookup.
+  example: []
+  syntax:
+    content: public object GetValue(JsonDataRow Row, string ColumnName)
+    parameters:
+    - id: Row
+      type: Tripous.Data.JsonDataRow
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Function GetValue(Row As JsonDataRow, ColumnName As String) As Object
+  overload: Tripous.Data.JsonDataTable.GetValue*
+  nameWithType.vb: JsonDataTable.GetValue(JsonDataRow, String)
+  fullName.vb: Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow, String)
+  name.vb: GetValue(JsonDataRow, String)
+- uid: Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow,System.Data.DataTable,System.String)
+  commentId: M:Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow,System.Data.DataTable,System.String)
+  id: GetValue(Tripous.Data.JsonDataRow,System.Data.DataTable,System.String)
+  parent: Tripous.Data.JsonDataTable
+  langs:
+  - csharp
+  - vb
+  name: GetValue(JsonDataRow, DataTable, string)
+  nameWithType: JsonDataTable.GetValue(JsonDataRow, DataTable, string)
+  fullName: Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow, System.Data.DataTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataTable.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Data/Json/JsonDataTable.cs
+    startLine: 185
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a row value by column name, using a <xref href="System.Data.DataTable" data-throw-if-not-resolved="false"></xref> for column lookup.
+  example: []
+  syntax:
+    content: public object GetValue(JsonDataRow Row, DataTable Table, string ColumnName)
+    parameters:
+    - id: Row
+      type: Tripous.Data.JsonDataRow
+    - id: Table
+      type: System.Data.DataTable
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Function GetValue(Row As JsonDataRow, Table As DataTable, ColumnName As String) As Object
+  overload: Tripous.Data.JsonDataTable.GetValue*
+  nameWithType.vb: JsonDataTable.GetValue(JsonDataRow, DataTable, String)
+  fullName.vb: Tripous.Data.JsonDataTable.GetValue(Tripous.Data.JsonDataRow, System.Data.DataTable, String)
+  name.vb: GetValue(JsonDataRow, DataTable, String)
 - uid: Tripous.Data.JsonDataTable.RowsTo(System.Data.DataTable)
   commentId: M:Tripous.Data.JsonDataTable.RowsTo(System.Data.DataTable)
   id: RowsTo(System.Data.DataTable)
@@ -211,7 +360,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowsTo
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 155
+    startLine: 209
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -242,7 +391,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToJObject
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 190
+    startLine: 247
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -272,7 +421,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToJson
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 198
+    startLine: 255
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -302,7 +451,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Name
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 204
+    startLine: 261
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -333,7 +482,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: KeyField
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 208
+    startLine: 265
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -364,7 +513,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MasterField
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 212
+    startLine: 269
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -395,7 +544,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailField
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 216
+    startLine: 273
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -426,7 +575,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MasterTableName
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 220
+    startLine: 277
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -457,7 +606,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AutoGenerateGuidKeys
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 224
+    startLine: 281
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -488,7 +637,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Details
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 228
+    startLine: 285
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -501,6 +650,37 @@ items:
       type: System.Collections.Generic.List{System.String}
     content.vb: Public Property Details As List(Of String)
   overload: Tripous.Data.JsonDataTable.Details*
+- uid: Tripous.Data.JsonDataTable.Locators
+  commentId: P:Tripous.Data.JsonDataTable.Locators
+  id: Locators
+  parent: Tripous.Data.JsonDataTable
+  langs:
+  - csharp
+  - vb
+  name: Locators
+  nameWithType: JsonDataTable.Locators
+  fullName: Tripous.Data.JsonDataTable.Locators
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataTable.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Locators
+    path: ../Tripous.Data/Json/JsonDataTable.cs
+    startLine: 289
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The table-specific locator definitions.
+  example: []
+  syntax:
+    content: public JsonLocatorList Locators { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.JsonLocatorList
+    content.vb: Public Property Locators As JsonLocatorList
+  overload: Tripous.Data.JsonDataTable.Locators*
 - uid: Tripous.Data.JsonDataTable.Columns
   commentId: P:Tripous.Data.JsonDataTable.Columns
   id: Columns
@@ -519,7 +699,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Columns
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 232
+    startLine: 293
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -550,7 +730,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Rows
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 236
+    startLine: 297
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -581,7 +761,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Deleted
     path: ../Tripous.Data/Json/JsonDataTable.cs
-    startLine: 240
+    startLine: 301
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -823,30 +1003,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
-  name: ToString()
-  nameWithType: object.ToString()
-  fullName: object.ToString()
-  nameWithType.vb: Object.ToString()
-  fullName.vb: Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
-  - name: (
-  - name: )
 - uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
   commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
   parent: Tripous.TypeExtensions
@@ -1064,6 +1220,77 @@ references:
     name: Nodes
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Tripous.Data.JsonDataTable.ToString*
+  commentId: Overload:Tripous.Data.JsonDataTable.ToString
+  href: Tripous.Data.JsonDataTable.html#Tripous_Data_JsonDataTable_ToString
+  name: ToString
+  nameWithType: JsonDataTable.ToString
+  fullName: Tripous.Data.JsonDataTable.ToString
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.JsonDataTable.IndexOfColumn*
+  commentId: Overload:Tripous.Data.JsonDataTable.IndexOfColumn
+  href: Tripous.Data.JsonDataTable.html#Tripous_Data_JsonDataTable_IndexOfColumn_System_String_
+  name: IndexOfColumn
+  nameWithType: JsonDataTable.IndexOfColumn
+  fullName: Tripous.Data.JsonDataTable.IndexOfColumn
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.JsonDataTable.GetValue*
+  commentId: Overload:Tripous.Data.JsonDataTable.GetValue
+  href: Tripous.Data.JsonDataTable.html#Tripous_Data_JsonDataTable_GetValue_Tripous_Data_JsonDataRow_System_String_
+  name: GetValue
+  nameWithType: JsonDataTable.GetValue
+  fullName: Tripous.Data.JsonDataTable.GetValue
+- uid: Tripous.Data.JsonDataRow
+  commentId: T:Tripous.Data.JsonDataRow
+  parent: Tripous.Data
+  href: Tripous.Data.JsonDataRow.html
+  name: JsonDataRow
+  nameWithType: JsonDataRow
+  fullName: Tripous.Data.JsonDataRow
 - uid: Tripous.Data.JsonDataTable.RowsTo*
   commentId: Overload:Tripous.Data.JsonDataTable.RowsTo
   href: Tripous.Data.JsonDataTable.html#Tripous_Data_JsonDataTable_RowsTo_System_Data_DataTable_
@@ -1076,17 +1303,6 @@ references:
   name: ToJson
   nameWithType: JsonDataTable.ToJson
   fullName: Tripous.Data.JsonDataTable.ToJson
-- uid: System.String
-  commentId: T:System.String
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.string
-  name: string
-  nameWithType: string
-  fullName: string
-  nameWithType.vb: String
-  fullName.vb: String
-  name.vb: String
 - uid: Tripous.Data.JsonDataTable.Name*
   commentId: Overload:Tripous.Data.JsonDataTable.Name
   href: Tripous.Data.JsonDataTable.html#Tripous_Data_JsonDataTable_Name
@@ -1240,6 +1456,19 @@ references:
     name: Generic
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.JsonDataTable.Locators*
+  commentId: Overload:Tripous.Data.JsonDataTable.Locators
+  href: Tripous.Data.JsonDataTable.html#Tripous_Data_JsonDataTable_Locators
+  name: Locators
+  nameWithType: JsonDataTable.Locators
+  fullName: Tripous.Data.JsonDataTable.Locators
+- uid: Tripous.Data.JsonLocatorList
+  commentId: T:Tripous.Data.JsonLocatorList
+  parent: Tripous.Data
+  href: Tripous.Data.JsonLocatorList.html
+  name: JsonLocatorList
+  nameWithType: JsonLocatorList
+  fullName: Tripous.Data.JsonLocatorList
 - uid: Tripous.Data.JsonDataTable.Columns*
   commentId: Overload:Tripous.Data.JsonDataTable.Columns
   href: Tripous.Data.JsonDataTable.html#Tripous_Data_JsonDataTable_Columns

@@ -163,6 +163,123 @@ items:
   - uid: Avalonia.Controls.IGroupGridDropDownEditorHost
     name: IGroupGridDropDownEditorHost
     type: Interface
+  - uid: Avalonia.Controls.IPivotGridDataAdapter
+    name: IPivotGridDataAdapter
+    type: Interface
+  - uid: Avalonia.Controls.PivotGrid
+    name: PivotGrid
+    type: Class
+  - uid: Avalonia.Controls.PivotGridAggregateKind
+    name: PivotGridAggregateKind
+    type: Enum
+  - uid: Avalonia.Controls.PivotGridAxisItem
+    name: PivotGridAxisItem
+    type: Class
+  - uid: Avalonia.Controls.PivotGridAxisNode
+    name: PivotGridAxisNode
+    type: Class
+  - uid: Avalonia.Controls.PivotGridBand
+    name: PivotGridBand
+    type: Enum
+  - uid: Avalonia.Controls.PivotGridCsvExporter
+    name: PivotGridCsvExporter
+    type: Class
+  - uid: Avalonia.Controls.PivotGridDataChangedEventArgs
+    name: PivotGridDataChangedEventArgs
+    type: Class
+  - uid: Avalonia.Controls.PivotGridDataViewDataAdapter
+    name: PivotGridDataViewDataAdapter
+    type: Class
+  - uid: Avalonia.Controls.PivotGridEngine
+    name: PivotGridEngine
+    type: Class
+  - uid: Avalonia.Controls.PivotGridExportCell
+    name: PivotGridExportCell
+    type: Class
+  - uid: Avalonia.Controls.PivotGridExportField
+    name: PivotGridExportField
+    type: Class
+  - uid: Avalonia.Controls.PivotGridExportMeasure
+    name: PivotGridExportMeasure
+    type: Class
+  - uid: Avalonia.Controls.PivotGridExportRow
+    name: PivotGridExportRow
+    type: Class
+  - uid: Avalonia.Controls.PivotGridExportSnapshot
+    name: PivotGridExportSnapshot
+    type: Class
+  - uid: Avalonia.Controls.PivotGridExportValueColumn
+    name: PivotGridExportValueColumn
+    type: Class
+  - uid: Avalonia.Controls.PivotGridExporter
+    name: PivotGridExporter
+    type: Class
+  - uid: Avalonia.Controls.PivotGridExporters
+    name: PivotGridExporters
+    type: Class
+  - uid: Avalonia.Controls.PivotGridField
+    name: PivotGridField
+    type: Class
+  - uid: Avalonia.Controls.PivotGridFieldRole
+    name: PivotGridFieldRole
+    type: Enum
+  - uid: Avalonia.Controls.PivotGridFieldRules
+    name: PivotGridFieldRules
+    type: Class
+  - uid: Avalonia.Controls.PivotGridFieldSettings
+    name: PivotGridFieldSettings
+    type: Class
+  - uid: Avalonia.Controls.PivotGridFieldSettingsItem
+    name: PivotGridFieldSettingsItem
+    type: Class
+  - uid: Avalonia.Controls.PivotGridFilterDialog
+    name: PivotGridFilterDialog
+    type: Class
+  - uid: Avalonia.Controls.PivotGridFilterSettings
+    name: PivotGridFilterSettings
+    type: Class
+  - uid: Avalonia.Controls.PivotGridFilterValueItem
+    name: PivotGridFilterValueItem
+    type: Class
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    type: Enum
+  - uid: Avalonia.Controls.PivotGridHitTestResult
+    name: PivotGridHitTestResult
+    type: Class
+  - uid: Avalonia.Controls.PivotGridHtmlExporter
+    name: PivotGridHtmlExporter
+    type: Class
+  - uid: Avalonia.Controls.PivotGridJsonExporter
+    name: PivotGridJsonExporter
+    type: Class
+  - uid: Avalonia.Controls.PivotGridLayoutMetrics
+    name: PivotGridLayoutMetrics
+    type: Class
+  - uid: Avalonia.Controls.PivotGridListDataAdapter`1
+    name: PivotGridListDataAdapter<T>
+    type: Class
+  - uid: Avalonia.Controls.PivotGridMeasure
+    name: PivotGridMeasure
+    type: Class
+  - uid: Avalonia.Controls.PivotGridMeasureSettings
+    name: PivotGridMeasureSettings
+    type: Class
+  - uid: Avalonia.Controls.PivotGridSettings
+    name: PivotGridSettings
+    type: Class
+  - uid: Avalonia.Controls.PivotGridSettingsDialog
+    name: PivotGridSettingsDialog
+    type: Class
+  - uid: Avalonia.Controls.PivotGridSortDirection
+    name: PivotGridSortDirection
+    type: Enum
+  - uid: Avalonia.Controls.PivotGridSourceField
+    name: PivotGridSourceField
+    type: Class
+  - uid: Avalonia.Controls.PivotGridValueCell
+    name: PivotGridValueCell
+    type: Class
 - uid: Tripous
   name: Tripous
   type: Namespace
@@ -187,6 +304,15 @@ items:
     type: Class
   - uid: Tripous.BitFields
     name: BitFields
+    type: Class
+  - uid: Tripous.Broadcaster
+    name: Broadcaster
+    type: Class
+  - uid: Tripous.BroadcasterArgs
+    name: BroadcasterArgs
+    type: Class
+  - uid: Tripous.BroadcasterListener
+    name: BroadcasterListener
     type: Class
   - uid: Tripous.CodePage
     name: CodePage
@@ -233,6 +359,9 @@ items:
   - uid: Tripous.HostContext
     name: HostContext
     type: Class
+  - uid: Tripous.IBroadcasterListener
+    name: IBroadcasterListener
+    type: Interface
   - uid: Tripous.ID
     name: ID
     type: Struct
@@ -513,6 +642,33 @@ items:
   - uid: Tripous.Data.ISqlValueProvider
     name: ISqlValueProvider
     type: Interface
+  - uid: Tripous.Data.ItemFactBoxContext
+    name: ItemFactBoxContext
+    type: Class
+  - uid: Tripous.Data.ItemFactBoxDef
+    name: ItemFactBoxDef
+    type: Class
+  - uid: Tripous.Data.ItemFactBoxProvider
+    name: ItemFactBoxProvider
+    type: Class
+  - uid: Tripous.Data.ItemInfoFactBoxProvider
+    name: ItemInfoFactBoxProvider
+    type: Class
+  - uid: Tripous.Data.ItemStandardInfoFactBoxData
+    name: ItemStandardInfoFactBoxData
+    type: Class
+  - uid: Tripous.Data.ItemStructureFactBoxData
+    name: ItemStructureFactBoxData
+    type: Class
+  - uid: Tripous.Data.ItemStructureFactBoxProvider
+    name: ItemStructureFactBoxProvider
+    type: Class
+  - uid: Tripous.Data.ItemStructureFieldInfo
+    name: ItemStructureFieldInfo
+    type: Class
+  - uid: Tripous.Data.ItemStructureTableInfo
+    name: ItemStructureTableInfo
+    type: Class
   - uid: Tripous.Data.JsonDataColumn
     name: JsonDataColumn
     type: Class
@@ -533,6 +689,9 @@ items:
     type: Class
   - uid: Tripous.Data.JsonLocatorField
     name: JsonLocatorField
+    type: Class
+  - uid: Tripous.Data.JsonLocatorList
+    name: JsonLocatorList
     type: Class
   - uid: Tripous.Data.JsonLocatorMapItem
     name: JsonLocatorMapItem
@@ -738,6 +897,15 @@ items:
   - uid: Tripous.Data.SysConfigModule
     name: SysConfigModule
     type: Class
+  - uid: Tripous.Data.SysLangInfo
+    name: SysLangInfo
+    type: Class
+  - uid: Tripous.Data.SysStrRes
+    name: SysStrRes
+    type: Class
+  - uid: Tripous.Data.SysStrResLocalizer
+    name: SysStrResLocalizer
+    type: Class
   - uid: Tripous.Data.TableDef
     name: TableDef
     type: Class
@@ -808,12 +976,33 @@ items:
   - uid: Tripous.Desktop.DataFormState
     name: DataFormState
     type: Enum
+  - uid: Tripous.Desktop.DatabaseWorkbenchForm
+    name: DatabaseWorkbenchForm
+    type: Class
   - uid: Tripous.Desktop.DbConnectionEditDialog
     name: DbConnectionEditDialog
+    type: Class
+  - uid: Tripous.Desktop.DbConnectionExplorerControl
+    name: DbConnectionExplorerControl
+    type: Class
+  - uid: Tripous.Desktop.DbConnectionExplorerEventArgs
+    name: DbConnectionExplorerEventArgs
+    type: Class
+  - uid: Tripous.Desktop.DbConnectionExplorerOptions
+    name: DbConnectionExplorerOptions
+    type: Class
+  - uid: Tripous.Desktop.DbConnectionExplorerSqlTextEventArgs
+    name: DbConnectionExplorerSqlTextEventArgs
     type: Class
   - uid: Tripous.Desktop.DesktopExceptionHandler
     name: DesktopExceptionHandler
     type: Class
+  - uid: Tripous.Desktop.DesktopNote
+    name: DesktopNote
+    type: Class
+  - uid: Tripous.Desktop.DesktopNoteType
+    name: DesktopNoteType
+    type: Enum
   - uid: Tripous.Desktop.DesktopRegistry
     name: DesktopRegistry
     type: Class
@@ -889,8 +1078,17 @@ items:
   - uid: Tripous.Desktop.ItemBinder
     name: ItemBinder
     type: Class
+  - uid: Tripous.Desktop.ItemFactBoxControl
+    name: ItemFactBoxControl
+    type: Class
+  - uid: Tripous.Desktop.ItemInfoFactBoxControl
+    name: ItemInfoFactBoxControl
+    type: Class
   - uid: Tripous.Desktop.ItemPage
     name: ItemPage
+    type: Class
+  - uid: Tripous.Desktop.ItemStructureFactBoxControl
+    name: ItemStructureFactBoxControl
     type: Class
   - uid: Tripous.Desktop.LocatorBox
     name: LocatorBox
@@ -930,6 +1128,18 @@ items:
     type: Enum
   - uid: Tripous.Desktop.ReferenceMenuCommandContext
     name: ReferenceMenuCommandContext
+    type: Class
+  - uid: Tripous.Desktop.SqlConsoleControl
+    name: SqlConsoleControl
+    type: Class
+  - uid: Tripous.Desktop.SqlConsoleHistory
+    name: SqlConsoleHistory
+    type: Class
+  - uid: Tripous.Desktop.SqlConsoleHistoryItem
+    name: SqlConsoleHistoryItem
+    type: Class
+  - uid: Tripous.Desktop.SqlConsoleStatementItem
+    name: SqlConsoleStatementItem
     type: Class
   - uid: Tripous.Desktop.SqlFilterInfo
     name: SqlFilterInfo

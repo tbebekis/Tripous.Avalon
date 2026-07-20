@@ -1,0 +1,189 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.IBroadcasterListener
+  commentId: T:Tripous.IBroadcasterListener
+  id: IBroadcasterListener
+  parent: Tripous
+  children:
+  - Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  langs:
+  - csharp
+  - vb
+  name: IBroadcasterListener
+  nameWithType: IBroadcasterListener
+  fullName: Tripous.IBroadcasterListener
+  type: Interface
+  source:
+    remote:
+      path: Tripous/IBroadcasterListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IBroadcasterListener
+    path: ../Tripous/IBroadcasterListener.cs
+    startLine: 13
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Represents an object that can receive messages from the <xref href="Tripous.Broadcaster" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public interface IBroadcasterListener
+    content.vb: Public Interface IBroadcasterListener
+  derivedClasses:
+  - Tripous.BroadcasterListener
+  - Tripous.Desktop.AppForm
+  - Tripous.Desktop.CommandTreeViewForm
+  - Tripous.Desktop.DataForm
+  - Tripous.Desktop.DatabaseWorkbenchForm
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  commentId: M:Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  id: ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  parent: Tripous.IBroadcasterListener
+  langs:
+  - csharp
+  - vb
+  name: ProcessBroadcasterMessage(BroadcasterArgs)
+  nameWithType: IBroadcasterListener.ProcessBroadcasterMessage(BroadcasterArgs)
+  fullName: Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous/IBroadcasterListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ProcessBroadcasterMessage
+    path: ../Tripous/IBroadcasterListener.cs
+    startLine: 20
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Processes a broadcaster message.
+  example: []
+  syntax:
+    content: void ProcessBroadcasterMessage(BroadcasterArgs Args)
+    parameters:
+    - id: Args
+      type: Tripous.BroadcasterArgs
+      description: The broadcaster event arguments.
+    content.vb: Sub ProcessBroadcasterMessage(Args As BroadcasterArgs)
+  overload: Tripous.IBroadcasterListener.ProcessBroadcasterMessage*
+references:
+- uid: Tripous.Broadcaster
+  commentId: T:Tripous.Broadcaster
+  href: Tripous.Broadcaster.html
+  name: Broadcaster
+  nameWithType: Broadcaster
+  fullName: Tripous.Broadcaster
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.IBroadcasterListener.ProcessBroadcasterMessage*
+  commentId: Overload:Tripous.IBroadcasterListener.ProcessBroadcasterMessage
+  href: Tripous.IBroadcasterListener.html#Tripous_IBroadcasterListener_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  name: ProcessBroadcasterMessage
+  nameWithType: IBroadcasterListener.ProcessBroadcasterMessage
+  fullName: Tripous.IBroadcasterListener.ProcessBroadcasterMessage
+- uid: Tripous.BroadcasterArgs
+  commentId: T:Tripous.BroadcasterArgs
+  parent: Tripous
+  href: Tripous.BroadcasterArgs.html
+  name: BroadcasterArgs
+  nameWithType: BroadcasterArgs
+  fullName: Tripous.BroadcasterArgs

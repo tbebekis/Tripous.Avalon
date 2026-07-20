@@ -70,6 +70,15 @@ items:
   - Tripous.Data.IRowProvider
   - Tripous.Data.IRowProviderHost
   - Tripous.Data.ISqlValueProvider
+  - Tripous.Data.ItemFactBoxContext
+  - Tripous.Data.ItemFactBoxDef
+  - Tripous.Data.ItemFactBoxProvider
+  - Tripous.Data.ItemInfoFactBoxProvider
+  - Tripous.Data.ItemStandardInfoFactBoxData
+  - Tripous.Data.ItemStructureFactBoxData
+  - Tripous.Data.ItemStructureFactBoxProvider
+  - Tripous.Data.ItemStructureFieldInfo
+  - Tripous.Data.ItemStructureTableInfo
   - Tripous.Data.JsonDataColumn
   - Tripous.Data.JsonDataModule
   - Tripous.Data.JsonDataRow
@@ -77,6 +86,7 @@ items:
   - Tripous.Data.JsonDataTable
   - Tripous.Data.JsonLocatorDef
   - Tripous.Data.JsonLocatorField
+  - Tripous.Data.JsonLocatorList
   - Tripous.Data.JsonLocatorMapItem
   - Tripous.Data.JsonLocatorMapPlan
   - Tripous.Data.JsonSelectFilter
@@ -145,6 +155,9 @@ items:
   - Tripous.Data.SqlWhereFilterMode
   - Tripous.Data.SqliteConAdapter
   - Tripous.Data.SysConfigModule
+  - Tripous.Data.SysLangInfo
+  - Tripous.Data.SysStrRes
+  - Tripous.Data.SysStrResLocalizer
   - Tripous.Data.TableDef
   - Tripous.Data.TableSet
   - Tripous.Data.TableSetException
@@ -520,6 +533,67 @@ references:
   name: LocateOptions
   nameWithType: LocateOptions
   fullName: Tripous.Data.LocateOptions
+- uid: Tripous.Data.ItemFactBoxContext
+  commentId: T:Tripous.Data.ItemFactBoxContext
+  parent: Tripous.Data
+  href: Tripous.Data.ItemFactBoxContext.html
+  name: ItemFactBoxContext
+  nameWithType: ItemFactBoxContext
+  fullName: Tripous.Data.ItemFactBoxContext
+- uid: Tripous.Data.ItemFactBoxDef
+  commentId: T:Tripous.Data.ItemFactBoxDef
+  parent: Tripous.Data
+  href: Tripous.Data.ItemFactBoxDef.html
+  name: ItemFactBoxDef
+  nameWithType: ItemFactBoxDef
+  fullName: Tripous.Data.ItemFactBoxDef
+- uid: Tripous.Data.ItemFactBoxProvider
+  commentId: T:Tripous.Data.ItemFactBoxProvider
+  parent: Tripous.Data
+  href: Tripous.Data.ItemFactBoxProvider.html
+  name: ItemFactBoxProvider
+  nameWithType: ItemFactBoxProvider
+  fullName: Tripous.Data.ItemFactBoxProvider
+- uid: Tripous.Data.ItemInfoFactBoxProvider
+  commentId: T:Tripous.Data.ItemInfoFactBoxProvider
+  href: Tripous.Data.ItemInfoFactBoxProvider.html
+  name: ItemInfoFactBoxProvider
+  nameWithType: ItemInfoFactBoxProvider
+  fullName: Tripous.Data.ItemInfoFactBoxProvider
+- uid: Tripous.Data.ItemStandardInfoFactBoxData
+  commentId: T:Tripous.Data.ItemStandardInfoFactBoxData
+  parent: Tripous.Data
+  href: Tripous.Data.ItemStandardInfoFactBoxData.html
+  name: ItemStandardInfoFactBoxData
+  nameWithType: ItemStandardInfoFactBoxData
+  fullName: Tripous.Data.ItemStandardInfoFactBoxData
+- uid: Tripous.Data.ItemStructureFactBoxData
+  commentId: T:Tripous.Data.ItemStructureFactBoxData
+  parent: Tripous.Data
+  href: Tripous.Data.ItemStructureFactBoxData.html
+  name: ItemStructureFactBoxData
+  nameWithType: ItemStructureFactBoxData
+  fullName: Tripous.Data.ItemStructureFactBoxData
+- uid: Tripous.Data.ItemStructureFactBoxProvider
+  commentId: T:Tripous.Data.ItemStructureFactBoxProvider
+  href: Tripous.Data.ItemStructureFactBoxProvider.html
+  name: ItemStructureFactBoxProvider
+  nameWithType: ItemStructureFactBoxProvider
+  fullName: Tripous.Data.ItemStructureFactBoxProvider
+- uid: Tripous.Data.ItemStructureFieldInfo
+  commentId: T:Tripous.Data.ItemStructureFieldInfo
+  parent: Tripous.Data
+  href: Tripous.Data.ItemStructureFieldInfo.html
+  name: ItemStructureFieldInfo
+  nameWithType: ItemStructureFieldInfo
+  fullName: Tripous.Data.ItemStructureFieldInfo
+- uid: Tripous.Data.ItemStructureTableInfo
+  commentId: T:Tripous.Data.ItemStructureTableInfo
+  parent: Tripous.Data
+  href: Tripous.Data.ItemStructureTableInfo.html
+  name: ItemStructureTableInfo
+  nameWithType: ItemStructureTableInfo
+  fullName: Tripous.Data.ItemStructureTableInfo
 - uid: Tripous.Data.IRowProvider
   commentId: T:Tripous.Data.IRowProvider
   parent: Tripous.Data
@@ -549,6 +623,7 @@ references:
   fullName: Tripous.Data.JsonDataModule
 - uid: Tripous.Data.JsonDataRow
   commentId: T:Tripous.Data.JsonDataRow
+  parent: Tripous.Data
   href: Tripous.Data.JsonDataRow.html
   name: JsonDataRow
   nameWithType: JsonDataRow
@@ -579,6 +654,13 @@ references:
   name: JsonLocatorField
   nameWithType: JsonLocatorField
   fullName: Tripous.Data.JsonLocatorField
+- uid: Tripous.Data.JsonLocatorList
+  commentId: T:Tripous.Data.JsonLocatorList
+  parent: Tripous.Data
+  href: Tripous.Data.JsonLocatorList.html
+  name: JsonLocatorList
+  nameWithType: JsonLocatorList
+  fullName: Tripous.Data.JsonLocatorList
 - uid: Tripous.Data.JsonLocatorMapItem
   commentId: T:Tripous.Data.JsonLocatorMapItem
   href: Tripous.Data.JsonLocatorMapItem.html
@@ -587,6 +669,7 @@ references:
   fullName: Tripous.Data.JsonLocatorMapItem
 - uid: Tripous.Data.JsonLocatorMapPlan
   commentId: T:Tripous.Data.JsonLocatorMapPlan
+  parent: Tripous.Data
   href: Tripous.Data.JsonLocatorMapPlan.html
   name: JsonLocatorMapPlan
   nameWithType: JsonLocatorMapPlan
@@ -1129,6 +1212,24 @@ references:
   name: ISqlValueProvider
   nameWithType: ISqlValueProvider
   fullName: Tripous.Data.ISqlValueProvider
+- uid: Tripous.Data.SysLangInfo
+  commentId: T:Tripous.Data.SysLangInfo
+  href: Tripous.Data.SysLangInfo.html
+  name: SysLangInfo
+  nameWithType: SysLangInfo
+  fullName: Tripous.Data.SysLangInfo
+- uid: Tripous.Data.SysStrRes
+  commentId: T:Tripous.Data.SysStrRes
+  href: Tripous.Data.SysStrRes.html
+  name: SysStrRes
+  nameWithType: SysStrRes
+  fullName: Tripous.Data.SysStrRes
+- uid: Tripous.Data.SysStrResLocalizer
+  commentId: T:Tripous.Data.SysStrResLocalizer
+  href: Tripous.Data.SysStrResLocalizer.html
+  name: SysStrResLocalizer
+  nameWithType: SysStrResLocalizer
+  fullName: Tripous.Data.SysStrResLocalizer
 - uid: Tripous.Data.TableSet
   commentId: T:Tripous.Data.TableSet
   parent: Tripous.Data

@@ -1,0 +1,554 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.IPivotGridDataAdapter
+  commentId: T:Avalonia.Controls.IPivotGridDataAdapter
+  id: IPivotGridDataAdapter
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.IPivotGridDataAdapter.Changed
+  - Avalonia.Controls.IPivotGridDataAdapter.GetRow(System.Int32)
+  - Avalonia.Controls.IPivotGridDataAdapter.GetValue(System.Int32,System.String)
+  - Avalonia.Controls.IPivotGridDataAdapter.RowCount
+  - Avalonia.Controls.IPivotGridDataAdapter.SourceFields
+  langs:
+  - csharp
+  - vb
+  name: IPivotGridDataAdapter
+  nameWithType: IPivotGridDataAdapter
+  fullName: Avalonia.Controls.IPivotGridDataAdapter
+  type: Interface
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IPivotGridDataAdapter
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Provides indexed row and field value access for a pivot grid data source.
+  example: []
+  syntax:
+    content: public interface IPivotGridDataAdapter
+    content.vb: Public Interface IPivotGridDataAdapter
+  derivedClasses:
+  - Avalonia.Controls.PivotGridDataViewDataAdapter
+  - Avalonia.Controls.PivotGridListDataAdapter`1
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.IPivotGridDataAdapter.GetRow(System.Int32)
+  commentId: M:Avalonia.Controls.IPivotGridDataAdapter.GetRow(System.Int32)
+  id: GetRow(System.Int32)
+  parent: Avalonia.Controls.IPivotGridDataAdapter
+  langs:
+  - csharp
+  - vb
+  name: GetRow(int)
+  nameWithType: IPivotGridDataAdapter.GetRow(int)
+  fullName: Avalonia.Controls.IPivotGridDataAdapter.GetRow(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetRow
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+    startLine: 16
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the source row at a specified row index.
+  example: []
+  syntax:
+    content: object GetRow(int RowIndex)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The source row index.
+    return:
+      type: System.Object
+      description: The source row.
+    content.vb: Function GetRow(RowIndex As Integer) As Object
+  overload: Avalonia.Controls.IPivotGridDataAdapter.GetRow*
+  nameWithType.vb: IPivotGridDataAdapter.GetRow(Integer)
+  fullName.vb: Avalonia.Controls.IPivotGridDataAdapter.GetRow(Integer)
+  name.vb: GetRow(Integer)
+- uid: Avalonia.Controls.IPivotGridDataAdapter.GetValue(System.Int32,System.String)
+  commentId: M:Avalonia.Controls.IPivotGridDataAdapter.GetValue(System.Int32,System.String)
+  id: GetValue(System.Int32,System.String)
+  parent: Avalonia.Controls.IPivotGridDataAdapter
+  langs:
+  - csharp
+  - vb
+  name: GetValue(int, string)
+  nameWithType: IPivotGridDataAdapter.GetValue(int, string)
+  fullName: Avalonia.Controls.IPivotGridDataAdapter.GetValue(int, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns a field value from a specified source row.
+  example: []
+  syntax:
+    content: object GetValue(int RowIndex, string FieldName)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The source row index.
+    - id: FieldName
+      type: System.String
+      description: The field name.
+    return:
+      type: System.Object
+      description: The field value.
+    content.vb: Function GetValue(RowIndex As Integer, FieldName As String) As Object
+  overload: Avalonia.Controls.IPivotGridDataAdapter.GetValue*
+  nameWithType.vb: IPivotGridDataAdapter.GetValue(Integer, String)
+  fullName.vb: Avalonia.Controls.IPivotGridDataAdapter.GetValue(Integer, String)
+  name.vb: GetValue(Integer, String)
+- uid: Avalonia.Controls.IPivotGridDataAdapter.RowCount
+  commentId: P:Avalonia.Controls.IPivotGridDataAdapter.RowCount
+  id: RowCount
+  parent: Avalonia.Controls.IPivotGridDataAdapter
+  langs:
+  - csharp
+  - vb
+  name: RowCount
+  nameWithType: IPivotGridDataAdapter.RowCount
+  fullName: Avalonia.Controls.IPivotGridDataAdapter.RowCount
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowCount
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the number of source rows exposed by the adapter.
+  example: []
+  syntax:
+    content: int RowCount { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: ReadOnly Property RowCount As Integer
+  overload: Avalonia.Controls.IPivotGridDataAdapter.RowCount*
+- uid: Avalonia.Controls.IPivotGridDataAdapter.SourceFields
+  commentId: P:Avalonia.Controls.IPivotGridDataAdapter.SourceFields
+  id: SourceFields
+  parent: Avalonia.Controls.IPivotGridDataAdapter
+  langs:
+  - csharp
+  - vb
+  name: SourceFields
+  nameWithType: IPivotGridDataAdapter.SourceFields
+  fullName: Avalonia.Controls.IPivotGridDataAdapter.SourceFields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SourceFields
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the source fields exposed by the adapter.
+  example: []
+  syntax:
+    content: IReadOnlyList<PivotGridSourceField> SourceFields { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridSourceField}
+    content.vb: ReadOnly Property SourceFields As IReadOnlyList(Of PivotGridSourceField)
+  overload: Avalonia.Controls.IPivotGridDataAdapter.SourceFields*
+- uid: Avalonia.Controls.IPivotGridDataAdapter.Changed
+  commentId: E:Avalonia.Controls.IPivotGridDataAdapter.Changed
+  id: Changed
+  parent: Avalonia.Controls.IPivotGridDataAdapter
+  langs:
+  - csharp
+  - vb
+  name: Changed
+  nameWithType: IPivotGridDataAdapter.Changed
+  fullName: Avalonia.Controls.IPivotGridDataAdapter.Changed
+  type: Event
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Changed
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/IPivotGridDataAdapter.cs
+    startLine: 39
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Occurs when rows or field values exposed by the adapter change.
+  example: []
+  syntax:
+    content: event EventHandler<PivotGridDataChangedEventArgs> Changed
+    return:
+      type: System.EventHandler{Avalonia.Controls.PivotGridDataChangedEventArgs}
+    content.vb: Event Changed As EventHandler(Of PivotGridDataChangedEventArgs)
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.IPivotGridDataAdapter.GetRow*
+  commentId: Overload:Avalonia.Controls.IPivotGridDataAdapter.GetRow
+  href: Avalonia.Controls.IPivotGridDataAdapter.html#Avalonia_Controls_IPivotGridDataAdapter_GetRow_System_Int32_
+  name: GetRow
+  nameWithType: IPivotGridDataAdapter.GetRow
+  fullName: Avalonia.Controls.IPivotGridDataAdapter.GetRow
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Avalonia.Controls.IPivotGridDataAdapter.GetValue*
+  commentId: Overload:Avalonia.Controls.IPivotGridDataAdapter.GetValue
+  href: Avalonia.Controls.IPivotGridDataAdapter.html#Avalonia_Controls_IPivotGridDataAdapter_GetValue_System_Int32_System_String_
+  name: GetValue
+  nameWithType: IPivotGridDataAdapter.GetValue
+  fullName: Avalonia.Controls.IPivotGridDataAdapter.GetValue
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.IPivotGridDataAdapter.RowCount*
+  commentId: Overload:Avalonia.Controls.IPivotGridDataAdapter.RowCount
+  href: Avalonia.Controls.IPivotGridDataAdapter.html#Avalonia_Controls_IPivotGridDataAdapter_RowCount
+  name: RowCount
+  nameWithType: IPivotGridDataAdapter.RowCount
+  fullName: Avalonia.Controls.IPivotGridDataAdapter.RowCount
+- uid: Avalonia.Controls.IPivotGridDataAdapter.SourceFields*
+  commentId: Overload:Avalonia.Controls.IPivotGridDataAdapter.SourceFields
+  href: Avalonia.Controls.IPivotGridDataAdapter.html#Avalonia_Controls_IPivotGridDataAdapter_SourceFields
+  name: SourceFields
+  nameWithType: IPivotGridDataAdapter.SourceFields
+  fullName: Avalonia.Controls.IPivotGridDataAdapter.SourceFields
+- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridSourceField}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridSourceField}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<PivotGridSourceField>
+  nameWithType: IReadOnlyList<PivotGridSourceField>
+  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.PivotGridSourceField>
+  nameWithType.vb: IReadOnlyList(Of PivotGridSourceField)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.PivotGridSourceField)
+  name.vb: IReadOnlyList(Of PivotGridSourceField)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridSourceField
+    name: PivotGridSourceField
+    href: Avalonia.Controls.PivotGridSourceField.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridSourceField
+    name: PivotGridSourceField
+    href: Avalonia.Controls.PivotGridSourceField.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.EventHandler{Avalonia.Controls.PivotGridDataChangedEventArgs}
+  commentId: T:System.EventHandler{Avalonia.Controls.PivotGridDataChangedEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<PivotGridDataChangedEventArgs>
+  nameWithType: EventHandler<PivotGridDataChangedEventArgs>
+  fullName: System.EventHandler<Avalonia.Controls.PivotGridDataChangedEventArgs>
+  nameWithType.vb: EventHandler(Of PivotGridDataChangedEventArgs)
+  fullName.vb: System.EventHandler(Of Avalonia.Controls.PivotGridDataChangedEventArgs)
+  name.vb: EventHandler(Of PivotGridDataChangedEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - uid: Avalonia.Controls.PivotGridDataChangedEventArgs
+    name: PivotGridDataChangedEventArgs
+    href: Avalonia.Controls.PivotGridDataChangedEventArgs.html
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridDataChangedEventArgs
+    name: PivotGridDataChangedEventArgs
+    href: Avalonia.Controls.PivotGridDataChangedEventArgs.html
+  - name: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )

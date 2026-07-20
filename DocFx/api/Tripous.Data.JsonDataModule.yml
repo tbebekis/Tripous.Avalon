@@ -29,6 +29,7 @@ items:
   - Tripous.Data.JsonDataModule.ToJObject
   - Tripous.Data.JsonDataModule.ToJObject(Tripous.Data.DataModule)
   - Tripous.Data.JsonDataModule.ToJson
+  - Tripous.Data.JsonDataModule.ToString
   - Tripous.Data.JsonDataModule.UseFilters
   langs:
   - csharp
@@ -62,7 +63,6 @@ items:
   - System.Object.GetType
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
-  - System.Object.ToString
   extensionMethods:
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
 - uid: Tripous.Data.JsonDataModule.#ctor
@@ -163,6 +163,37 @@ items:
       type: System.Text.Json.Nodes.JsonObject
     content.vb: Public Shared Function ToJObject(Source As DataModule) As JsonObject
   overload: Tripous.Data.JsonDataModule.ToJObject*
+- uid: Tripous.Data.JsonDataModule.ToString
+  commentId: M:Tripous.Data.JsonDataModule.ToString
+  id: ToString
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: JsonDataModule.ToString()
+  fullName: Tripous.Data.JsonDataModule.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 76
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string representation of this instance.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: Tripous.Data.JsonDataModule.ToString*
 - uid: Tripous.Data.JsonDataModule.ToJObject
   commentId: M:Tripous.Data.JsonDataModule.ToJObject
   id: ToJObject
@@ -181,7 +212,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToJObject
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 76
+    startLine: 80
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -211,7 +242,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToJson
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 84
+    startLine: 88
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -241,7 +272,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Name
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 90
+    startLine: 94
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -272,7 +303,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Title
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 94
+    startLine: 98
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -303,7 +334,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TitleKey
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 98
+    startLine: 102
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -334,7 +365,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Group
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 102
+    startLine: 106
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -365,7 +396,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClassName
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 106
+    startLine: 110
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -396,7 +427,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConnectionName
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 110
+    startLine: 114
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -427,7 +458,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Description
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 114
+    startLine: 118
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -458,7 +489,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSingleSelect
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 118
+    startLine: 122
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -489,7 +520,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UseFilters
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 122
+    startLine: 126
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -520,7 +551,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SecurityLevel
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 126
+    startLine: 130
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -551,7 +582,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GuidOids
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 130
+    startLine: 134
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -582,7 +613,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CascadeDeletes
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 134
+    startLine: 138
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -613,7 +644,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemCaptionField
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 138
+    startLine: 142
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -644,7 +675,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MainTableName
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 142
+    startLine: 146
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -675,7 +706,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListTableName
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 146
+    startLine: 150
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -706,7 +737,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemTableName
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 150
+    startLine: 154
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -737,7 +768,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: State
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 154
+    startLine: 158
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -768,7 +799,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: QueryNames
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 158
+    startLine: 162
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -799,7 +830,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: StockNames
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 162
+    startLine: 166
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -830,7 +861,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataSet
     path: ../Tripous.Data/Json/JsonDataModule.cs
-    startLine: 166
+    startLine: 170
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1079,30 +1110,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
-  name: ToString()
-  nameWithType: object.ToString()
-  fullName: object.ToString()
-  nameWithType.vb: Object.ToString()
-  fullName.vb: Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
-  - name: (
-  - name: )
 - uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
   commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
   parent: Tripous.TypeExtensions
@@ -1278,12 +1285,36 @@ references:
     name: Nodes
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes
-- uid: Tripous.Data.JsonDataModule.ToJson*
-  commentId: Overload:Tripous.Data.JsonDataModule.ToJson
-  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ToJson
-  name: ToJson
-  nameWithType: JsonDataModule.ToJson
-  fullName: Tripous.Data.JsonDataModule.ToJson
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Tripous.Data.JsonDataModule.ToString*
+  commentId: Overload:Tripous.Data.JsonDataModule.ToString
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ToString
+  name: ToString
+  nameWithType: JsonDataModule.ToString
+  fullName: Tripous.Data.JsonDataModule.ToString
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -1295,6 +1326,12 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
+- uid: Tripous.Data.JsonDataModule.ToJson*
+  commentId: Overload:Tripous.Data.JsonDataModule.ToJson
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ToJson
+  name: ToJson
+  nameWithType: JsonDataModule.ToJson
+  fullName: Tripous.Data.JsonDataModule.ToJson
 - uid: Tripous.Data.JsonDataModule.Name*
   commentId: Overload:Tripous.Data.JsonDataModule.Name
   href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_Name

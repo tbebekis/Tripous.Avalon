@@ -1,0 +1,1414 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.PivotGridHitTestKind
+  commentId: T:Avalonia.Controls.PivotGridHitTestKind
+  id: PivotGridHitTestKind
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.PivotGridHitTestKind.AvailableField
+  - Avalonia.Controls.PivotGridHitTestKind.Band
+  - Avalonia.Controls.PivotGridHitTestKind.ColumnField
+  - Avalonia.Controls.PivotGridHitTestKind.ColumnHeader
+  - Avalonia.Controls.PivotGridHitTestKind.MeasureField
+  - Avalonia.Controls.PivotGridHitTestKind.MeasureResizer
+  - Avalonia.Controls.PivotGridHitTestKind.None
+  - Avalonia.Controls.PivotGridHitTestKind.RowExpander
+  - Avalonia.Controls.PivotGridHitTestKind.RowField
+  - Avalonia.Controls.PivotGridHitTestKind.RowHeader
+  - Avalonia.Controls.PivotGridHitTestKind.RowHeaderResizer
+  - Avalonia.Controls.PivotGridHitTestKind.ValueCell
+  langs:
+  - csharp
+  - vb
+  name: PivotGridHitTestKind
+  nameWithType: PivotGridHitTestKind
+  fullName: Avalonia.Controls.PivotGridHitTestKind
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PivotGridHitTestKind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Defines logical elements returned by pivot grid hit testing.
+  example: []
+  syntax:
+    content: public enum PivotGridHitTestKind
+    content.vb: Public Enum PivotGridHitTestKind
+  extensionMethods:
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Add``1(Avalonia.Controls.PivotGridHitTestKind)
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.PivotGridHitTestKind)
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.PivotGridHitTestKind)
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Has``1(Avalonia.Controls.PivotGridHitTestKind)
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.In``1(Avalonia.Controls.PivotGridHitTestKind)
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.PivotGridHitTestKind)
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.IsZero``1
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Remove``1(Avalonia.Controls.PivotGridHitTestKind)
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Set``1(Avalonia.Controls.PivotGridHitTestKind,System.Boolean)
+  - Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.PivotGridHitTestKind)
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.PivotGridHitTestKind.None
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.None
+  id: None
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: PivotGridHitTestKind.None
+  fullName: Avalonia.Controls.PivotGridHitTestKind.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: No element.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.Band
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.Band
+  id: Band
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: Band
+  nameWithType: PivotGridHitTestKind.Band
+  fullName: Avalonia.Controls.PivotGridHitTestKind.Band
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Band
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A blank band area.
+  example: []
+  syntax:
+    content: Band = 1
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.AvailableField
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.AvailableField
+  id: AvailableField
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: AvailableField
+  nameWithType: PivotGridHitTestKind.AvailableField
+  fullName: Avalonia.Controls.PivotGridHitTestKind.AvailableField
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AvailableField
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 21
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: An available source field.
+  example: []
+  syntax:
+    content: AvailableField = 2
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.RowField
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.RowField
+  id: RowField
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: RowField
+  nameWithType: PivotGridHitTestKind.RowField
+  fullName: Avalonia.Controls.PivotGridHitTestKind.RowField
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowField
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A row-axis field.
+  example: []
+  syntax:
+    content: RowField = 3
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.ColumnField
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.ColumnField
+  id: ColumnField
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: ColumnField
+  nameWithType: PivotGridHitTestKind.ColumnField
+  fullName: Avalonia.Controls.PivotGridHitTestKind.ColumnField
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnField
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A column-axis field.
+  example: []
+  syntax:
+    content: ColumnField = 4
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.MeasureField
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.MeasureField
+  id: MeasureField
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: MeasureField
+  nameWithType: PivotGridHitTestKind.MeasureField
+  fullName: Avalonia.Controls.PivotGridHitTestKind.MeasureField
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MeasureField
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A measure field.
+  example: []
+  syntax:
+    content: MeasureField = 5
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.RowExpander
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.RowExpander
+  id: RowExpander
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: RowExpander
+  nameWithType: PivotGridHitTestKind.RowExpander
+  fullName: Avalonia.Controls.PivotGridHitTestKind.RowExpander
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowExpander
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A row-axis node expander.
+  example: []
+  syntax:
+    content: RowExpander = 6
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.RowHeader
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.RowHeader
+  id: RowHeader
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: RowHeader
+  nameWithType: PivotGridHitTestKind.RowHeader
+  fullName: Avalonia.Controls.PivotGridHitTestKind.RowHeader
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowHeader
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 41
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A row-axis header item.
+  example: []
+  syntax:
+    content: RowHeader = 7
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.ColumnHeader
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.ColumnHeader
+  id: ColumnHeader
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: ColumnHeader
+  nameWithType: PivotGridHitTestKind.ColumnHeader
+  fullName: Avalonia.Controls.PivotGridHitTestKind.ColumnHeader
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnHeader
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 45
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A column-axis header item.
+  example: []
+  syntax:
+    content: ColumnHeader = 8
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.ValueCell
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.ValueCell
+  id: ValueCell
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: ValueCell
+  nameWithType: PivotGridHitTestKind.ValueCell
+  fullName: Avalonia.Controls.PivotGridHitTestKind.ValueCell
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ValueCell
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A value cell.
+  example: []
+  syntax:
+    content: ValueCell = 9
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.MeasureResizer
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.MeasureResizer
+  id: MeasureResizer
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: MeasureResizer
+  nameWithType: PivotGridHitTestKind.MeasureResizer
+  fullName: Avalonia.Controls.PivotGridHitTestKind.MeasureResizer
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MeasureResizer
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 53
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A measure column resize handle.
+  example: []
+  syntax:
+    content: MeasureResizer = 10
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+- uid: Avalonia.Controls.PivotGridHitTestKind.RowHeaderResizer
+  commentId: F:Avalonia.Controls.PivotGridHitTestKind.RowHeaderResizer
+  id: RowHeaderResizer
+  parent: Avalonia.Controls.PivotGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: RowHeaderResizer
+  nameWithType: PivotGridHitTestKind.RowHeaderResizer
+  fullName: Avalonia.Controls.PivotGridHitTestKind.RowHeaderResizer
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowHeaderResizer
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridHitTestKind.cs
+    startLine: 57
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A row header resize handle.
+  example: []
+  syntax:
+    content: RowHeaderResizer = 11
+    return:
+      type: Avalonia.Controls.PivotGridHitTestKind
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Add``1(Avalonia.Controls.PivotGridHitTestKind)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  nameWithType: BitFields.Add<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName: Tripous.BitFields.Add<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  nameWithType.vb: BitFields.Add(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName.vb: Tripous.BitFields.Add(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  name.vb: Add(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.PivotGridHitTestKind)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  nameWithType: BitFields.HasAny<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName: Tripous.BitFields.HasAny<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  nameWithType.vb: BitFields.HasAny(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName.vb: Tripous.BitFields.HasAny(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  name.vb: HasAny(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.PivotGridHitTestKind)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  nameWithType: BitFields.HasNone<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName: Tripous.BitFields.HasNone<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  nameWithType.vb: BitFields.HasNone(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName.vb: Tripous.BitFields.HasNone(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  name.vb: HasNone(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Has``1(Avalonia.Controls.PivotGridHitTestKind)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  nameWithType: BitFields.Has<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName: Tripous.BitFields.Has<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  nameWithType.vb: BitFields.Has(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName.vb: Tripous.BitFields.Has(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  name.vb: Has(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.In``1(Avalonia.Controls.PivotGridHitTestKind)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  nameWithType: BitFields.In<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName: Tripous.BitFields.In<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  nameWithType.vb: BitFields.In(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName.vb: Tripous.BitFields.In(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  name.vb: In(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.PivotGridHitTestKind)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  nameWithType: BitFields.IsExactly<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName: Tripous.BitFields.IsExactly<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  nameWithType.vb: BitFields.IsExactly(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  name.vb: IsExactly(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<PivotGridHitTestKind>(PivotGridHitTestKind)
+  nameWithType: BitFields.IsZero<PivotGridHitTestKind>(PivotGridHitTestKind)
+  fullName: Tripous.BitFields.IsZero<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind)
+  nameWithType.vb: BitFields.IsZero(Of PivotGridHitTestKind)(PivotGridHitTestKind)
+  fullName.vb: Tripous.BitFields.IsZero(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind)
+  name.vb: IsZero(Of PivotGridHitTestKind)(PivotGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.PivotGridHitTestKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.PivotGridHitTestKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Remove``1(Avalonia.Controls.PivotGridHitTestKind)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  nameWithType: BitFields.Remove<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName: Tripous.BitFields.Remove<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  nameWithType.vb: BitFields.Remove(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName.vb: Tripous.BitFields.Remove(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  name.vb: Remove(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Set``1(Avalonia.Controls.PivotGridHitTestKind,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind, bool)
+  nameWithType: BitFields.Set<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind, bool)
+  fullName: Tripous.BitFields.Set<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind, bool)
+  nameWithType.vb: BitFields.Set(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind, Boolean)
+  name.vb: Set(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Avalonia.Controls.PivotGridHitTestKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.PivotGridHitTestKind)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  nameWithType: BitFields.Toggle<PivotGridHitTestKind>(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName: Tripous.BitFields.Toggle<Avalonia.Controls.PivotGridHitTestKind>(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  nameWithType.vb: BitFields.Toggle(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  fullName.vb: Tripous.BitFields.Toggle(Of Avalonia.Controls.PivotGridHitTestKind)(Avalonia.Controls.PivotGridHitTestKind, Avalonia.Controls.PivotGridHitTestKind)
+  name.vb: Toggle(Of PivotGridHitTestKind)(PivotGridHitTestKind, PivotGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.PivotGridHitTestKind,Avalonia.Controls.PivotGridHitTestKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.PivotGridHitTestKind
+    name: PivotGridHitTestKind
+    href: Avalonia.Controls.PivotGridHitTestKind.html
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.PivotGridHitTestKind
+  commentId: T:Avalonia.Controls.PivotGridHitTestKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.PivotGridHitTestKind.html
+  name: PivotGridHitTestKind
+  nameWithType: PivotGridHitTestKind
+  fullName: Avalonia.Controls.PivotGridHitTestKind

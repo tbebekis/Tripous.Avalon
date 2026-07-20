@@ -10,7 +10,9 @@ items:
   - Tripous.Desktop.DataForm.BindListGrid(Tripous.Data.SelectDef)
   - Tripous.Desktop.DataForm.CanExecuteGridCommand(Tripous.Desktop.GridCommandContext)
   - Tripous.Desktop.DataForm.CancelChanges
+  - Tripous.Desktop.DataForm.CreateHomeMenu
   - Tripous.Desktop.DataForm.CreateItemPanel
+  - Tripous.Desktop.DataForm.CreateSavedBroadcasterArgs(System.Object,System.Boolean)
   - Tripous.Desktop.DataForm.CreateSelectListToolBar
   - Tripous.Desktop.DataForm.CreateToolBar
   - Tripous.Desktop.DataForm.CurrentRow
@@ -33,6 +35,7 @@ items:
   - Tripous.Desktop.DataForm.ExecuteSave
   - Tripous.Desktop.DataForm.ExecuteShortcut(Avalonia.Controls.Button,Tripous.Desktop.DataFormAction)
   - Tripous.Desktop.DataForm.ExecuteStartAction
+  - Tripous.Desktop.DataForm.ExecuteToggleFactBoxPane
   - Tripous.Desktop.DataForm.ExecuteToggleIds
   - Tripous.Desktop.DataForm.Executed(Tripous.Desktop.DataFormAction)
   - Tripous.Desktop.DataForm.Executing(Tripous.Desktop.DataFormAction)
@@ -47,7 +50,10 @@ items:
   - Tripous.Desktop.DataForm.GetItemLogText(System.Object)
   - Tripous.Desktop.DataForm.GetSavedFilterValues(Tripous.Data.SelectDef,Tripous.Data.SqlFilterDefs)
   - Tripous.Desktop.DataForm.GoToListOID(System.Object)
+  - Tripous.Desktop.DataForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
   - Tripous.Desktop.DataForm.HasChanges
+  - Tripous.Desktop.DataForm.HasVisibleFactBoxes
+  - Tripous.Desktop.DataForm.HomeMenu_Opening(System.Object,System.ComponentModel.CancelEventArgs)
   - Tripous.Desktop.DataForm.IdColumnsVisible
   - Tripous.Desktop.DataForm.InitializeComponent(System.Boolean)
   - Tripous.Desktop.DataForm.Insert
@@ -81,11 +87,14 @@ items:
   - Tripous.Desktop.DataForm.ToolBar
   - Tripous.Desktop.DataForm.UiLog(System.String)
   - Tripous.Desktop.DataForm.UnBindListGrid
+  - Tripous.Desktop.DataForm.UpdateFactBoxButton
+  - Tripous.Desktop.DataForm.UpdateHomeMenuItems
   - Tripous.Desktop.DataForm.UpdateUi
   - Tripous.Desktop.DataForm.btnCancel
   - Tripous.Desktop.DataForm.btnClose
   - Tripous.Desktop.DataForm.btnDelete
   - Tripous.Desktop.DataForm.btnEdit
+  - Tripous.Desktop.DataForm.btnFactBox
   - Tripous.Desktop.DataForm.btnFind
   - Tripous.Desktop.DataForm.btnHome
   - Tripous.Desktop.DataForm.btnInsert
@@ -96,10 +105,13 @@ items:
   - Tripous.Desktop.DataForm.btnSave
   - Tripous.Desktop.DataForm.btnToggleIds
   - Tripous.Desktop.DataForm.cboSelectList
+  - Tripous.Desktop.DataForm.fApplyingFactBoxPaneVisible
+  - Tripous.Desktop.DataForm.fApplyingIdColumnsVisible
   - Tripous.Desktop.DataForm.fFiltersSideBarVisible
   - Tripous.Desktop.DataForm.fFormState
   - Tripous.Desktop.DataForm.fIdColumnsVisible
   - Tripous.Desktop.DataForm.fListTargetId
+  - Tripous.Desktop.DataForm.mnuToggleFactBoxPane
   - Tripous.Desktop.DataForm.sepCancelOK
   - Tripous.Desktop.DataForm.sepEdit
   - Tripous.Desktop.DataForm.sepHome
@@ -172,8 +184,8 @@ items:
     </p>
   example: []
   syntax:
-    content: 'public class DataForm : AppForm, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue'
-    content.vb: Public Class DataForm Inherits AppForm Implements INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue
+    content: 'public class DataForm : AppForm, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, IBroadcasterListener'
+    content.vb: Public Class DataForm Inherits AppForm Implements INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, IBroadcasterListener
   inheritance:
   - System.Object
   - Avalonia.AvaloniaObject
@@ -203,6 +215,7 @@ items:
   - Avalonia.Input.IInputElement
   - Avalonia.Controls.Templates.IDataTemplateHost
   - Avalonia.Styling.ISetterValue
+  - Tripous.IBroadcasterListener
   inheritedMembers:
   - Tripous.Desktop.AppForm.fTitleText
   - Tripous.Desktop.AppForm.FormInitializing
@@ -213,8 +226,11 @@ items:
   - Tripous.Desktop.AppForm.Closing
   - Tripous.Desktop.AppForm.Closed
   - Tripous.Desktop.AppForm.TitleTextChanged
-  - Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+  - Tripous.Desktop.AppForm.RegisterBroadcaster
+  - Tripous.Desktop.AppForm.UnregisterBroadcaster
+  - Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   - Tripous.Desktop.AppForm.Setup(Tripous.Desktop.FormContext)
+  - Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
   - Tripous.Desktop.AppForm.SetAsSelectedForm
   - Tripous.Desktop.AppForm.CanCloseForm
   - Tripous.Desktop.AppForm.CloseForm
@@ -495,7 +511,6 @@ items:
   - Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
   - Avalonia.Visual.AffectsRender``1(Avalonia.AvaloniaProperty[])
   - Avalonia.Visual.LogicalChildrenCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)
-  - Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   - Avalonia.Visual.InvalidateMirrorTransform
   - Avalonia.Visual.Bounds
   - Avalonia.Visual.ClipToBounds
@@ -610,11 +625,11 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fFormState
-    path: ../Tripous.Desktop/DataForm.axaml.cs
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
     startLine: 43
   assemblies:
   - Tripous.Desktop
@@ -639,11 +654,11 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastAction
-    path: ../Tripous.Desktop/DataForm.axaml.cs
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
     startLine: 47
   assemblies:
   - Tripous.Desktop
@@ -668,11 +683,11 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Saving
-    path: ../Tripous.Desktop/DataForm.axaml.cs
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
     startLine: 51
   assemblies:
   - Tripous.Desktop
@@ -697,11 +712,11 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fIdColumnsVisible
-    path: ../Tripous.Desktop/DataForm.axaml.cs
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
     startLine: 55
   assemblies:
   - Tripous.Desktop
@@ -713,6 +728,64 @@ items:
     return:
       type: System.Boolean
     content.vb: Protected fIdColumnsVisible As Boolean
+- uid: Tripous.Desktop.DataForm.fApplyingIdColumnsVisible
+  commentId: F:Tripous.Desktop.DataForm.fApplyingIdColumnsVisible
+  id: fApplyingIdColumnsVisible
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: fApplyingIdColumnsVisible
+  nameWithType: DataForm.fApplyingIdColumnsVisible
+  fullName: Tripous.Desktop.DataForm.fApplyingIdColumnsVisible
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fApplyingIdColumnsVisible
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: True while the Toggle Ids toolbar button state is being synchronized.
+  example: []
+  syntax:
+    content: protected bool fApplyingIdColumnsVisible
+    return:
+      type: System.Boolean
+    content.vb: Protected fApplyingIdColumnsVisible As Boolean
+- uid: Tripous.Desktop.DataForm.fApplyingFactBoxPaneVisible
+  commentId: F:Tripous.Desktop.DataForm.fApplyingFactBoxPaneVisible
+  id: fApplyingFactBoxPaneVisible
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: fApplyingFactBoxPaneVisible
+  nameWithType: DataForm.fApplyingFactBoxPaneVisible
+  fullName: Tripous.Desktop.DataForm.fApplyingFactBoxPaneVisible
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fApplyingFactBoxPaneVisible
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 63
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: True while the FactBox toolbar button state is being synchronized.
+  example: []
+  syntax:
+    content: protected bool fApplyingFactBoxPaneVisible
+    return:
+      type: System.Boolean
+    content.vb: Protected fApplyingFactBoxPaneVisible As Boolean
 - uid: Tripous.Desktop.DataForm.fFiltersSideBarVisible
   commentId: F:Tripous.Desktop.DataForm.fFiltersSideBarVisible
   id: fFiltersSideBarVisible
@@ -726,12 +799,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fFiltersSideBarVisible
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 59
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 67
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -755,12 +828,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fListTargetId
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 63
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 71
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -784,12 +857,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToolBar
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 67
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 75
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -813,12 +886,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnHome
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 71
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 79
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -829,6 +902,35 @@ items:
     return:
       type: Avalonia.Controls.Button
     content.vb: Protected btnHome As Button
+- uid: Tripous.Desktop.DataForm.btnFactBox
+  commentId: F:Tripous.Desktop.DataForm.btnFactBox
+  id: btnFactBox
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: btnFactBox
+  nameWithType: DataForm.btnFactBox
+  fullName: Tripous.Desktop.DataForm.btnFactBox
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: btnFactBox
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 83
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The FactBox toolbar button.
+  example: []
+  syntax:
+    content: protected ToggleButton btnFactBox
+    return:
+      type: Avalonia.Controls.Primitives.ToggleButton
+    content.vb: Protected btnFactBox As ToggleButton
 - uid: Tripous.Desktop.DataForm.sepHome
   commentId: F:Tripous.Desktop.DataForm.sepHome
   id: sepHome
@@ -842,12 +944,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: sepHome
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 75
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 87
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -858,6 +960,35 @@ items:
     return:
       type: Avalonia.Controls.Border
     content.vb: Protected sepHome As Border
+- uid: Tripous.Desktop.DataForm.mnuToggleFactBoxPane
+  commentId: F:Tripous.Desktop.DataForm.mnuToggleFactBoxPane
+  id: mnuToggleFactBoxPane
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: mnuToggleFactBoxPane
+  nameWithType: DataForm.mnuToggleFactBoxPane
+  fullName: Tripous.Desktop.DataForm.mnuToggleFactBoxPane
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: mnuToggleFactBoxPane
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 91
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The menu item that toggles the FactBox pane.
+  example: []
+  syntax:
+    content: protected MenuItem mnuToggleFactBoxPane
+    return:
+      type: Avalonia.Controls.MenuItem
+    content.vb: Protected mnuToggleFactBoxPane As MenuItem
 - uid: Tripous.Desktop.DataForm.btnList
   commentId: F:Tripous.Desktop.DataForm.btnList
   id: btnList
@@ -871,12 +1002,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnList
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 79
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 95
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -900,12 +1031,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnRefreshList
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 83
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 99
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -929,12 +1060,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnFind
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 87
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 103
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -958,12 +1089,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnToggleIds
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 91
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 107
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -987,12 +1118,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: sepList
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 95
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 111
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1016,12 +1147,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnInsert
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 99
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 115
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1045,12 +1176,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnEdit
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 103
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 119
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1074,12 +1205,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnDelete
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 107
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 123
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1103,12 +1234,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnRefresh
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 111
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 127
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1132,12 +1263,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: sepEdit
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 115
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 131
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1161,12 +1292,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnSave
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 119
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 135
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1190,12 +1321,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: sepSave
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 123
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 139
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1219,12 +1350,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnCancel
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 127
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 143
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1248,12 +1379,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnOK
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 131
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 147
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1277,12 +1408,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: sepCancelOK
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 135
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 151
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1306,12 +1437,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: btnClose
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 139
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 155
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1335,12 +1466,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectListToolBar
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 143
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 159
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1364,12 +1495,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: cboSelectList
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 147
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 163
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1393,12 +1524,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FilterPanelHandler
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 151
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 167
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1422,12 +1553,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteShortcut
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 171
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 187
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1460,12 +1591,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessShortcutKey
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 184
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 200
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1495,12 +1626,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessKeyDown
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 224
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 240
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1531,12 +1662,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnAttachedToVisualTree
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 235
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 251
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1564,12 +1695,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Start
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 253
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 269
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1595,12 +1726,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormStateChanged
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 279
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 295
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1623,12 +1754,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteStartAction
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 305
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 321
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1653,12 +1784,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Execute
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 338
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 354
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1687,12 +1818,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Executing
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 406
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 422
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1722,12 +1853,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Executed
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 411
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 427
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1754,12 +1885,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteCustom
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 417
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 433
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1791,12 +1922,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteHome
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 426
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 442
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1819,12 +1950,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteFind
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 430
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 446
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1847,12 +1978,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteToggleIds
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 434
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 450
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1862,6 +1993,34 @@ items:
     content: protected virtual void ExecuteToggleIds()
     content.vb: Protected Overridable Sub ExecuteToggleIds()
   overload: Tripous.Desktop.DataForm.ExecuteToggleIds*
+- uid: Tripous.Desktop.DataForm.ExecuteToggleFactBoxPane
+  commentId: M:Tripous.Desktop.DataForm.ExecuteToggleFactBoxPane
+  id: ExecuteToggleFactBoxPane
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: ExecuteToggleFactBoxPane()
+  nameWithType: DataForm.ExecuteToggleFactBoxPane()
+  fullName: Tripous.Desktop.DataForm.ExecuteToggleFactBoxPane()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecuteToggleFactBoxPane
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 460
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Toggles the FactBox pane.
+  example: []
+  syntax:
+    content: protected virtual void ExecuteToggleFactBoxPane()
+    content.vb: Protected Overridable Sub ExecuteToggleFactBoxPane()
+  overload: Tripous.Desktop.DataForm.ExecuteToggleFactBoxPane*
 - uid: Tripous.Desktop.DataForm.GetItemLogText(System.Object)
   commentId: M:Tripous.Desktop.DataForm.GetItemLogText(System.Object)
   id: GetItemLogText(System.Object)
@@ -1875,12 +2034,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetItemLogText
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 440
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 474
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1900,6 +2059,86 @@ items:
   nameWithType.vb: DataForm.GetItemLogText(Object)
   fullName.vb: Tripous.Desktop.DataForm.GetItemLogText(Object)
   name.vb: GetItemLogText(Object)
+- uid: Tripous.Desktop.DataForm.CreateSavedBroadcasterArgs(System.Object,System.Boolean)
+  commentId: M:Tripous.Desktop.DataForm.CreateSavedBroadcasterArgs(System.Object,System.Boolean)
+  id: CreateSavedBroadcasterArgs(System.Object,System.Boolean)
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: CreateSavedBroadcasterArgs(object, bool)
+  nameWithType: DataForm.CreateSavedBroadcasterArgs(object, bool)
+  fullName: Tripous.Desktop.DataForm.CreateSavedBroadcasterArgs(object, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateSavedBroadcasterArgs
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 512
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates broadcaster arguments for a saved item.
+  example: []
+  syntax:
+    content: protected virtual IDictionary<string, object> CreateSavedBroadcasterArgs(object Id, bool WasInsert)
+    parameters:
+    - id: Id
+      type: System.Object
+      description: The saved item id.
+    - id: WasInsert
+      type: System.Boolean
+      description: True when the item was inserted.
+    return:
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+      description: The broadcaster argument dictionary.
+    content.vb: Protected Overridable Function CreateSavedBroadcasterArgs(Id As Object, WasInsert As Boolean) As IDictionary(Of String, Object)
+  overload: Tripous.Desktop.DataForm.CreateSavedBroadcasterArgs*
+  nameWithType.vb: DataForm.CreateSavedBroadcasterArgs(Object, Boolean)
+  fullName.vb: Tripous.Desktop.DataForm.CreateSavedBroadcasterArgs(Object, Boolean)
+  name.vb: CreateSavedBroadcasterArgs(Object, Boolean)
+- uid: Tripous.Desktop.DataForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+  commentId: M:Tripous.Desktop.DataForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+  id: HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: HandleBroadcasterEvent(string, IDictionary<string, object>)
+  nameWithType: DataForm.HandleBroadcasterEvent(string, IDictionary<string, object>)
+  fullName: Tripous.Desktop.DataForm.HandleBroadcasterEvent(string, System.Collections.Generic.IDictionary<string, object>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HandleBroadcasterEvent
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 526
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Handles a broadcaster event.
+  example: []
+  syntax:
+    content: protected override void HandleBroadcasterEvent(string EventName, IDictionary<string, object> Args)
+    parameters:
+    - id: EventName
+      type: System.String
+      description: The broadcaster event name.
+    - id: Args
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+      description: The broadcaster event arguments.
+    content.vb: Protected Overrides Sub HandleBroadcasterEvent(EventName As String, Args As IDictionary(Of String, Object))
+  overridden: Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+  overload: Tripous.Desktop.DataForm.HandleBroadcasterEvent*
+  nameWithType.vb: DataForm.HandleBroadcasterEvent(String, IDictionary(Of String, Object))
+  fullName.vb: Tripous.Desktop.DataForm.HandleBroadcasterEvent(String, System.Collections.Generic.IDictionary(Of String, Object))
+  name.vb: HandleBroadcasterEvent(String, IDictionary(Of String, Object))
 - uid: Tripous.Desktop.DataForm.ExecuteList
   commentId: M:Tripous.Desktop.DataForm.ExecuteList
   id: ExecuteList
@@ -1913,12 +2152,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteList
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 475
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 543
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1943,12 +2182,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteRefreshList
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 491
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 559
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1973,12 +2212,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteInsert
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 500
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 568
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2001,12 +2240,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteEdit
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 509
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 577
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2036,12 +2275,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteDelete
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 526
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 594
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2073,12 +2312,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteSave
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 547
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 616
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2103,12 +2342,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteRefresh
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 569
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 639
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2133,12 +2372,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteCancel
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 589
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 659
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2163,12 +2402,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecuteCancelEdit
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 610
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 685
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2194,12 +2433,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListSelect
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 631
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 706
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2224,12 +2463,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GoToListOID
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 668
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 743
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2262,12 +2501,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetCurrentListId
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 701
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 776
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2293,12 +2532,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PassResultBack
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 714
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 789
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2322,12 +2561,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Insert
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 730
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 805
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2350,12 +2589,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Load
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 735
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 810
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2385,12 +2624,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Delete
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 740
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 815
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2420,12 +2659,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Save
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 748
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 823
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2448,12 +2687,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Refresh
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 756
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 833
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2476,12 +2715,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasChanges
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 771
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 848
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2507,12 +2746,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CancelChanges
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 775
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 852
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2535,12 +2774,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanExecuteGridCommand
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 784
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 861
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2570,12 +2809,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateToolBar
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 791
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 868
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2588,6 +2827,162 @@ items:
       description: True if the toolbar was created; otherwise, false.
     content.vb: Protected Overridable Function CreateToolBar() As Boolean
   overload: Tripous.Desktop.DataForm.CreateToolBar*
+- uid: Tripous.Desktop.DataForm.CreateHomeMenu
+  commentId: M:Tripous.Desktop.DataForm.CreateHomeMenu
+  id: CreateHomeMenu
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: CreateHomeMenu()
+  nameWithType: DataForm.CreateHomeMenu()
+  fullName: Tripous.Desktop.DataForm.CreateHomeMenu()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateHomeMenu
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 909
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the Home button context menu.
+  example: []
+  syntax:
+    content: protected virtual ContextMenu CreateHomeMenu()
+    return:
+      type: Avalonia.Controls.ContextMenu
+      description: The created menu or null.
+    content.vb: Protected Overridable Function CreateHomeMenu() As ContextMenu
+  overload: Tripous.Desktop.DataForm.CreateHomeMenu*
+- uid: Tripous.Desktop.DataForm.HomeMenu_Opening(System.Object,System.ComponentModel.CancelEventArgs)
+  commentId: M:Tripous.Desktop.DataForm.HomeMenu_Opening(System.Object,System.ComponentModel.CancelEventArgs)
+  id: HomeMenu_Opening(System.Object,System.ComponentModel.CancelEventArgs)
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: HomeMenu_Opening(object, CancelEventArgs)
+  nameWithType: DataForm.HomeMenu_Opening(object, CancelEventArgs)
+  fullName: Tripous.Desktop.DataForm.HomeMenu_Opening(object, System.ComponentModel.CancelEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HomeMenu_Opening
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 923
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Handles the Home menu opening event.
+  example: []
+  syntax:
+    content: protected virtual void HomeMenu_Opening(object Sender, CancelEventArgs Args)
+    parameters:
+    - id: Sender
+      type: System.Object
+      description: The event sender.
+    - id: Args
+      type: System.ComponentModel.CancelEventArgs
+      description: The event arguments.
+    content.vb: Protected Overridable Sub HomeMenu_Opening(Sender As Object, Args As CancelEventArgs)
+  overload: Tripous.Desktop.DataForm.HomeMenu_Opening*
+  nameWithType.vb: DataForm.HomeMenu_Opening(Object, CancelEventArgs)
+  fullName.vb: Tripous.Desktop.DataForm.HomeMenu_Opening(Object, System.ComponentModel.CancelEventArgs)
+  name.vb: HomeMenu_Opening(Object, CancelEventArgs)
+- uid: Tripous.Desktop.DataForm.UpdateHomeMenuItems
+  commentId: M:Tripous.Desktop.DataForm.UpdateHomeMenuItems
+  id: UpdateHomeMenuItems
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: UpdateHomeMenuItems()
+  nameWithType: DataForm.UpdateHomeMenuItems()
+  fullName: Tripous.Desktop.DataForm.UpdateHomeMenuItems()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateHomeMenuItems
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 930
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Updates the Home menu item states.
+  example: []
+  syntax:
+    content: protected virtual void UpdateHomeMenuItems()
+    content.vb: Protected Overridable Sub UpdateHomeMenuItems()
+  overload: Tripous.Desktop.DataForm.UpdateHomeMenuItems*
+- uid: Tripous.Desktop.DataForm.UpdateFactBoxButton
+  commentId: M:Tripous.Desktop.DataForm.UpdateFactBoxButton
+  id: UpdateFactBoxButton
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: UpdateFactBoxButton()
+  nameWithType: DataForm.UpdateFactBoxButton()
+  fullName: Tripous.Desktop.DataForm.UpdateFactBoxButton()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateFactBoxButton
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 938
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Updates the FactBox toolbar button state.
+  example: []
+  syntax:
+    content: protected virtual void UpdateFactBoxButton()
+    content.vb: Protected Overridable Sub UpdateFactBoxButton()
+  overload: Tripous.Desktop.DataForm.UpdateFactBoxButton*
+- uid: Tripous.Desktop.DataForm.HasVisibleFactBoxes
+  commentId: M:Tripous.Desktop.DataForm.HasVisibleFactBoxes
+  id: HasVisibleFactBoxes
+  parent: Tripous.Desktop.DataForm
+  langs:
+  - csharp
+  - vb
+  name: HasVisibleFactBoxes()
+  nameWithType: DataForm.HasVisibleFactBoxes()
+  fullName: Tripous.Desktop.DataForm.HasVisibleFactBoxes()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasVisibleFactBoxes
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 957
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns true when the form can display a FactBox pane.
+  example: []
+  syntax:
+    content: protected virtual bool HasVisibleFactBoxes()
+    return:
+      type: System.Boolean
+      description: True when a FactBox pane can be displayed.
+    content.vb: Protected Overridable Function HasVisibleFactBoxes() As Boolean
+  overload: Tripous.Desktop.DataForm.HasVisibleFactBoxes*
 - uid: Tripous.Desktop.DataForm.CreateSelectListToolBar
   commentId: M:Tripous.Desktop.DataForm.CreateSelectListToolBar
   id: CreateSelectListToolBar
@@ -2601,12 +2996,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateSelectListToolBar
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 830
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 961
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2629,12 +3024,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BindListGrid
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 849
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 980
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2661,12 +3056,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UnBindListGrid
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 857
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 989
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2689,12 +3084,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FindFirstFocusableControl
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 863
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 995
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2725,12 +3120,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsEditableFocusControl
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 881
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1013
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2760,12 +3155,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FocusPreviousEditableControl
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 904
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1036
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2795,12 +3190,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateItemPanel
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 929
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1061
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2823,12 +3218,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UpdateUi
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 947
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1079
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2851,12 +3246,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EnableCommands
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 958
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1090
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2879,12 +3274,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EnableControls
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1013
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1147
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2907,12 +3302,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ApplyIdColumnsVisible
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1025
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1159
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2935,12 +3330,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectedSelectChanged
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1046
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1196
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2963,12 +3358,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetSavedFilterValues
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1068
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1218
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3001,12 +3396,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessEscapeKey
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1079
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1229
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3039,12 +3434,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UiLog
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1094
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1244
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3074,12 +3469,12 @@ items:
   type: Constructor
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1107
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1257
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3105,12 +3500,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataFormContext
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1116
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1266
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3136,12 +3531,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormDef
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1120
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1270
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3167,12 +3562,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModuleDef
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1124
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1274
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3198,12 +3593,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Module
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1128
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1278
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3229,12 +3624,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: InvalidActions
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1133
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1283
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3264,12 +3659,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: StartAction
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1137
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1287
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3295,12 +3690,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemPage
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1141
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1291
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3326,12 +3721,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListCurrentRow
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1146
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1296
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3357,12 +3752,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRow
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1150
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1300
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3388,12 +3783,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormState
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1154
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1304
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3419,12 +3814,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsInListState
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1170
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1320
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3450,12 +3845,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsReadOnlyForm
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1175
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1325
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3481,12 +3876,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsEditableForm
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1179
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1329
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3512,12 +3907,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSingleSelect
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1183
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1333
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3543,12 +3938,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsListEmpty
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1187
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1337
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3574,12 +3969,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListIsDirty
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1191
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1341
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3605,12 +4000,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IdColumnsVisible
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1196
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1346
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3636,12 +4031,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/DataForm.axaml.cs
+      path: Tripous.Desktop/Forms/DataForm.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FiltersSideBarVisible
-    path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1211
+    path: ../Tripous.Desktop/Forms/DataForm.axaml.cs
+    startLine: 1361
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -4111,6 +4506,13 @@ references:
   name: ISetterValue
   nameWithType: ISetterValue
   fullName: Avalonia.Styling.ISetterValue
+- uid: Tripous.IBroadcasterListener
+  commentId: T:Tripous.IBroadcasterListener
+  parent: Tripous
+  href: Tripous.IBroadcasterListener.html
+  name: IBroadcasterListener
+  nameWithType: IBroadcasterListener
+  fullName: Tripous.IBroadcasterListener
 - uid: Tripous.Desktop.AppForm.fTitleText
   commentId: F:Tripous.Desktop.AppForm.fTitleText
   parent: Tripous.Desktop.AppForm
@@ -4270,74 +4672,69 @@ references:
     href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_TitleTextChanged
   - name: (
   - name: )
-- uid: Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
-  commentId: M:Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+- uid: Tripous.Desktop.AppForm.RegisterBroadcaster
+  commentId: M:Tripous.Desktop.AppForm.RegisterBroadcaster
   parent: Tripous.Desktop.AppForm
-  isExternal: true
-  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_HandleBroadcasterEvent_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__
-  name: HandleBroadcasterEvent(string, IDictionary<string, object>)
-  nameWithType: AppForm.HandleBroadcasterEvent(string, IDictionary<string, object>)
-  fullName: Tripous.Desktop.AppForm.HandleBroadcasterEvent(string, System.Collections.Generic.IDictionary<string, object>)
-  nameWithType.vb: AppForm.HandleBroadcasterEvent(String, IDictionary(Of String, Object))
-  fullName.vb: Tripous.Desktop.AppForm.HandleBroadcasterEvent(String, System.Collections.Generic.IDictionary(Of String, Object))
-  name.vb: HandleBroadcasterEvent(String, IDictionary(Of String, Object))
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_RegisterBroadcaster
+  name: RegisterBroadcaster()
+  nameWithType: AppForm.RegisterBroadcaster()
+  fullName: Tripous.Desktop.AppForm.RegisterBroadcaster()
   spec.csharp:
-  - uid: Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
-    name: HandleBroadcasterEvent
-    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_HandleBroadcasterEvent_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__
+  - uid: Tripous.Desktop.AppForm.RegisterBroadcaster
+    name: RegisterBroadcaster
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_RegisterBroadcaster
   - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.Collections.Generic.IDictionary`2
-    name: IDictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: '>'
   - name: )
   spec.vb:
-  - uid: Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
-    name: HandleBroadcasterEvent
-    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_HandleBroadcasterEvent_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__
+  - uid: Tripous.Desktop.AppForm.RegisterBroadcaster
+    name: RegisterBroadcaster
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_RegisterBroadcaster
   - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.Collections.Generic.IDictionary`2
-    name: IDictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+- uid: Tripous.Desktop.AppForm.UnregisterBroadcaster
+  commentId: M:Tripous.Desktop.AppForm.UnregisterBroadcaster
+  parent: Tripous.Desktop.AppForm
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_UnregisterBroadcaster
+  name: UnregisterBroadcaster()
+  nameWithType: AppForm.UnregisterBroadcaster()
+  fullName: Tripous.Desktop.AppForm.UnregisterBroadcaster()
+  spec.csharp:
+  - uid: Tripous.Desktop.AppForm.UnregisterBroadcaster
+    name: UnregisterBroadcaster
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_UnregisterBroadcaster
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.AppForm.UnregisterBroadcaster
+    name: UnregisterBroadcaster
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_UnregisterBroadcaster
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  commentId: M:Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  parent: Tripous.Desktop.AppForm
+  isExternal: true
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_OnDetachedFromVisualTree_Avalonia_VisualTreeAttachmentEventArgs_
+  name: OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
+  nameWithType: AppForm.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
+  fullName: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  spec.csharp:
+  - uid: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+    name: OnDetachedFromVisualTree
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_OnDetachedFromVisualTree_Avalonia_VisualTreeAttachmentEventArgs_
+  - name: (
+  - uid: Avalonia.VisualTreeAttachmentEventArgs
+    name: VisualTreeAttachmentEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+    name: OnDetachedFromVisualTree
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_OnDetachedFromVisualTree_Avalonia_VisualTreeAttachmentEventArgs_
+  - name: (
+  - uid: Avalonia.VisualTreeAttachmentEventArgs
+    name: VisualTreeAttachmentEventArgs
+    isExternal: true
   - name: )
 - uid: Tripous.Desktop.AppForm.Setup(Tripous.Desktop.FormContext)
   commentId: M:Tripous.Desktop.AppForm.Setup(Tripous.Desktop.FormContext)
@@ -4363,6 +4760,29 @@ references:
   - uid: Tripous.Desktop.FormContext
     name: FormContext
     href: Tripous.Desktop.FormContext.html
+  - name: )
+- uid: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  commentId: M:Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  parent: Tripous.Desktop.AppForm
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  name: ProcessBroadcasterMessage(BroadcasterArgs)
+  nameWithType: AppForm.ProcessBroadcasterMessage(BroadcasterArgs)
+  fullName: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  spec.csharp:
+  - uid: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+    name: ProcessBroadcasterMessage
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  - name: (
+  - uid: Tripous.BroadcasterArgs
+    name: BroadcasterArgs
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+    name: ProcessBroadcasterMessage
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  - name: (
+  - uid: Tripous.BroadcasterArgs
+    name: BroadcasterArgs
   - name: )
 - uid: Tripous.Desktop.AppForm.SetAsSelectedForm
   commentId: M:Tripous.Desktop.AppForm.SetAsSelectedForm
@@ -8023,31 +8443,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.specialized.notifycollectionchangedeventargs
   - name: )
-- uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-  commentId: M:Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-  parent: Avalonia.Visual
-  isExternal: true
-  name: OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
-  nameWithType: Visual.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
-  fullName: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-    name: OnDetachedFromVisualTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.VisualTreeAttachmentEventArgs
-    name: VisualTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-    name: OnDetachedFromVisualTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.VisualTreeAttachmentEventArgs
-    name: VisualTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
 - uid: Avalonia.Visual.InvalidateMirrorTransform
   commentId: M:Avalonia.Visual.InvalidateMirrorTransform
   parent: Avalonia.Visual
@@ -10613,6 +11008,12 @@ references:
   - uid: Avalonia.Controls.Templates
     name: Templates
     isExternal: true
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
 - uid: Avalonia.Interactivity.Interactive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)
   commentId: M:Avalonia.Interactivity.Interactive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)
   isExternal: true
@@ -11846,12 +12247,6 @@ references:
   name: TypeExtensions
   nameWithType: TypeExtensions
   fullName: Tripous.TypeExtensions
-- uid: Tripous
-  commentId: N:Tripous
-  href: Tripous.html
-  name: Tripous
-  nameWithType: Tripous
-  fullName: Tripous
 - uid: Tripous.Desktop.DataFormState
   commentId: T:Tripous.Desktop.DataFormState
   parent: Tripous.Desktop
@@ -11891,13 +12286,6 @@ references:
   name: Button
   nameWithType: Button
   fullName: Avalonia.Controls.Button
-- uid: Avalonia.Controls.Border
-  commentId: T:Avalonia.Controls.Border
-  parent: Avalonia.Controls
-  isExternal: true
-  name: Border
-  nameWithType: Border
-  fullName: Avalonia.Controls.Border
 - uid: Avalonia.Controls.Primitives.ToggleButton
   commentId: T:Avalonia.Controls.Primitives.ToggleButton
   parent: Avalonia.Controls.Primitives
@@ -11905,6 +12293,20 @@ references:
   name: ToggleButton
   nameWithType: ToggleButton
   fullName: Avalonia.Controls.Primitives.ToggleButton
+- uid: Avalonia.Controls.Border
+  commentId: T:Avalonia.Controls.Border
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Border
+  nameWithType: Border
+  fullName: Avalonia.Controls.Border
+- uid: Avalonia.Controls.MenuItem
+  commentId: T:Avalonia.Controls.MenuItem
+  parent: Avalonia.Controls
+  isExternal: true
+  name: MenuItem
+  nameWithType: MenuItem
+  fullName: Avalonia.Controls.MenuItem
 - uid: Avalonia.Controls.ComboBox
   commentId: T:Avalonia.Controls.ComboBox
   parent: Avalonia.Controls
@@ -12133,6 +12535,12 @@ references:
   name: ExecuteToggleIds
   nameWithType: DataForm.ExecuteToggleIds
   fullName: Tripous.Desktop.DataForm.ExecuteToggleIds
+- uid: Tripous.Desktop.DataForm.ExecuteToggleFactBoxPane*
+  commentId: Overload:Tripous.Desktop.DataForm.ExecuteToggleFactBoxPane
+  href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_ExecuteToggleFactBoxPane
+  name: ExecuteToggleFactBoxPane
+  nameWithType: DataForm.ExecuteToggleFactBoxPane
+  fullName: Tripous.Desktop.DataForm.ExecuteToggleFactBoxPane
 - uid: Tripous.Desktop.DataForm.GetItemLogText*
   commentId: Overload:Tripous.Desktop.DataForm.GetItemLogText
   href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_GetItemLogText_System_Object_
@@ -12150,6 +12558,205 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
+- uid: Tripous.Desktop.DataForm.CreateSavedBroadcasterArgs*
+  commentId: Overload:Tripous.Desktop.DataForm.CreateSavedBroadcasterArgs
+  href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_CreateSavedBroadcasterArgs_System_Object_System_Boolean_
+  name: CreateSavedBroadcasterArgs
+  nameWithType: DataForm.CreateSavedBroadcasterArgs
+  fullName: Tripous.Desktop.DataForm.CreateSavedBroadcasterArgs
+- uid: System.Collections.Generic.IDictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.IDictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IDictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  name: IDictionary<string, object>
+  nameWithType: IDictionary<string, object>
+  fullName: System.Collections.Generic.IDictionary<string, object>
+  nameWithType.vb: IDictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.IDictionary(Of String, Object)
+  name.vb: IDictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.Generic.IDictionary`2
+  commentId: T:System.Collections.Generic.IDictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  name: IDictionary<TKey, TValue>
+  nameWithType: IDictionary<TKey, TValue>
+  fullName: System.Collections.Generic.IDictionary<TKey, TValue>
+  nameWithType.vb: IDictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.IDictionary(Of TKey, TValue)
+  name.vb: IDictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+  commentId: M:Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+  parent: Tripous.Desktop.AppForm
+  isExternal: true
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_HandleBroadcasterEvent_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__
+  name: HandleBroadcasterEvent(string, IDictionary<string, object>)
+  nameWithType: AppForm.HandleBroadcasterEvent(string, IDictionary<string, object>)
+  fullName: Tripous.Desktop.AppForm.HandleBroadcasterEvent(string, System.Collections.Generic.IDictionary<string, object>)
+  nameWithType.vb: AppForm.HandleBroadcasterEvent(String, IDictionary(Of String, Object))
+  fullName.vb: Tripous.Desktop.AppForm.HandleBroadcasterEvent(String, System.Collections.Generic.IDictionary(Of String, Object))
+  name.vb: HandleBroadcasterEvent(String, IDictionary(Of String, Object))
+  spec.csharp:
+  - uid: Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+    name: HandleBroadcasterEvent
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_HandleBroadcasterEvent_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.AppForm.HandleBroadcasterEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+    name: HandleBroadcasterEvent
+    href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_HandleBroadcasterEvent_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  - name: )
+- uid: Tripous.Desktop.DataForm.HandleBroadcasterEvent*
+  commentId: Overload:Tripous.Desktop.DataForm.HandleBroadcasterEvent
+  href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_HandleBroadcasterEvent_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__
+  name: HandleBroadcasterEvent
+  nameWithType: DataForm.HandleBroadcasterEvent
+  fullName: Tripous.Desktop.DataForm.HandleBroadcasterEvent
 - uid: Tripous.Desktop.DataForm.ExecuteList*
   commentId: Overload:Tripous.Desktop.DataForm.ExecuteList
   href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_ExecuteList
@@ -12371,6 +12978,51 @@ references:
   name: CreateToolBar
   nameWithType: DataForm.CreateToolBar
   fullName: Tripous.Desktop.DataForm.CreateToolBar
+- uid: Tripous.Desktop.DataForm.CreateHomeMenu*
+  commentId: Overload:Tripous.Desktop.DataForm.CreateHomeMenu
+  href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_CreateHomeMenu
+  name: CreateHomeMenu
+  nameWithType: DataForm.CreateHomeMenu
+  fullName: Tripous.Desktop.DataForm.CreateHomeMenu
+- uid: Avalonia.Controls.ContextMenu
+  commentId: T:Avalonia.Controls.ContextMenu
+  parent: Avalonia.Controls
+  isExternal: true
+  name: ContextMenu
+  nameWithType: ContextMenu
+  fullName: Avalonia.Controls.ContextMenu
+- uid: Tripous.Desktop.DataForm.HomeMenu_Opening*
+  commentId: Overload:Tripous.Desktop.DataForm.HomeMenu_Opening
+  href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_HomeMenu_Opening_System_Object_System_ComponentModel_CancelEventArgs_
+  name: HomeMenu_Opening
+  nameWithType: DataForm.HomeMenu_Opening
+  fullName: Tripous.Desktop.DataForm.HomeMenu_Opening
+- uid: System.ComponentModel.CancelEventArgs
+  commentId: T:System.ComponentModel.CancelEventArgs
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.canceleventargs
+  name: CancelEventArgs
+  nameWithType: CancelEventArgs
+  fullName: System.ComponentModel.CancelEventArgs
+- uid: Tripous.Desktop.DataForm.UpdateHomeMenuItems*
+  commentId: Overload:Tripous.Desktop.DataForm.UpdateHomeMenuItems
+  href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_UpdateHomeMenuItems
+  name: UpdateHomeMenuItems
+  nameWithType: DataForm.UpdateHomeMenuItems
+  fullName: Tripous.Desktop.DataForm.UpdateHomeMenuItems
+- uid: Tripous.Desktop.DataForm.UpdateFactBoxButton*
+  commentId: Overload:Tripous.Desktop.DataForm.UpdateFactBoxButton
+  href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_UpdateFactBoxButton
+  name: UpdateFactBoxButton
+  nameWithType: DataForm.UpdateFactBoxButton
+  fullName: Tripous.Desktop.DataForm.UpdateFactBoxButton
+- uid: Tripous.Desktop.DataForm.HasVisibleFactBoxes*
+  commentId: Overload:Tripous.Desktop.DataForm.HasVisibleFactBoxes
+  href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_HasVisibleFactBoxes
+  name: HasVisibleFactBoxes
+  nameWithType: DataForm.HasVisibleFactBoxes
+  fullName: Tripous.Desktop.DataForm.HasVisibleFactBoxes
 - uid: Tripous.Desktop.DataForm.CreateSelectListToolBar*
   commentId: Overload:Tripous.Desktop.DataForm.CreateSelectListToolBar
   href: Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_CreateSelectListToolBar

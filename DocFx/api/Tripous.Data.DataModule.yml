@@ -78,10 +78,10 @@ items:
   - Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
   - Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
   - Tripous.Data.DataModule.RowProviderHost
-  - Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
   - Tripous.Data.DataModule.SetDefaultValues
-  - Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
-  - Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,Tripous.Data.TableDef)
   - Tripous.Data.DataModule.State
   - Tripous.Data.DataModule.Stocks
   - Tripous.Data.DataModule.Store
@@ -613,16 +613,16 @@ items:
     content: protected virtual void SetDefaultValues()
     content.vb: Protected Overridable Sub SetDefaultValues()
   overload: Tripous.Data.DataModule.SetDefaultValues*
-- uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
-  commentId: M:Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
-  id: SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+- uid: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,Tripous.Data.TableDef)
+  id: SetDefaultValues(Tripous.Data.MemTable,Tripous.Data.TableDef)
   parent: Tripous.Data.DataModule
   langs:
   - csharp
   - vb
-  name: SetDefaultValues(DataTable, TableDef)
-  nameWithType: DataModule.SetDefaultValues(DataTable, TableDef)
-  fullName: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable, Tripous.Data.TableDef)
+  name: SetDefaultValues(MemTable, TableDef)
+  nameWithType: DataModule.SetDefaultValues(MemTable, TableDef)
+  fullName: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable, Tripous.Data.TableDef)
   type: Method
   source:
     remote:
@@ -638,24 +638,24 @@ items:
   summary: Sets default values to the Table. It is called when a commit operation starts.
   example: []
   syntax:
-    content: protected virtual void SetDefaultValues(DataTable Table, TableDef TableDef)
+    content: protected virtual void SetDefaultValues(MemTable Table, TableDef TableDef)
     parameters:
     - id: Table
-      type: System.Data.DataTable
+      type: Tripous.Data.MemTable
     - id: TableDef
       type: Tripous.Data.TableDef
-    content.vb: Protected Overridable Sub SetDefaultValues(Table As DataTable, TableDef As TableDef)
+    content.vb: Protected Overridable Sub SetDefaultValues(Table As MemTable, TableDef As TableDef)
   overload: Tripous.Data.DataModule.SetDefaultValues*
-- uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
-  commentId: M:Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
-  id: SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+- uid: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
+  id: SetDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
   parent: Tripous.Data.DataModule
   langs:
   - csharp
   - vb
-  name: SetDefaultValues(DataTable, DataRow, TableDef)
-  nameWithType: DataModule.SetDefaultValues(DataTable, DataRow, TableDef)
-  fullName: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable, System.Data.DataRow, Tripous.Data.TableDef)
+  name: SetDefaultValues(MemTable, DataRow, TableDef)
+  nameWithType: DataModule.SetDefaultValues(MemTable, DataRow, TableDef)
+  fullName: Tripous.Data.DataModule.SetDefaultValues(Tripous.Data.MemTable, System.Data.DataRow, Tripous.Data.TableDef)
   type: Method
   source:
     remote:
@@ -671,26 +671,26 @@ items:
   summary: Sets default values to the Row. It is called when a commit operation starts.
   example: []
   syntax:
-    content: protected virtual void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    content: protected virtual void SetDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     parameters:
     - id: Table
-      type: System.Data.DataTable
+      type: Tripous.Data.MemTable
     - id: Row
       type: System.Data.DataRow
     - id: TableDef
       type: Tripous.Data.TableDef
-    content.vb: Protected Overridable Sub SetDefaultValues(Table As DataTable, Row As DataRow, TableDef As TableDef)
+    content.vb: Protected Overridable Sub SetDefaultValues(Table As MemTable, Row As DataRow, TableDef As TableDef)
   overload: Tripous.Data.DataModule.SetDefaultValues*
-- uid: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
-  commentId: M:Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
-  id: SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+- uid: Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
+  id: SetAuditDefaultValues(Tripous.Data.MemTable,System.Data.DataRow,Tripous.Data.TableDef)
   parent: Tripous.Data.DataModule
   langs:
   - csharp
   - vb
-  name: SetAuditDefaultValues(DataTable, DataRow, TableDef)
-  nameWithType: DataModule.SetAuditDefaultValues(DataTable, DataRow, TableDef)
-  fullName: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable, System.Data.DataRow, Tripous.Data.TableDef)
+  name: SetAuditDefaultValues(MemTable, DataRow, TableDef)
+  nameWithType: DataModule.SetAuditDefaultValues(MemTable, DataRow, TableDef)
+  fullName: Tripous.Data.DataModule.SetAuditDefaultValues(Tripous.Data.MemTable, System.Data.DataRow, Tripous.Data.TableDef)
   type: Method
   source:
     remote:
@@ -712,15 +712,15 @@ items:
     <p>NOTE: This method sets the <code>CreatedBy, CreatedAt, ModifiedBy, ModifiedAt</code> field values, if they exist in the <xref href="Tripous.Data.DataModule.tblItem" data-throw-if-not-resolved="false"></xref>.</p>
   example: []
   syntax:
-    content: protected virtual void SetAuditDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    content: protected virtual void SetAuditDefaultValues(MemTable Table, DataRow Row, TableDef TableDef)
     parameters:
     - id: Table
-      type: System.Data.DataTable
+      type: Tripous.Data.MemTable
     - id: Row
       type: System.Data.DataRow
     - id: TableDef
       type: Tripous.Data.TableDef
-    content.vb: Protected Overridable Sub SetAuditDefaultValues(Table As DataTable, Row As DataRow, TableDef As TableDef)
+    content.vb: Protected Overridable Sub SetAuditDefaultValues(Table As MemTable, Row As DataRow, TableDef As TableDef)
   overload: Tripous.Data.DataModule.SetAuditDefaultValues*
 - uid: Tripous.Data.DataModule.EndEdit
   commentId: M:Tripous.Data.DataModule.EndEdit
@@ -2221,7 +2221,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: JsonSelectList
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1057
+    startLine: 1066
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2259,7 +2259,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckCanInsert
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1071
+    startLine: 1080
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2290,7 +2290,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckCanEdit
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1078
+    startLine: 1087
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2327,7 +2327,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckCanDelete
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1087
+    startLine: 1096
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2364,7 +2364,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckCanCommit
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1096
+    startLine: 1105
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2401,7 +2401,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TableExists
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1103
+    startLine: 1112
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2437,7 +2437,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FindTable
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1107
+    startLine: 1116
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2473,7 +2473,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetTable
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1111
+    startLine: 1120
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2509,7 +2509,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsInitialized
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1125
+    startLine: 1134
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2540,7 +2540,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModuleDef
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1129
+    startLine: 1138
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2571,7 +2571,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CodeProviderDef
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1133
+    startLine: 1142
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2602,7 +2602,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Store
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1137
+    startLine: 1146
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2633,7 +2633,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: this[]
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1142
+    startLine: 1151
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2670,7 +2670,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataSet
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1146
+    startLine: 1155
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2701,7 +2701,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: tblList
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1150
+    startLine: 1159
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2732,7 +2732,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: tblItem
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1154
+    startLine: 1163
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2763,7 +2763,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Tables
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1158
+    startLine: 1167
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2794,7 +2794,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemTables
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1162
+    startLine: 1171
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2823,7 +2823,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Stocks
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1166
+    startLine: 1175
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2854,7 +2854,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Name
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1170
+    startLine: 1179
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2885,7 +2885,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailsActive
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1174
+    startLine: 1183
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2916,7 +2916,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowProviderHost
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1182
+    startLine: 1191
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2947,7 +2947,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: State
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1190
+    startLine: 1199
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2984,7 +2984,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsInserting
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1194
+    startLine: 1203
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3015,7 +3015,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsEditing
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1211
+    startLine: 1220
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3046,7 +3046,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsDeleting
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1228
+    startLine: 1237
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3077,7 +3077,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsCommiting
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1245
+    startLine: 1254
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3108,7 +3108,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Variables
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1263
+    startLine: 1272
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3139,7 +3139,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRow
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1273
+    startLine: 1282
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3174,7 +3174,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Id
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1277
+    startLine: 1286
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3205,7 +3205,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastEditedId
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1281
+    startLine: 1290
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3236,7 +3236,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastCommitedId
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1285
+    startLine: 1294
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3267,7 +3267,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastDeletedId
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1289
+    startLine: 1298
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3942,14 +3942,13 @@ references:
   name: SetDefaultValues
   nameWithType: DataModule.SetDefaultValues
   fullName: Tripous.Data.DataModule.SetDefaultValues
-- uid: System.Data.DataTable
-  commentId: T:System.Data.DataTable
-  parent: System.Data
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
-  name: DataTable
-  nameWithType: DataTable
-  fullName: System.Data.DataTable
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable
 - uid: Tripous.Data.TableDef
   commentId: T:Tripous.Data.TableDef
   parent: Tripous.Data
@@ -3957,6 +3956,14 @@ references:
   name: TableDef
   nameWithType: TableDef
   fullName: Tripous.Data.TableDef
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
 - uid: System.Data
   commentId: N:System.Data
   isExternal: true
@@ -3984,14 +3991,6 @@ references:
     name: Data
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.data
-- uid: System.Data.DataRow
-  commentId: T:System.Data.DataRow
-  parent: System.Data
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
-  name: DataRow
-  nameWithType: DataRow
-  fullName: System.Data.DataRow
 - uid: Tripous.Data.DataModule.tblItem
   commentId: P:Tripous.Data.DataModule.tblItem
   parent: Tripous.Data.DataModule
@@ -4001,7 +4000,7 @@ references:
   fullName: Tripous.Data.DataModule.tblItem
 - uid: Tripous.Data.DataModule.SetAuditDefaultValues*
   commentId: Overload:Tripous.Data.DataModule.SetAuditDefaultValues
-  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_Tripous_Data_MemTable_System_Data_DataRow_Tripous_Data_TableDef_
   name: SetAuditDefaultValues
   nameWithType: DataModule.SetAuditDefaultValues
   fullName: Tripous.Data.DataModule.SetAuditDefaultValues
@@ -4119,13 +4118,6 @@ references:
   name: ColumnChanging
   nameWithType: DataModule.ColumnChanging
   fullName: Tripous.Data.DataModule.ColumnChanging
-- uid: Tripous.Data.MemTable
-  commentId: T:Tripous.Data.MemTable
-  parent: Tripous.Data
-  href: Tripous.Data.MemTable.html
-  name: MemTable
-  nameWithType: MemTable
-  fullName: Tripous.Data.MemTable
 - uid: System.Data.DataColumnChangeEventArgs
   commentId: T:System.Data.DataColumnChangeEventArgs
   parent: System.Data
@@ -4419,6 +4411,14 @@ references:
   name: BatchInsert
   nameWithType: DataModule.BatchInsert
   fullName: Tripous.Data.DataModule.BatchInsert
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
 - uid: Tripous.Data.DataModule.JsonConvertRowId*
   commentId: Overload:Tripous.Data.DataModule.JsonConvertRowId
   href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonConvertRowId_System_String_

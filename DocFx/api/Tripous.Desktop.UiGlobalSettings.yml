@@ -12,7 +12,16 @@ items:
   - Tripous.Desktop.UiGlobalSettings.FormImageStretch
   - Tripous.Desktop.UiGlobalSettings.FormMaxControlsPerColumn
   - Tripous.Desktop.UiGlobalSettings.FormMemoRowCount
+  - Tripous.Desktop.UiGlobalSettings.NoteDurationSeconds
+  - Tripous.Desktop.UiGlobalSettings.NoteErrorBackground
+  - Tripous.Desktop.UiGlobalSettings.NoteForeground
+  - Tripous.Desktop.UiGlobalSettings.NoteHeight
+  - Tripous.Desktop.UiGlobalSettings.NoteInfoBackground
+  - Tripous.Desktop.UiGlobalSettings.NoteSuccessBackground
+  - Tripous.Desktop.UiGlobalSettings.NoteWarningBackground
+  - Tripous.Desktop.UiGlobalSettings.NoteWidth
   - Tripous.Desktop.UiGlobalSettings.PropertyChanged
+  - Tripous.Desktop.UiGlobalSettings.ShowDataFormFactBoxPane
   - Tripous.Desktop.UiGlobalSettings.ShowDataFormLog
   - Tripous.Desktop.UiGlobalSettings.ShowIdColumnsInGrids
   - Tripous.Desktop.UiGlobalSettings.ShowLocatorGridFilterPanel
@@ -82,7 +91,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormColumnCount
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 74
+    startLine: 83
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -113,7 +122,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormColumnWidth
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 82
+    startLine: 91
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -144,7 +153,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormMemoRowCount
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 90
+    startLine: 99
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -175,7 +184,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormMaxControlsPerColumn
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 98
+    startLine: 107
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -206,7 +215,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormImageHeight
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 106
+    startLine: 115
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -237,7 +246,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormImageStretch
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 114
+    startLine: 123
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -268,7 +277,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowIdColumnsInGrids
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 122
+    startLine: 131
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -299,7 +308,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailGridMinHeight
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 130
+    startLine: 139
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -330,7 +339,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowLocatorGridFilterPanel
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 138
+    startLine: 147
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -361,7 +370,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowDataFormLog
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 146
+    startLine: 155
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -374,6 +383,285 @@ items:
       type: System.Boolean
     content.vb: Public Property ShowDataFormLog As Boolean
   overload: Tripous.Desktop.UiGlobalSettings.ShowDataFormLog*
+- uid: Tripous.Desktop.UiGlobalSettings.ShowDataFormFactBoxPane
+  commentId: P:Tripous.Desktop.UiGlobalSettings.ShowDataFormFactBoxPane
+  id: ShowDataFormFactBoxPane
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: ShowDataFormFactBoxPane
+  nameWithType: UiGlobalSettings.ShowDataFormFactBoxPane
+  fullName: Tripous.Desktop.UiGlobalSettings.ShowDataFormFactBoxPane
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowDataFormFactBoxPane
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 163
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: When true then the <xref href="Tripous.Desktop.DataForm" data-throw-if-not-resolved="false"></xref> FactBox pane is available.
+  example: []
+  syntax:
+    content: public bool ShowDataFormFactBoxPane { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property ShowDataFormFactBoxPane As Boolean
+  overload: Tripous.Desktop.UiGlobalSettings.ShowDataFormFactBoxPane*
+- uid: Tripous.Desktop.UiGlobalSettings.NoteDurationSeconds
+  commentId: P:Tripous.Desktop.UiGlobalSettings.NoteDurationSeconds
+  id: NoteDurationSeconds
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: NoteDurationSeconds
+  nameWithType: UiGlobalSettings.NoteDurationSeconds
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteDurationSeconds
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoteDurationSeconds
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 171
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Desktop notification duration in seconds.
+  example: []
+  syntax:
+    content: public int NoteDurationSeconds { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property NoteDurationSeconds As Integer
+  overload: Tripous.Desktop.UiGlobalSettings.NoteDurationSeconds*
+- uid: Tripous.Desktop.UiGlobalSettings.NoteWidth
+  commentId: P:Tripous.Desktop.UiGlobalSettings.NoteWidth
+  id: NoteWidth
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: NoteWidth
+  nameWithType: UiGlobalSettings.NoteWidth
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteWidth
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoteWidth
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 179
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Desktop notification width.
+  example: []
+  syntax:
+    content: public double NoteWidth { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property NoteWidth As Double
+  overload: Tripous.Desktop.UiGlobalSettings.NoteWidth*
+- uid: Tripous.Desktop.UiGlobalSettings.NoteHeight
+  commentId: P:Tripous.Desktop.UiGlobalSettings.NoteHeight
+  id: NoteHeight
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: NoteHeight
+  nameWithType: UiGlobalSettings.NoteHeight
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteHeight
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoteHeight
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 187
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Desktop notification height.
+  example: []
+  syntax:
+    content: public double NoteHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property NoteHeight As Double
+  overload: Tripous.Desktop.UiGlobalSettings.NoteHeight*
+- uid: Tripous.Desktop.UiGlobalSettings.NoteForeground
+  commentId: P:Tripous.Desktop.UiGlobalSettings.NoteForeground
+  id: NoteForeground
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: NoteForeground
+  nameWithType: UiGlobalSettings.NoteForeground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteForeground
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoteForeground
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 195
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Desktop notification foreground color.
+  example: []
+  syntax:
+    content: public string NoteForeground { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property NoteForeground As String
+  overload: Tripous.Desktop.UiGlobalSettings.NoteForeground*
+- uid: Tripous.Desktop.UiGlobalSettings.NoteInfoBackground
+  commentId: P:Tripous.Desktop.UiGlobalSettings.NoteInfoBackground
+  id: NoteInfoBackground
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: NoteInfoBackground
+  nameWithType: UiGlobalSettings.NoteInfoBackground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteInfoBackground
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoteInfoBackground
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 203
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Desktop information notification background color.
+  example: []
+  syntax:
+    content: public string NoteInfoBackground { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property NoteInfoBackground As String
+  overload: Tripous.Desktop.UiGlobalSettings.NoteInfoBackground*
+- uid: Tripous.Desktop.UiGlobalSettings.NoteSuccessBackground
+  commentId: P:Tripous.Desktop.UiGlobalSettings.NoteSuccessBackground
+  id: NoteSuccessBackground
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: NoteSuccessBackground
+  nameWithType: UiGlobalSettings.NoteSuccessBackground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteSuccessBackground
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoteSuccessBackground
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 211
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Desktop success notification background color.
+  example: []
+  syntax:
+    content: public string NoteSuccessBackground { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property NoteSuccessBackground As String
+  overload: Tripous.Desktop.UiGlobalSettings.NoteSuccessBackground*
+- uid: Tripous.Desktop.UiGlobalSettings.NoteWarningBackground
+  commentId: P:Tripous.Desktop.UiGlobalSettings.NoteWarningBackground
+  id: NoteWarningBackground
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: NoteWarningBackground
+  nameWithType: UiGlobalSettings.NoteWarningBackground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteWarningBackground
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoteWarningBackground
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 219
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Desktop warning notification background color.
+  example: []
+  syntax:
+    content: public string NoteWarningBackground { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property NoteWarningBackground As String
+  overload: Tripous.Desktop.UiGlobalSettings.NoteWarningBackground*
+- uid: Tripous.Desktop.UiGlobalSettings.NoteErrorBackground
+  commentId: P:Tripous.Desktop.UiGlobalSettings.NoteErrorBackground
+  id: NoteErrorBackground
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: NoteErrorBackground
+  nameWithType: UiGlobalSettings.NoteErrorBackground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteErrorBackground
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoteErrorBackground
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 227
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Desktop error notification background color.
+  example: []
+  syntax:
+    content: public string NoteErrorBackground { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property NoteErrorBackground As String
+  overload: Tripous.Desktop.UiGlobalSettings.NoteErrorBackground*
 - uid: Tripous.Desktop.UiGlobalSettings.PropertyChanged
   commentId: E:Tripous.Desktop.UiGlobalSettings.PropertyChanged
   id: PropertyChanged
@@ -392,7 +680,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PropertyChanged
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 156
+    startLine: 237
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1107,6 +1395,71 @@ references:
   name: ShowDataFormLog
   nameWithType: UiGlobalSettings.ShowDataFormLog
   fullName: Tripous.Desktop.UiGlobalSettings.ShowDataFormLog
+- uid: Tripous.Desktop.UiGlobalSettings.ShowDataFormFactBoxPane*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.ShowDataFormFactBoxPane
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_ShowDataFormFactBoxPane
+  name: ShowDataFormFactBoxPane
+  nameWithType: UiGlobalSettings.ShowDataFormFactBoxPane
+  fullName: Tripous.Desktop.UiGlobalSettings.ShowDataFormFactBoxPane
+- uid: Tripous.Desktop.UiGlobalSettings.NoteDurationSeconds*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.NoteDurationSeconds
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_NoteDurationSeconds
+  name: NoteDurationSeconds
+  nameWithType: UiGlobalSettings.NoteDurationSeconds
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteDurationSeconds
+- uid: Tripous.Desktop.UiGlobalSettings.NoteWidth*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.NoteWidth
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_NoteWidth
+  name: NoteWidth
+  nameWithType: UiGlobalSettings.NoteWidth
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteWidth
+- uid: Tripous.Desktop.UiGlobalSettings.NoteHeight*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.NoteHeight
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_NoteHeight
+  name: NoteHeight
+  nameWithType: UiGlobalSettings.NoteHeight
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteHeight
+- uid: Tripous.Desktop.UiGlobalSettings.NoteForeground*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.NoteForeground
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_NoteForeground
+  name: NoteForeground
+  nameWithType: UiGlobalSettings.NoteForeground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteForeground
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Desktop.UiGlobalSettings.NoteInfoBackground*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.NoteInfoBackground
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_NoteInfoBackground
+  name: NoteInfoBackground
+  nameWithType: UiGlobalSettings.NoteInfoBackground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteInfoBackground
+- uid: Tripous.Desktop.UiGlobalSettings.NoteSuccessBackground*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.NoteSuccessBackground
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_NoteSuccessBackground
+  name: NoteSuccessBackground
+  nameWithType: UiGlobalSettings.NoteSuccessBackground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteSuccessBackground
+- uid: Tripous.Desktop.UiGlobalSettings.NoteWarningBackground*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.NoteWarningBackground
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_NoteWarningBackground
+  name: NoteWarningBackground
+  nameWithType: UiGlobalSettings.NoteWarningBackground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteWarningBackground
+- uid: Tripous.Desktop.UiGlobalSettings.NoteErrorBackground*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.NoteErrorBackground
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_NoteErrorBackground
+  name: NoteErrorBackground
+  nameWithType: UiGlobalSettings.NoteErrorBackground
+  fullName: Tripous.Desktop.UiGlobalSettings.NoteErrorBackground
 - uid: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
   commentId: E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged
   parent: System.ComponentModel.INotifyPropertyChanged

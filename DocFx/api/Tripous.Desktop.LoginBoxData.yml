@@ -21,11 +21,11 @@ items:
   type: Class
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LoginBoxData
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 115
   assemblies:
   - Tripous.Desktop
@@ -60,11 +60,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UserName
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 121
   assemblies:
   - Tripous.Desktop
@@ -91,11 +91,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Password
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 125
   assemblies:
   - Tripous.Desktop
@@ -122,11 +122,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CultureCode
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 129
   assemblies:
   - Tripous.Desktop
@@ -153,11 +153,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SupportedCultures
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 133
   assemblies:
   - Tripous.Desktop
@@ -184,11 +184,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Message
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 137
   assemblies:
   - Tripous.Desktop
@@ -215,11 +215,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Info
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 141
   assemblies:
   - Tripous.Desktop
@@ -246,11 +246,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/LoginDialog.axaml.cs
+      path: Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Result
-    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    path: ../Tripous.Desktop/Dialogs/LoginDialog.axaml.cs
     startLine: 145
   assemblies:
   - Tripous.Desktop

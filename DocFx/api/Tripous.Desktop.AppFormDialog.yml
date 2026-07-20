@@ -21,11 +21,11 @@ items:
   type: Class
   source:
     remote:
-      path: Tripous.Desktop/AppFormDialog.cs
+      path: Tripous.Desktop/Forms/AppFormDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AppFormDialog
-    path: ../Tripous.Desktop/AppFormDialog.cs
+    path: ../Tripous.Desktop/Forms/AppFormDialog.cs
     startLine: 13
   assemblies:
   - Tripous.Desktop
@@ -557,11 +557,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormDialog.cs
+      path: Tripous.Desktop/Forms/AppFormDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WindowInitialize
-    path: ../Tripous.Desktop/AppFormDialog.cs
+    path: ../Tripous.Desktop/Forms/AppFormDialog.cs
     startLine: 25
   assemblies:
   - Tripous.Desktop
@@ -585,11 +585,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormDialog.cs
+      path: Tripous.Desktop/Forms/AppFormDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnOpened
-    path: ../Tripous.Desktop/AppFormDialog.cs
+    path: ../Tripous.Desktop/Forms/AppFormDialog.cs
     startLine: 32
   assemblies:
   - Tripous.Desktop
@@ -618,11 +618,11 @@ items:
   type: Constructor
   source:
     remote:
-      path: Tripous.Desktop/AppFormDialog.cs
+      path: Tripous.Desktop/Forms/AppFormDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Desktop/AppFormDialog.cs
+    path: ../Tripous.Desktop/Forms/AppFormDialog.cs
     startLine: 47
   assemblies:
   - Tripous.Desktop
@@ -649,11 +649,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormDialog.cs
+      path: Tripous.Desktop/Forms/AppFormDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowModal
-    path: ../Tripous.Desktop/AppFormDialog.cs
+    path: ../Tripous.Desktop/Forms/AppFormDialog.cs
     startLine: 58
   assemblies:
   - Tripous.Desktop
@@ -684,11 +684,11 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppFormDialog.cs
+      path: Tripous.Desktop/Forms/AppFormDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowModalDataForm
-    path: ../Tripous.Desktop/AppFormDialog.cs
+    path: ../Tripous.Desktop/Forms/AppFormDialog.cs
     startLine: 89
   assemblies:
   - Tripous.Desktop
@@ -719,11 +719,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppFormDialog.cs
+      path: Tripous.Desktop/Forms/AppFormDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Context
-    path: ../Tripous.Desktop/AppFormDialog.cs
+    path: ../Tripous.Desktop/Forms/AppFormDialog.cs
     startLine: 95
   assemblies:
   - Tripous.Desktop
@@ -750,11 +750,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppFormDialog.cs
+      path: Tripous.Desktop/Forms/AppFormDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OwnerWindow
-    path: ../Tripous.Desktop/AppFormDialog.cs
+    path: ../Tripous.Desktop/Forms/AppFormDialog.cs
     startLine: 99
   assemblies:
   - Tripous.Desktop

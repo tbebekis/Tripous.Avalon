@@ -1,0 +1,926 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.ItemStructureFactBoxData
+  commentId: T:Tripous.Data.ItemStructureFactBoxData
+  id: ItemStructureFactBoxData
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.ItemStructureFactBoxData.#ctor
+  - Tripous.Data.ItemStructureFactBoxData.FormClassName
+  - Tripous.Data.ItemStructureFactBoxData.FormJsClassName
+  - Tripous.Data.ItemStructureFactBoxData.ItemPageClassName
+  - Tripous.Data.ItemStructureFactBoxData.ItemPageJsClassName
+  - Tripous.Data.ItemStructureFactBoxData.ModuleClassName
+  - Tripous.Data.ItemStructureFactBoxData.ModuleGroup
+  - Tripous.Data.ItemStructureFactBoxData.ModuleJsClassName
+  - Tripous.Data.ItemStructureFactBoxData.ModuleName
+  - Tripous.Data.ItemStructureFactBoxData.ModuleTitle
+  - Tripous.Data.ItemStructureFactBoxData.Table
+  - Tripous.Data.ItemStructureFactBoxData.TableCount
+  - Tripous.Data.ItemStructureFactBoxData.VisibleTableCount
+  langs:
+  - csharp
+  - vb
+  name: ItemStructureFactBoxData
+  nameWithType: ItemStructureFactBoxData
+  fullName: Tripous.Data.ItemStructureFactBoxData
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemStructureFactBoxData
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Serializable data describing the structure of an item module.
+  example: []
+  syntax:
+    content: public class ItemStructureFactBoxData
+    content.vb: Public Class ItemStructureFactBoxData
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.ItemStructureFactBoxData.#ctor
+  commentId: M:Tripous.Data.ItemStructureFactBoxData.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: ItemStructureFactBoxData()
+  nameWithType: ItemStructureFactBoxData.ItemStructureFactBoxData()
+  fullName: Tripous.Data.ItemStructureFactBoxData.ItemStructureFactBoxData()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public ItemStructureFactBoxData()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.ItemStructureFactBoxData.#ctor*
+  nameWithType.vb: ItemStructureFactBoxData.New()
+  fullName.vb: Tripous.Data.ItemStructureFactBoxData.New()
+  name.vb: New()
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleName
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.ModuleName
+  id: ModuleName
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: ModuleName
+  nameWithType: ItemStructureFactBoxData.ModuleName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleName
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module name.
+  example: []
+  syntax:
+    content: public string ModuleName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ModuleName As String
+  overload: Tripous.Data.ItemStructureFactBoxData.ModuleName*
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleTitle
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.ModuleTitle
+  id: ModuleTitle
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: ModuleTitle
+  nameWithType: ItemStructureFactBoxData.ModuleTitle
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleTitle
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleTitle
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module title.
+  example: []
+  syntax:
+    content: public string ModuleTitle { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ModuleTitle As String
+  overload: Tripous.Data.ItemStructureFactBoxData.ModuleTitle*
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleGroup
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.ModuleGroup
+  id: ModuleGroup
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: ModuleGroup
+  nameWithType: ItemStructureFactBoxData.ModuleGroup
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleGroup
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleGroup
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 35
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module group.
+  example: []
+  syntax:
+    content: public string ModuleGroup { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ModuleGroup As String
+  overload: Tripous.Data.ItemStructureFactBoxData.ModuleGroup*
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleClassName
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.ModuleClassName
+  id: ModuleClassName
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: ModuleClassName
+  nameWithType: ItemStructureFactBoxData.ModuleClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleClassName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleClassName
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 39
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module class name.
+  example: []
+  syntax:
+    content: public string ModuleClassName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ModuleClassName As String
+  overload: Tripous.Data.ItemStructureFactBoxData.ModuleClassName*
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleJsClassName
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.ModuleJsClassName
+  id: ModuleJsClassName
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: ModuleJsClassName
+  nameWithType: ItemStructureFactBoxData.ModuleJsClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleJsClassName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleJsClassName
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 43
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The JavaScript module class name.
+  example: []
+  syntax:
+    content: public string ModuleJsClassName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ModuleJsClassName As String
+  overload: Tripous.Data.ItemStructureFactBoxData.ModuleJsClassName*
+- uid: Tripous.Data.ItemStructureFactBoxData.FormClassName
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.FormClassName
+  id: FormClassName
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: FormClassName
+  nameWithType: ItemStructureFactBoxData.FormClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.FormClassName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormClassName
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The form class name.
+  example: []
+  syntax:
+    content: public string FormClassName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property FormClassName As String
+  overload: Tripous.Data.ItemStructureFactBoxData.FormClassName*
+- uid: Tripous.Data.ItemStructureFactBoxData.FormJsClassName
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.FormJsClassName
+  id: FormJsClassName
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: FormJsClassName
+  nameWithType: ItemStructureFactBoxData.FormJsClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.FormJsClassName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormJsClassName
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 51
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The JavaScript form class name.
+  example: []
+  syntax:
+    content: public string FormJsClassName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property FormJsClassName As String
+  overload: Tripous.Data.ItemStructureFactBoxData.FormJsClassName*
+- uid: Tripous.Data.ItemStructureFactBoxData.ItemPageClassName
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.ItemPageClassName
+  id: ItemPageClassName
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: ItemPageClassName
+  nameWithType: ItemStructureFactBoxData.ItemPageClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ItemPageClassName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemPageClassName
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The item page class name.
+  example: []
+  syntax:
+    content: public string ItemPageClassName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ItemPageClassName As String
+  overload: Tripous.Data.ItemStructureFactBoxData.ItemPageClassName*
+- uid: Tripous.Data.ItemStructureFactBoxData.ItemPageJsClassName
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.ItemPageJsClassName
+  id: ItemPageJsClassName
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: ItemPageJsClassName
+  nameWithType: ItemStructureFactBoxData.ItemPageJsClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ItemPageJsClassName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemPageJsClassName
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The JavaScript item page class name.
+  example: []
+  syntax:
+    content: public string ItemPageJsClassName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ItemPageJsClassName As String
+  overload: Tripous.Data.ItemStructureFactBoxData.ItemPageJsClassName*
+- uid: Tripous.Data.ItemStructureFactBoxData.TableCount
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.TableCount
+  id: TableCount
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: TableCount
+  nameWithType: ItemStructureFactBoxData.TableCount
+  fullName: Tripous.Data.ItemStructureFactBoxData.TableCount
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableCount
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 63
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The number of tables in the item table tree.
+  example: []
+  syntax:
+    content: public int TableCount { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property TableCount As Integer
+  overload: Tripous.Data.ItemStructureFactBoxData.TableCount*
+- uid: Tripous.Data.ItemStructureFactBoxData.VisibleTableCount
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.VisibleTableCount
+  id: VisibleTableCount
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: VisibleTableCount
+  nameWithType: ItemStructureFactBoxData.VisibleTableCount
+  fullName: Tripous.Data.ItemStructureFactBoxData.VisibleTableCount
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: VisibleTableCount
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 67
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The number of UI visible tables in the item table tree.
+  example: []
+  syntax:
+    content: public int VisibleTableCount { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property VisibleTableCount As Integer
+  overload: Tripous.Data.ItemStructureFactBoxData.VisibleTableCount*
+- uid: Tripous.Data.ItemStructureFactBoxData.Table
+  commentId: P:Tripous.Data.ItemStructureFactBoxData.Table
+  id: Table
+  parent: Tripous.Data.ItemStructureFactBoxData
+  langs:
+  - csharp
+  - vb
+  name: Table
+  nameWithType: ItemStructureFactBoxData.Table
+  fullName: Tripous.Data.ItemStructureFactBoxData.Table
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Table
+    path: ../Tripous.Data/FactBoxes/ItemStructureFactBoxData.cs
+    startLine: 71
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The top table.
+  example: []
+  syntax:
+    content: public ItemStructureTableInfo Table { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.ItemStructureTableInfo
+    content.vb: Public Property Table As ItemStructureTableInfo
+  overload: Tripous.Data.ItemStructureFactBoxData.Table*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.ItemStructureFactBoxData.#ctor*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.#ctor
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData__ctor
+  name: ItemStructureFactBoxData
+  nameWithType: ItemStructureFactBoxData.ItemStructureFactBoxData
+  fullName: Tripous.Data.ItemStructureFactBoxData.ItemStructureFactBoxData
+  nameWithType.vb: ItemStructureFactBoxData.New
+  fullName.vb: Tripous.Data.ItemStructureFactBoxData.New
+  name.vb: New
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleName*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.ModuleName
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_ModuleName
+  name: ModuleName
+  nameWithType: ItemStructureFactBoxData.ModuleName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleTitle*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.ModuleTitle
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_ModuleTitle
+  name: ModuleTitle
+  nameWithType: ItemStructureFactBoxData.ModuleTitle
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleTitle
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleGroup*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.ModuleGroup
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_ModuleGroup
+  name: ModuleGroup
+  nameWithType: ItemStructureFactBoxData.ModuleGroup
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleGroup
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleClassName*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.ModuleClassName
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_ModuleClassName
+  name: ModuleClassName
+  nameWithType: ItemStructureFactBoxData.ModuleClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleClassName
+- uid: Tripous.Data.ItemStructureFactBoxData.ModuleJsClassName*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.ModuleJsClassName
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_ModuleJsClassName
+  name: ModuleJsClassName
+  nameWithType: ItemStructureFactBoxData.ModuleJsClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ModuleJsClassName
+- uid: Tripous.Data.ItemStructureFactBoxData.FormClassName*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.FormClassName
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_FormClassName
+  name: FormClassName
+  nameWithType: ItemStructureFactBoxData.FormClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.FormClassName
+- uid: Tripous.Data.ItemStructureFactBoxData.FormJsClassName*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.FormJsClassName
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_FormJsClassName
+  name: FormJsClassName
+  nameWithType: ItemStructureFactBoxData.FormJsClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.FormJsClassName
+- uid: Tripous.Data.ItemStructureFactBoxData.ItemPageClassName*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.ItemPageClassName
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_ItemPageClassName
+  name: ItemPageClassName
+  nameWithType: ItemStructureFactBoxData.ItemPageClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ItemPageClassName
+- uid: Tripous.Data.ItemStructureFactBoxData.ItemPageJsClassName*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.ItemPageJsClassName
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_ItemPageJsClassName
+  name: ItemPageJsClassName
+  nameWithType: ItemStructureFactBoxData.ItemPageJsClassName
+  fullName: Tripous.Data.ItemStructureFactBoxData.ItemPageJsClassName
+- uid: Tripous.Data.ItemStructureFactBoxData.TableCount*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.TableCount
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_TableCount
+  name: TableCount
+  nameWithType: ItemStructureFactBoxData.TableCount
+  fullName: Tripous.Data.ItemStructureFactBoxData.TableCount
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.ItemStructureFactBoxData.VisibleTableCount*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.VisibleTableCount
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_VisibleTableCount
+  name: VisibleTableCount
+  nameWithType: ItemStructureFactBoxData.VisibleTableCount
+  fullName: Tripous.Data.ItemStructureFactBoxData.VisibleTableCount
+- uid: Tripous.Data.ItemStructureFactBoxData.Table*
+  commentId: Overload:Tripous.Data.ItemStructureFactBoxData.Table
+  href: Tripous.Data.ItemStructureFactBoxData.html#Tripous_Data_ItemStructureFactBoxData_Table
+  name: Table
+  nameWithType: ItemStructureFactBoxData.Table
+  fullName: Tripous.Data.ItemStructureFactBoxData.Table
+- uid: Tripous.Data.ItemStructureTableInfo
+  commentId: T:Tripous.Data.ItemStructureTableInfo
+  parent: Tripous.Data
+  href: Tripous.Data.ItemStructureTableInfo.html
+  name: ItemStructureTableInfo
+  nameWithType: ItemStructureTableInfo
+  fullName: Tripous.Data.ItemStructureTableInfo

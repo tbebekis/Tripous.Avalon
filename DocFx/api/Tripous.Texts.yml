@@ -10,6 +10,7 @@ items:
   - Tripous.Texts.GS(System.String,System.String)
   - Tripous.Texts.L(System.String)
   - Tripous.Texts.L(System.String,System.String)
+  - Tripous.Texts.L(System.String,System.String,System.String)
   - Tripous.Texts.SplitKeys
   langs:
   - csharp
@@ -223,6 +224,46 @@ items:
   nameWithType.vb: Texts.L(String, String)
   fullName.vb: Tripous.Texts.L(String, String)
   name.vb: L(String, String)
+- uid: Tripous.Texts.L(System.String,System.String,System.String)
+  commentId: M:Tripous.Texts.L(System.String,System.String,System.String)
+  id: L(System.String,System.String,System.String)
+  parent: Tripous.Texts
+  langs:
+  - csharp
+  - vb
+  name: L(string, string, string)
+  nameWithType: Texts.L(string, string, string)
+  fullName: Tripous.Texts.L(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Localization/Texts.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: L
+    path: ../Tripous/Localization/Texts.cs
+    startLine: 54
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the localized text for the specified language and key.
+  example: []
+  syntax:
+    content: public static string L(string LangId, string Key, string Default)
+    parameters:
+    - id: LangId
+      type: System.String
+    - id: Key
+      type: System.String
+    - id: Default
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function L(LangId As String, Key As String, [Default] As String) As String
+  overload: Tripous.Texts.L*
+  nameWithType.vb: Texts.L(String, String, String)
+  fullName.vb: Tripous.Texts.L(String, String, String)
+  name.vb: L(String, String, String)
 - uid: Tripous.Texts.SplitKeys
   commentId: P:Tripous.Texts.SplitKeys
   id: SplitKeys
@@ -241,7 +282,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SplitKeys
     path: ../Tripous/Localization/Texts.cs
-    startLine: 55
+    startLine: 73
   assemblies:
   - Tripous
   namespace: Tripous

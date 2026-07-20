@@ -17,7 +17,6 @@ items:
   - Tripous.Desktop.UiItemDetails.CreateLocatorDetailGridColumns(Tripous.Data.FieldDef)
   - Tripous.Desktop.UiItemDetails.CreateOneToOneDetail(Tripous.Desktop.UiItemContext,Avalonia.Controls.Control,Tripous.Desktop.UiTableInfo)
   - Tripous.Desktop.UiItemDetails.CreateOneToOneDetails(Tripous.Desktop.UiItemContext,Avalonia.Controls.Control,Tripous.Data.TableDef)
-  - Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(System.Object,Avalonia.Controls.GroupGridCellPointerEventArgs)
   - Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
   - Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
   - Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor(System.Object,Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs)
@@ -292,7 +291,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FindLookupDisplaySnapshotField
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 222
+    startLine: 221
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -327,7 +326,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDetailDataGrid
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 251
+    startLine: 250
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -367,7 +366,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDetailGridColumns
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 276
+    startLine: 275
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -400,7 +399,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDetailGridColumns
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 304
+    startLine: 303
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -433,7 +432,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateLocatorDetailGridColumns
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 318
+    startLine: 317
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -466,7 +465,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDetailGridColumn
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 352
+    startLine: 351
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -499,7 +498,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UpdateDetailGridColumnBindings
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 361
+    startLine: 360
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -532,7 +531,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailGrid_CellValueCommitted
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 377
+    startLine: 376
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -550,42 +549,6 @@ items:
   nameWithType.vb: UiItemDetails.DetailGrid_CellValueCommitted(Object, GroupGridCellEditEventArgs)
   fullName.vb: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted(Object, Avalonia.Controls.GroupGridCellEditEventArgs)
   name.vb: DetailGrid_CellValueCommitted(Object, GroupGridCellEditEventArgs)
-- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(System.Object,Avalonia.Controls.GroupGridCellPointerEventArgs)
-  commentId: M:Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(System.Object,Avalonia.Controls.GroupGridCellPointerEventArgs)
-  id: DetailGrid_CellPointerPressed(System.Object,Avalonia.Controls.GroupGridCellPointerEventArgs)
-  parent: Tripous.Desktop.UiItemDetails
-  langs:
-  - csharp
-  - vb
-  name: DetailGrid_CellPointerPressed(object, GroupGridCellPointerEventArgs)
-  nameWithType: UiItemDetails.DetailGrid_CellPointerPressed(object, GroupGridCellPointerEventArgs)
-  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(object, Avalonia.Controls.GroupGridCellPointerEventArgs)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Desktop/ItemUi/UiItemDetails.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: DetailGrid_CellPointerPressed
-    path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 392
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: Handles detail grid cell pointer events.
-  example: []
-  syntax:
-    content: public static void DetailGrid_CellPointerPressed(object Sender, GroupGridCellPointerEventArgs Args)
-    parameters:
-    - id: Sender
-      type: System.Object
-    - id: Args
-      type: Avalonia.Controls.GroupGridCellPointerEventArgs
-    content.vb: Public Shared Sub DetailGrid_CellPointerPressed(Sender As Object, Args As GroupGridCellPointerEventArgs)
-  overload: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed*
-  nameWithType.vb: UiItemDetails.DetailGrid_CellPointerPressed(Object, GroupGridCellPointerEventArgs)
-  fullName.vb: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(Object, Avalonia.Controls.GroupGridCellPointerEventArgs)
-  name.vb: DetailGrid_CellPointerPressed(Object, GroupGridCellPointerEventArgs)
 - uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
   commentId: M:Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
   id: DetailGrid_CellValueCommitting(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
@@ -604,7 +567,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailGrid_CellValueCommitting
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 406
+    startLine: 391
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -640,7 +603,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailGrid_CreateInplaceEditor
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 423
+    startLine: 408
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -676,7 +639,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BindDetailGrid
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 436
+    startLine: 421
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1266,19 +1229,6 @@ references:
   name: GroupGridCellEditEventArgs
   nameWithType: GroupGridCellEditEventArgs
   fullName: Avalonia.Controls.GroupGridCellEditEventArgs
-- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed*
-  commentId: Overload:Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed
-  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_DetailGrid_CellPointerPressed_System_Object_Avalonia_Controls_GroupGridCellPointerEventArgs_
-  name: DetailGrid_CellPointerPressed
-  nameWithType: UiItemDetails.DetailGrid_CellPointerPressed
-  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed
-- uid: Avalonia.Controls.GroupGridCellPointerEventArgs
-  commentId: T:Avalonia.Controls.GroupGridCellPointerEventArgs
-  parent: Avalonia.Controls
-  href: Avalonia.Controls.GroupGridCellPointerEventArgs.html
-  name: GroupGridCellPointerEventArgs
-  nameWithType: GroupGridCellPointerEventArgs
-  fullName: Avalonia.Controls.GroupGridCellPointerEventArgs
 - uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting*
   commentId: Overload:Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting
   href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_DetailGrid_CellValueCommitting_System_Object_Avalonia_Controls_GroupGridCellEditEventArgs_

@@ -10,23 +10,29 @@ items:
   - Tripous.Desktop.Ui.CreateTreeNode(System.String,Avalonia.Media.FontWeight,System.String,System.Object,System.Double,System.Int32)
   - Tripous.Desktop.Ui.Debug(System.Exception)
   - Tripous.Desktop.Ui.Debug(System.String)
+  - Tripous.Desktop.Ui.ErrorNote(System.String)
   - Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.ItemsControl,System.Boolean)
   - Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeView,System.Boolean)
   - Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeViewItem,System.Boolean)
   - Tripous.Desktop.Ui.GetOwnerWindow(Avalonia.Controls.Control)
   - Tripous.Desktop.Ui.GetParentWindow(Avalonia.Controls.Control)
+  - Tripous.Desktop.Ui.InfoNote(System.String)
   - Tripous.Desktop.Ui.InputBox(System.String,System.String,Avalonia.Controls.Control)
   - Tripous.Desktop.Ui.MainWindow
+  - Tripous.Desktop.Ui.Note(System.String,Tripous.Desktop.DesktopNoteType)
   - Tripous.Desktop.Ui.OpenFileDialog(Avalonia.Controls.Control,System.String[])
   - Tripous.Desktop.Ui.Post(System.Action)
   - Tripous.Desktop.Ui.Post(System.Action,Avalonia.Threading.DispatcherPriority)
   - Tripous.Desktop.Ui.Post(System.Func{System.Threading.Tasks.Task})
   - Tripous.Desktop.Ui.Post(System.Func{System.Threading.Tasks.Task},Avalonia.Threading.DispatcherPriority)
+  - Tripous.Desktop.Ui.SShowDataFormFactBoxPane
   - Tripous.Desktop.Ui.SShowDataFormLog
   - Tripous.Desktop.Ui.SaveFileDialog(Avalonia.Controls.Control,System.String[])
   - Tripous.Desktop.Ui.Settings
   - Tripous.Desktop.Ui.ShowWaitCursor(System.Action,Avalonia.Controls.Control)
   - Tripous.Desktop.Ui.ShowWaitCursor``1(System.Action{``0},``0,Avalonia.Controls.Control)
+  - Tripous.Desktop.Ui.SuccessNote(System.String)
+  - Tripous.Desktop.Ui.WarningNote(System.String)
   langs:
   - csharp
   - vb
@@ -89,6 +95,35 @@ items:
     return:
       type: System.String
     content.vb: Public Const SShowDataFormLog As String = "ShowDataFormLog"
+- uid: Tripous.Desktop.Ui.SShowDataFormFactBoxPane
+  commentId: F:Tripous.Desktop.Ui.SShowDataFormFactBoxPane
+  id: SShowDataFormFactBoxPane
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: SShowDataFormFactBoxPane
+  nameWithType: Ui.SShowDataFormFactBoxPane
+  fullName: Tripous.Desktop.Ui.SShowDataFormFactBoxPane
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.Constants.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SShowDataFormFactBoxPane
+    path: ../Tripous.Desktop/Ui.Constants.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The name of the command to show the DataForm FactBox pane.
+  example: []
+  syntax:
+    content: public const string SShowDataFormFactBoxPane = "ShowDataFormFactBoxPane"
+    return:
+      type: System.String
+    content.vb: Public Const SShowDataFormFactBoxPane As String = "ShowDataFormFactBoxPane"
 - uid: Tripous.Desktop.Ui.GetParentWindow(Avalonia.Controls.Control)
   commentId: M:Tripous.Desktop.Ui.GetParentWindow(Avalonia.Controls.Control)
   id: GetParentWindow(Avalonia.Controls.Control)
@@ -623,6 +658,199 @@ items:
       description: The exception.
     content.vb: Public Shared Sub Debug(e As Exception)
   overload: Tripous.Desktop.Ui.Debug*
+- uid: Tripous.Desktop.Ui.Note(System.String,Tripous.Desktop.DesktopNoteType)
+  commentId: M:Tripous.Desktop.Ui.Note(System.String,Tripous.Desktop.DesktopNoteType)
+  id: Note(System.String,Tripous.Desktop.DesktopNoteType)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: Note(string, DesktopNoteType)
+  nameWithType: Ui.Note(string, DesktopNoteType)
+  fullName: Tripous.Desktop.Ui.Note(string, Tripous.Desktop.DesktopNoteType)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Note
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 290
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Displays a desktop notification.
+  example: []
+  syntax:
+    content: public static DesktopNote Note(string Message, DesktopNoteType Type)
+    parameters:
+    - id: Message
+      type: System.String
+      description: The notification message.
+    - id: Type
+      type: Tripous.Desktop.DesktopNoteType
+      description: The notification type.
+    return:
+      type: Tripous.Desktop.DesktopNote
+      description: The created notification.
+    content.vb: Public Shared Function Note(Message As String, Type As DesktopNoteType) As DesktopNote
+  overload: Tripous.Desktop.Ui.Note*
+  nameWithType.vb: Ui.Note(String, DesktopNoteType)
+  fullName.vb: Tripous.Desktop.Ui.Note(String, Tripous.Desktop.DesktopNoteType)
+  name.vb: Note(String, DesktopNoteType)
+- uid: Tripous.Desktop.Ui.InfoNote(System.String)
+  commentId: M:Tripous.Desktop.Ui.InfoNote(System.String)
+  id: InfoNote(System.String)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: InfoNote(string)
+  nameWithType: Ui.InfoNote(string)
+  fullName: Tripous.Desktop.Ui.InfoNote(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InfoNote
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 296
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Displays an information desktop notification.
+  example: []
+  syntax:
+    content: public static DesktopNote InfoNote(string Message)
+    parameters:
+    - id: Message
+      type: System.String
+      description: The notification message.
+    return:
+      type: Tripous.Desktop.DesktopNote
+      description: The created notification.
+    content.vb: Public Shared Function InfoNote(Message As String) As DesktopNote
+  overload: Tripous.Desktop.Ui.InfoNote*
+  nameWithType.vb: Ui.InfoNote(String)
+  fullName.vb: Tripous.Desktop.Ui.InfoNote(String)
+  name.vb: InfoNote(String)
+- uid: Tripous.Desktop.Ui.SuccessNote(System.String)
+  commentId: M:Tripous.Desktop.Ui.SuccessNote(System.String)
+  id: SuccessNote(System.String)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: SuccessNote(string)
+  nameWithType: Ui.SuccessNote(string)
+  fullName: Tripous.Desktop.Ui.SuccessNote(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SuccessNote
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 302
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Displays a success desktop notification.
+  example: []
+  syntax:
+    content: public static DesktopNote SuccessNote(string Message)
+    parameters:
+    - id: Message
+      type: System.String
+      description: The notification message.
+    return:
+      type: Tripous.Desktop.DesktopNote
+      description: The created notification.
+    content.vb: Public Shared Function SuccessNote(Message As String) As DesktopNote
+  overload: Tripous.Desktop.Ui.SuccessNote*
+  nameWithType.vb: Ui.SuccessNote(String)
+  fullName.vb: Tripous.Desktop.Ui.SuccessNote(String)
+  name.vb: SuccessNote(String)
+- uid: Tripous.Desktop.Ui.WarningNote(System.String)
+  commentId: M:Tripous.Desktop.Ui.WarningNote(System.String)
+  id: WarningNote(System.String)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: WarningNote(string)
+  nameWithType: Ui.WarningNote(string)
+  fullName: Tripous.Desktop.Ui.WarningNote(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WarningNote
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 308
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Displays a warning desktop notification.
+  example: []
+  syntax:
+    content: public static DesktopNote WarningNote(string Message)
+    parameters:
+    - id: Message
+      type: System.String
+      description: The notification message.
+    return:
+      type: Tripous.Desktop.DesktopNote
+      description: The created notification.
+    content.vb: Public Shared Function WarningNote(Message As String) As DesktopNote
+  overload: Tripous.Desktop.Ui.WarningNote*
+  nameWithType.vb: Ui.WarningNote(String)
+  fullName.vb: Tripous.Desktop.Ui.WarningNote(String)
+  name.vb: WarningNote(String)
+- uid: Tripous.Desktop.Ui.ErrorNote(System.String)
+  commentId: M:Tripous.Desktop.Ui.ErrorNote(System.String)
+  id: ErrorNote(System.String)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: ErrorNote(string)
+  nameWithType: Ui.ErrorNote(string)
+  fullName: Tripous.Desktop.Ui.ErrorNote(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ErrorNote
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 314
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Displays an error desktop notification.
+  example: []
+  syntax:
+    content: public static DesktopNote ErrorNote(string Message)
+    parameters:
+    - id: Message
+      type: System.String
+      description: The notification message.
+    return:
+      type: Tripous.Desktop.DesktopNote
+      description: The created notification.
+    content.vb: Public Shared Function ErrorNote(Message As String) As DesktopNote
+  overload: Tripous.Desktop.Ui.ErrorNote*
+  nameWithType.vb: Ui.ErrorNote(String)
+  fullName.vb: Tripous.Desktop.Ui.ErrorNote(String)
+  name.vb: ErrorNote(String)
 - uid: Tripous.Desktop.Ui.Post(System.Action)
   commentId: M:Tripous.Desktop.Ui.Post(System.Action)
   id: Post(System.Action)
@@ -641,7 +869,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Post
     path: ../Tripous.Desktop/Ui.cs
-    startLine: 291
+    startLine: 322
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -679,7 +907,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Post
     path: ../Tripous.Desktop/Ui.cs
-    startLine: 299
+    startLine: 330
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -720,7 +948,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Post
     path: ../Tripous.Desktop/Ui.cs
-    startLine: 311
+    startLine: 342
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -761,7 +989,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Post
     path: ../Tripous.Desktop/Ui.cs
-    startLine: 319
+    startLine: 350
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -805,7 +1033,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowWaitCursor
     path: ../Tripous.Desktop/Ui.cs
-    startLine: 330
+    startLine: 361
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -840,7 +1068,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowWaitCursor
     path: ../Tripous.Desktop/Ui.cs
-    startLine: 361
+    startLine: 392
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -884,7 +1112,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MainWindow
     path: ../Tripous.Desktop/Ui.cs
-    startLine: 390
+    startLine: 421
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -915,7 +1143,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Settings
     path: ../Tripous.Desktop/Ui.cs
-    startLine: 394
+    startLine: 425
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1542,6 +1770,50 @@ references:
   name: Exception
   nameWithType: Exception
   fullName: System.Exception
+- uid: Tripous.Desktop.Ui.Note*
+  commentId: Overload:Tripous.Desktop.Ui.Note
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_Note_System_String_Tripous_Desktop_DesktopNoteType_
+  name: Note
+  nameWithType: Ui.Note
+  fullName: Tripous.Desktop.Ui.Note
+- uid: Tripous.Desktop.DesktopNoteType
+  commentId: T:Tripous.Desktop.DesktopNoteType
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DesktopNoteType.html
+  name: DesktopNoteType
+  nameWithType: DesktopNoteType
+  fullName: Tripous.Desktop.DesktopNoteType
+- uid: Tripous.Desktop.DesktopNote
+  commentId: T:Tripous.Desktop.DesktopNote
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DesktopNote.html
+  name: DesktopNote
+  nameWithType: DesktopNote
+  fullName: Tripous.Desktop.DesktopNote
+- uid: Tripous.Desktop.Ui.InfoNote*
+  commentId: Overload:Tripous.Desktop.Ui.InfoNote
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_InfoNote_System_String_
+  name: InfoNote
+  nameWithType: Ui.InfoNote
+  fullName: Tripous.Desktop.Ui.InfoNote
+- uid: Tripous.Desktop.Ui.SuccessNote*
+  commentId: Overload:Tripous.Desktop.Ui.SuccessNote
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_SuccessNote_System_String_
+  name: SuccessNote
+  nameWithType: Ui.SuccessNote
+  fullName: Tripous.Desktop.Ui.SuccessNote
+- uid: Tripous.Desktop.Ui.WarningNote*
+  commentId: Overload:Tripous.Desktop.Ui.WarningNote
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_WarningNote_System_String_
+  name: WarningNote
+  nameWithType: Ui.WarningNote
+  fullName: Tripous.Desktop.Ui.WarningNote
+- uid: Tripous.Desktop.Ui.ErrorNote*
+  commentId: Overload:Tripous.Desktop.Ui.ErrorNote
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_ErrorNote_System_String_
+  name: ErrorNote
+  nameWithType: Ui.ErrorNote
+  fullName: Tripous.Desktop.Ui.ErrorNote
 - uid: Tripous.Desktop.Ui.Post*
   commentId: Overload:Tripous.Desktop.Ui.Post
   href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_Post_System_Action_

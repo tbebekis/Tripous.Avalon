@@ -161,7 +161,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PanelChanging
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 43
+    startLine: 46
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -189,7 +189,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PanelChanged
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 50
+    startLine: 53
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -217,7 +217,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RemovingAll
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 56
+    startLine: 59
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -245,7 +245,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RemovedAll
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 62
+    startLine: 65
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -273,7 +273,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 70
+    startLine: 73
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -304,7 +304,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RemoveAll
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 78
+    startLine: 81
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -332,7 +332,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddSeparator
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 93
+    startLine: 96
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -370,7 +370,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddButton
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 114
+    startLine: 117
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -401,7 +401,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddButton
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 126
+    startLine: 129
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -439,7 +439,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddButton
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 139
+    startLine: 142
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -483,7 +483,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddButton
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 159
+    startLine: 162
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -527,7 +527,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddButton
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 179
+    startLine: 182
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -571,7 +571,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDropDownButton
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 201
+    startLine: 204
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -618,7 +618,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddToggleButton
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 236
+    startLine: 239
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -662,7 +662,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddToggleButton
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 256
+    startLine: 259
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -706,7 +706,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddTextBox
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 275
+    startLine: 278
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -747,7 +747,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddTextBlock
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 294
+    startLine: 297
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -785,7 +785,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLabel
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 310
+    startLine: 313
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -823,7 +823,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddComboBox
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 328
+    startLine: 331
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -867,7 +867,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddCheckBox
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 351
+    startLine: 354
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -908,7 +908,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Add
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 371
+    startLine: 374
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -943,7 +943,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddRange
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 403
+    startLine: 406
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -978,7 +978,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PlaceControlAfter
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 416
+    startLine: 419
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1013,7 +1013,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PlaceControlBefore
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 438
+    startLine: 441
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1048,7 +1048,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PlaceSeparatorAfter
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 460
+    startLine: 463
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1083,7 +1083,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PlaceSeparatorBefore
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 469
+    startLine: 472
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1118,7 +1118,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetButtons
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 478
+    startLine: 481
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1149,7 +1149,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetControls
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 483
+    startLine: 486
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1180,7 +1180,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Panel
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 489
+    startLine: 492
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1211,7 +1211,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Container
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 506
+    startLine: 509
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1242,7 +1242,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsVisible
     path: ../Tripous.Desktop/ToolBar.cs
-    startLine: 510
+    startLine: 513
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop

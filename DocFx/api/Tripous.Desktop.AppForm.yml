@@ -25,20 +25,24 @@ items:
   - Tripous.Desktop.AppForm.IsSetupDone
   - Tripous.Desktop.AppForm.ModalResult
   - Tripous.Desktop.AppForm.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  - Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   - Tripous.Desktop.AppForm.ParentControl
   - Tripous.Desktop.AppForm.ParentTabControl
   - Tripous.Desktop.AppForm.ParentTabPage
   - Tripous.Desktop.AppForm.ParentWindow
   - Tripous.Desktop.AppForm.PassResultBack
+  - Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
   - Tripous.Desktop.AppForm.ProcessEscapeKey
   - Tripous.Desktop.AppForm.ProcessFormOptions
   - Tripous.Desktop.AppForm.ProcessKeyDown(Avalonia.Input.KeyEventArgs)
+  - Tripous.Desktop.AppForm.RegisterBroadcaster
   - Tripous.Desktop.AppForm.SetAsSelectedForm
   - Tripous.Desktop.AppForm.Setup
   - Tripous.Desktop.AppForm.Setup(Tripous.Desktop.FormContext)
   - Tripous.Desktop.AppForm.Start
   - Tripous.Desktop.AppForm.TitleText
   - Tripous.Desktop.AppForm.TitleTextChanged
+  - Tripous.Desktop.AppForm.UnregisterBroadcaster
   - Tripous.Desktop.AppForm.fTitleText
   langs:
   - csharp
@@ -49,11 +53,11 @@ items:
   type: Class
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AppForm
-    path: ../Tripous.Desktop/AppForm.cs
+    path: ../Tripous.Desktop/Forms/AppForm.cs
     startLine: 13
   assemblies:
   - Tripous.Desktop
@@ -64,11 +68,11 @@ items:
     content: >-
       [TypeStore]
 
-      public class AppForm : UserControl, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue
+      public class AppForm : UserControl, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, IBroadcasterListener
     content.vb: >-
       <TypeStore>
 
-      Public Class AppForm Inherits UserControl Implements INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue
+      Public Class AppForm Inherits UserControl Implements INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, IBroadcasterListener
   inheritance:
   - System.Object
   - Avalonia.AvaloniaObject
@@ -85,6 +89,7 @@ items:
   derivedClasses:
   - Tripous.Desktop.CommandTreeViewForm
   - Tripous.Desktop.DataForm
+  - Tripous.Desktop.DatabaseWorkbenchForm
   implements:
   - System.ComponentModel.INotifyPropertyChanged
   - Avalonia.IDataContextProvider
@@ -100,6 +105,7 @@ items:
   - Avalonia.Input.IInputElement
   - Avalonia.Controls.Templates.IDataTemplateHost
   - Avalonia.Styling.ISetterValue
+  - Tripous.IBroadcasterListener
   inheritedMembers:
   - Avalonia.Controls.UserControl.OnCreateAutomationPeer
   - Avalonia.Controls.ContentControl.ContentProperty
@@ -364,7 +370,6 @@ items:
   - Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
   - Avalonia.Visual.AffectsRender``1(Avalonia.AvaloniaProperty[])
   - Avalonia.Visual.LogicalChildrenCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)
-  - Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   - Avalonia.Visual.InvalidateMirrorTransform
   - Avalonia.Visual.Bounds
   - Avalonia.Visual.ClipToBounds
@@ -483,12 +488,12 @@ items:
   type: Field
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fTitleText
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 26
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 30
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -512,12 +517,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormInitializing
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 32
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 36
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -540,12 +545,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormInitialize
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 39
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 43
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -568,12 +573,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormInitialized
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 45
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 49
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -596,12 +601,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Start
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 53
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 57
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -630,12 +635,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Setup
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 61
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 65
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -662,12 +667,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessFormOptions
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 68
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 72
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -690,12 +695,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Closing
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 74
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 78
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -718,12 +723,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Closed
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 80
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 84
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -746,12 +751,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TitleTextChanged
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 86
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 91
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -774,12 +779,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PassResultBack
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 98
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 103
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -802,12 +807,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FindFirstFocusableControl
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 106
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 111
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -837,12 +842,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HandleBroadcasterEvent
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 115
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 120
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -875,12 +880,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessKeyDown
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 129
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 134
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -914,12 +919,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessEscapeKey
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 146
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 151
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -938,6 +943,62 @@ items:
       description: True if the escape key was processed; otherwise, false.
     content.vb: Protected Overridable Function ProcessEscapeKey() As Boolean
   overload: Tripous.Desktop.AppForm.ProcessEscapeKey*
+- uid: Tripous.Desktop.AppForm.RegisterBroadcaster
+  commentId: M:Tripous.Desktop.AppForm.RegisterBroadcaster
+  id: RegisterBroadcaster
+  parent: Tripous.Desktop.AppForm
+  langs:
+  - csharp
+  - vb
+  name: RegisterBroadcaster()
+  nameWithType: AppForm.RegisterBroadcaster()
+  fullName: Tripous.Desktop.AppForm.RegisterBroadcaster()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/AppForm.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RegisterBroadcaster
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 164
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Registers this form as a broadcaster listener.
+  example: []
+  syntax:
+    content: protected virtual void RegisterBroadcaster()
+    content.vb: Protected Overridable Sub RegisterBroadcaster()
+  overload: Tripous.Desktop.AppForm.RegisterBroadcaster*
+- uid: Tripous.Desktop.AppForm.UnregisterBroadcaster
+  commentId: M:Tripous.Desktop.AppForm.UnregisterBroadcaster
+  id: UnregisterBroadcaster
+  parent: Tripous.Desktop.AppForm
+  langs:
+  - csharp
+  - vb
+  name: UnregisterBroadcaster()
+  nameWithType: AppForm.UnregisterBroadcaster()
+  fullName: Tripous.Desktop.AppForm.UnregisterBroadcaster()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/AppForm.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UnregisterBroadcaster
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 175
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Unregisters this form from the broadcaster.
+  example: []
+  syntax:
+    content: protected virtual void UnregisterBroadcaster()
+    content.vb: Protected Overridable Sub UnregisterBroadcaster()
+  overload: Tripous.Desktop.AppForm.UnregisterBroadcaster*
 - uid: Tripous.Desktop.AppForm.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   commentId: M:Tripous.Desktop.AppForm.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   id: OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
@@ -951,12 +1012,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnAttachedToVisualTree
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 162
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 189
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -971,6 +1032,39 @@ items:
     content.vb: Protected Overrides Sub OnAttachedToVisualTree(e As VisualTreeAttachmentEventArgs)
   overridden: Avalonia.Visual.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   overload: Tripous.Desktop.AppForm.OnAttachedToVisualTree*
+- uid: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  commentId: M:Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  id: OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  parent: Tripous.Desktop.AppForm
+  langs:
+  - csharp
+  - vb
+  name: OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
+  nameWithType: AppForm.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
+  fullName: Tripous.Desktop.AppForm.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/AppForm.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OnDetachedFromVisualTree
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 210
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Called when the control is removed from a rooted visual tree.
+  example: []
+  syntax:
+    content: protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    parameters:
+    - id: e
+      type: Avalonia.VisualTreeAttachmentEventArgs
+      description: The visual tree attachment event arguments.
+    content.vb: Protected Overrides Sub OnDetachedFromVisualTree(e As VisualTreeAttachmentEventArgs)
+  overridden: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  overload: Tripous.Desktop.AppForm.OnDetachedFromVisualTree*
 - uid: Tripous.Desktop.AppForm.#ctor
   commentId: M:Tripous.Desktop.AppForm.#ctor
   id: '#ctor'
@@ -984,12 +1078,12 @@ items:
   type: Constructor
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 181
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 220
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1015,12 +1109,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Setup
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 202
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 241
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1038,6 +1132,40 @@ items:
       description: The form context.
     content.vb: Public Sub Setup(Context As FormContext)
   overload: Tripous.Desktop.AppForm.Setup*
+- uid: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  commentId: M:Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  id: ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  parent: Tripous.Desktop.AppForm
+  langs:
+  - csharp
+  - vb
+  name: ProcessBroadcasterMessage(BroadcasterArgs)
+  nameWithType: AppForm.ProcessBroadcasterMessage(BroadcasterArgs)
+  fullName: Tripous.Desktop.AppForm.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Forms/AppForm.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ProcessBroadcasterMessage
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 261
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Processes a broadcaster message.
+  example: []
+  syntax:
+    content: public virtual void ProcessBroadcasterMessage(BroadcasterArgs Args)
+    parameters:
+    - id: Args
+      type: Tripous.BroadcasterArgs
+      description: The broadcaster event arguments.
+    content.vb: Public Overridable Sub ProcessBroadcasterMessage(Args As BroadcasterArgs)
+  overload: Tripous.Desktop.AppForm.ProcessBroadcasterMessage*
+  implements:
+  - Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
 - uid: Tripous.Desktop.AppForm.SetAsSelectedForm
   commentId: M:Tripous.Desktop.AppForm.SetAsSelectedForm
   id: SetAsSelectedForm
@@ -1051,12 +1179,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetAsSelectedForm
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 220
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 269
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1079,12 +1207,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanCloseForm
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 228
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 277
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1109,12 +1237,12 @@ items:
   type: Method
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CloseForm
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 233
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 282
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1141,12 +1269,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Context
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 262
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 311
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1172,12 +1300,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormId
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 266
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 315
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1203,12 +1331,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ParentControl
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 271
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 320
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1234,12 +1362,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ParentTabPage
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 275
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 324
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1265,12 +1393,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ParentTabControl
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 279
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 328
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1296,12 +1424,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ParentWindow
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 283
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 332
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1327,12 +1455,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSetupDone
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 288
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 337
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1358,12 +1486,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsFormInitialized
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 292
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 341
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1389,12 +1517,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClosableByUser
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 296
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 345
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1420,12 +1548,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSelectedForm
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 300
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 349
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1451,12 +1579,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TitleText
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 305
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 354
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1482,12 +1610,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsClosing
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 320
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 369
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1513,12 +1641,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsModal
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 324
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 373
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1544,12 +1672,12 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/AppForm.cs
+      path: Tripous.Desktop/Forms/AppForm.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModalResult
-    path: ../Tripous.Desktop/AppForm.cs
-    startLine: 329
+    path: ../Tripous.Desktop/Forms/AppForm.cs
+    startLine: 378
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1784,6 +1912,13 @@ references:
   name: ISetterValue
   nameWithType: ISetterValue
   fullName: Avalonia.Styling.ISetterValue
+- uid: Tripous.IBroadcasterListener
+  commentId: T:Tripous.IBroadcasterListener
+  parent: Tripous
+  href: Tripous.IBroadcasterListener.html
+  name: IBroadcasterListener
+  nameWithType: IBroadcasterListener
+  fullName: Tripous.IBroadcasterListener
 - uid: Avalonia.Controls.UserControl.OnCreateAutomationPeer
   commentId: M:Avalonia.Controls.UserControl.OnCreateAutomationPeer
   parent: Avalonia.Controls.UserControl
@@ -5288,31 +5423,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.specialized.notifycollectionchangedeventargs
   - name: )
-- uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-  commentId: M:Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-  parent: Avalonia.Visual
-  isExternal: true
-  name: OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
-  nameWithType: Visual.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
-  fullName: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-    name: OnDetachedFromVisualTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.VisualTreeAttachmentEventArgs
-    name: VisualTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
-    name: OnDetachedFromVisualTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.VisualTreeAttachmentEventArgs
-    name: VisualTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
 - uid: Avalonia.Visual.InvalidateMirrorTransform
   commentId: M:Avalonia.Visual.InvalidateMirrorTransform
   parent: Avalonia.Visual
@@ -7878,6 +7988,12 @@ references:
   - uid: Avalonia.Controls.Templates
     name: Templates
     isExternal: true
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
 - uid: Avalonia.Interactivity.Interactive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)
   commentId: M:Avalonia.Interactivity.Interactive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)
   isExternal: true
@@ -9111,12 +9227,6 @@ references:
   name: TypeExtensions
   nameWithType: TypeExtensions
   fullName: Tripous.TypeExtensions
-- uid: Tripous
-  commentId: N:Tripous
-  href: Tripous.html
-  name: Tripous
-  nameWithType: Tripous
-  fullName: Tripous
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -9440,6 +9550,18 @@ references:
   name: ProcessEscapeKey
   nameWithType: AppForm.ProcessEscapeKey
   fullName: Tripous.Desktop.AppForm.ProcessEscapeKey
+- uid: Tripous.Desktop.AppForm.RegisterBroadcaster*
+  commentId: Overload:Tripous.Desktop.AppForm.RegisterBroadcaster
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_RegisterBroadcaster
+  name: RegisterBroadcaster
+  nameWithType: AppForm.RegisterBroadcaster
+  fullName: Tripous.Desktop.AppForm.RegisterBroadcaster
+- uid: Tripous.Desktop.AppForm.UnregisterBroadcaster*
+  commentId: Overload:Tripous.Desktop.AppForm.UnregisterBroadcaster
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_UnregisterBroadcaster
+  name: UnregisterBroadcaster
+  nameWithType: AppForm.UnregisterBroadcaster
+  fullName: Tripous.Desktop.AppForm.UnregisterBroadcaster
 - uid: Avalonia.Visual.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   commentId: M:Avalonia.Visual.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   parent: Avalonia.Visual
@@ -9478,6 +9600,37 @@ references:
   name: VisualTreeAttachmentEventArgs
   nameWithType: VisualTreeAttachmentEventArgs
   fullName: Avalonia.VisualTreeAttachmentEventArgs
+- uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  commentId: M:Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  parent: Avalonia.Visual
+  isExternal: true
+  name: OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
+  nameWithType: Visual.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)
+  fullName: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+    name: OnDetachedFromVisualTree
+    isExternal: true
+  - name: (
+  - uid: Avalonia.VisualTreeAttachmentEventArgs
+    name: VisualTreeAttachmentEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+    name: OnDetachedFromVisualTree
+    isExternal: true
+  - name: (
+  - uid: Avalonia.VisualTreeAttachmentEventArgs
+    name: VisualTreeAttachmentEventArgs
+    isExternal: true
+  - name: )
+- uid: Tripous.Desktop.AppForm.OnDetachedFromVisualTree*
+  commentId: Overload:Tripous.Desktop.AppForm.OnDetachedFromVisualTree
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_OnDetachedFromVisualTree_Avalonia_VisualTreeAttachmentEventArgs_
+  name: OnDetachedFromVisualTree
+  nameWithType: AppForm.OnDetachedFromVisualTree
+  fullName: Tripous.Desktop.AppForm.OnDetachedFromVisualTree
 - uid: Tripous.Desktop.AppForm.#ctor*
   commentId: Overload:Tripous.Desktop.AppForm.#ctor
   href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm__ctor
@@ -9506,6 +9659,44 @@ references:
   name: FormContext
   nameWithType: FormContext
   fullName: Tripous.Desktop.FormContext
+- uid: Tripous.Desktop.AppForm.ProcessBroadcasterMessage*
+  commentId: Overload:Tripous.Desktop.AppForm.ProcessBroadcasterMessage
+  href: Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  name: ProcessBroadcasterMessage
+  nameWithType: AppForm.ProcessBroadcasterMessage
+  fullName: Tripous.Desktop.AppForm.ProcessBroadcasterMessage
+- uid: Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  commentId: M:Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  parent: Tripous.IBroadcasterListener
+  href: Tripous.IBroadcasterListener.html#Tripous_IBroadcasterListener_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  name: ProcessBroadcasterMessage(BroadcasterArgs)
+  nameWithType: IBroadcasterListener.ProcessBroadcasterMessage(BroadcasterArgs)
+  fullName: Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+  spec.csharp:
+  - uid: Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+    name: ProcessBroadcasterMessage
+    href: Tripous.IBroadcasterListener.html#Tripous_IBroadcasterListener_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  - name: (
+  - uid: Tripous.BroadcasterArgs
+    name: BroadcasterArgs
+    href: Tripous.BroadcasterArgs.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.IBroadcasterListener.ProcessBroadcasterMessage(Tripous.BroadcasterArgs)
+    name: ProcessBroadcasterMessage
+    href: Tripous.IBroadcasterListener.html#Tripous_IBroadcasterListener_ProcessBroadcasterMessage_Tripous_BroadcasterArgs_
+  - name: (
+  - uid: Tripous.BroadcasterArgs
+    name: BroadcasterArgs
+    href: Tripous.BroadcasterArgs.html
+  - name: )
+- uid: Tripous.BroadcasterArgs
+  commentId: T:Tripous.BroadcasterArgs
+  parent: Tripous
+  href: Tripous.BroadcasterArgs.html
+  name: BroadcasterArgs
+  nameWithType: BroadcasterArgs
+  fullName: Tripous.BroadcasterArgs
 - uid: Tripous.Desktop.AppForm.ParentTabPage
   commentId: P:Tripous.Desktop.AppForm.ParentTabPage
   parent: Tripous.Desktop.AppForm

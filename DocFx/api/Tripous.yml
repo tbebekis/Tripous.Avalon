@@ -11,6 +11,9 @@ items:
   - Tripous.AssemblyExtensions
   - Tripous.BaseDef
   - Tripous.BitFields
+  - Tripous.Broadcaster
+  - Tripous.BroadcasterArgs
+  - Tripous.BroadcasterListener
   - Tripous.CodePage
   - Tripous.Command
   - Tripous.DateRange
@@ -26,6 +29,7 @@ items:
   - Tripous.ExceptionExtensions
   - Tripous.ExecTime
   - Tripous.HostContext
+  - Tripous.IBroadcasterListener
   - Tripous.ID
   - Tripous.IDJsonConverter
   - Tripous.IDef
@@ -75,6 +79,25 @@ references:
   name: BitFields
   nameWithType: BitFields
   fullName: Tripous.BitFields
+- uid: Tripous.Broadcaster
+  commentId: T:Tripous.Broadcaster
+  href: Tripous.Broadcaster.html
+  name: Broadcaster
+  nameWithType: Broadcaster
+  fullName: Tripous.Broadcaster
+- uid: Tripous.BroadcasterArgs
+  commentId: T:Tripous.BroadcasterArgs
+  parent: Tripous
+  href: Tripous.BroadcasterArgs.html
+  name: BroadcasterArgs
+  nameWithType: BroadcasterArgs
+  fullName: Tripous.BroadcasterArgs
+- uid: Tripous.BroadcasterListener
+  commentId: T:Tripous.BroadcasterListener
+  href: Tripous.BroadcasterListener.html
+  name: BroadcasterListener
+  nameWithType: BroadcasterListener
+  fullName: Tripous.BroadcasterListener
 - uid: Tripous.CodePage
   commentId: T:Tripous.CodePage
   href: Tripous.CodePage.html
@@ -220,6 +243,13 @@ references:
   name: HostContext
   nameWithType: HostContext
   fullName: Tripous.HostContext
+- uid: Tripous.IBroadcasterListener
+  commentId: T:Tripous.IBroadcasterListener
+  parent: Tripous
+  href: Tripous.IBroadcasterListener.html
+  name: IBroadcasterListener
+  nameWithType: IBroadcasterListener
+  fullName: Tripous.IBroadcasterListener
 - uid: Tripous.ID
   commentId: T:Tripous.ID
   parent: Tripous

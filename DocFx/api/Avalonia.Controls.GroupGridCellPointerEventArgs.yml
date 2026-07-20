@@ -793,7 +793,6 @@ references:
   fullName: Tripous
 - uid: Avalonia.Controls.GroupGridCellPointerEventArgs
   commentId: T:Avalonia.Controls.GroupGridCellPointerEventArgs
-  parent: Avalonia.Controls
   href: Avalonia.Controls.GroupGridCellPointerEventArgs.html
   name: GroupGridCellPointerEventArgs
   nameWithType: GroupGridCellPointerEventArgs

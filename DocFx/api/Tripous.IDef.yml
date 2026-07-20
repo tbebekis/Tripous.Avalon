@@ -44,6 +44,7 @@ items:
   - Tripous.Data.ConfigPropertyDef
   - Tripous.Data.DocumentHandlerDef
   - Tripous.Data.FieldDef
+  - Tripous.Data.ItemFactBoxDef
   - Tripous.Data.LocatorDef
   - Tripous.Data.LocatorFieldDef
   - Tripous.Data.LookupDef
