@@ -154,6 +154,7 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     bool fColumnDragFromGroupPanel;
     bool fIsColumnManagerMenuItemVisible = true;
     bool fIsSettingsMenuItemsVisible = true;
+    bool fIsSummaryContextMenuVisible = true;
     GroupGridDropDownPlacementMode fDropDownPlacementMode = GroupGridDropDownPlacementMode.Auto;
     string fSettingsSuggestedFileName = "group-grid-settings.json";
     string fEmptyGroupPanelText = "Drag a column header here to create a group";
@@ -1903,6 +1904,9 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     }
     bool ShowSummaryContextMenu(Point Point)
     {
+        if (!fIsSummaryContextMenuVisible)
+            return false;
+
         GroupGridHitTestResult Hit = HitTestCore(Point);
         if (Hit == null || Hit.Column == null)
             return false;
@@ -3508,6 +3512,7 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
             IsColumnHeadersVisible = IsColumnHeadersVisible,
             IsFilterPanelVisible = IsFilterPanelVisible,
             IsTotalsSummaryVisible = IsTotalsSummaryVisible,
+            IsGroupSummaryVisible = IsGroupSummaryVisible,
             IsInsertButtonVisible = IsInsertButtonVisible,
             IsDeleteButtonVisible = IsDeleteButtonVisible,
             IsEditButtonVisible = IsEditButtonVisible,
@@ -3638,6 +3643,7 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
         IsColumnHeadersVisible = Settings.IsColumnHeadersVisible;
         IsFilterPanelVisible = Settings.IsFilterPanelVisible;
         IsTotalsSummaryVisible = Settings.IsTotalsSummaryVisible;
+        IsGroupSummaryVisible = Settings.IsGroupSummaryVisible;
         IsInsertButtonVisible = Settings.IsInsertButtonVisible;
         IsDeleteButtonVisible = Settings.IsDeleteButtonVisible;
         IsEditButtonVisible = Settings.IsEditButtonVisible;
@@ -4340,6 +4346,14 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
         set => fIsSettingsMenuItemsVisible = value;
     }
     /// <summary>
+    /// Gets or sets a value indicating whether summary aggregate context menus are visible.
+    /// </summary>
+    public bool IsSummaryContextMenuVisible
+    {
+        get => fIsSummaryContextMenuVisible;
+        set => fIsSummaryContextMenuVisible = value;
+    }
+    /// <summary>
     /// Gets or sets how in-place editor drop-down controls are hosted.
     /// </summary>
     public GroupGridDropDownPlacementMode DropDownPlacementMode
@@ -4534,6 +4548,19 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     {
         get => fIsTotalsSummaryVisible;
         set => SetBandVisible(ref fIsTotalsSummaryVisible, value);
+    }
+    /// <summary>
+    /// Gets or sets a value indicating whether group summary rows are visible.
+    /// </summary>
+    public bool IsGroupSummaryVisible
+    {
+        get => fEngine.IsGroupSummaryVisible;
+        set
+        {
+            fEngine.IsGroupSummaryVisible = value;
+            UpdateViewport(Bounds.Size);
+            InvalidateVisual();
+        }
     }
     /// <summary>
     /// Gets or sets a value indicating whether columns named Id or ending with Id are visible.

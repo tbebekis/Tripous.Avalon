@@ -551,7 +551,7 @@ public class ChartControl: Control
             {
                 double MidAngle = (StartAngle + EndAngle) / 2;
                 Point LabelPoint = new(Center.X + Radius * 0.62 * Math.Cos(MidAngle * Math.PI / 180), Center.Y + Radius * 0.62 * Math.Sin(MidAngle * Math.PI / 180));
-                DrawText(Context, GetCircularLabelText(Item.DataPoint), new Rect(LabelPoint.X - 44, LabelPoint.Y - 10, 88, 20), Brushes.White, 10, FontWeight.SemiBold, false, true);
+                DrawText(Context, GetCircularLabelText(Item.DataPoint), new Rect(LabelPoint.X - 58, LabelPoint.Y - 18, 116, 36), Brushes.White, 10, FontWeight.SemiBold, false, true);
             }
             AddPointHit(new Rect(Center.X - Radius, Center.Y - Radius, Radius * 2, Radius * 2), Item.SeriesIndex, Item.PointIndex);
             StartAngle = EndAngle;

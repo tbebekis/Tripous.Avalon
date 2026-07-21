@@ -28,6 +28,7 @@ public class GroupGridEngine
 
     // ● operation state
     bool fIsReadOnly;
+    bool fIsGroupSummaryVisible = true;
     GroupGridColumn fSortColumn;
     GroupGridSortDirection fSortDirection;
 
@@ -759,7 +760,7 @@ public class GroupGridEngine
     /// </summary>
     public void RebuildProjection()
     {
-        fProjection.Rebuild(fDataAdapter, fGroupColumns, GetProjectionRowIndexes());
+        fProjection.Rebuild(fDataAdapter, fGroupColumns, GetProjectionRowIndexes(), fIsGroupSummaryVisible);
         CalculateSummaries();
         VisibleNodesChanged?.Invoke(this, EventArgs.Empty);
         SummariesChanged?.Invoke(this, EventArgs.Empty);
@@ -1865,6 +1866,21 @@ public class GroupGridEngine
     /// Gets a value indicating whether any column filter is active.
     /// </summary>
     public bool HasFilters => fColumnFilters.Count > 0;
+    /// <summary>
+    /// Gets or sets a value indicating whether group summary rows are included in the projection.
+    /// </summary>
+    public bool IsGroupSummaryVisible
+    {
+        get => fIsGroupSummaryVisible;
+        set
+        {
+            if (fIsGroupSummaryVisible == value)
+                return;
+
+            fIsGroupSummaryVisible = value;
+            RebuildProjection();
+        }
+    }
 
     // ● viewport and layout properties
     /// <summary>

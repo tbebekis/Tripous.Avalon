@@ -50,6 +50,10 @@ public class GroupGridSettings
     /// </summary>
     public bool IsTotalsSummaryVisible { get; set; } = true;
     /// <summary>
+    /// Gets or sets a value indicating whether group summary rows are visible.
+    /// </summary>
+    public bool IsGroupSummaryVisible { get; set; } = true;
+    /// <summary>
     /// Gets or sets a value indicating whether the default insert toolbar button is visible.
     /// </summary>
     public bool IsInsertButtonVisible { get; set; } = true;

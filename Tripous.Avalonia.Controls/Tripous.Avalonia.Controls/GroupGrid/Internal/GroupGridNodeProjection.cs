@@ -36,7 +36,7 @@ internal class GroupGridNodeProjection
             Root.Add(Node);
         }
     }
-    void BuildGrouped(IGroupGridDataAdapter Adapter, IReadOnlyList<GroupGridColumn> GroupColumns, IReadOnlyList<int> RowIndexes)
+    void BuildGrouped(IGroupGridDataAdapter Adapter, IReadOnlyList<GroupGridColumn> GroupColumns, IReadOnlyList<int> RowIndexes, bool IsGroupSummaryVisible)
     {
         foreach (int RowIndex in CreateRowIndexes(Adapter, RowIndexes))
         {
@@ -52,7 +52,8 @@ internal class GroupGridNodeProjection
             Parent.Add(RowNode);
         }
 
-        AddGroupSummaryNodes(Root);
+        if (IsGroupSummaryVisible)
+            AddGroupSummaryNodes(Root);
     }
     void AddGroupSummaryNodes(GroupGridNode Node)
     {
@@ -78,7 +79,7 @@ internal class GroupGridNodeProjection
     /// Rebuilds the projection from a data adapter.
     /// </summary>
     /// <param name="Adapter">The data adapter.</param>
-    public void Rebuild(IGroupGridDataAdapter Adapter, IReadOnlyList<GroupGridColumn> GroupColumns, IReadOnlyList<int> RowIndexes = null)
+    public void Rebuild(IGroupGridDataAdapter Adapter, IReadOnlyList<GroupGridColumn> GroupColumns, IReadOnlyList<int> RowIndexes = null, bool IsGroupSummaryVisible = true)
     {
         Root.Clear();
         fVisibleNodes.Clear();
@@ -89,7 +90,7 @@ internal class GroupGridNodeProjection
         if (GroupColumns == null || GroupColumns.Count == 0)
             BuildUngrouped(Adapter, RowIndexes);
         else
-            BuildGrouped(Adapter, GroupColumns, RowIndexes);
+            BuildGrouped(Adapter, GroupColumns, RowIndexes, IsGroupSummaryVisible);
 
         Root.AddVisibleNodesTo(fVisibleNodes);
     }
