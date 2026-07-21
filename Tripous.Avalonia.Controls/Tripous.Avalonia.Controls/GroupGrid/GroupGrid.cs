@@ -1872,6 +1872,9 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
             CreateMenuItem("Group by This Column", !IsGrouped && Column.CanUserGroup, () => GroupColumn(Column)),
             CreateMenuItem("Ungroup Column", IsGrouped, () => UngroupColumn(Column)),
             new Separator(),
+            CreateMenuItem("Expand All Groups", fEngine.CanExpandGroups, () => ExpandAllGroups()),
+            CreateMenuItem("Collapse All Groups", fEngine.CanCollapseGroups, () => CollapseAllGroups()),
+            new Separator(),
             CreateMenuItem("Hide Column", Column.IsVisible && Column.CanUserHide, () => SetColumnVisible(Column, false)),
             new Separator(),
             CreateMenuItem("Clear Column Filter", !string.IsNullOrEmpty(fEngine.GetColumnFilter(Column)), () => ClearColumnFilter(Column)),
@@ -1926,6 +1929,29 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
             string Header = AggregateKind == Current ? "* " + AggregateKind : AggregateKind.ToString();
             Items.Add(CreateMenuItem(Header, Column.CanAggregate(AggregateKind), () => SetSummaryAggregate(Column, IsGroupSummary, AggregateKind)));
         }
+
+        Menu.ItemsSource = Items;
+        Menu.Open(this);
+        return true;
+    }
+    bool ShowGridContextMenu(Point Point)
+    {
+        GroupGridHitTestResult Hit = HitTestCore(Point);
+        if (Hit == null || Hit.Kind == GroupGridHitTestKind.ColumnHeader || Hit.Kind == GroupGridHitTestKind.FooterSummaryCell)
+            return false;
+
+        ContextMenu Menu = new()
+        {
+            Placement = PlacementMode.Pointer,
+        };
+        List<object> Items = new()
+        {
+            CreateMenuItem("Expand All Groups", fEngine.CanExpandGroups, () => ExpandAllGroups()),
+            CreateMenuItem("Collapse All Groups", fEngine.CanCollapseGroups, () => CollapseAllGroups()),
+        };
+
+        Items.Add(new Separator());
+        Items.Add(CreateExportMenuItem());
 
         Menu.ItemsSource = Items;
         Menu.Open(this);
@@ -3105,7 +3131,7 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
             if (RaiseCellPointerPressed(Hit, MenuPoint, Args, IsRightButton: true))
                 return;
 
-            if (ShowColumnContextMenu(MenuPoint) || ShowSummaryContextMenu(MenuPoint))
+            if (ShowColumnContextMenu(MenuPoint) || ShowSummaryContextMenu(MenuPoint) || ShowGridContextMenu(MenuPoint))
                 Args.Handled = true;
             return;
         }
@@ -4041,6 +4067,24 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     {
         CancelCellEdit();
         return fEngine.ToggleGroupExpanded(VisibleNodeIndex);
+    }
+    /// <summary>
+    /// Expands all group nodes.
+    /// </summary>
+    /// <returns>True if any group state changed; otherwise, false.</returns>
+    public bool ExpandAllGroups()
+    {
+        CancelCellEdit();
+        return fEngine.ExpandAllGroups();
+    }
+    /// <summary>
+    /// Collapses all group nodes.
+    /// </summary>
+    /// <returns>True if any group state changed; otherwise, false.</returns>
+    public bool CollapseAllGroups()
+    {
+        CancelCellEdit();
+        return fEngine.CollapseAllGroups();
     }
 
     // ● current cell and selection API

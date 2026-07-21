@@ -34,6 +34,13 @@
                 <Button Name="btnSelectTableOrView" ToolTip.Tip="Select Table Or View" Click="AnyClick">
                     <Image Source="/Images32/lightning.png"/>
                 </Button>
+                <Separator/>
+                <Button Name="btnExpandAll" ToolTip.Tip="Expand All Connected" Click="AnyClick">
+                    <Image Source="/Images32/arrow_out.png"/>
+                </Button>
+                <Button Name="btnCollapseAll" ToolTip.Tip="Collapse All Connected" Click="AnyClick">
+                    <Image Source="/Images32/arrow_in.png"/>
+                </Button>
             </StackPanel>
         </Border>
         <TreeView Name="tv"

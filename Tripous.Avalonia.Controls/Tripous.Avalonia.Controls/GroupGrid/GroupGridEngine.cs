@@ -163,6 +163,51 @@ public class GroupGridEngine
                && !Cell.Column.IsReadOnly
                && CanSetValue(Cell.RowIndex, Cell.Column);
     }
+    bool HasExpandableGroup(GroupGridNode Node, bool Expand)
+    {
+        if (Node == null)
+            return false;
+
+        if (Node.IsGroup && Node.IsExpanded != Expand)
+            return true;
+
+        foreach (GroupGridNode Child in Node.Children)
+            if (HasExpandableGroup(Child, Expand))
+                return true;
+
+        return false;
+    }
+    bool SetGroupsExpandedRecursive(GroupGridNode Node, bool IsExpanded)
+    {
+        if (Node == null)
+            return false;
+
+        bool Result = false;
+        if (Node.IsGroup && Node.IsExpanded != IsExpanded)
+        {
+            Node.IsExpanded = IsExpanded;
+            Result = true;
+        }
+
+        foreach (GroupGridNode Child in Node.Children)
+            if (SetGroupsExpandedRecursive(Child, IsExpanded))
+                Result = true;
+
+        return Result;
+    }
+    bool SetAllGroupsExpanded(bool IsExpanded)
+    {
+        bool Result = SetGroupsExpandedRecursive(fProjection.Root, IsExpanded);
+        if (!Result)
+            return false;
+
+        fProjection.UpdateVisibleNodes();
+        VisibleNodesChanged?.Invoke(this, EventArgs.Empty);
+        CoerceCurrentCell();
+        CoerceSelectedCell();
+        CoerceEditingCell();
+        return true;
+    }
 
     // ● column list helpers
     List<GroupGridColumn> GetVisibleColumnList()
@@ -1405,6 +1450,22 @@ public class GroupGridEngine
         GroupGridNode Node = fProjection.NodeByVisibleIndex(VisibleNodeIndex);
         return Node != null && Node.IsGroup && SetGroupExpanded(Node, !Node.IsExpanded);
     }
+    /// <summary>
+    /// Expands all group nodes.
+    /// </summary>
+    /// <returns>True if any group state changed; otherwise, false.</returns>
+    public bool ExpandAllGroups()
+    {
+        return SetAllGroupsExpanded(true);
+    }
+    /// <summary>
+    /// Collapses all group nodes.
+    /// </summary>
+    /// <returns>True if any group state changed; otherwise, false.</returns>
+    public bool CollapseAllGroups()
+    {
+        return SetAllGroupsExpanded(false);
+    }
 
     // ● summary and display API
     /// <summary>
@@ -1780,6 +1841,14 @@ public class GroupGridEngine
     /// Gets the number of grouped columns.
     /// </summary>
     public int GroupColumnCount => fGroupColumns.Count;
+    /// <summary>
+    /// Gets a value indicating whether any group node can be expanded.
+    /// </summary>
+    public bool CanExpandGroups => HasExpandableGroup(fProjection.Root, true);
+    /// <summary>
+    /// Gets a value indicating whether any group node can be collapsed.
+    /// </summary>
+    public bool CanCollapseGroups => HasExpandableGroup(fProjection.Root, false);
     /// <summary>
     /// Gets the sorted column, or null when sorting is not active.
     /// </summary>

@@ -38,6 +38,10 @@ public partial class DbConnectionExplorerControl : UserControl
             await ToggleConnect();
         else if (Sender == btnRefreshSchema)
             await RefreshSchema();
+        else if (Sender == btnExpandAll)
+            ExpandAllConnected();
+        else if (Sender == btnCollapseAll)
+            CollapseAllConnected();
         else if (Sender == btnShowSourceCode)
             ShowCode(ShowCodeMode.SourceCode);
         else if (Sender == btnShowFieldList)
@@ -357,6 +361,22 @@ public partial class DbConnectionExplorerControl : UserControl
     {
         if (tv.SelectedItem is TreeViewItem Node)
             SetExpansionRecursive(Node, false);
+    }
+    void ExpandAllConnected()
+    {
+        SetAllConnectedExpansion(true);
+    }
+    void CollapseAllConnected()
+    {
+        SetAllConnectedExpansion(false);
+    }
+    void SetAllConnectedExpansion(bool IsExpanded)
+    {
+        foreach (object Item in tv.Items)
+        {
+            if (Item is TreeViewItem Node && Node.Tag is DbSchema Schema && Schema.IsLoaded)
+                SetExpansionRecursive(Node, IsExpanded);
+        }
     }
     void SetExpansionRecursive(TreeViewItem Node, bool IsExpanded)
     {
