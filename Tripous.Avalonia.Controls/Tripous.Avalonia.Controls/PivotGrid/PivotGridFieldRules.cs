@@ -53,7 +53,17 @@ static public class PivotGridFieldRules
     static public bool CanUseAsMeasure(Type ValueType)
     {
         Type Type = Nullable.GetUnderlyingType(ValueType) ?? ValueType;
-        return IsNumericType(Type);
+        return CanUseAsAxis(Type);
+    }
+    /// <summary>
+    /// Returns the default aggregate kind for a measure value type.
+    /// </summary>
+    /// <param name="ValueType">The value type.</param>
+    /// <returns>The default aggregate kind.</returns>
+    static public PivotGridAggregateKind GetDefaultAggregateKind(Type ValueType)
+    {
+        Type Type = Nullable.GetUnderlyingType(ValueType) ?? ValueType;
+        return IsNumericType(Type) ? PivotGridAggregateKind.Sum : PivotGridAggregateKind.CountDistinct;
     }
     /// <summary>
     /// Creates source field metadata.

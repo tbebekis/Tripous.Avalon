@@ -26,6 +26,10 @@ public class PivotGridFieldSettingsItem
     /// </summary>
     public string Header { get; set; } = string.Empty;
     /// <summary>
+    /// Gets or sets the source value type.
+    /// </summary>
+    public Type ValueType { get; set; } = typeof(object);
+    /// <summary>
     /// Gets or sets a value indicating whether the field can be used in an axis.
     /// </summary>
     public bool CanUseAsAxis { get; set; }

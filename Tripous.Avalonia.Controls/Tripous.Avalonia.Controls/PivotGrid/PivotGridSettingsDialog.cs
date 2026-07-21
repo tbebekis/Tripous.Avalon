@@ -105,6 +105,37 @@ public class PivotGridSettingsDialog: Window
 
         return true;
     }
+    bool CanUseAggregate(PivotGridFieldSettingsItem Item, PivotGridAggregateKind AggregateKind)
+    {
+        if (Item == null)
+            return false;
+        if (AggregateKind == PivotGridAggregateKind.Count || AggregateKind == PivotGridAggregateKind.CountDistinct)
+            return true;
+        if (AggregateKind == PivotGridAggregateKind.Sum
+            || AggregateKind == PivotGridAggregateKind.Average
+            || AggregateKind == PivotGridAggregateKind.StdDev
+            || AggregateKind == PivotGridAggregateKind.StdDevP
+            || AggregateKind == PivotGridAggregateKind.Variance
+            || AggregateKind == PivotGridAggregateKind.VarianceP
+            || AggregateKind == PivotGridAggregateKind.Product)
+            return PivotGridFieldRules.IsNumericType(Item.ValueType);
+
+        Type Type = Nullable.GetUnderlyingType(Item.ValueType) ?? Item.ValueType;
+        return typeof(IComparable).IsAssignableFrom(Type);
+    }
+    PivotGridAggregateKind GetValidAggregateKind(PivotGridFieldSettingsItem Item, PivotGridAggregateKind AggregateKind)
+    {
+        return CanUseAggregate(Item, AggregateKind)
+            ? AggregateKind
+            : PivotGridFieldRules.GetDefaultAggregateKind(Item?.ValueType ?? typeof(object));
+    }
+    List<PivotGridAggregateKind> GetAggregateKinds(PivotGridFieldSettingsItem Item)
+    {
+        return Enum.GetValues(typeof(PivotGridAggregateKind))
+            .Cast<PivotGridAggregateKind>()
+            .Where(AggregateKind => CanUseAggregate(Item, AggregateKind))
+            .ToList();
+    }
     void MoveSelectedTo(PivotGridFieldRole Role)
     {
         PivotGridFieldSettingsItem Item = GetSelectedItem(out ListBox ListBox);
@@ -113,6 +144,8 @@ public class PivotGridSettingsDialog: Window
 
         fItems.Remove(Item);
         Item.Role = Role;
+        if (Role == PivotGridFieldRole.Measure)
+            Item.AggregateKind = GetValidAggregateKind(Item, Item.AggregateKind);
         fItems.Add(Item);
         Refresh(Item);
         GetRoleListBox(Role).Focus();
@@ -150,6 +183,9 @@ public class PivotGridSettingsDialog: Window
         fIsUpdatingAggregateEditor = true;
         fIsUpdatingValueEditor = true;
         cboAggregate.IsEnabled = IsMeasure;
+        cboAggregate.ItemsSource = IsMeasure ? GetAggregateKinds(Item) : null;
+        if (IsMeasure)
+            Item.AggregateKind = GetValidAggregateKind(Item, Item.AggregateKind);
         cboAggregate.SelectedItem = IsMeasure ? Item.AggregateKind : null;
         cboDisplayFormat.IsEnabled = IsMeasure;
         cboDisplayFormat.Text = IsMeasure ? Item.DisplayFormat : string.Empty;
@@ -170,6 +206,8 @@ public class PivotGridSettingsDialog: Window
 
         PivotGridFieldSettingsItem Item = GetSelectedItem(out ListBox ListBox);
         if (Item == null || !ReferenceEquals(ListBox, lboValues) || cboAggregate.SelectedItem is not PivotGridAggregateKind AggregateKind)
+            return;
+        if (!CanUseAggregate(Item, AggregateKind))
             return;
 
         Item.AggregateKind = AggregateKind;
@@ -433,7 +471,6 @@ public class PivotGridSettingsDialog: Window
             ListBox.DoubleTapped += RoleListBox_DoubleTapped;
         cboAggregate = new ComboBox
         {
-            ItemsSource = Enum.GetValues(typeof(PivotGridAggregateKind)).Cast<PivotGridAggregateKind>().ToList(),
             IsEnabled = false,
             MinWidth = 100,
         };

@@ -28,4 +28,28 @@ public enum PivotGridAggregateKind
     /// Returns the average numeric value.
     /// </summary>
     Average,
+    /// <summary>
+    /// Returns the sample standard deviation of numeric values.
+    /// </summary>
+    StdDev,
+    /// <summary>
+    /// Returns the population standard deviation of numeric values.
+    /// </summary>
+    StdDevP,
+    /// <summary>
+    /// Returns the sample variance of numeric values.
+    /// </summary>
+    Variance,
+    /// <summary>
+    /// Returns the population variance of numeric values.
+    /// </summary>
+    VarianceP,
+    /// <summary>
+    /// Counts distinct non-empty values.
+    /// </summary>
+    CountDistinct,
+    /// <summary>
+    /// Returns the product of numeric values.
+    /// </summary>
+    Product,
 }

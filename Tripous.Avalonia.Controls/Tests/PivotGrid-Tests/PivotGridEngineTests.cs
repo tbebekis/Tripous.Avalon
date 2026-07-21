@@ -71,6 +71,58 @@ public class PivotGridEngineTests
         Assert.Equal(52m, Engine.GetGrandTotalCell(Measure).Value);
     }
     /// <summary>
+    /// Verifies extended numeric aggregate values.
+    /// </summary>
+    [Fact]
+    public void GetCell_WithExtendedNumericAggregates_ReturnsAggregatedValues()
+    {
+        PivotGridEngine Engine = CreateEngine();
+        Engine.Measures.Clear();
+        Engine.Measures.Add(new PivotGridMeasure { Name = "Product", SourceFieldName = nameof(PivotGridTestRow.Amount), AggregateKind = PivotGridAggregateKind.Product });
+        Engine.Measures.Add(new PivotGridMeasure { Name = "Variance", SourceFieldName = nameof(PivotGridTestRow.Amount), AggregateKind = PivotGridAggregateKind.Variance });
+        Engine.Measures.Add(new PivotGridMeasure { Name = "VarianceP", SourceFieldName = nameof(PivotGridTestRow.Amount), AggregateKind = PivotGridAggregateKind.VarianceP });
+        Engine.Measures.Add(new PivotGridMeasure { Name = "StdDev", SourceFieldName = nameof(PivotGridTestRow.Amount), AggregateKind = PivotGridAggregateKind.StdDev });
+        Engine.Measures.Add(new PivotGridMeasure { Name = "StdDevP", SourceFieldName = nameof(PivotGridTestRow.Amount), AggregateKind = PivotGridAggregateKind.StdDevP });
+        Engine.Rebuild();
+        PivotGridAxisItem North = Engine.RowItems.First(Item => Item.Text == "North");
+        PivotGridAxisItem Q1 = Engine.ColumnItems.First(Item => Item.Text == "Q1");
+
+        Assert.Equal(150m, Engine.GetCell(North, Q1, Engine.Measures[0]).Value);
+        Assert.Equal(12.5m, Engine.GetCell(North, Q1, Engine.Measures[1]).Value);
+        Assert.Equal(6.25m, Engine.GetCell(North, Q1, Engine.Measures[2]).Value);
+        Assert.Equal(3.5355m, Math.Round((decimal)Engine.GetCell(North, Q1, Engine.Measures[3]).Value, 4));
+        Assert.Equal(2.5m, Engine.GetCell(North, Q1, Engine.Measures[4]).Value);
+    }
+    /// <summary>
+    /// Verifies default display format for decimal-heavy aggregates.
+    /// </summary>
+    [Fact]
+    public void FormatValue_WithStatisticalAggregate_UsesTwoDecimalsByDefault()
+    {
+        PivotGridMeasure Measure = new()
+        {
+            AggregateKind = PivotGridAggregateKind.Variance
+        };
+
+        Assert.Equal((12.3456m).ToString("N2", CultureInfo.CurrentCulture), Measure.FormatValue(12.3456m));
+    }
+    /// <summary>
+    /// Verifies distinct counting of non-empty values.
+    /// </summary>
+    [Fact]
+    public void GetCell_WithCountDistinctMeasure_ReturnsDistinctValueCount()
+    {
+        PivotGridEngine Engine = CreateEngine();
+        Engine.Measures.Clear();
+        Engine.Measures.Add(new PivotGridMeasure { Name = "Salespeople", SourceFieldName = nameof(PivotGridTestRow.Salesperson), AggregateKind = PivotGridAggregateKind.CountDistinct });
+        Engine.Rebuild();
+        PivotGridAxisItem North = Engine.RowItems.First(Item => Item.Text == "North");
+        PivotGridAxisItem Q1 = Engine.ColumnItems.First(Item => Item.Text == "Q1");
+
+        Assert.Equal(2, Engine.GetCell(North, Q1, Engine.Measures[0]).Value);
+        Assert.Equal(2, Engine.GetRowTotalCell(North, Engine.Measures[0]).Value);
+    }
+    /// <summary>
     /// Verifies that multiple row fields create an expandable row-axis tree with parent aggregates.
     /// </summary>
     [Fact]

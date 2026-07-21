@@ -771,16 +771,18 @@ public class PivotGridControlTests
         Assert.Contains(Grid.Measures, Measure => Measure.SourceFieldName == nameof(PivotGridTestRow.Amount));
     }
     /// <summary>
-    /// Verifies that a non-numeric source field cannot move to values.
+    /// Verifies that a text source field can move to values as a distinct-count measure.
     /// </summary>
     [Fact]
-    public void MoveField_WithTextFieldToValues_DoesNotMove()
+    public void MoveField_WithTextFieldToValues_AddsCountDistinctMeasure()
     {
         PivotGrid Grid = CreateGrid();
 
-        Assert.False(Grid.MoveField(nameof(PivotGridTestRow.Salesperson), PivotGridFieldRole.Measure));
+        Assert.True(Grid.MoveField(nameof(PivotGridTestRow.Salesperson), PivotGridFieldRole.Measure));
 
-        Assert.DoesNotContain(Grid.Measures, Measure => Measure.SourceFieldName == nameof(PivotGridTestRow.Salesperson));
+        PivotGridMeasure Measure = Grid.Measures.FirstOrDefault(Measure => Measure.SourceFieldName == nameof(PivotGridTestRow.Salesperson));
+        Assert.NotNull(Measure);
+        Assert.Equal(PivotGridAggregateKind.CountDistinct, Measure.AggregateKind);
     }
     /// <summary>
     /// Verifies moving an available row field to a specific insertion index.

@@ -202,7 +202,7 @@ public class PivotGrid: Control
         if (DataAdapter == null || (RowFields.Count > 0 || ColumnFields.Count > 0 || Measures.Count > 0))
             return;
 
-        PivotGridSourceField RowField = SourceFields.FirstOrDefault(Field => Field.CanUseAsAxis && !Field.CanUseAsMeasure);
+        PivotGridSourceField RowField = SourceFields.FirstOrDefault(Field => Field.CanUseAsAxis && !Field.IsNumeric);
         PivotGridSourceField ColumnField = SourceFields.FirstOrDefault(Field => Field.CanUseAsAxis && !ReferenceEquals(Field, RowField));
         PivotGridSourceField MeasureField = SourceFields.FirstOrDefault(Field => Field.IsNumeric);
 
@@ -568,7 +568,7 @@ public class PivotGrid: Control
             case PivotGridFieldRole.Measure:
                 if (!SourceField.CanUseAsMeasure || ContainsFieldName(Measures.Select(Measure => Measure.SourceFieldName), FieldName))
                     return false;
-                Measures.Insert(NormalizeInsertIndex(TargetIndex, Measures.Count), new PivotGridMeasure { Name = SourceField.Name, Header = SourceField.Header, SourceFieldName = SourceField.Name, AggregateKind = PivotGridAggregateKind.Sum });
+                Measures.Insert(NormalizeInsertIndex(TargetIndex, Measures.Count), new PivotGridMeasure { Name = SourceField.Name, Header = SourceField.Header, SourceFieldName = SourceField.Name, AggregateKind = PivotGridFieldRules.GetDefaultAggregateKind(SourceField.ValueType) });
                 break;
             default:
                 return false;
@@ -577,6 +577,28 @@ public class PivotGrid: Control
         Engine.Rebuild();
         InvalidateVisual();
         return true;
+    }
+    bool CanAggregateValueType(Type ValueType, PivotGridAggregateKind AggregateKind)
+    {
+        if (AggregateKind == PivotGridAggregateKind.Count || AggregateKind == PivotGridAggregateKind.CountDistinct)
+            return true;
+        if (AggregateKind == PivotGridAggregateKind.Sum
+            || AggregateKind == PivotGridAggregateKind.Average
+            || AggregateKind == PivotGridAggregateKind.StdDev
+            || AggregateKind == PivotGridAggregateKind.StdDevP
+            || AggregateKind == PivotGridAggregateKind.Variance
+            || AggregateKind == PivotGridAggregateKind.VarianceP
+            || AggregateKind == PivotGridAggregateKind.Product)
+            return PivotGridFieldRules.IsNumericType(ValueType);
+
+        Type Type = Nullable.GetUnderlyingType(ValueType) ?? ValueType;
+        return typeof(IComparable).IsAssignableFrom(Type);
+    }
+    PivotGridAggregateKind GetValidAggregateKind(Type ValueType, PivotGridAggregateKind AggregateKind)
+    {
+        return CanAggregateValueType(ValueType, AggregateKind)
+            ? AggregateKind
+            : PivotGridFieldRules.GetDefaultAggregateKind(ValueType);
     }
     bool MoveFieldCore(string FieldName, PivotGridFieldRole TargetRole, int TargetIndex)
     {
@@ -819,15 +841,26 @@ public class PivotGrid: Control
         Result.IsChecked = IsChecked;
         return Result;
     }
-    IEnumerable<MenuItem> CreateAggregateMenuItems(PivotGridMeasure Measure)
+    MenuItem CreateSubMenuItem(string Header, IEnumerable<object> Items)
     {
-        return Enum.GetValues(typeof(PivotGridAggregateKind))
+        return new MenuItem
+        {
+            Header = Header,
+            ItemsSource = Items?.ToList() ?? new List<object>(),
+        };
+    }
+    MenuItem CreateAggregateMenuItem(PivotGridMeasure Measure)
+    {
+        List<object> Items = Enum.GetValues(typeof(PivotGridAggregateKind))
             .Cast<PivotGridAggregateKind>()
             .Select(AggregateKind =>
             {
                 string Header = AggregateKind == Measure?.AggregateKind ? "* " + AggregateKind : AggregateKind.ToString();
-                return CreateMenuItem("Aggregate " + Header, CanMeasureAggregate(Measure, AggregateKind), () => SetMeasureAggregate(Measure, AggregateKind));
-            });
+                return (object)CreateMenuItem(Header, CanMeasureAggregate(Measure, AggregateKind), () => SetMeasureAggregate(Measure, AggregateKind));
+            })
+            .ToList();
+
+        return CreateSubMenuItem("Aggregate", Items);
     }
     IEnumerable<MenuItem> CreateExportMenuItems()
     {
@@ -950,7 +983,7 @@ public class PivotGrid: Control
         }
         if (Role == PivotGridFieldRole.Measure)
         {
-            Items.AddRange(CreateAggregateMenuItems(Hit.Measure));
+            Items.Add(CreateAggregateMenuItem(Hit.Measure));
             Items.Add(new Separator());
         }
 
@@ -994,7 +1027,7 @@ public class PivotGrid: Control
         PivotGridFieldRole Role = FindFieldRole(SourceField.Name, out int Index);
         PivotGridAggregateKind AggregateKind = Role == PivotGridFieldRole.Measure && Index >= 0 && Index < Measures.Count
             ? Measures[Index].AggregateKind
-            : PivotGridAggregateKind.Sum;
+            : PivotGridFieldRules.GetDefaultAggregateKind(SourceField.ValueType);
         string Header = SourceField.Header;
         string DisplayFormat = string.Empty;
         double Width = 0;
@@ -1021,6 +1054,7 @@ public class PivotGrid: Control
         {
             Name = SourceField.Name,
             Header = Header,
+            ValueType = SourceField.ValueType,
             CanUseAsAxis = SourceField.CanUseAsAxis,
             CanUseAsMeasure = SourceField.CanUseAsMeasure,
             Role = Role,
@@ -1067,7 +1101,11 @@ public class PivotGrid: Control
                     break;
                 case PivotGridFieldRole.Measure:
                     if (Item.CanUseAsMeasure)
-                        Measures.Add(new PivotGridMeasure { Name = Item.Name, Header = Item.Header, SourceFieldName = Item.Name, AggregateKind = Item.AggregateKind, DisplayFormat = Item.DisplayFormat, Width = Item.Width });
+                    {
+                        PivotGridSourceField SourceField = FindSourceField(Item.Name);
+                        PivotGridAggregateKind AggregateKind = GetValidAggregateKind(SourceField?.ValueType ?? Item.ValueType, Item.AggregateKind);
+                        Measures.Add(new PivotGridMeasure { Name = Item.Name, Header = Item.Header, SourceFieldName = Item.Name, AggregateKind = AggregateKind, DisplayFormat = Item.DisplayFormat, Width = Item.Width });
+                    }
                     break;
             }
         }
@@ -1081,17 +1119,15 @@ public class PivotGrid: Control
             return false;
         if (AggregateKind == PivotGridAggregateKind.Count)
             return true;
+        if (AggregateKind == PivotGridAggregateKind.CountDistinct)
+            return true;
 
         PivotGridSourceField SourceField = FindSourceField(Measure.SourceFieldName);
         Type ValueType = SourceField?.ValueType;
         if (ValueType == null)
             return false;
 
-        if (AggregateKind == PivotGridAggregateKind.Sum || AggregateKind == PivotGridAggregateKind.Average)
-            return PivotGridFieldRules.IsNumericType(ValueType);
-
-        Type Type = Nullable.GetUnderlyingType(ValueType) ?? ValueType;
-        return typeof(IComparable).IsAssignableFrom(Type);
+        return CanAggregateValueType(ValueType, AggregateKind);
     }
     bool SetMeasureAggregate(PivotGridMeasure Measure, PivotGridAggregateKind AggregateKind)
     {
@@ -3013,7 +3049,7 @@ public class PivotGrid: Control
                     Name = string.IsNullOrWhiteSpace(Item.Name) ? SourceField.Name : Item.Name,
                     Header = string.IsNullOrWhiteSpace(Item.Header) ? SourceField.Header : Item.Header,
                     SourceFieldName = SourceField.Name,
-                    AggregateKind = Item.AggregateKind,
+                    AggregateKind = GetValidAggregateKind(SourceField.ValueType, Item.AggregateKind),
                     DisplayFormat = Item.DisplayFormat,
                     Width = Item.Width,
                 });

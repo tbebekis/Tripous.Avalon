@@ -298,17 +298,45 @@ public class PivotGridEngine
                 return NonEmptyValues.OfType<IComparable>().OrderByDescending(Value => Value).FirstOrDefault();
             case PivotGridAggregateKind.Average:
                 return AverageValues(NonEmptyValues);
+            case PivotGridAggregateKind.StdDev:
+                return StandardDeviationValues(NonEmptyValues, true);
+            case PivotGridAggregateKind.StdDevP:
+                return StandardDeviationValues(NonEmptyValues, false);
+            case PivotGridAggregateKind.Variance:
+                return VarianceValues(NonEmptyValues, true);
+            case PivotGridAggregateKind.VarianceP:
+                return VarianceValues(NonEmptyValues, false);
+            case PivotGridAggregateKind.CountDistinct:
+                return NonEmptyValues.Distinct().Count();
+            case PivotGridAggregateKind.Product:
+                return ProductValues(NonEmptyValues);
         }
 
         return null;
+    }
+    decimal ConvertToDecimal(object Value)
+    {
+        return Convert.ToDecimal(Value, CultureInfo.CurrentCulture);
     }
     decimal SumValues(IEnumerable<object> Values)
     {
         decimal Result = 0;
         foreach (object Value in Values)
-            Result += Convert.ToDecimal(Value, CultureInfo.CurrentCulture);
+            Result += ConvertToDecimal(Value);
 
         return Result;
+    }
+    decimal ProductValues(IEnumerable<object> Values)
+    {
+        decimal Result = 1m;
+        bool HasValue = false;
+        foreach (object Value in Values)
+        {
+            Result *= ConvertToDecimal(Value);
+            HasValue = true;
+        }
+
+        return HasValue ? Result : 0m;
     }
     object AverageValues(IReadOnlyList<object> Values)
     {
@@ -316,6 +344,35 @@ public class PivotGridEngine
             return null;
 
         return SumValues(Values) / Values.Count;
+    }
+    object VarianceValues(IReadOnlyList<object> Values, bool IsSample)
+    {
+        if (Values.Count == 0 || (IsSample && Values.Count <= 1))
+            return null;
+
+        decimal Sum = 0m;
+        decimal SumSquares = 0m;
+        foreach (object Value in Values)
+        {
+            decimal Number = ConvertToDecimal(Value);
+            Sum += Number;
+            SumSquares += Number * Number;
+        }
+
+        decimal Count = Values.Count;
+        decimal Numerator = SumSquares - ((Sum * Sum) / Count);
+        decimal Variance = IsSample
+            ? Numerator / (Count - 1m)
+            : (SumSquares / Count) - ((Sum / Count) * (Sum / Count));
+        return Variance < 0m ? 0m : Variance;
+    }
+    object StandardDeviationValues(IReadOnlyList<object> Values, bool IsSample)
+    {
+        object Variance = VarianceValues(Values, IsSample);
+        if (Variance == null)
+            return null;
+
+        return Convert.ToDecimal(Math.Sqrt(Convert.ToDouble(Variance, CultureInfo.CurrentCulture)), CultureInfo.CurrentCulture);
     }
     bool RowPassesFilters(int RowIndex)
     {

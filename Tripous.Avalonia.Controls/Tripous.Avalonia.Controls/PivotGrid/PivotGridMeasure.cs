@@ -8,6 +8,25 @@ namespace Avalonia.Controls;
 /// </summary>
 public class PivotGridMeasure
 {
+    // ● private methods
+    string GetEffectiveDisplayFormat()
+    {
+        if (!string.IsNullOrWhiteSpace(DisplayFormat))
+            return DisplayFormat;
+
+        switch (AggregateKind)
+        {
+            case PivotGridAggregateKind.Average:
+            case PivotGridAggregateKind.StdDev:
+            case PivotGridAggregateKind.StdDevP:
+            case PivotGridAggregateKind.Variance:
+            case PivotGridAggregateKind.VarianceP:
+                return "N2";
+        }
+
+        return string.Empty;
+    }
+
     // ● constructor
     /// <summary>
     /// Initializes a new instance of the <see cref="PivotGridMeasure"/> class.
@@ -26,8 +45,9 @@ public class PivotGridMeasure
     {
         if (Value == null || Value == DBNull.Value)
             return string.Empty;
-        if (!string.IsNullOrWhiteSpace(DisplayFormat))
-            return string.Format(CultureInfo.CurrentCulture, $"{{0:{DisplayFormat}}}", Value);
+        string Format = GetEffectiveDisplayFormat();
+        if (!string.IsNullOrWhiteSpace(Format))
+            return string.Format(CultureInfo.CurrentCulture, $"{{0:{Format}}}", Value);
 
         return string.Format(CultureInfo.CurrentCulture, "{0}", Value);
     }
