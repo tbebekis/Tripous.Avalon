@@ -21,6 +21,7 @@ The library currently contains:
 
 - `GroupGrid`: a general-purpose grid for data-entry and business applications.
 - `PivotGrid`: a custom-painted pivot grid for interactive cross-tab analysis.
+- `ChartControl`: a custom-painted BI chart control for aggregated SQL-style result data.
 
 Both controls are clean Avalonia controls that can later be adapted by external frameworks, but the library itself remains framework-neutral.
 
@@ -32,12 +33,37 @@ Both controls are clean Avalonia controls that can later be adapted by external 
 
 ![PivotGrid](Docs/Images/PivotGrid.png)
 
+## Charts
+
+`ChartControl` is a native Avalonia chart surface for small BI charts over flat result sets.
+
+Current implemented v1 feature map for `ChartControl`:
+
+- Avalonia `Control` with custom rendering.
+- Separate non-visual `ChartEngine`.
+- Framework-neutral core, with no Tripous dependency.
+- Adapter-based source access through `IChartDataAdapter`.
+- Convenience `ItemsSource` support for POCO `IList`, `DataTable`, and `DataView`.
+- Supported chart types: `Column`, `Bar`, `Line`, `Area`, `Pie`, `Donut`, `StackedColumn`, and `StackedBar`.
+- Serializable `ChartSettings`.
+- Category field, optional series field, value field, aggregate kind, sort direction, TopN, legend, value labels, value format, and palette settings.
+- Aggregate kinds: Count, Sum, Min, Max, Average, StdDev, StdDevP, Variance, VarianceP, CountDistinct, and Product.
+- Basic cartesian axes and ticks.
+- Basic hover hit-testing and tooltip text for data points.
+- Context menu with chart type, sort, TopN, palette, legend, labels, and settings commands.
+- Settings dialog for field selection, aggregate, chart type, sorting, TopN, legend, labels, format, and palette.
+- Save Settings and Load Settings menu items can be hidden through `IsSettingsMenuItemsVisible`.
+- `Charts-Demo-00` sample application.
+- `Charts-Tests` unit test project.
+
 ## Documentation
 
 - [GroupGrid Concepts](Docs/GroupGrid-Concepts.md)
 - [GroupGrid Design](Docs/GroupGrid-Design.md)
 - [PivotGrid Concepts](Docs/PivotGrid-Concepts.md)
 - [PivotGrid Design](Docs/PivotGrid-Design.md)
+- [ChartControl Concepts](Docs/ChartControl-Concepts.md)
+- [ChartControl Design](Docs/ChartControl-Design.md)
 - [Designing a Business Grid](Docs/Articles/1.Designing-a-Business-Grid.md)
 - [Building a Business Grid Runtime](Docs/Articles/2.Building-a-Business-Grid-runtime.md)
 

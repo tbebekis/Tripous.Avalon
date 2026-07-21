@@ -11,6 +11,7 @@
 - `GroupGrid` lives in the separate `Tripous.Avalonia.Controls` project.
 - `GroupGrid` is now the Tripous data-aware grid foundation.
 - `PivotGrid` v1 was added to `Tripous.Avalonia.Controls` as a framework-neutral custom-rendered pivot grid.
+- `ChartControl` v1 was added to `Tripous.Avalonia.Controls` as a framework-neutral custom-rendered BI chart control.
 - The old Avalonia `DataGrid` was removed completely from the Tripous desktop path.
 - The `Locator2` transition is complete; the new locator architecture is now the normal `Locator` architecture.
 - The old Desktop Locator was replaced by the new Locator runtime, UI, and `LocatorBox`.
@@ -44,6 +45,7 @@
 - Continue polishing the new `LocatorBox` where real usage reveals details.
 - Continue polishing `GroupGrid` where real usage reveals details.
 - Continue polishing `PivotGrid` where real usage reveals details.
+- Continue polishing `ChartControl` where real usage reveals details.
 
 ## Completed Milestones
 

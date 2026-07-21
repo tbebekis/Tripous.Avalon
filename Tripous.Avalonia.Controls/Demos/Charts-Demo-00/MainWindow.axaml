@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Tripous.Avalonia.Controls"
+        mc:Ignorable="d" d:DesignWidth="1180" d:DesignHeight="760"
+        x:Class="Demo00.Charts.MainWindow"
+        Width="1180"
+        Height="760"
+        WindowState="Maximized"
+        Title="Charts Demo">
+    <DockPanel>
+        <Border DockPanel.Dock="Top"
+                Padding="8"
+                BorderThickness="0,0,0,1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Spacing="6">
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8">
+                    <ComboBox x:Name="SourceComboBox"
+                              Width="150"
+                              SelectionChanged="SourceComboBox_SelectionChanged">
+                        <ComboBoxItem>POCO List</ComboBoxItem>
+                        <ComboBoxItem>DataTable</ComboBoxItem>
+                        <ComboBoxItem>DataView</ComboBoxItem>
+                    </ComboBox>
+                    <Button Content="Column"
+                            Click="ColumnButton_Click" />
+                    <Button Content="Bar"
+                            Click="BarButton_Click" />
+                    <Button Content="Line"
+                            Click="LineButton_Click" />
+                    <Button Content="Area"
+                            Click="AreaButton_Click" />
+                    <Button Content="Pie"
+                            Click="PieButton_Click" />
+                    <Button Content="Donut"
+                            Click="DonutButton_Click" />
+                    <Button Content="Stacked Column"
+                            Click="StackedColumnButton_Click" />
+                    <Button Content="Stacked Bar"
+                            Click="StackedBarButton_Click" />
+                    <Button Content="Labels"
+                            Click="LabelsButton_Click" />
+                    <Button Content="Legend"
+                            Click="LegendButton_Click" />
+                    <Button Content="Top 5"
+                            Click="Top5Button_Click" />
+                    <Button Content="Settings..."
+                            Click="SettingsButton_Click" />
+                    <Button Content="Reload"
+                            Click="ReloadButton_Click" />
+                </StackPanel>
+                <TextBlock x:Name="StatusTextBlock"
+                           FontSize="12"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+            </StackPanel>
+        </Border>
+        <controls:ChartControl x:Name="Chart" />
+    </DockPanel>
+</Window>

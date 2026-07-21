@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 ## 2026-07-20
 
 ### Tripous.Avalonia.Controls
+- Added `ChartControl`, a framework-neutral custom-rendered Avalonia BI chart control
+- Added neutral chart data adapters for POCO `IList`, `DataTable`, and `DataView` sources
+- Added `ChartSettings`, chart model types, `ChartEngine`, palettes, hit testing, tooltip text, and JSON settings support
+- Added chart types: Column, Bar, Line, Area, Pie, Donut, StackedColumn, and StackedBar
+- Added chart aggregates: Count, Sum, Min, Max, Average, StdDev, StdDevP, Variance, VarianceP, CountDistinct, and Product
+- Added chart context menu and settings dialog
+- Added `Charts-Demo-00` sample application
+- Added `Charts-Tests` unit test project
 - Added `PivotGrid`, a framework-neutral custom-rendered Avalonia pivot grid
 - Added neutral pivot data adapters for POCO `IList<T>`, `DataTable`, and `DataView` sources
 - Added pivot row fields, column fields, measures, available fields, drag/drop field assignment, and field reordering

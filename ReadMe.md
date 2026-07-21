@@ -76,7 +76,7 @@ The repository contains the following framework libraries.
 - `Tripous`: Core utilities, configuration, type services, collections, descriptors and shared infrastructure.
 - `Tripous.Data`: Database access, schema execution, SQL providers, data modules, table sets, lookups, locators and data descriptors.
 - `Tripous.Logging`: Logging infrastructure and diagnostics.
-- `Tripous.Avalonia.Controls`: Framework-neutral Avalonia controls such as `GroupGrid` and `PivotGrid`.
+- `Tripous.Avalonia.Controls`: Framework-neutral Avalonia controls such as `GroupGrid`, `PivotGrid`, and `ChartControl`.
 - `Tripous.Desktop`: Avalonia-based desktop layer with forms, menus, toolbars, commands, data forms and application UI infrastructure.
 - `Tripous.Web`: ASP.NET Core infrastructure and WebDesk browser UI layer for desktop-like business data applications.
 
@@ -89,6 +89,10 @@ The repository contains the following framework libraries.
 ### Pivot Grid
 
 ![PivotGrid](Tripous.Avalonia.Controls/Docs/Images/PivotGrid.png)
+
+### Chart Control
+
+![ChartControl](Tripous.Avalonia.Controls/Docs/Images/ChartControl.png)
 
 ## Application Declaration
 
@@ -152,19 +156,23 @@ Current controls:
 
 - `GroupGrid`: a custom-rendered business grid for dense data-entry screens, grouping, summaries, filtering, sorting, editing, settings, and export.
 - `PivotGrid`: a custom-rendered pivot grid for row/column axes, measures, aggregates, filtering, sorting, field drag/drop, settings, and export.
+- `ChartControl`: a custom-rendered BI chart control for flat result sets, category/series grouping, aggregates, saved settings, context menu, and settings dialog.
 
 The controls project includes demos and tests:
 
 - `Tripous.Avalonia.Controls/Demos/GroupGrid-Demo-00`
 - `Tripous.Avalonia.Controls/Demos/PivotGrid-Demo-00`
+- `Tripous.Avalonia.Controls/Demos/Charts-Demo-00`
 - `Tripous.Avalonia.Controls/Tests/GroupGrid-Tests`
 - `Tripous.Avalonia.Controls/Tests/PivotGrid-Tests`
+- `Tripous.Avalonia.Controls/Tests/Charts-Tests`
 
 See:
 
 - `Tripous.Avalonia.Controls/ReadMe.md`
 - `Tripous.Avalonia.Controls/Docs/GroupGrid-Concepts.md`
 - `Tripous.Avalonia.Controls/Docs/PivotGrid-Concepts.md`
+- `Tripous.Avalonia.Controls/Docs/ChartControl-Concepts.md`
 
 ## TinyERP
 
