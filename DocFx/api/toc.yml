@@ -4,6 +4,60 @@ items:
   name: Avalonia.Controls
   type: Namespace
   items:
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    type: Enum
+  - uid: Avalonia.Controls.ChartControl
+    name: ChartControl
+    type: Class
+  - uid: Avalonia.Controls.ChartDataChangedEventArgs
+    name: ChartDataChangedEventArgs
+    type: Class
+  - uid: Avalonia.Controls.ChartDataPoint
+    name: ChartDataPoint
+    type: Class
+  - uid: Avalonia.Controls.ChartDataViewDataAdapter
+    name: ChartDataViewDataAdapter
+    type: Class
+  - uid: Avalonia.Controls.ChartEngine
+    name: ChartEngine
+    type: Class
+  - uid: Avalonia.Controls.ChartFieldRules
+    name: ChartFieldRules
+    type: Class
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    type: Enum
+  - uid: Avalonia.Controls.ChartHitTestResult
+    name: ChartHitTestResult
+    type: Class
+  - uid: Avalonia.Controls.ChartListDataAdapter
+    name: ChartListDataAdapter
+    type: Class
+  - uid: Avalonia.Controls.ChartMeasure
+    name: ChartMeasure
+    type: Class
+  - uid: Avalonia.Controls.ChartPalette
+    name: ChartPalette
+    type: Class
+  - uid: Avalonia.Controls.ChartSeries
+    name: ChartSeries
+    type: Class
+  - uid: Avalonia.Controls.ChartSettings
+    name: ChartSettings
+    type: Class
+  - uid: Avalonia.Controls.ChartSettingsDialog
+    name: ChartSettingsDialog
+    type: Class
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    type: Enum
+  - uid: Avalonia.Controls.ChartSourceField
+    name: ChartSourceField
+    type: Class
+  - uid: Avalonia.Controls.ChartType
+    name: ChartType
+    type: Enum
   - uid: Avalonia.Controls.GroupGrid
     name: GroupGrid
     type: Class
@@ -157,6 +211,9 @@ items:
   - uid: Avalonia.Controls.GroupGridViewport
     name: GroupGridViewport
     type: Struct
+  - uid: Avalonia.Controls.IChartDataAdapter
+    name: IChartDataAdapter
+    type: Interface
   - uid: Avalonia.Controls.IGroupGridDataAdapter
     name: IGroupGridDataAdapter
     type: Interface

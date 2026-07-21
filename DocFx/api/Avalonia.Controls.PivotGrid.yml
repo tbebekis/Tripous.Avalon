@@ -761,7 +761,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnPropertyChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2467
+    startLine: 2503
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -793,7 +793,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnPointerPressed
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2475
+    startLine: 2511
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -830,7 +830,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnPointerMoved
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2530
+    startLine: 2566
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -867,7 +867,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnPointerExited
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2562
+    startLine: 2598
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -904,7 +904,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnPointerReleased
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2570
+    startLine: 2606
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -941,7 +941,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnPointerWheelChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2603
+    startLine: 2639
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -978,7 +978,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnKeyDown
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2617
+    startLine: 2653
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1015,7 +1015,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2679
+    startLine: 2715
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1046,7 +1046,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveField
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2693
+    startLine: 2729
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1087,7 +1087,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveField
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2704
+    startLine: 2740
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1131,7 +1131,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToggleSort
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2714
+    startLine: 2750
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1172,7 +1172,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetSort
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2725
+    startLine: 2761
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1216,7 +1216,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearSort
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2733
+    startLine: 2769
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1247,7 +1247,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetFieldFilter
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2743
+    startLine: 2779
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1288,7 +1288,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearFieldFilter
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2752
+    startLine: 2788
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1326,7 +1326,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearFilters
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2760
+    startLine: 2796
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1357,7 +1357,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExpandAllRows
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2768
+    startLine: 2804
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1388,7 +1388,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CollapseAllRows
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2776
+    startLine: 2812
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1419,7 +1419,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetCurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2787
+    startLine: 2823
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1463,7 +1463,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ScrollCurrentCellIntoView
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2800
+    startLine: 2836
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1494,7 +1494,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearCurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2808
+    startLine: 2844
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1525,7 +1525,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetHorizontalOffset
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2817
+    startLine: 2853
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1563,7 +1563,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetVerticalOffset
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2826
+    startLine: 2862
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1601,7 +1601,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetMeasureWidth
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2836
+    startLine: 2872
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1642,7 +1642,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetValueColumnWidth
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2850
+    startLine: 2886
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1686,7 +1686,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetMeasureAggregate
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2866
+    startLine: 2902
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1727,7 +1727,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AutoFitValueColumnWidths
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2877
+    startLine: 2913
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1758,7 +1758,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AutoFitValueColumnWidth
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2887
+    startLine: 2923
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1799,7 +1799,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AutoFitRowHeaderWidth
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2895
+    startLine: 2931
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1830,7 +1830,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetRowHeaderWidth
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2904
+    startLine: 2940
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1868,7 +1868,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ResetRowHeaderWidth
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2912
+    startLine: 2948
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1899,7 +1899,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearValueColumnWidths
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2920
+    startLine: 2956
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1930,7 +1930,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowSettingsDialogAsync
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2928
+    startLine: 2964
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1961,7 +1961,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateSettings
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2937
+    startLine: 2973
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1999,7 +1999,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ApplySettings
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 2982
+    startLine: 3018
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2031,7 +2031,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SaveSettings
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3035
+    startLine: 3071
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2069,7 +2069,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LoadSettings
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3046
+    startLine: 3082
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2107,7 +2107,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateExportSnapshot
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3064
+    startLine: 3100
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2138,7 +2138,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateClipboardText
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3128
+    startLine: 3164
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2169,7 +2169,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetToolTipText
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3137
+    startLine: 3173
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2204,7 +2204,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SaveExport
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3149
+    startLine: 3185
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2242,7 +2242,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HitTest
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3161
+    startLine: 3197
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2277,7 +2277,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Render
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3319
+    startLine: 3355
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2309,7 +2309,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Engine
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3349
+    startLine: 3385
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2340,7 +2340,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowFields
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3367
+    startLine: 3403
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2371,7 +2371,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ColumnFields
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3371
+    startLine: 3407
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2402,7 +2402,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Measures
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3375
+    startLine: 3411
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2433,7 +2433,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataAdapter
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3379
+    startLine: 3415
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2464,7 +2464,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemsSource
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3397
+    startLine: 3433
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2495,7 +2495,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SourceFields
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3405
+    startLine: 3441
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2526,7 +2526,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AvailableFields
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3415
+    startLine: 3451
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2557,7 +2557,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LayoutMetrics
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3419
+    startLine: 3455
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2588,7 +2588,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ActualRowHeaderWidth
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3423
+    startLine: 3459
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2619,7 +2619,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSettingsMenuItemsVisible
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3427
+    startLine: 3463
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2650,7 +2650,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsExportMenuItemVisible
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3435
+    startLine: 3471
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2681,7 +2681,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SettingsSuggestedFileName
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3443
+    startLine: 3479
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2712,7 +2712,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowFieldPanel
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3451
+    startLine: 3487
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2743,7 +2743,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowRowGrandTotals
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3467
+    startLine: 3503
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2774,7 +2774,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowColumnGrandTotals
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3484
+    startLine: 3520
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2805,7 +2805,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowToolTips
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3501
+    startLine: 3537
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2836,7 +2836,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GridBackgroundBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3520
+    startLine: 3556
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2867,7 +2867,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HeaderBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3524
+    startLine: 3560
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2898,7 +2898,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TextBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3528
+    startLine: 3564
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2929,7 +2929,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MutedTextBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3532
+    startLine: 3568
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2960,7 +2960,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GridLineBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3536
+    startLine: 3572
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2991,7 +2991,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectedCellBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3540
+    startLine: 3576
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3022,7 +3022,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectedCellBorderBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3544
+    startLine: 3580
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3053,7 +3053,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ScrollBarTrackBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3548
+    startLine: 3584
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3084,7 +3084,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ScrollBarThumbBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3552
+    startLine: 3588
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3115,7 +3115,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ResizeGuideBrush
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3556
+    startLine: 3592
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3146,7 +3146,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HorizontalOffset
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3560
+    startLine: 3596
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3177,7 +3177,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: VerticalOffset
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3564
+    startLine: 3600
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3208,7 +3208,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3568
+    startLine: 3604
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3239,7 +3239,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentCellText
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3572
+    startLine: 3608
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3270,7 +3270,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRowIndex
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3576
+    startLine: 3612
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3301,7 +3301,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentColumnIndex
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3580
+    startLine: 3616
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3332,7 +3332,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentMeasureIndex
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3584
+    startLine: 3620
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3363,7 +3363,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentCellChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGrid.cs
-    startLine: 3590
+    startLine: 3626
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls

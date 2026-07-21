@@ -1,0 +1,1153 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.ChartHitTestKind
+  commentId: T:Avalonia.Controls.ChartHitTestKind
+  id: ChartHitTestKind
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.ChartHitTestKind.DataPoint
+  - Avalonia.Controls.ChartHitTestKind.Legend
+  - Avalonia.Controls.ChartHitTestKind.None
+  langs:
+  - csharp
+  - vb
+  name: ChartHitTestKind
+  nameWithType: ChartHitTestKind
+  fullName: Avalonia.Controls.ChartHitTestKind
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ChartHitTestKind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestKind.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Defines chart hit-test result kinds.
+  example: []
+  syntax:
+    content: public enum ChartHitTestKind
+    content.vb: Public Enum ChartHitTestKind
+  extensionMethods:
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Add``1(Avalonia.Controls.ChartHitTestKind)
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartHitTestKind)
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartHitTestKind)
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Has``1(Avalonia.Controls.ChartHitTestKind)
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.In``1(Avalonia.Controls.ChartHitTestKind)
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartHitTestKind)
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.IsZero``1
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Remove``1(Avalonia.Controls.ChartHitTestKind)
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Set``1(Avalonia.Controls.ChartHitTestKind,System.Boolean)
+  - Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartHitTestKind)
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.ChartHitTestKind.None
+  commentId: F:Avalonia.Controls.ChartHitTestKind.None
+  id: None
+  parent: Avalonia.Controls.ChartHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: ChartHitTestKind.None
+  fullName: Avalonia.Controls.ChartHitTestKind.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestKind.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: No chart element was hit.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Avalonia.Controls.ChartHitTestKind
+- uid: Avalonia.Controls.ChartHitTestKind.DataPoint
+  commentId: F:Avalonia.Controls.ChartHitTestKind.DataPoint
+  id: DataPoint
+  parent: Avalonia.Controls.ChartHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: DataPoint
+  nameWithType: ChartHitTestKind.DataPoint
+  fullName: Avalonia.Controls.ChartHitTestKind.DataPoint
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataPoint
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestKind.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A chart data point was hit.
+  example: []
+  syntax:
+    content: DataPoint = 1
+    return:
+      type: Avalonia.Controls.ChartHitTestKind
+- uid: Avalonia.Controls.ChartHitTestKind.Legend
+  commentId: F:Avalonia.Controls.ChartHitTestKind.Legend
+  id: Legend
+  parent: Avalonia.Controls.ChartHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: Legend
+  nameWithType: ChartHitTestKind.Legend
+  fullName: Avalonia.Controls.ChartHitTestKind.Legend
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Legend
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestKind.cs
+    startLine: 21
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A legend item was hit.
+  example: []
+  syntax:
+    content: Legend = 2
+    return:
+      type: Avalonia.Controls.ChartHitTestKind
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Add``1(Avalonia.Controls.ChartHitTestKind)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  nameWithType: BitFields.Add<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  fullName: Tripous.BitFields.Add<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  nameWithType.vb: BitFields.Add(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  fullName.vb: Tripous.BitFields.Add(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  name.vb: Add(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartHitTestKind)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  nameWithType: BitFields.HasAny<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  fullName: Tripous.BitFields.HasAny<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  nameWithType.vb: BitFields.HasAny(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  fullName.vb: Tripous.BitFields.HasAny(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  name.vb: HasAny(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartHitTestKind)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  nameWithType: BitFields.HasNone<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  fullName: Tripous.BitFields.HasNone<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  nameWithType.vb: BitFields.HasNone(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  fullName.vb: Tripous.BitFields.HasNone(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  name.vb: HasNone(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Has``1(Avalonia.Controls.ChartHitTestKind)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  nameWithType: BitFields.Has<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  fullName: Tripous.BitFields.Has<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  nameWithType.vb: BitFields.Has(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  fullName.vb: Tripous.BitFields.Has(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  name.vb: Has(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.In``1(Avalonia.Controls.ChartHitTestKind)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  nameWithType: BitFields.In<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  fullName: Tripous.BitFields.In<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  nameWithType.vb: BitFields.In(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  fullName.vb: Tripous.BitFields.In(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  name.vb: In(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartHitTestKind)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  nameWithType: BitFields.IsExactly<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  fullName: Tripous.BitFields.IsExactly<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  nameWithType.vb: BitFields.IsExactly(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  name.vb: IsExactly(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<ChartHitTestKind>(ChartHitTestKind)
+  nameWithType: BitFields.IsZero<ChartHitTestKind>(ChartHitTestKind)
+  fullName: Tripous.BitFields.IsZero<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind)
+  nameWithType.vb: BitFields.IsZero(Of ChartHitTestKind)(ChartHitTestKind)
+  fullName.vb: Tripous.BitFields.IsZero(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind)
+  name.vb: IsZero(Of ChartHitTestKind)(ChartHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.ChartHitTestKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.ChartHitTestKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Remove``1(Avalonia.Controls.ChartHitTestKind)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  nameWithType: BitFields.Remove<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  fullName: Tripous.BitFields.Remove<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  nameWithType.vb: BitFields.Remove(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  fullName.vb: Tripous.BitFields.Remove(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  name.vb: Remove(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Set``1(Avalonia.Controls.ChartHitTestKind,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind, bool)
+  nameWithType: BitFields.Set<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind, bool)
+  fullName: Tripous.BitFields.Set<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind, bool)
+  nameWithType.vb: BitFields.Set(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind, Boolean)
+  name.vb: Set(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Avalonia.Controls.ChartHitTestKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartHitTestKind)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  nameWithType: BitFields.Toggle<ChartHitTestKind>(ChartHitTestKind, ChartHitTestKind)
+  fullName: Tripous.BitFields.Toggle<Avalonia.Controls.ChartHitTestKind>(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  nameWithType.vb: BitFields.Toggle(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  fullName.vb: Tripous.BitFields.Toggle(Of Avalonia.Controls.ChartHitTestKind)(Avalonia.Controls.ChartHitTestKind, Avalonia.Controls.ChartHitTestKind)
+  name.vb: Toggle(Of ChartHitTestKind)(ChartHitTestKind, ChartHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartHitTestKind,Avalonia.Controls.ChartHitTestKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartHitTestKind
+    name: ChartHitTestKind
+    href: Avalonia.Controls.ChartHitTestKind.html
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.ChartHitTestKind
+  commentId: T:Avalonia.Controls.ChartHitTestKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartHitTestKind.html
+  name: ChartHitTestKind
+  nameWithType: ChartHitTestKind
+  fullName: Avalonia.Controls.ChartHitTestKind

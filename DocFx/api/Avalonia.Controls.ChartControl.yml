@@ -1,40 +1,51 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Avalonia.Controls.PivotGridSettingsDialog
-  commentId: T:Avalonia.Controls.PivotGridSettingsDialog
-  id: PivotGridSettingsDialog
+- uid: Avalonia.Controls.ChartControl
+  commentId: T:Avalonia.Controls.ChartControl
+  id: ChartControl
   parent: Avalonia.Controls
   children:
-  - Avalonia.Controls.PivotGridSettingsDialog.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem},System.Boolean,System.Boolean,System.Boolean,System.Boolean)
-  - Avalonia.Controls.PivotGridSettingsDialog.Items
-  - Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  - Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  - Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  - Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  - Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
+  - Avalonia.Controls.ChartControl.#ctor
+  - Avalonia.Controls.ChartControl.ApplySettings(Avalonia.Controls.ChartSettings)
+  - Avalonia.Controls.ChartControl.CreateSettings
+  - Avalonia.Controls.ChartControl.DataAdapter
+  - Avalonia.Controls.ChartControl.Engine
+  - Avalonia.Controls.ChartControl.GetToolTipText(Avalonia.Point)
+  - Avalonia.Controls.ChartControl.HitTest(Avalonia.Point)
+  - Avalonia.Controls.ChartControl.IsSettingsMenuItemsVisible
+  - Avalonia.Controls.ChartControl.ItemsSource
+  - Avalonia.Controls.ChartControl.LoadSettings(System.String)
+  - Avalonia.Controls.ChartControl.OnPointerExited(Avalonia.Input.PointerEventArgs)
+  - Avalonia.Controls.ChartControl.OnPointerMoved(Avalonia.Input.PointerEventArgs)
+  - Avalonia.Controls.ChartControl.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+  - Avalonia.Controls.ChartControl.Render(Avalonia.Media.DrawingContext)
+  - Avalonia.Controls.ChartControl.SaveSettings(System.String)
+  - Avalonia.Controls.ChartControl.Settings
+  - Avalonia.Controls.ChartControl.SettingsSuggestedFileName
+  - Avalonia.Controls.ChartControl.ShowSettingsDialogAsync
   langs:
   - csharp
   - vb
-  name: PivotGridSettingsDialog
-  nameWithType: PivotGridSettingsDialog
-  fullName: Avalonia.Controls.PivotGridSettingsDialog
+  name: ChartControl
+  nameWithType: ChartControl
+  fullName: Avalonia.Controls.ChartControl
   type: Class
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: PivotGridSettingsDialog
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+    id: ChartControl
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
     startLine: 8
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Provides a layout settings dialog for pivot grid fields.
+  summary: Displays an aggregated BI chart using native Avalonia drawing.
   example: []
   syntax:
-    content: 'public class PivotGridSettingsDialog : Window, INotifyPropertyChanged, IDataContextProvider, IThemeVariantHost, IResourceHost, IResourceNode, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, ICloseable, IStyleHost, ILogicalRoot, ILogical, IFocusScope'
-    content.vb: Public Class PivotGridSettingsDialog Inherits Window Implements INotifyPropertyChanged, IDataContextProvider, IThemeVariantHost, IResourceHost, IResourceNode, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, ICloseable, IStyleHost, ILogicalRoot, ILogical, IFocusScope
+    content: 'public class ChartControl : Control, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue'
+    content.vb: Public Class ChartControl Inherits Control Implements INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue
   inheritance:
   - System.Object
   - Avalonia.AvaloniaObject
@@ -45,17 +56,14 @@ items:
   - Avalonia.Interactivity.Interactive
   - Avalonia.Input.InputElement
   - Avalonia.Controls.Control
-  - Avalonia.Controls.Primitives.TemplatedControl
-  - Avalonia.Controls.ContentControl
-  - Avalonia.Controls.TopLevel
-  - Avalonia.Controls.WindowBase
-  - Avalonia.Controls.Window
   implements:
   - System.ComponentModel.INotifyPropertyChanged
   - Avalonia.IDataContextProvider
+  - Avalonia.LogicalTree.ILogical
   - Avalonia.Styling.IThemeVariantHost
   - Avalonia.Controls.IResourceHost
   - Avalonia.Controls.IResourceNode
+  - Avalonia.Styling.IStyleHost
   - Avalonia.Controls.ISetLogicalParent
   - Avalonia.Controls.ISetInheritanceParent
   - System.ComponentModel.ISupportInitialize
@@ -63,181 +71,7 @@ items:
   - Avalonia.Input.IInputElement
   - Avalonia.Controls.Templates.IDataTemplateHost
   - Avalonia.Styling.ISetterValue
-  - Avalonia.Input.ICloseable
-  - Avalonia.Styling.IStyleHost
-  - Avalonia.LogicalTree.ILogicalRoot
-  - Avalonia.LogicalTree.ILogical
-  - Avalonia.Input.IFocusScope
   inheritedMembers:
-  - Avalonia.Controls.Window.SizeToContentProperty
-  - Avalonia.Controls.Window.ExtendClientAreaToDecorationsHintProperty
-  - Avalonia.Controls.Window.ExtendClientAreaTitleBarHeightHintProperty
-  - Avalonia.Controls.Window.IsExtendedIntoWindowDecorationsProperty
-  - Avalonia.Controls.Window.WindowDecorationMarginProperty
-  - Avalonia.Controls.Window.OffScreenMarginProperty
-  - Avalonia.Controls.Window.WindowDecorationsProperty
-  - Avalonia.Controls.Window.WindowDecorationsThemeProperty
-  - Avalonia.Controls.Window.ShowActivatedProperty
-  - Avalonia.Controls.Window.ShowInTaskbarProperty
-  - Avalonia.Controls.Window.ClosingBehaviorProperty
-  - Avalonia.Controls.Window.WindowStateProperty
-  - Avalonia.Controls.Window.TitleProperty
-  - Avalonia.Controls.Window.IconProperty
-  - Avalonia.Controls.Window.WindowStartupLocationProperty
-  - Avalonia.Controls.Window.CanResizeProperty
-  - Avalonia.Controls.Window.CanMinimizeProperty
-  - Avalonia.Controls.Window.CanMaximizeProperty
-  - Avalonia.Controls.Window.WindowClosedEvent
-  - Avalonia.Controls.Window.WindowOpenedEvent
-  - Avalonia.Controls.Window.BeginMoveDrag(Avalonia.Input.PointerPressedEventArgs)
-  - Avalonia.Controls.Window.BeginResizeDrag(Avalonia.Controls.WindowEdge,Avalonia.Input.PointerPressedEventArgs)
-  - Avalonia.Controls.Window.Close
-  - Avalonia.Controls.Window.Close(System.Object)
-  - Avalonia.Controls.Window.Hide
-  - Avalonia.Controls.Window.Show
-  - Avalonia.Controls.Window.OnApplyTemplate(Avalonia.Controls.Primitives.TemplateAppliedEventArgs)
-  - Avalonia.Controls.Window.IsVisibleChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  - Avalonia.Controls.Window.Show(Avalonia.Controls.Window)
-  - Avalonia.Controls.Window.ShowDialog(Avalonia.Controls.Window)
-  - Avalonia.Controls.Window.ShowDialog``1(Avalonia.Controls.Window)
-  - Avalonia.Controls.Window.SortWindowsByZOrder(System.Span{Avalonia.Controls.Window})
-  - Avalonia.Controls.Window.MeasureOverride(Avalonia.Size)
-  - Avalonia.Controls.Window.OnClosing(Avalonia.Controls.WindowClosingEventArgs)
-  - Avalonia.Controls.Window.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  - Avalonia.Controls.Window.OnCreateAutomationPeer
-  - Avalonia.Controls.Window.PlatformImpl
-  - Avalonia.Controls.Window.OwnedWindows
-  - Avalonia.Controls.Window.SizeToContent
-  - Avalonia.Controls.Window.Title
-  - Avalonia.Controls.Window.ExtendClientAreaToDecorationsHint
-  - Avalonia.Controls.Window.ExtendClientAreaTitleBarHeightHint
-  - Avalonia.Controls.Window.IsExtendedIntoWindowDecorations
-  - Avalonia.Controls.Window.WindowDecorationMargin
-  - Avalonia.Controls.Window.OffScreenMargin
-  - Avalonia.Controls.Window.WindowDecorations
-  - Avalonia.Controls.Window.WindowDecorationsTheme
-  - Avalonia.Controls.Window.SystemDecorations
-  - Avalonia.Controls.Window.ShowActivated
-  - Avalonia.Controls.Window.ShowInTaskbar
-  - Avalonia.Controls.Window.ClosingBehavior
-  - Avalonia.Controls.Window.WindowState
-  - Avalonia.Controls.Window.CanResize
-  - Avalonia.Controls.Window.CanMinimize
-  - Avalonia.Controls.Window.CanMaximize
-  - Avalonia.Controls.Window.Icon
-  - Avalonia.Controls.Window.WindowStartupLocation
-  - Avalonia.Controls.Window.Position
-  - Avalonia.Controls.Window.IsDialog
-  - Avalonia.Controls.Window.StyleKeyOverride
-  - Avalonia.Controls.Window.Closing
-  - Avalonia.Controls.WindowBase.IsActiveProperty
-  - Avalonia.Controls.WindowBase.OwnerProperty
-  - Avalonia.Controls.WindowBase.TopmostProperty
-  - Avalonia.Controls.WindowBase.Activate
-  - Avalonia.Controls.WindowBase.EnsureInitialized
-  - Avalonia.Controls.WindowBase.OnClosed(System.EventArgs)
-  - Avalonia.Controls.WindowBase.OnOpened(System.EventArgs)
-  - Avalonia.Controls.WindowBase.OnResized(Avalonia.Controls.WindowResizedEventArgs)
-  - Avalonia.Controls.WindowBase.MeasureCore(Avalonia.Size)
-  - Avalonia.Controls.WindowBase.ArrangeCore(Avalonia.Rect)
-  - Avalonia.Controls.WindowBase.IgnoreVisibilityChanges
-  - Avalonia.Controls.WindowBase.IsActive
-  - Avalonia.Controls.WindowBase.Screens
-  - Avalonia.Controls.WindowBase.Owner
-  - Avalonia.Controls.WindowBase.Topmost
-  - Avalonia.Controls.WindowBase.DesktopScaling
-  - Avalonia.Controls.WindowBase.Activated
-  - Avalonia.Controls.WindowBase.Deactivated
-  - Avalonia.Controls.WindowBase.PositionChanged
-  - Avalonia.Controls.WindowBase.Resized
-  - Avalonia.Controls.TopLevel.ClientSizeProperty
-  - Avalonia.Controls.TopLevel.FrameSizeProperty
-  - Avalonia.Controls.TopLevel.TransparencyLevelHintProperty
-  - Avalonia.Controls.TopLevel.ActualTransparencyLevelProperty
-  - Avalonia.Controls.TopLevel.TransparencyBackgroundFallbackProperty
-  - Avalonia.Controls.TopLevel.ActualThemeVariantProperty
-  - Avalonia.Controls.TopLevel.RequestedThemeVariantProperty
-  - Avalonia.Controls.TopLevel.SystemBarColorProperty
-  - Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty
-  - Avalonia.Controls.TopLevel.BackRequestedEvent
-  - Avalonia.Controls.TopLevel.TryGetPlatformHandle
-  - Avalonia.Controls.TopLevel.SetSystemBarColor(Avalonia.Controls.Control,Avalonia.Media.SolidColorBrush)
-  - Avalonia.Controls.TopLevel.GetSystemBarColor(Avalonia.Controls.Control)
-  - Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding(Avalonia.Controls.Control,System.Boolean)
-  - Avalonia.Controls.TopLevel.GetAutoSafeAreaPadding(Avalonia.Controls.Control)
-  - Avalonia.Controls.TopLevel.GetTopLevel(Avalonia.Visual)
-  - Avalonia.Controls.TopLevel.RequestPlatformInhibition(Avalonia.Controls.PlatformInhibitionType,System.String)
-  - Avalonia.Controls.TopLevel.RequestAnimationFrame(System.Action{System.TimeSpan})
-  - Avalonia.Controls.TopLevel.InvalidateMirrorTransform
-  - Avalonia.Controls.TopLevel.ClientSize
-  - Avalonia.Controls.TopLevel.FrameSize
-  - Avalonia.Controls.TopLevel.TransparencyLevelHint
-  - Avalonia.Controls.TopLevel.ActualTransparencyLevel
-  - Avalonia.Controls.TopLevel.TransparencyBackgroundFallback
-  - Avalonia.Controls.TopLevel.RequestedThemeVariant
-  - Avalonia.Controls.TopLevel.RendererDiagnostics
-  - Avalonia.Controls.TopLevel.RenderScaling
-  - Avalonia.Controls.TopLevel.StorageProvider
-  - Avalonia.Controls.TopLevel.InsetsManager
-  - Avalonia.Controls.TopLevel.InputPane
-  - Avalonia.Controls.TopLevel.Launcher
-  - Avalonia.Controls.TopLevel.Clipboard
-  - Avalonia.Controls.TopLevel.FocusManager
-  - Avalonia.Controls.TopLevel.BypassFlowDirectionPolicies
-  - Avalonia.Controls.TopLevel.Opened
-  - Avalonia.Controls.TopLevel.Closed
-  - Avalonia.Controls.TopLevel.ScalingChanged
-  - Avalonia.Controls.TopLevel.BackRequested
-  - Avalonia.Controls.ContentControl.ContentProperty
-  - Avalonia.Controls.ContentControl.ContentTemplateProperty
-  - Avalonia.Controls.ContentControl.HorizontalContentAlignmentProperty
-  - Avalonia.Controls.ContentControl.VerticalContentAlignmentProperty
-  - Avalonia.Controls.ContentControl.RegisterContentPresenter(Avalonia.Controls.Presenters.ContentPresenter)
-  - Avalonia.Controls.ContentControl.Content
-  - Avalonia.Controls.ContentControl.ContentTemplate
-  - Avalonia.Controls.ContentControl.Presenter
-  - Avalonia.Controls.ContentControl.HorizontalContentAlignment
-  - Avalonia.Controls.ContentControl.VerticalContentAlignment
-  - Avalonia.Controls.Primitives.TemplatedControl.BackgroundProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.BackgroundSizingProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.BorderBrushProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.BorderThicknessProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.CornerRadiusProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.FontFamilyProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.FontFeaturesProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.FontSizeProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.FontStyleProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.FontWeightProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.FontStretchProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.ForegroundProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.LetterSpacingProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.PaddingProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.TemplateProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty
-  - Avalonia.Controls.Primitives.TemplatedControl.TemplateAppliedEvent
-  - Avalonia.Controls.Primitives.TemplatedControl.GetIsTemplateFocusTarget(Avalonia.Controls.Control)
-  - Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget(Avalonia.Controls.Control,System.Boolean)
-  - Avalonia.Controls.Primitives.TemplatedControl.ApplyTemplate
-  - Avalonia.Controls.Primitives.TemplatedControl.GetTemplateFocusTarget
-  - Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-  - Avalonia.Controls.Primitives.TemplatedControl.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-  - Avalonia.Controls.Primitives.TemplatedControl.OnTemplateChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  - Avalonia.Controls.Primitives.TemplatedControl.Background
-  - Avalonia.Controls.Primitives.TemplatedControl.BackgroundSizing
-  - Avalonia.Controls.Primitives.TemplatedControl.BorderBrush
-  - Avalonia.Controls.Primitives.TemplatedControl.BorderThickness
-  - Avalonia.Controls.Primitives.TemplatedControl.CornerRadius
-  - Avalonia.Controls.Primitives.TemplatedControl.FontFamily
-  - Avalonia.Controls.Primitives.TemplatedControl.FontFeatures
-  - Avalonia.Controls.Primitives.TemplatedControl.FontSize
-  - Avalonia.Controls.Primitives.TemplatedControl.FontStyle
-  - Avalonia.Controls.Primitives.TemplatedControl.FontWeight
-  - Avalonia.Controls.Primitives.TemplatedControl.FontStretch
-  - Avalonia.Controls.Primitives.TemplatedControl.Foreground
-  - Avalonia.Controls.Primitives.TemplatedControl.LetterSpacing
-  - Avalonia.Controls.Primitives.TemplatedControl.Padding
-  - Avalonia.Controls.Primitives.TemplatedControl.Template
-  - Avalonia.Controls.Primitives.TemplatedControl.TemplateApplied
   - Avalonia.Controls.Control.FocusAdornerProperty
   - Avalonia.Controls.Control.TagProperty
   - Avalonia.Controls.Control.ContextMenuProperty
@@ -246,6 +80,7 @@ items:
   - Avalonia.Controls.Control.LoadedEvent
   - Avalonia.Controls.Control.UnloadedEvent
   - Avalonia.Controls.Control.SizeChangedEvent
+  - Avalonia.Controls.Control.GetTemplateFocusTarget
   - Avalonia.Controls.Control.OnLoaded(Avalonia.Interactivity.RoutedEventArgs)
   - Avalonia.Controls.Control.OnUnloaded(Avalonia.Interactivity.RoutedEventArgs)
   - Avalonia.Controls.Control.OnSizeChanged(Avalonia.Controls.SizeChangedEventArgs)
@@ -253,8 +88,10 @@ items:
   - Avalonia.Controls.Control.OnDetachedFromVisualTreeCore(Avalonia.VisualTreeAttachmentEventArgs)
   - Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.FocusChangedEventArgs)
   - Avalonia.Controls.Control.OnLostFocus(Avalonia.Input.FocusChangedEventArgs)
+  - Avalonia.Controls.Control.OnCreateAutomationPeer
   - Avalonia.Controls.Control.OnPointerReleased(Avalonia.Input.PointerReleasedEventArgs)
   - Avalonia.Controls.Control.OnKeyUp(Avalonia.Input.KeyEventArgs)
+  - Avalonia.Controls.Control.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
   - Avalonia.Controls.Control.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
   - Avalonia.Controls.Control.FocusAdorner
   - Avalonia.Controls.Control.DataTemplates
@@ -314,11 +151,9 @@ items:
   - Avalonia.Input.InputElement.OnAccessKey(Avalonia.Interactivity.RoutedEventArgs)
   - Avalonia.Input.InputElement.OnGettingFocus(Avalonia.Input.FocusChangingEventArgs)
   - Avalonia.Input.InputElement.OnLosingFocus(Avalonia.Input.FocusChangingEventArgs)
+  - Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
   - Avalonia.Input.InputElement.OnTextInput(Avalonia.Input.TextInputEventArgs)
   - Avalonia.Input.InputElement.OnPointerEntered(Avalonia.Input.PointerEventArgs)
-  - Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
-  - Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
-  - Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
   - Avalonia.Input.InputElement.GetNextTabStopOverride
   - Avalonia.Input.InputElement.GetPreviousTabStopOverride
   - Avalonia.Input.InputElement.GetFirstFocusableElementOverride
@@ -400,12 +235,16 @@ items:
   - Avalonia.Layout.Layoutable.VerticalAlignmentProperty
   - Avalonia.Layout.Layoutable.UseLayoutRoundingProperty
   - Avalonia.Layout.Layoutable.UpdateLayout
+  - Avalonia.Layout.Layoutable.ApplyTemplate
   - Avalonia.Layout.Layoutable.Measure(Avalonia.Size)
   - Avalonia.Layout.Layoutable.Arrange(Avalonia.Rect)
   - Avalonia.Layout.Layoutable.InvalidateMeasure
   - Avalonia.Layout.Layoutable.InvalidateArrange
   - Avalonia.Layout.Layoutable.AffectsMeasure``1(Avalonia.AvaloniaProperty[])
   - Avalonia.Layout.Layoutable.AffectsArrange``1(Avalonia.AvaloniaProperty[])
+  - Avalonia.Layout.Layoutable.MeasureCore(Avalonia.Size)
+  - Avalonia.Layout.Layoutable.MeasureOverride(Avalonia.Size)
+  - Avalonia.Layout.Layoutable.ArrangeCore(Avalonia.Rect)
   - Avalonia.Layout.Layoutable.ArrangeOverride(Avalonia.Size)
   - Avalonia.Layout.Layoutable.OnMeasureInvalidated
   - Avalonia.Layout.Layoutable.OnVisualParentChanged(Avalonia.Visual,Avalonia.Visual)
@@ -441,11 +280,11 @@ items:
   - Avalonia.Visual.GetFlowDirection(Avalonia.Visual)
   - Avalonia.Visual.SetFlowDirection(Avalonia.Visual,Avalonia.Media.FlowDirection)
   - Avalonia.Visual.InvalidateVisual
-  - Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
   - Avalonia.Visual.AffectsRender``1(Avalonia.AvaloniaProperty[])
   - Avalonia.Visual.LogicalChildrenCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)
   - Avalonia.Visual.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
   - Avalonia.Visual.OnDetachedFromVisualTree(Avalonia.VisualTreeAttachmentEventArgs)
+  - Avalonia.Visual.InvalidateMirrorTransform
   - Avalonia.Visual.Bounds
   - Avalonia.Visual.ClipToBounds
   - Avalonia.Visual.Clip
@@ -462,6 +301,7 @@ items:
   - Avalonia.Visual.ZIndex
   - Avalonia.Visual.VisualChildren
   - Avalonia.Visual.VisualRoot
+  - Avalonia.Visual.BypassFlowDirectionPolicies
   - Avalonia.Visual.AttachedToVisualTree
   - Avalonia.Visual.DetachedFromVisualTree
   - Avalonia.StyledElement.DataContextProperty
@@ -474,6 +314,8 @@ items:
   - Avalonia.StyledElement.ApplyStyling
   - Avalonia.StyledElement.InitializeIfNeeded
   - Avalonia.StyledElement.TryGetResource(System.Object,Avalonia.Styling.ThemeVariant,System.Object@)
+  - Avalonia.StyledElement.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+  - Avalonia.StyledElement.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
   - Avalonia.StyledElement.OnDataContextChanged(System.EventArgs)
   - Avalonia.StyledElement.OnDataContextBeginUpdate
   - Avalonia.StyledElement.OnDataContextEndUpdate
@@ -489,6 +331,7 @@ items:
   - Avalonia.StyledElement.Theme
   - Avalonia.StyledElement.LogicalChildren
   - Avalonia.StyledElement.PseudoClasses
+  - Avalonia.StyledElement.StyleKeyOverride
   - Avalonia.StyledElement.Parent
   - Avalonia.StyledElement.ActualThemeVariant
   - Avalonia.StyledElement.AttachedToLogicalTree
@@ -544,245 +387,600 @@ items:
   - Avalonia.Controls.Control.Tripous.Desktop.Ui.GetOwnerWindow
   - Avalonia.Controls.Control.Tripous.Desktop.Ui.GetParentWindow
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
-- uid: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  commentId: M:Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  id: OnKeyDown(Avalonia.Input.KeyEventArgs)
-  parent: Avalonia.Controls.PivotGridSettingsDialog
+- uid: Avalonia.Controls.ChartControl.OnPointerMoved(Avalonia.Input.PointerEventArgs)
+  commentId: M:Avalonia.Controls.ChartControl.OnPointerMoved(Avalonia.Input.PointerEventArgs)
+  id: OnPointerMoved(Avalonia.Input.PointerEventArgs)
+  parent: Avalonia.Controls.ChartControl
   langs:
   - csharp
   - vb
-  name: OnKeyDown(KeyEventArgs)
-  nameWithType: PivotGridSettingsDialog.OnKeyDown(KeyEventArgs)
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown(Avalonia.Input.KeyEventArgs)
+  name: OnPointerMoved(PointerEventArgs)
+  nameWithType: ChartControl.OnPointerMoved(PointerEventArgs)
+  fullName: Avalonia.Controls.ChartControl.OnPointerMoved(Avalonia.Input.PointerEventArgs)
   type: Method
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: OnKeyDown
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 431
+    id: OnPointerMoved
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 593
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
   summary: >-
-    Invoked when an unhandled <xref href="Avalonia.Input.InputElement.KeyDownEvent" data-throw-if-not-resolved="false"></xref> reaches an element in its 
+    Invoked when an unhandled <xref href="Avalonia.Input.InputElement.PointerMovedEvent" data-throw-if-not-resolved="false"></xref> reaches an element in its 
 
     route that is derived from this class. Implement this method to add class handling 
 
     for this event.
   example: []
   syntax:
-    content: protected override void OnKeyDown(KeyEventArgs Args)
+    content: protected override void OnPointerMoved(PointerEventArgs Args)
     parameters:
     - id: Args
-      type: Avalonia.Input.KeyEventArgs
-    content.vb: Protected Overrides Sub OnKeyDown(Args As KeyEventArgs)
-  overridden: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  overload: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem},System.Boolean,System.Boolean,System.Boolean,System.Boolean)
-  commentId: M:Avalonia.Controls.PivotGridSettingsDialog.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem},System.Boolean,System.Boolean,System.Boolean,System.Boolean)
-  id: '#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem},System.Boolean,System.Boolean,System.Boolean,System.Boolean)'
-  parent: Avalonia.Controls.PivotGridSettingsDialog
+      type: Avalonia.Input.PointerEventArgs
+    content.vb: Protected Overrides Sub OnPointerMoved(Args As PointerEventArgs)
+  overridden: Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
+  overload: Avalonia.Controls.ChartControl.OnPointerMoved*
+- uid: Avalonia.Controls.ChartControl.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+  commentId: M:Avalonia.Controls.ChartControl.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+  id: OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+  parent: Avalonia.Controls.ChartControl
   langs:
   - csharp
   - vb
-  name: PivotGridSettingsDialog(IEnumerable<PivotGridFieldSettingsItem>, bool, bool, bool, bool)
-  nameWithType: PivotGridSettingsDialog.PivotGridSettingsDialog(IEnumerable<PivotGridFieldSettingsItem>, bool, bool, bool, bool)
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.PivotGridSettingsDialog(System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridFieldSettingsItem>, bool, bool, bool, bool)
+  name: OnPointerPressed(PointerPressedEventArgs)
+  nameWithType: ChartControl.OnPointerPressed(PointerPressedEventArgs)
+  fullName: Avalonia.Controls.ChartControl.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OnPointerPressed
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 599
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: >-
+    Invoked when an unhandled <xref href="Avalonia.Input.InputElement.PointerPressedEvent" data-throw-if-not-resolved="false"></xref> reaches an element in its 
+
+    route that is derived from this class. Implement this method to add class handling 
+
+    for this event.
+  example: []
+  syntax:
+    content: protected override void OnPointerPressed(PointerPressedEventArgs Args)
+    parameters:
+    - id: Args
+      type: Avalonia.Input.PointerPressedEventArgs
+    content.vb: Protected Overrides Sub OnPointerPressed(Args As PointerPressedEventArgs)
+  overridden: Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+  overload: Avalonia.Controls.ChartControl.OnPointerPressed*
+- uid: Avalonia.Controls.ChartControl.OnPointerExited(Avalonia.Input.PointerEventArgs)
+  commentId: M:Avalonia.Controls.ChartControl.OnPointerExited(Avalonia.Input.PointerEventArgs)
+  id: OnPointerExited(Avalonia.Input.PointerEventArgs)
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: OnPointerExited(PointerEventArgs)
+  nameWithType: ChartControl.OnPointerExited(PointerEventArgs)
+  fullName: Avalonia.Controls.ChartControl.OnPointerExited(Avalonia.Input.PointerEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OnPointerExited
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 611
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: >-
+    Invoked when an unhandled <xref href="Avalonia.Input.InputElement.PointerExitedEvent" data-throw-if-not-resolved="false"></xref> reaches an element in its 
+
+    route that is derived from this class. Implement this method to add class handling 
+
+    for this event.
+  example: []
+  syntax:
+    content: protected override void OnPointerExited(PointerEventArgs Args)
+    parameters:
+    - id: Args
+      type: Avalonia.Input.PointerEventArgs
+    content.vb: Protected Overrides Sub OnPointerExited(Args As PointerEventArgs)
+  overridden: Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
+  overload: Avalonia.Controls.ChartControl.OnPointerExited*
+- uid: Avalonia.Controls.ChartControl.#ctor
+  commentId: M:Avalonia.Controls.ChartControl.#ctor
+  id: '#ctor'
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: ChartControl()
+  nameWithType: ChartControl.ChartControl()
+  fullName: Avalonia.Controls.ChartControl.ChartControl()
   type: Constructor
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 451
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 621
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Initializes a new instance of the <xref href="Avalonia.Controls.PivotGridSettingsDialog" data-throw-if-not-resolved="false"></xref> class.
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.ChartControl" data-throw-if-not-resolved="false"></xref> class.
   example: []
   syntax:
-    content: public PivotGridSettingsDialog(IEnumerable<PivotGridFieldSettingsItem> Items, bool ShowFieldPanel, bool ShowRowGrandTotals, bool ShowColumnGrandTotals, bool ShowToolTips)
+    content: public ChartControl()
+    content.vb: Public Sub New()
+  overload: Avalonia.Controls.ChartControl.#ctor*
+  nameWithType.vb: ChartControl.New()
+  fullName.vb: Avalonia.Controls.ChartControl.New()
+  name.vb: New()
+- uid: Avalonia.Controls.ChartControl.CreateSettings
+  commentId: M:Avalonia.Controls.ChartControl.CreateSettings
+  id: CreateSettings
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: CreateSettings()
+  nameWithType: ChartControl.CreateSettings()
+  fullName: Avalonia.Controls.ChartControl.CreateSettings()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateSettings
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 633
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Creates a serializable settings snapshot.
+  example: []
+  syntax:
+    content: public ChartSettings CreateSettings()
+    return:
+      type: Avalonia.Controls.ChartSettings
+      description: The settings snapshot.
+    content.vb: Public Function CreateSettings() As ChartSettings
+  overload: Avalonia.Controls.ChartControl.CreateSettings*
+- uid: Avalonia.Controls.ChartControl.ApplySettings(Avalonia.Controls.ChartSettings)
+  commentId: M:Avalonia.Controls.ChartControl.ApplySettings(Avalonia.Controls.ChartSettings)
+  id: ApplySettings(Avalonia.Controls.ChartSettings)
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: ApplySettings(ChartSettings)
+  nameWithType: ChartControl.ApplySettings(ChartSettings)
+  fullName: Avalonia.Controls.ChartControl.ApplySettings(Avalonia.Controls.ChartSettings)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ApplySettings
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 641
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Applies settings to the control.
+  example: []
+  syntax:
+    content: public void ApplySettings(ChartSettings Settings)
     parameters:
-    - id: Items
-      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem}
-      description: The editable field settings items.
-    - id: ShowFieldPanel
-      type: System.Boolean
-      description: True to display the top field panel.
-    - id: ShowRowGrandTotals
-      type: System.Boolean
-      description: True to display row grand totals as a total column.
-    - id: ShowColumnGrandTotals
-      type: System.Boolean
-      description: True to display column grand totals as a total row.
-    - id: ShowToolTips
-      type: System.Boolean
-      description: True to display hover tooltips.
-    content.vb: Public Sub New(Items As IEnumerable(Of PivotGridFieldSettingsItem), ShowFieldPanel As Boolean, ShowRowGrandTotals As Boolean, ShowColumnGrandTotals As Boolean, ShowToolTips As Boolean)
-  overload: Avalonia.Controls.PivotGridSettingsDialog.#ctor*
-  nameWithType.vb: PivotGridSettingsDialog.New(IEnumerable(Of PivotGridFieldSettingsItem), Boolean, Boolean, Boolean, Boolean)
-  fullName.vb: Avalonia.Controls.PivotGridSettingsDialog.New(System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridFieldSettingsItem), Boolean, Boolean, Boolean, Boolean)
-  name.vb: New(IEnumerable(Of PivotGridFieldSettingsItem), Boolean, Boolean, Boolean, Boolean)
-- uid: Avalonia.Controls.PivotGridSettingsDialog.Items
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.Items
-  id: Items
-  parent: Avalonia.Controls.PivotGridSettingsDialog
+    - id: Settings
+      type: Avalonia.Controls.ChartSettings
+      description: The settings.
+    content.vb: Public Sub ApplySettings(Settings As ChartSettings)
+  overload: Avalonia.Controls.ChartControl.ApplySettings*
+- uid: Avalonia.Controls.ChartControl.SaveSettings(System.String)
+  commentId: M:Avalonia.Controls.ChartControl.SaveSettings(System.String)
+  id: SaveSettings(System.String)
+  parent: Avalonia.Controls.ChartControl
   langs:
   - csharp
   - vb
-  name: Items
-  nameWithType: PivotGridSettingsDialog.Items
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.Items
-  type: Property
+  name: SaveSettings(string)
+  nameWithType: ChartControl.SaveSettings(string)
+  fullName: Avalonia.Controls.ChartControl.SaveSettings(string)
+  type: Method
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Items
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 537
+    id: SaveSettings
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 651
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets the edited field settings items.
+  summary: Saves settings as JSON.
   example: []
   syntax:
-    content: public IReadOnlyList<PivotGridFieldSettingsItem> Items { get; }
-    parameters: []
-    return:
-      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridFieldSettingsItem}
-    content.vb: Public ReadOnly Property Items As IReadOnlyList(Of PivotGridFieldSettingsItem)
-  overload: Avalonia.Controls.PivotGridSettingsDialog.Items*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  id: ShowFieldPanel
-  parent: Avalonia.Controls.PivotGridSettingsDialog
+    content: public void SaveSettings(string FilePath)
+    parameters:
+    - id: FilePath
+      type: System.String
+      description: The full file path.
+    content.vb: Public Sub SaveSettings(FilePath As String)
+  overload: Avalonia.Controls.ChartControl.SaveSettings*
+  nameWithType.vb: ChartControl.SaveSettings(String)
+  fullName.vb: Avalonia.Controls.ChartControl.SaveSettings(String)
+  name.vb: SaveSettings(String)
+- uid: Avalonia.Controls.ChartControl.LoadSettings(System.String)
+  commentId: M:Avalonia.Controls.ChartControl.LoadSettings(System.String)
+  id: LoadSettings(System.String)
+  parent: Avalonia.Controls.ChartControl
   langs:
   - csharp
   - vb
-  name: ShowFieldPanel
-  nameWithType: PivotGridSettingsDialog.ShowFieldPanel
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  type: Property
+  name: LoadSettings(string)
+  nameWithType: ChartControl.LoadSettings(string)
+  fullName: Avalonia.Controls.ChartControl.LoadSettings(string)
+  type: Method
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ShowFieldPanel
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 541
+    id: LoadSettings
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 660
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets a value indicating whether the top field panel should be displayed.
+  summary: Loads settings from JSON.
   example: []
   syntax:
-    content: public bool ShowFieldPanel { get; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public ReadOnly Property ShowFieldPanel As Boolean
-  overload: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  id: ShowRowGrandTotals
-  parent: Avalonia.Controls.PivotGridSettingsDialog
+    content: public void LoadSettings(string FilePath)
+    parameters:
+    - id: FilePath
+      type: System.String
+      description: The full file path.
+    content.vb: Public Sub LoadSettings(FilePath As String)
+  overload: Avalonia.Controls.ChartControl.LoadSettings*
+  nameWithType.vb: ChartControl.LoadSettings(String)
+  fullName.vb: Avalonia.Controls.ChartControl.LoadSettings(String)
+  name.vb: LoadSettings(String)
+- uid: Avalonia.Controls.ChartControl.ShowSettingsDialogAsync
+  commentId: M:Avalonia.Controls.ChartControl.ShowSettingsDialogAsync
+  id: ShowSettingsDialogAsync
+  parent: Avalonia.Controls.ChartControl
   langs:
   - csharp
   - vb
-  name: ShowRowGrandTotals
-  nameWithType: PivotGridSettingsDialog.ShowRowGrandTotals
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  type: Property
+  name: ShowSettingsDialogAsync()
+  nameWithType: ChartControl.ShowSettingsDialogAsync()
+  fullName: Avalonia.Controls.ChartControl.ShowSettingsDialogAsync()
+  type: Method
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ShowRowGrandTotals
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 545
+    id: ShowSettingsDialogAsync
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 668
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets a value indicating whether row grand totals should be displayed as a total column.
+  summary: Shows the chart settings dialog.
   example: []
   syntax:
-    content: public bool ShowRowGrandTotals { get; }
-    parameters: []
+    content: public Task<bool> ShowSettingsDialogAsync()
     return:
-      type: System.Boolean
-    content.vb: Public ReadOnly Property ShowRowGrandTotals As Boolean
-  overload: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  id: ShowColumnGrandTotals
-  parent: Avalonia.Controls.PivotGridSettingsDialog
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: True if settings were applied; otherwise, false.
+    content.vb: Public Function ShowSettingsDialogAsync() As Task(Of Boolean)
+  overload: Avalonia.Controls.ChartControl.ShowSettingsDialogAsync*
+- uid: Avalonia.Controls.ChartControl.HitTest(Avalonia.Point)
+  commentId: M:Avalonia.Controls.ChartControl.HitTest(Avalonia.Point)
+  id: HitTest(Avalonia.Point)
+  parent: Avalonia.Controls.ChartControl
   langs:
   - csharp
   - vb
-  name: ShowColumnGrandTotals
-  nameWithType: PivotGridSettingsDialog.ShowColumnGrandTotals
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  type: Property
+  name: HitTest(Point)
+  nameWithType: ChartControl.HitTest(Point)
+  fullName: Avalonia.Controls.ChartControl.HitTest(Avalonia.Point)
+  type: Method
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ShowColumnGrandTotals
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 549
+    id: HitTest
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 693
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets a value indicating whether column grand totals should be displayed as a total row.
+  summary: Hit-tests the chart.
   example: []
   syntax:
-    content: public bool ShowColumnGrandTotals { get; }
-    parameters: []
+    content: public ChartHitTestResult HitTest(Point Point)
+    parameters:
+    - id: Point
+      type: Avalonia.Point
+      description: The control point.
     return:
-      type: System.Boolean
-    content.vb: Public ReadOnly Property ShowColumnGrandTotals As Boolean
-  overload: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
-  id: ShowToolTips
-  parent: Avalonia.Controls.PivotGridSettingsDialog
+      type: Avalonia.Controls.ChartHitTestResult
+      description: The hit-test result.
+    content.vb: Public Function HitTest(Point As Point) As ChartHitTestResult
+  overload: Avalonia.Controls.ChartControl.HitTest*
+- uid: Avalonia.Controls.ChartControl.GetToolTipText(Avalonia.Point)
+  commentId: M:Avalonia.Controls.ChartControl.GetToolTipText(Avalonia.Point)
+  id: GetToolTipText(Avalonia.Point)
+  parent: Avalonia.Controls.ChartControl
   langs:
   - csharp
   - vb
-  name: ShowToolTips
-  nameWithType: PivotGridSettingsDialog.ShowToolTips
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
-  type: Property
+  name: GetToolTipText(Point)
+  nameWithType: ChartControl.GetToolTipText(Point)
+  fullName: Avalonia.Controls.ChartControl.GetToolTipText(Avalonia.Point)
+  type: Method
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ShowToolTips
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 553
+    id: GetToolTipText
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 706
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets a value indicating whether hover tooltips should be displayed.
+  summary: Returns tooltip text for a control point.
   example: []
   syntax:
-    content: public bool ShowToolTips { get; }
+    content: public string GetToolTipText(Point Point)
+    parameters:
+    - id: Point
+      type: Avalonia.Point
+      description: The control point.
+    return:
+      type: System.String
+      description: The tooltip text.
+    content.vb: Public Function GetToolTipText(Point As Point) As String
+  overload: Avalonia.Controls.ChartControl.GetToolTipText*
+- uid: Avalonia.Controls.ChartControl.Render(Avalonia.Media.DrawingContext)
+  commentId: M:Avalonia.Controls.ChartControl.Render(Avalonia.Media.DrawingContext)
+  id: Render(Avalonia.Media.DrawingContext)
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: Render(DrawingContext)
+  nameWithType: ChartControl.Render(DrawingContext)
+  fullName: Avalonia.Controls.ChartControl.Render(Avalonia.Media.DrawingContext)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Render
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 720
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Renders the visual to a <xref href="Avalonia.Media.DrawingContext" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public override void Render(DrawingContext Context)
+    parameters:
+    - id: Context
+      type: Avalonia.Media.DrawingContext
+    content.vb: Public Overrides Sub Render(Context As DrawingContext)
+  overridden: Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
+  overload: Avalonia.Controls.ChartControl.Render*
+- uid: Avalonia.Controls.ChartControl.Engine
+  commentId: P:Avalonia.Controls.ChartControl.Engine
+  id: Engine
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: Engine
+  nameWithType: ChartControl.Engine
+  fullName: Avalonia.Controls.ChartControl.Engine
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Engine
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 746
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the non-visual chart engine.
+  example: []
+  syntax:
+    content: public ChartEngine Engine { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.ChartEngine
+    content.vb: Public ReadOnly Property Engine As ChartEngine
+  overload: Avalonia.Controls.ChartControl.Engine*
+- uid: Avalonia.Controls.ChartControl.Settings
+  commentId: P:Avalonia.Controls.ChartControl.Settings
+  id: Settings
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: Settings
+  nameWithType: ChartControl.Settings
+  fullName: Avalonia.Controls.ChartControl.Settings
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Settings
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 750
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the chart settings.
+  example: []
+  syntax:
+    content: public ChartSettings Settings { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.ChartSettings
+    content.vb: Public Property Settings As ChartSettings
+  overload: Avalonia.Controls.ChartControl.Settings*
+- uid: Avalonia.Controls.ChartControl.DataAdapter
+  commentId: P:Avalonia.Controls.ChartControl.DataAdapter
+  id: DataAdapter
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: DataAdapter
+  nameWithType: ChartControl.DataAdapter
+  fullName: Avalonia.Controls.ChartControl.DataAdapter
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataAdapter
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 758
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the data adapter.
+  example: []
+  syntax:
+    content: public IChartDataAdapter DataAdapter { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.IChartDataAdapter
+    content.vb: Public Property DataAdapter As IChartDataAdapter
+  overload: Avalonia.Controls.ChartControl.DataAdapter*
+- uid: Avalonia.Controls.ChartControl.ItemsSource
+  commentId: P:Avalonia.Controls.ChartControl.ItemsSource
+  id: ItemsSource
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: ItemsSource
+  nameWithType: ChartControl.ItemsSource
+  fullName: Avalonia.Controls.ChartControl.ItemsSource
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemsSource
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 775
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the items source.
+  example: []
+  syntax:
+    content: public object ItemsSource { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property ItemsSource As Object
+  overload: Avalonia.Controls.ChartControl.ItemsSource*
+- uid: Avalonia.Controls.ChartControl.IsSettingsMenuItemsVisible
+  commentId: P:Avalonia.Controls.ChartControl.IsSettingsMenuItemsVisible
+  id: IsSettingsMenuItemsVisible
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: IsSettingsMenuItemsVisible
+  nameWithType: ChartControl.IsSettingsMenuItemsVisible
+  fullName: Avalonia.Controls.ChartControl.IsSettingsMenuItemsVisible
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSettingsMenuItemsVisible
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 794
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets a value indicating whether Save Settings and Load Settings context menu items are visible.
+  example: []
+  syntax:
+    content: public bool IsSettingsMenuItemsVisible { get; set; }
     parameters: []
     return:
       type: System.Boolean
-    content.vb: Public ReadOnly Property ShowToolTips As Boolean
-  overload: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips*
+    content.vb: Public Property IsSettingsMenuItemsVisible As Boolean
+  overload: Avalonia.Controls.ChartControl.IsSettingsMenuItemsVisible*
+- uid: Avalonia.Controls.ChartControl.SettingsSuggestedFileName
+  commentId: P:Avalonia.Controls.ChartControl.SettingsSuggestedFileName
+  id: SettingsSuggestedFileName
+  parent: Avalonia.Controls.ChartControl
+  langs:
+  - csharp
+  - vb
+  name: SettingsSuggestedFileName
+  nameWithType: ChartControl.SettingsSuggestedFileName
+  fullName: Avalonia.Controls.ChartControl.SettingsSuggestedFileName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SettingsSuggestedFileName
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartControl.cs
+    startLine: 802
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the suggested settings file name used by the Save Settings file picker.
+  example: []
+  syntax:
+    content: public string SettingsSuggestedFileName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property SettingsSuggestedFileName As String
+  overload: Avalonia.Controls.ChartControl.SettingsSuggestedFileName*
 references:
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
@@ -873,41 +1071,6 @@ references:
   name: Control
   nameWithType: Control
   fullName: Avalonia.Controls.Control
-- uid: Avalonia.Controls.Primitives.TemplatedControl
-  commentId: T:Avalonia.Controls.Primitives.TemplatedControl
-  parent: Avalonia.Controls.Primitives
-  isExternal: true
-  name: TemplatedControl
-  nameWithType: TemplatedControl
-  fullName: Avalonia.Controls.Primitives.TemplatedControl
-- uid: Avalonia.Controls.ContentControl
-  commentId: T:Avalonia.Controls.ContentControl
-  parent: Avalonia.Controls
-  isExternal: true
-  name: ContentControl
-  nameWithType: ContentControl
-  fullName: Avalonia.Controls.ContentControl
-- uid: Avalonia.Controls.TopLevel
-  commentId: T:Avalonia.Controls.TopLevel
-  parent: Avalonia.Controls
-  isExternal: true
-  name: TopLevel
-  nameWithType: TopLevel
-  fullName: Avalonia.Controls.TopLevel
-- uid: Avalonia.Controls.WindowBase
-  commentId: T:Avalonia.Controls.WindowBase
-  parent: Avalonia.Controls
-  isExternal: true
-  name: WindowBase
-  nameWithType: WindowBase
-  fullName: Avalonia.Controls.WindowBase
-- uid: Avalonia.Controls.Window
-  commentId: T:Avalonia.Controls.Window
-  parent: Avalonia.Controls
-  isExternal: true
-  name: Window
-  nameWithType: Window
-  fullName: Avalonia.Controls.Window
 - uid: System.ComponentModel.INotifyPropertyChanged
   commentId: T:System.ComponentModel.INotifyPropertyChanged
   parent: System.ComponentModel
@@ -923,6 +1086,13 @@ references:
   name: IDataContextProvider
   nameWithType: IDataContextProvider
   fullName: Avalonia.IDataContextProvider
+- uid: Avalonia.LogicalTree.ILogical
+  commentId: T:Avalonia.LogicalTree.ILogical
+  parent: Avalonia.LogicalTree
+  isExternal: true
+  name: ILogical
+  nameWithType: ILogical
+  fullName: Avalonia.LogicalTree.ILogical
 - uid: Avalonia.Styling.IThemeVariantHost
   commentId: T:Avalonia.Styling.IThemeVariantHost
   parent: Avalonia.Styling
@@ -944,6 +1114,13 @@ references:
   name: IResourceNode
   nameWithType: IResourceNode
   fullName: Avalonia.Controls.IResourceNode
+- uid: Avalonia.Styling.IStyleHost
+  commentId: T:Avalonia.Styling.IStyleHost
+  parent: Avalonia.Styling
+  isExternal: true
+  name: IStyleHost
+  nameWithType: IStyleHost
+  fullName: Avalonia.Styling.IStyleHost
 - uid: Avalonia.Controls.ISetLogicalParent
   commentId: T:Avalonia.Controls.ISetLogicalParent
   parent: Avalonia.Controls
@@ -994,2013 +1171,6 @@ references:
   name: ISetterValue
   nameWithType: ISetterValue
   fullName: Avalonia.Styling.ISetterValue
-- uid: Avalonia.Input.ICloseable
-  commentId: T:Avalonia.Input.ICloseable
-  parent: Avalonia.Input
-  isExternal: true
-  name: ICloseable
-  nameWithType: ICloseable
-  fullName: Avalonia.Input.ICloseable
-- uid: Avalonia.Styling.IStyleHost
-  commentId: T:Avalonia.Styling.IStyleHost
-  parent: Avalonia.Styling
-  isExternal: true
-  name: IStyleHost
-  nameWithType: IStyleHost
-  fullName: Avalonia.Styling.IStyleHost
-- uid: Avalonia.LogicalTree.ILogicalRoot
-  commentId: T:Avalonia.LogicalTree.ILogicalRoot
-  parent: Avalonia.LogicalTree
-  isExternal: true
-  name: ILogicalRoot
-  nameWithType: ILogicalRoot
-  fullName: Avalonia.LogicalTree.ILogicalRoot
-- uid: Avalonia.LogicalTree.ILogical
-  commentId: T:Avalonia.LogicalTree.ILogical
-  parent: Avalonia.LogicalTree
-  isExternal: true
-  name: ILogical
-  nameWithType: ILogical
-  fullName: Avalonia.LogicalTree.ILogical
-- uid: Avalonia.Input.IFocusScope
-  commentId: T:Avalonia.Input.IFocusScope
-  parent: Avalonia.Input
-  isExternal: true
-  name: IFocusScope
-  nameWithType: IFocusScope
-  fullName: Avalonia.Input.IFocusScope
-- uid: Avalonia.Controls.Window.SizeToContentProperty
-  commentId: F:Avalonia.Controls.Window.SizeToContentProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: SizeToContentProperty
-  nameWithType: Window.SizeToContentProperty
-  fullName: Avalonia.Controls.Window.SizeToContentProperty
-- uid: Avalonia.Controls.Window.ExtendClientAreaToDecorationsHintProperty
-  commentId: F:Avalonia.Controls.Window.ExtendClientAreaToDecorationsHintProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ExtendClientAreaToDecorationsHintProperty
-  nameWithType: Window.ExtendClientAreaToDecorationsHintProperty
-  fullName: Avalonia.Controls.Window.ExtendClientAreaToDecorationsHintProperty
-- uid: Avalonia.Controls.Window.ExtendClientAreaTitleBarHeightHintProperty
-  commentId: F:Avalonia.Controls.Window.ExtendClientAreaTitleBarHeightHintProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ExtendClientAreaTitleBarHeightHintProperty
-  nameWithType: Window.ExtendClientAreaTitleBarHeightHintProperty
-  fullName: Avalonia.Controls.Window.ExtendClientAreaTitleBarHeightHintProperty
-- uid: Avalonia.Controls.Window.IsExtendedIntoWindowDecorationsProperty
-  commentId: F:Avalonia.Controls.Window.IsExtendedIntoWindowDecorationsProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: IsExtendedIntoWindowDecorationsProperty
-  nameWithType: Window.IsExtendedIntoWindowDecorationsProperty
-  fullName: Avalonia.Controls.Window.IsExtendedIntoWindowDecorationsProperty
-- uid: Avalonia.Controls.Window.WindowDecorationMarginProperty
-  commentId: F:Avalonia.Controls.Window.WindowDecorationMarginProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowDecorationMarginProperty
-  nameWithType: Window.WindowDecorationMarginProperty
-  fullName: Avalonia.Controls.Window.WindowDecorationMarginProperty
-- uid: Avalonia.Controls.Window.OffScreenMarginProperty
-  commentId: F:Avalonia.Controls.Window.OffScreenMarginProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: OffScreenMarginProperty
-  nameWithType: Window.OffScreenMarginProperty
-  fullName: Avalonia.Controls.Window.OffScreenMarginProperty
-- uid: Avalonia.Controls.Window.WindowDecorationsProperty
-  commentId: F:Avalonia.Controls.Window.WindowDecorationsProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowDecorationsProperty
-  nameWithType: Window.WindowDecorationsProperty
-  fullName: Avalonia.Controls.Window.WindowDecorationsProperty
-- uid: Avalonia.Controls.Window.WindowDecorationsThemeProperty
-  commentId: F:Avalonia.Controls.Window.WindowDecorationsThemeProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowDecorationsThemeProperty
-  nameWithType: Window.WindowDecorationsThemeProperty
-  fullName: Avalonia.Controls.Window.WindowDecorationsThemeProperty
-- uid: Avalonia.Controls.Window.ShowActivatedProperty
-  commentId: F:Avalonia.Controls.Window.ShowActivatedProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ShowActivatedProperty
-  nameWithType: Window.ShowActivatedProperty
-  fullName: Avalonia.Controls.Window.ShowActivatedProperty
-- uid: Avalonia.Controls.Window.ShowInTaskbarProperty
-  commentId: F:Avalonia.Controls.Window.ShowInTaskbarProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ShowInTaskbarProperty
-  nameWithType: Window.ShowInTaskbarProperty
-  fullName: Avalonia.Controls.Window.ShowInTaskbarProperty
-- uid: Avalonia.Controls.Window.ClosingBehaviorProperty
-  commentId: F:Avalonia.Controls.Window.ClosingBehaviorProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ClosingBehaviorProperty
-  nameWithType: Window.ClosingBehaviorProperty
-  fullName: Avalonia.Controls.Window.ClosingBehaviorProperty
-- uid: Avalonia.Controls.Window.WindowStateProperty
-  commentId: F:Avalonia.Controls.Window.WindowStateProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowStateProperty
-  nameWithType: Window.WindowStateProperty
-  fullName: Avalonia.Controls.Window.WindowStateProperty
-- uid: Avalonia.Controls.Window.TitleProperty
-  commentId: F:Avalonia.Controls.Window.TitleProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: TitleProperty
-  nameWithType: Window.TitleProperty
-  fullName: Avalonia.Controls.Window.TitleProperty
-- uid: Avalonia.Controls.Window.IconProperty
-  commentId: F:Avalonia.Controls.Window.IconProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: IconProperty
-  nameWithType: Window.IconProperty
-  fullName: Avalonia.Controls.Window.IconProperty
-- uid: Avalonia.Controls.Window.WindowStartupLocationProperty
-  commentId: F:Avalonia.Controls.Window.WindowStartupLocationProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowStartupLocationProperty
-  nameWithType: Window.WindowStartupLocationProperty
-  fullName: Avalonia.Controls.Window.WindowStartupLocationProperty
-- uid: Avalonia.Controls.Window.CanResizeProperty
-  commentId: F:Avalonia.Controls.Window.CanResizeProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: CanResizeProperty
-  nameWithType: Window.CanResizeProperty
-  fullName: Avalonia.Controls.Window.CanResizeProperty
-- uid: Avalonia.Controls.Window.CanMinimizeProperty
-  commentId: F:Avalonia.Controls.Window.CanMinimizeProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: CanMinimizeProperty
-  nameWithType: Window.CanMinimizeProperty
-  fullName: Avalonia.Controls.Window.CanMinimizeProperty
-- uid: Avalonia.Controls.Window.CanMaximizeProperty
-  commentId: F:Avalonia.Controls.Window.CanMaximizeProperty
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: CanMaximizeProperty
-  nameWithType: Window.CanMaximizeProperty
-  fullName: Avalonia.Controls.Window.CanMaximizeProperty
-- uid: Avalonia.Controls.Window.WindowClosedEvent
-  commentId: F:Avalonia.Controls.Window.WindowClosedEvent
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowClosedEvent
-  nameWithType: Window.WindowClosedEvent
-  fullName: Avalonia.Controls.Window.WindowClosedEvent
-- uid: Avalonia.Controls.Window.WindowOpenedEvent
-  commentId: F:Avalonia.Controls.Window.WindowOpenedEvent
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowOpenedEvent
-  nameWithType: Window.WindowOpenedEvent
-  fullName: Avalonia.Controls.Window.WindowOpenedEvent
-- uid: Avalonia.Controls.Window.BeginMoveDrag(Avalonia.Input.PointerPressedEventArgs)
-  commentId: M:Avalonia.Controls.Window.BeginMoveDrag(Avalonia.Input.PointerPressedEventArgs)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: BeginMoveDrag(PointerPressedEventArgs)
-  nameWithType: Window.BeginMoveDrag(PointerPressedEventArgs)
-  fullName: Avalonia.Controls.Window.BeginMoveDrag(Avalonia.Input.PointerPressedEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.BeginMoveDrag(Avalonia.Input.PointerPressedEventArgs)
-    name: BeginMoveDrag
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.PointerPressedEventArgs
-    name: PointerPressedEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.BeginMoveDrag(Avalonia.Input.PointerPressedEventArgs)
-    name: BeginMoveDrag
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.PointerPressedEventArgs
-    name: PointerPressedEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.BeginResizeDrag(Avalonia.Controls.WindowEdge,Avalonia.Input.PointerPressedEventArgs)
-  commentId: M:Avalonia.Controls.Window.BeginResizeDrag(Avalonia.Controls.WindowEdge,Avalonia.Input.PointerPressedEventArgs)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: BeginResizeDrag(WindowEdge, PointerPressedEventArgs)
-  nameWithType: Window.BeginResizeDrag(WindowEdge, PointerPressedEventArgs)
-  fullName: Avalonia.Controls.Window.BeginResizeDrag(Avalonia.Controls.WindowEdge, Avalonia.Input.PointerPressedEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.BeginResizeDrag(Avalonia.Controls.WindowEdge,Avalonia.Input.PointerPressedEventArgs)
-    name: BeginResizeDrag
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.WindowEdge
-    name: WindowEdge
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Avalonia.Input.PointerPressedEventArgs
-    name: PointerPressedEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.BeginResizeDrag(Avalonia.Controls.WindowEdge,Avalonia.Input.PointerPressedEventArgs)
-    name: BeginResizeDrag
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.WindowEdge
-    name: WindowEdge
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Avalonia.Input.PointerPressedEventArgs
-    name: PointerPressedEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.Close
-  commentId: M:Avalonia.Controls.Window.Close
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: Close()
-  nameWithType: Window.Close()
-  fullName: Avalonia.Controls.Window.Close()
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.Close
-    name: Close
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.Close
-    name: Close
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.Window.Close(System.Object)
-  commentId: M:Avalonia.Controls.Window.Close(System.Object)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object
-  name: Close(object)
-  nameWithType: Window.Close(object)
-  fullName: Avalonia.Controls.Window.Close(object)
-  nameWithType.vb: Window.Close(Object)
-  fullName.vb: Avalonia.Controls.Window.Close(Object)
-  name.vb: Close(Object)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.Close(System.Object)
-    name: Close
-    isExternal: true
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.Close(System.Object)
-    name: Close
-    isExternal: true
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: )
-- uid: Avalonia.Controls.Window.Hide
-  commentId: M:Avalonia.Controls.Window.Hide
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: Hide()
-  nameWithType: Window.Hide()
-  fullName: Avalonia.Controls.Window.Hide()
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.Hide
-    name: Hide
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.Hide
-    name: Hide
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.Window.Show
-  commentId: M:Avalonia.Controls.Window.Show
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: Show()
-  nameWithType: Window.Show()
-  fullName: Avalonia.Controls.Window.Show()
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.Show
-    name: Show
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.Show
-    name: Show
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.Window.OnApplyTemplate(Avalonia.Controls.Primitives.TemplateAppliedEventArgs)
-  commentId: M:Avalonia.Controls.Window.OnApplyTemplate(Avalonia.Controls.Primitives.TemplateAppliedEventArgs)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: OnApplyTemplate(TemplateAppliedEventArgs)
-  nameWithType: Window.OnApplyTemplate(TemplateAppliedEventArgs)
-  fullName: Avalonia.Controls.Window.OnApplyTemplate(Avalonia.Controls.Primitives.TemplateAppliedEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.OnApplyTemplate(Avalonia.Controls.Primitives.TemplateAppliedEventArgs)
-    name: OnApplyTemplate
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Primitives.TemplateAppliedEventArgs
-    name: TemplateAppliedEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.OnApplyTemplate(Avalonia.Controls.Primitives.TemplateAppliedEventArgs)
-    name: OnApplyTemplate
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Primitives.TemplateAppliedEventArgs
-    name: TemplateAppliedEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.IsVisibleChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  commentId: M:Avalonia.Controls.Window.IsVisibleChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: IsVisibleChanged(AvaloniaPropertyChangedEventArgs)
-  nameWithType: Window.IsVisibleChanged(AvaloniaPropertyChangedEventArgs)
-  fullName: Avalonia.Controls.Window.IsVisibleChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.IsVisibleChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-    name: IsVisibleChanged
-    isExternal: true
-  - name: (
-  - uid: Avalonia.AvaloniaPropertyChangedEventArgs
-    name: AvaloniaPropertyChangedEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.IsVisibleChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-    name: IsVisibleChanged
-    isExternal: true
-  - name: (
-  - uid: Avalonia.AvaloniaPropertyChangedEventArgs
-    name: AvaloniaPropertyChangedEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.Show(Avalonia.Controls.Window)
-  commentId: M:Avalonia.Controls.Window.Show(Avalonia.Controls.Window)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: Show(Window)
-  nameWithType: Window.Show(Window)
-  fullName: Avalonia.Controls.Window.Show(Avalonia.Controls.Window)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.Show(Avalonia.Controls.Window)
-    name: Show
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Window
-    name: Window
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.Show(Avalonia.Controls.Window)
-    name: Show
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Window
-    name: Window
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.ShowDialog(Avalonia.Controls.Window)
-  commentId: M:Avalonia.Controls.Window.ShowDialog(Avalonia.Controls.Window)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ShowDialog(Window)
-  nameWithType: Window.ShowDialog(Window)
-  fullName: Avalonia.Controls.Window.ShowDialog(Avalonia.Controls.Window)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.ShowDialog(Avalonia.Controls.Window)
-    name: ShowDialog
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Window
-    name: Window
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.ShowDialog(Avalonia.Controls.Window)
-    name: ShowDialog
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Window
-    name: Window
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.ShowDialog``1(Avalonia.Controls.Window)
-  commentId: M:Avalonia.Controls.Window.ShowDialog``1(Avalonia.Controls.Window)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ShowDialog<TResult>(Window)
-  nameWithType: Window.ShowDialog<TResult>(Window)
-  fullName: Avalonia.Controls.Window.ShowDialog<TResult>(Avalonia.Controls.Window)
-  nameWithType.vb: Window.ShowDialog(Of TResult)(Window)
-  fullName.vb: Avalonia.Controls.Window.ShowDialog(Of TResult)(Avalonia.Controls.Window)
-  name.vb: ShowDialog(Of TResult)(Window)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.ShowDialog``1(Avalonia.Controls.Window)
-    name: ShowDialog
-    isExternal: true
-  - name: <
-  - name: TResult
-  - name: '>'
-  - name: (
-  - uid: Avalonia.Controls.Window
-    name: Window
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.ShowDialog``1(Avalonia.Controls.Window)
-    name: ShowDialog
-    isExternal: true
-  - name: (
-  - name: Of
-  - name: " "
-  - name: TResult
-  - name: )
-  - name: (
-  - uid: Avalonia.Controls.Window
-    name: Window
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.SortWindowsByZOrder(System.Span{Avalonia.Controls.Window})
-  commentId: M:Avalonia.Controls.Window.SortWindowsByZOrder(System.Span{Avalonia.Controls.Window})
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.span-1
-  name: SortWindowsByZOrder(Span<Window>)
-  nameWithType: Window.SortWindowsByZOrder(Span<Window>)
-  fullName: Avalonia.Controls.Window.SortWindowsByZOrder(System.Span<Avalonia.Controls.Window>)
-  nameWithType.vb: Window.SortWindowsByZOrder(Span(Of Window))
-  fullName.vb: Avalonia.Controls.Window.SortWindowsByZOrder(System.Span(Of Avalonia.Controls.Window))
-  name.vb: SortWindowsByZOrder(Span(Of Window))
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.SortWindowsByZOrder(System.Span{Avalonia.Controls.Window})
-    name: SortWindowsByZOrder
-    isExternal: true
-  - name: (
-  - uid: System.Span`1
-    name: Span
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.span-1
-  - name: <
-  - uid: Avalonia.Controls.Window
-    name: Window
-    isExternal: true
-  - name: '>'
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.SortWindowsByZOrder(System.Span{Avalonia.Controls.Window})
-    name: SortWindowsByZOrder
-    isExternal: true
-  - name: (
-  - uid: System.Span`1
-    name: Span
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.span-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Avalonia.Controls.Window
-    name: Window
-    isExternal: true
-  - name: )
-  - name: )
-- uid: Avalonia.Controls.Window.MeasureOverride(Avalonia.Size)
-  commentId: M:Avalonia.Controls.Window.MeasureOverride(Avalonia.Size)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: MeasureOverride(Size)
-  nameWithType: Window.MeasureOverride(Size)
-  fullName: Avalonia.Controls.Window.MeasureOverride(Avalonia.Size)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.MeasureOverride(Avalonia.Size)
-    name: MeasureOverride
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Size
-    name: Size
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.MeasureOverride(Avalonia.Size)
-    name: MeasureOverride
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Size
-    name: Size
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.OnClosing(Avalonia.Controls.WindowClosingEventArgs)
-  commentId: M:Avalonia.Controls.Window.OnClosing(Avalonia.Controls.WindowClosingEventArgs)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: OnClosing(WindowClosingEventArgs)
-  nameWithType: Window.OnClosing(WindowClosingEventArgs)
-  fullName: Avalonia.Controls.Window.OnClosing(Avalonia.Controls.WindowClosingEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.OnClosing(Avalonia.Controls.WindowClosingEventArgs)
-    name: OnClosing
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.WindowClosingEventArgs
-    name: WindowClosingEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.OnClosing(Avalonia.Controls.WindowClosingEventArgs)
-    name: OnClosing
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.WindowClosingEventArgs
-    name: WindowClosingEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  commentId: M:Avalonia.Controls.Window.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: OnPropertyChanged(AvaloniaPropertyChangedEventArgs)
-  nameWithType: Window.OnPropertyChanged(AvaloniaPropertyChangedEventArgs)
-  fullName: Avalonia.Controls.Window.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-    name: OnPropertyChanged
-    isExternal: true
-  - name: (
-  - uid: Avalonia.AvaloniaPropertyChangedEventArgs
-    name: AvaloniaPropertyChangedEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-    name: OnPropertyChanged
-    isExternal: true
-  - name: (
-  - uid: Avalonia.AvaloniaPropertyChangedEventArgs
-    name: AvaloniaPropertyChangedEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Window.OnCreateAutomationPeer
-  commentId: M:Avalonia.Controls.Window.OnCreateAutomationPeer
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: OnCreateAutomationPeer()
-  nameWithType: Window.OnCreateAutomationPeer()
-  fullName: Avalonia.Controls.Window.OnCreateAutomationPeer()
-  spec.csharp:
-  - uid: Avalonia.Controls.Window.OnCreateAutomationPeer
-    name: OnCreateAutomationPeer
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Window.OnCreateAutomationPeer
-    name: OnCreateAutomationPeer
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.Window.PlatformImpl
-  commentId: P:Avalonia.Controls.Window.PlatformImpl
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: PlatformImpl
-  nameWithType: Window.PlatformImpl
-  fullName: Avalonia.Controls.Window.PlatformImpl
-- uid: Avalonia.Controls.Window.OwnedWindows
-  commentId: P:Avalonia.Controls.Window.OwnedWindows
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: OwnedWindows
-  nameWithType: Window.OwnedWindows
-  fullName: Avalonia.Controls.Window.OwnedWindows
-- uid: Avalonia.Controls.Window.SizeToContent
-  commentId: P:Avalonia.Controls.Window.SizeToContent
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: SizeToContent
-  nameWithType: Window.SizeToContent
-  fullName: Avalonia.Controls.Window.SizeToContent
-- uid: Avalonia.Controls.Window.Title
-  commentId: P:Avalonia.Controls.Window.Title
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: Title
-  nameWithType: Window.Title
-  fullName: Avalonia.Controls.Window.Title
-- uid: Avalonia.Controls.Window.ExtendClientAreaToDecorationsHint
-  commentId: P:Avalonia.Controls.Window.ExtendClientAreaToDecorationsHint
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ExtendClientAreaToDecorationsHint
-  nameWithType: Window.ExtendClientAreaToDecorationsHint
-  fullName: Avalonia.Controls.Window.ExtendClientAreaToDecorationsHint
-- uid: Avalonia.Controls.Window.ExtendClientAreaTitleBarHeightHint
-  commentId: P:Avalonia.Controls.Window.ExtendClientAreaTitleBarHeightHint
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ExtendClientAreaTitleBarHeightHint
-  nameWithType: Window.ExtendClientAreaTitleBarHeightHint
-  fullName: Avalonia.Controls.Window.ExtendClientAreaTitleBarHeightHint
-- uid: Avalonia.Controls.Window.IsExtendedIntoWindowDecorations
-  commentId: P:Avalonia.Controls.Window.IsExtendedIntoWindowDecorations
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: IsExtendedIntoWindowDecorations
-  nameWithType: Window.IsExtendedIntoWindowDecorations
-  fullName: Avalonia.Controls.Window.IsExtendedIntoWindowDecorations
-- uid: Avalonia.Controls.Window.WindowDecorationMargin
-  commentId: P:Avalonia.Controls.Window.WindowDecorationMargin
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowDecorationMargin
-  nameWithType: Window.WindowDecorationMargin
-  fullName: Avalonia.Controls.Window.WindowDecorationMargin
-- uid: Avalonia.Controls.Window.OffScreenMargin
-  commentId: P:Avalonia.Controls.Window.OffScreenMargin
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: OffScreenMargin
-  nameWithType: Window.OffScreenMargin
-  fullName: Avalonia.Controls.Window.OffScreenMargin
-- uid: Avalonia.Controls.Window.WindowDecorations
-  commentId: P:Avalonia.Controls.Window.WindowDecorations
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowDecorations
-  nameWithType: Window.WindowDecorations
-  fullName: Avalonia.Controls.Window.WindowDecorations
-- uid: Avalonia.Controls.Window.WindowDecorationsTheme
-  commentId: P:Avalonia.Controls.Window.WindowDecorationsTheme
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowDecorationsTheme
-  nameWithType: Window.WindowDecorationsTheme
-  fullName: Avalonia.Controls.Window.WindowDecorationsTheme
-- uid: Avalonia.Controls.Window.SystemDecorations
-  commentId: P:Avalonia.Controls.Window.SystemDecorations
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: SystemDecorations
-  nameWithType: Window.SystemDecorations
-  fullName: Avalonia.Controls.Window.SystemDecorations
-- uid: Avalonia.Controls.Window.ShowActivated
-  commentId: P:Avalonia.Controls.Window.ShowActivated
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ShowActivated
-  nameWithType: Window.ShowActivated
-  fullName: Avalonia.Controls.Window.ShowActivated
-- uid: Avalonia.Controls.Window.ShowInTaskbar
-  commentId: P:Avalonia.Controls.Window.ShowInTaskbar
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ShowInTaskbar
-  nameWithType: Window.ShowInTaskbar
-  fullName: Avalonia.Controls.Window.ShowInTaskbar
-- uid: Avalonia.Controls.Window.ClosingBehavior
-  commentId: P:Avalonia.Controls.Window.ClosingBehavior
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: ClosingBehavior
-  nameWithType: Window.ClosingBehavior
-  fullName: Avalonia.Controls.Window.ClosingBehavior
-- uid: Avalonia.Controls.Window.WindowState
-  commentId: P:Avalonia.Controls.Window.WindowState
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowState
-  nameWithType: Window.WindowState
-  fullName: Avalonia.Controls.Window.WindowState
-- uid: Avalonia.Controls.Window.CanResize
-  commentId: P:Avalonia.Controls.Window.CanResize
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: CanResize
-  nameWithType: Window.CanResize
-  fullName: Avalonia.Controls.Window.CanResize
-- uid: Avalonia.Controls.Window.CanMinimize
-  commentId: P:Avalonia.Controls.Window.CanMinimize
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: CanMinimize
-  nameWithType: Window.CanMinimize
-  fullName: Avalonia.Controls.Window.CanMinimize
-- uid: Avalonia.Controls.Window.CanMaximize
-  commentId: P:Avalonia.Controls.Window.CanMaximize
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: CanMaximize
-  nameWithType: Window.CanMaximize
-  fullName: Avalonia.Controls.Window.CanMaximize
-- uid: Avalonia.Controls.Window.Icon
-  commentId: P:Avalonia.Controls.Window.Icon
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: Icon
-  nameWithType: Window.Icon
-  fullName: Avalonia.Controls.Window.Icon
-- uid: Avalonia.Controls.Window.WindowStartupLocation
-  commentId: P:Avalonia.Controls.Window.WindowStartupLocation
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: WindowStartupLocation
-  nameWithType: Window.WindowStartupLocation
-  fullName: Avalonia.Controls.Window.WindowStartupLocation
-- uid: Avalonia.Controls.Window.Position
-  commentId: P:Avalonia.Controls.Window.Position
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: Position
-  nameWithType: Window.Position
-  fullName: Avalonia.Controls.Window.Position
-- uid: Avalonia.Controls.Window.IsDialog
-  commentId: P:Avalonia.Controls.Window.IsDialog
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: IsDialog
-  nameWithType: Window.IsDialog
-  fullName: Avalonia.Controls.Window.IsDialog
-- uid: Avalonia.Controls.Window.StyleKeyOverride
-  commentId: P:Avalonia.Controls.Window.StyleKeyOverride
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: StyleKeyOverride
-  nameWithType: Window.StyleKeyOverride
-  fullName: Avalonia.Controls.Window.StyleKeyOverride
-- uid: Avalonia.Controls.Window.Closing
-  commentId: E:Avalonia.Controls.Window.Closing
-  parent: Avalonia.Controls.Window
-  isExternal: true
-  name: Closing
-  nameWithType: Window.Closing
-  fullName: Avalonia.Controls.Window.Closing
-- uid: Avalonia.Controls.WindowBase.IsActiveProperty
-  commentId: F:Avalonia.Controls.WindowBase.IsActiveProperty
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: IsActiveProperty
-  nameWithType: WindowBase.IsActiveProperty
-  fullName: Avalonia.Controls.WindowBase.IsActiveProperty
-- uid: Avalonia.Controls.WindowBase.OwnerProperty
-  commentId: F:Avalonia.Controls.WindowBase.OwnerProperty
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: OwnerProperty
-  nameWithType: WindowBase.OwnerProperty
-  fullName: Avalonia.Controls.WindowBase.OwnerProperty
-- uid: Avalonia.Controls.WindowBase.TopmostProperty
-  commentId: F:Avalonia.Controls.WindowBase.TopmostProperty
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: TopmostProperty
-  nameWithType: WindowBase.TopmostProperty
-  fullName: Avalonia.Controls.WindowBase.TopmostProperty
-- uid: Avalonia.Controls.WindowBase.Activate
-  commentId: M:Avalonia.Controls.WindowBase.Activate
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: Activate()
-  nameWithType: WindowBase.Activate()
-  fullName: Avalonia.Controls.WindowBase.Activate()
-  spec.csharp:
-  - uid: Avalonia.Controls.WindowBase.Activate
-    name: Activate
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.WindowBase.Activate
-    name: Activate
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.WindowBase.EnsureInitialized
-  commentId: M:Avalonia.Controls.WindowBase.EnsureInitialized
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: EnsureInitialized()
-  nameWithType: WindowBase.EnsureInitialized()
-  fullName: Avalonia.Controls.WindowBase.EnsureInitialized()
-  spec.csharp:
-  - uid: Avalonia.Controls.WindowBase.EnsureInitialized
-    name: EnsureInitialized
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.WindowBase.EnsureInitialized
-    name: EnsureInitialized
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.WindowBase.OnClosed(System.EventArgs)
-  commentId: M:Avalonia.Controls.WindowBase.OnClosed(System.EventArgs)
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.eventargs
-  name: OnClosed(EventArgs)
-  nameWithType: WindowBase.OnClosed(EventArgs)
-  fullName: Avalonia.Controls.WindowBase.OnClosed(System.EventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.WindowBase.OnClosed(System.EventArgs)
-    name: OnClosed
-    isExternal: true
-  - name: (
-  - uid: System.EventArgs
-    name: EventArgs
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventargs
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.WindowBase.OnClosed(System.EventArgs)
-    name: OnClosed
-    isExternal: true
-  - name: (
-  - uid: System.EventArgs
-    name: EventArgs
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventargs
-  - name: )
-- uid: Avalonia.Controls.WindowBase.OnOpened(System.EventArgs)
-  commentId: M:Avalonia.Controls.WindowBase.OnOpened(System.EventArgs)
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.eventargs
-  name: OnOpened(EventArgs)
-  nameWithType: WindowBase.OnOpened(EventArgs)
-  fullName: Avalonia.Controls.WindowBase.OnOpened(System.EventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.WindowBase.OnOpened(System.EventArgs)
-    name: OnOpened
-    isExternal: true
-  - name: (
-  - uid: System.EventArgs
-    name: EventArgs
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventargs
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.WindowBase.OnOpened(System.EventArgs)
-    name: OnOpened
-    isExternal: true
-  - name: (
-  - uid: System.EventArgs
-    name: EventArgs
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventargs
-  - name: )
-- uid: Avalonia.Controls.WindowBase.OnResized(Avalonia.Controls.WindowResizedEventArgs)
-  commentId: M:Avalonia.Controls.WindowBase.OnResized(Avalonia.Controls.WindowResizedEventArgs)
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: OnResized(WindowResizedEventArgs)
-  nameWithType: WindowBase.OnResized(WindowResizedEventArgs)
-  fullName: Avalonia.Controls.WindowBase.OnResized(Avalonia.Controls.WindowResizedEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.WindowBase.OnResized(Avalonia.Controls.WindowResizedEventArgs)
-    name: OnResized
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.WindowResizedEventArgs
-    name: WindowResizedEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.WindowBase.OnResized(Avalonia.Controls.WindowResizedEventArgs)
-    name: OnResized
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.WindowResizedEventArgs
-    name: WindowResizedEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.WindowBase.MeasureCore(Avalonia.Size)
-  commentId: M:Avalonia.Controls.WindowBase.MeasureCore(Avalonia.Size)
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: MeasureCore(Size)
-  nameWithType: WindowBase.MeasureCore(Size)
-  fullName: Avalonia.Controls.WindowBase.MeasureCore(Avalonia.Size)
-  spec.csharp:
-  - uid: Avalonia.Controls.WindowBase.MeasureCore(Avalonia.Size)
-    name: MeasureCore
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Size
-    name: Size
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.WindowBase.MeasureCore(Avalonia.Size)
-    name: MeasureCore
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Size
-    name: Size
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.WindowBase.ArrangeCore(Avalonia.Rect)
-  commentId: M:Avalonia.Controls.WindowBase.ArrangeCore(Avalonia.Rect)
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: ArrangeCore(Rect)
-  nameWithType: WindowBase.ArrangeCore(Rect)
-  fullName: Avalonia.Controls.WindowBase.ArrangeCore(Avalonia.Rect)
-  spec.csharp:
-  - uid: Avalonia.Controls.WindowBase.ArrangeCore(Avalonia.Rect)
-    name: ArrangeCore
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Rect
-    name: Rect
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.WindowBase.ArrangeCore(Avalonia.Rect)
-    name: ArrangeCore
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Rect
-    name: Rect
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.WindowBase.IgnoreVisibilityChanges
-  commentId: P:Avalonia.Controls.WindowBase.IgnoreVisibilityChanges
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: IgnoreVisibilityChanges
-  nameWithType: WindowBase.IgnoreVisibilityChanges
-  fullName: Avalonia.Controls.WindowBase.IgnoreVisibilityChanges
-- uid: Avalonia.Controls.WindowBase.IsActive
-  commentId: P:Avalonia.Controls.WindowBase.IsActive
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: IsActive
-  nameWithType: WindowBase.IsActive
-  fullName: Avalonia.Controls.WindowBase.IsActive
-- uid: Avalonia.Controls.WindowBase.Screens
-  commentId: P:Avalonia.Controls.WindowBase.Screens
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: Screens
-  nameWithType: WindowBase.Screens
-  fullName: Avalonia.Controls.WindowBase.Screens
-- uid: Avalonia.Controls.WindowBase.Owner
-  commentId: P:Avalonia.Controls.WindowBase.Owner
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: Owner
-  nameWithType: WindowBase.Owner
-  fullName: Avalonia.Controls.WindowBase.Owner
-- uid: Avalonia.Controls.WindowBase.Topmost
-  commentId: P:Avalonia.Controls.WindowBase.Topmost
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: Topmost
-  nameWithType: WindowBase.Topmost
-  fullName: Avalonia.Controls.WindowBase.Topmost
-- uid: Avalonia.Controls.WindowBase.DesktopScaling
-  commentId: P:Avalonia.Controls.WindowBase.DesktopScaling
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: DesktopScaling
-  nameWithType: WindowBase.DesktopScaling
-  fullName: Avalonia.Controls.WindowBase.DesktopScaling
-- uid: Avalonia.Controls.WindowBase.Activated
-  commentId: E:Avalonia.Controls.WindowBase.Activated
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: Activated
-  nameWithType: WindowBase.Activated
-  fullName: Avalonia.Controls.WindowBase.Activated
-- uid: Avalonia.Controls.WindowBase.Deactivated
-  commentId: E:Avalonia.Controls.WindowBase.Deactivated
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: Deactivated
-  nameWithType: WindowBase.Deactivated
-  fullName: Avalonia.Controls.WindowBase.Deactivated
-- uid: Avalonia.Controls.WindowBase.PositionChanged
-  commentId: E:Avalonia.Controls.WindowBase.PositionChanged
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: PositionChanged
-  nameWithType: WindowBase.PositionChanged
-  fullName: Avalonia.Controls.WindowBase.PositionChanged
-- uid: Avalonia.Controls.WindowBase.Resized
-  commentId: E:Avalonia.Controls.WindowBase.Resized
-  parent: Avalonia.Controls.WindowBase
-  isExternal: true
-  name: Resized
-  nameWithType: WindowBase.Resized
-  fullName: Avalonia.Controls.WindowBase.Resized
-- uid: Avalonia.Controls.TopLevel.ClientSizeProperty
-  commentId: F:Avalonia.Controls.TopLevel.ClientSizeProperty
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: ClientSizeProperty
-  nameWithType: TopLevel.ClientSizeProperty
-  fullName: Avalonia.Controls.TopLevel.ClientSizeProperty
-- uid: Avalonia.Controls.TopLevel.FrameSizeProperty
-  commentId: F:Avalonia.Controls.TopLevel.FrameSizeProperty
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: FrameSizeProperty
-  nameWithType: TopLevel.FrameSizeProperty
-  fullName: Avalonia.Controls.TopLevel.FrameSizeProperty
-- uid: Avalonia.Controls.TopLevel.TransparencyLevelHintProperty
-  commentId: F:Avalonia.Controls.TopLevel.TransparencyLevelHintProperty
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: TransparencyLevelHintProperty
-  nameWithType: TopLevel.TransparencyLevelHintProperty
-  fullName: Avalonia.Controls.TopLevel.TransparencyLevelHintProperty
-- uid: Avalonia.Controls.TopLevel.ActualTransparencyLevelProperty
-  commentId: F:Avalonia.Controls.TopLevel.ActualTransparencyLevelProperty
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: ActualTransparencyLevelProperty
-  nameWithType: TopLevel.ActualTransparencyLevelProperty
-  fullName: Avalonia.Controls.TopLevel.ActualTransparencyLevelProperty
-- uid: Avalonia.Controls.TopLevel.TransparencyBackgroundFallbackProperty
-  commentId: F:Avalonia.Controls.TopLevel.TransparencyBackgroundFallbackProperty
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: TransparencyBackgroundFallbackProperty
-  nameWithType: TopLevel.TransparencyBackgroundFallbackProperty
-  fullName: Avalonia.Controls.TopLevel.TransparencyBackgroundFallbackProperty
-- uid: Avalonia.Controls.TopLevel.ActualThemeVariantProperty
-  commentId: F:Avalonia.Controls.TopLevel.ActualThemeVariantProperty
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: ActualThemeVariantProperty
-  nameWithType: TopLevel.ActualThemeVariantProperty
-  fullName: Avalonia.Controls.TopLevel.ActualThemeVariantProperty
-- uid: Avalonia.Controls.TopLevel.RequestedThemeVariantProperty
-  commentId: F:Avalonia.Controls.TopLevel.RequestedThemeVariantProperty
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: RequestedThemeVariantProperty
-  nameWithType: TopLevel.RequestedThemeVariantProperty
-  fullName: Avalonia.Controls.TopLevel.RequestedThemeVariantProperty
-- uid: Avalonia.Controls.TopLevel.SystemBarColorProperty
-  commentId: F:Avalonia.Controls.TopLevel.SystemBarColorProperty
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: SystemBarColorProperty
-  nameWithType: TopLevel.SystemBarColorProperty
-  fullName: Avalonia.Controls.TopLevel.SystemBarColorProperty
-- uid: Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty
-  commentId: F:Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: AutoSafeAreaPaddingProperty
-  nameWithType: TopLevel.AutoSafeAreaPaddingProperty
-  fullName: Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty
-- uid: Avalonia.Controls.TopLevel.BackRequestedEvent
-  commentId: F:Avalonia.Controls.TopLevel.BackRequestedEvent
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: BackRequestedEvent
-  nameWithType: TopLevel.BackRequestedEvent
-  fullName: Avalonia.Controls.TopLevel.BackRequestedEvent
-- uid: Avalonia.Controls.TopLevel.TryGetPlatformHandle
-  commentId: M:Avalonia.Controls.TopLevel.TryGetPlatformHandle
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: TryGetPlatformHandle()
-  nameWithType: TopLevel.TryGetPlatformHandle()
-  fullName: Avalonia.Controls.TopLevel.TryGetPlatformHandle()
-  spec.csharp:
-  - uid: Avalonia.Controls.TopLevel.TryGetPlatformHandle
-    name: TryGetPlatformHandle
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.TopLevel.TryGetPlatformHandle
-    name: TryGetPlatformHandle
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.TopLevel.SetSystemBarColor(Avalonia.Controls.Control,Avalonia.Media.SolidColorBrush)
-  commentId: M:Avalonia.Controls.TopLevel.SetSystemBarColor(Avalonia.Controls.Control,Avalonia.Media.SolidColorBrush)
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: SetSystemBarColor(Control, SolidColorBrush)
-  nameWithType: TopLevel.SetSystemBarColor(Control, SolidColorBrush)
-  fullName: Avalonia.Controls.TopLevel.SetSystemBarColor(Avalonia.Controls.Control, Avalonia.Media.SolidColorBrush)
-  spec.csharp:
-  - uid: Avalonia.Controls.TopLevel.SetSystemBarColor(Avalonia.Controls.Control,Avalonia.Media.SolidColorBrush)
-    name: SetSystemBarColor
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Avalonia.Media.SolidColorBrush
-    name: SolidColorBrush
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.TopLevel.SetSystemBarColor(Avalonia.Controls.Control,Avalonia.Media.SolidColorBrush)
-    name: SetSystemBarColor
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Avalonia.Media.SolidColorBrush
-    name: SolidColorBrush
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.TopLevel.GetSystemBarColor(Avalonia.Controls.Control)
-  commentId: M:Avalonia.Controls.TopLevel.GetSystemBarColor(Avalonia.Controls.Control)
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: GetSystemBarColor(Control)
-  nameWithType: TopLevel.GetSystemBarColor(Control)
-  fullName: Avalonia.Controls.TopLevel.GetSystemBarColor(Avalonia.Controls.Control)
-  spec.csharp:
-  - uid: Avalonia.Controls.TopLevel.GetSystemBarColor(Avalonia.Controls.Control)
-    name: GetSystemBarColor
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.TopLevel.GetSystemBarColor(Avalonia.Controls.Control)
-    name: GetSystemBarColor
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding(Avalonia.Controls.Control,System.Boolean)
-  commentId: M:Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding(Avalonia.Controls.Control,System.Boolean)
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: SetAutoSafeAreaPadding(Control, bool)
-  nameWithType: TopLevel.SetAutoSafeAreaPadding(Control, bool)
-  fullName: Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding(Avalonia.Controls.Control, bool)
-  nameWithType.vb: TopLevel.SetAutoSafeAreaPadding(Control, Boolean)
-  fullName.vb: Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding(Avalonia.Controls.Control, Boolean)
-  name.vb: SetAutoSafeAreaPadding(Control, Boolean)
-  spec.csharp:
-  - uid: Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding(Avalonia.Controls.Control,System.Boolean)
-    name: SetAutoSafeAreaPadding
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: System.Boolean
-    name: bool
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.boolean
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding(Avalonia.Controls.Control,System.Boolean)
-    name: SetAutoSafeAreaPadding
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: System.Boolean
-    name: Boolean
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.boolean
-  - name: )
-- uid: Avalonia.Controls.TopLevel.GetAutoSafeAreaPadding(Avalonia.Controls.Control)
-  commentId: M:Avalonia.Controls.TopLevel.GetAutoSafeAreaPadding(Avalonia.Controls.Control)
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: GetAutoSafeAreaPadding(Control)
-  nameWithType: TopLevel.GetAutoSafeAreaPadding(Control)
-  fullName: Avalonia.Controls.TopLevel.GetAutoSafeAreaPadding(Avalonia.Controls.Control)
-  spec.csharp:
-  - uid: Avalonia.Controls.TopLevel.GetAutoSafeAreaPadding(Avalonia.Controls.Control)
-    name: GetAutoSafeAreaPadding
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.TopLevel.GetAutoSafeAreaPadding(Avalonia.Controls.Control)
-    name: GetAutoSafeAreaPadding
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.TopLevel.GetTopLevel(Avalonia.Visual)
-  commentId: M:Avalonia.Controls.TopLevel.GetTopLevel(Avalonia.Visual)
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: GetTopLevel(Visual)
-  nameWithType: TopLevel.GetTopLevel(Visual)
-  fullName: Avalonia.Controls.TopLevel.GetTopLevel(Avalonia.Visual)
-  spec.csharp:
-  - uid: Avalonia.Controls.TopLevel.GetTopLevel(Avalonia.Visual)
-    name: GetTopLevel
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Visual
-    name: Visual
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.TopLevel.GetTopLevel(Avalonia.Visual)
-    name: GetTopLevel
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Visual
-    name: Visual
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.TopLevel.RequestPlatformInhibition(Avalonia.Controls.PlatformInhibitionType,System.String)
-  commentId: M:Avalonia.Controls.TopLevel.RequestPlatformInhibition(Avalonia.Controls.PlatformInhibitionType,System.String)
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.string
-  name: RequestPlatformInhibition(PlatformInhibitionType, string)
-  nameWithType: TopLevel.RequestPlatformInhibition(PlatformInhibitionType, string)
-  fullName: Avalonia.Controls.TopLevel.RequestPlatformInhibition(Avalonia.Controls.PlatformInhibitionType, string)
-  nameWithType.vb: TopLevel.RequestPlatformInhibition(PlatformInhibitionType, String)
-  fullName.vb: Avalonia.Controls.TopLevel.RequestPlatformInhibition(Avalonia.Controls.PlatformInhibitionType, String)
-  name.vb: RequestPlatformInhibition(PlatformInhibitionType, String)
-  spec.csharp:
-  - uid: Avalonia.Controls.TopLevel.RequestPlatformInhibition(Avalonia.Controls.PlatformInhibitionType,System.String)
-    name: RequestPlatformInhibition
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.PlatformInhibitionType
-    name: PlatformInhibitionType
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.TopLevel.RequestPlatformInhibition(Avalonia.Controls.PlatformInhibitionType,System.String)
-    name: RequestPlatformInhibition
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.PlatformInhibitionType
-    name: PlatformInhibitionType
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: Avalonia.Controls.TopLevel.RequestAnimationFrame(System.Action{System.TimeSpan})
-  commentId: M:Avalonia.Controls.TopLevel.RequestAnimationFrame(System.Action{System.TimeSpan})
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.action-1
-  name: RequestAnimationFrame(Action<TimeSpan>)
-  nameWithType: TopLevel.RequestAnimationFrame(Action<TimeSpan>)
-  fullName: Avalonia.Controls.TopLevel.RequestAnimationFrame(System.Action<System.TimeSpan>)
-  nameWithType.vb: TopLevel.RequestAnimationFrame(Action(Of TimeSpan))
-  fullName.vb: Avalonia.Controls.TopLevel.RequestAnimationFrame(System.Action(Of System.TimeSpan))
-  name.vb: RequestAnimationFrame(Action(Of TimeSpan))
-  spec.csharp:
-  - uid: Avalonia.Controls.TopLevel.RequestAnimationFrame(System.Action{System.TimeSpan})
-    name: RequestAnimationFrame
-    isExternal: true
-  - name: (
-  - uid: System.Action`1
-    name: Action
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.action-1
-  - name: <
-  - uid: System.TimeSpan
-    name: TimeSpan
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.timespan
-  - name: '>'
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.TopLevel.RequestAnimationFrame(System.Action{System.TimeSpan})
-    name: RequestAnimationFrame
-    isExternal: true
-  - name: (
-  - uid: System.Action`1
-    name: Action
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.action-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.TimeSpan
-    name: TimeSpan
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.timespan
-  - name: )
-  - name: )
-- uid: Avalonia.Controls.TopLevel.InvalidateMirrorTransform
-  commentId: M:Avalonia.Controls.TopLevel.InvalidateMirrorTransform
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: InvalidateMirrorTransform()
-  nameWithType: TopLevel.InvalidateMirrorTransform()
-  fullName: Avalonia.Controls.TopLevel.InvalidateMirrorTransform()
-  spec.csharp:
-  - uid: Avalonia.Controls.TopLevel.InvalidateMirrorTransform
-    name: InvalidateMirrorTransform
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.TopLevel.InvalidateMirrorTransform
-    name: InvalidateMirrorTransform
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.TopLevel.ClientSize
-  commentId: P:Avalonia.Controls.TopLevel.ClientSize
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: ClientSize
-  nameWithType: TopLevel.ClientSize
-  fullName: Avalonia.Controls.TopLevel.ClientSize
-- uid: Avalonia.Controls.TopLevel.FrameSize
-  commentId: P:Avalonia.Controls.TopLevel.FrameSize
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: FrameSize
-  nameWithType: TopLevel.FrameSize
-  fullName: Avalonia.Controls.TopLevel.FrameSize
-- uid: Avalonia.Controls.TopLevel.TransparencyLevelHint
-  commentId: P:Avalonia.Controls.TopLevel.TransparencyLevelHint
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: TransparencyLevelHint
-  nameWithType: TopLevel.TransparencyLevelHint
-  fullName: Avalonia.Controls.TopLevel.TransparencyLevelHint
-- uid: Avalonia.Controls.TopLevel.ActualTransparencyLevel
-  commentId: P:Avalonia.Controls.TopLevel.ActualTransparencyLevel
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: ActualTransparencyLevel
-  nameWithType: TopLevel.ActualTransparencyLevel
-  fullName: Avalonia.Controls.TopLevel.ActualTransparencyLevel
-- uid: Avalonia.Controls.TopLevel.TransparencyBackgroundFallback
-  commentId: P:Avalonia.Controls.TopLevel.TransparencyBackgroundFallback
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: TransparencyBackgroundFallback
-  nameWithType: TopLevel.TransparencyBackgroundFallback
-  fullName: Avalonia.Controls.TopLevel.TransparencyBackgroundFallback
-- uid: Avalonia.Controls.TopLevel.RequestedThemeVariant
-  commentId: P:Avalonia.Controls.TopLevel.RequestedThemeVariant
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: RequestedThemeVariant
-  nameWithType: TopLevel.RequestedThemeVariant
-  fullName: Avalonia.Controls.TopLevel.RequestedThemeVariant
-- uid: Avalonia.Controls.TopLevel.RendererDiagnostics
-  commentId: P:Avalonia.Controls.TopLevel.RendererDiagnostics
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: RendererDiagnostics
-  nameWithType: TopLevel.RendererDiagnostics
-  fullName: Avalonia.Controls.TopLevel.RendererDiagnostics
-- uid: Avalonia.Controls.TopLevel.RenderScaling
-  commentId: P:Avalonia.Controls.TopLevel.RenderScaling
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: RenderScaling
-  nameWithType: TopLevel.RenderScaling
-  fullName: Avalonia.Controls.TopLevel.RenderScaling
-- uid: Avalonia.Controls.TopLevel.StorageProvider
-  commentId: P:Avalonia.Controls.TopLevel.StorageProvider
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: StorageProvider
-  nameWithType: TopLevel.StorageProvider
-  fullName: Avalonia.Controls.TopLevel.StorageProvider
-- uid: Avalonia.Controls.TopLevel.InsetsManager
-  commentId: P:Avalonia.Controls.TopLevel.InsetsManager
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: InsetsManager
-  nameWithType: TopLevel.InsetsManager
-  fullName: Avalonia.Controls.TopLevel.InsetsManager
-- uid: Avalonia.Controls.TopLevel.InputPane
-  commentId: P:Avalonia.Controls.TopLevel.InputPane
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: InputPane
-  nameWithType: TopLevel.InputPane
-  fullName: Avalonia.Controls.TopLevel.InputPane
-- uid: Avalonia.Controls.TopLevel.Launcher
-  commentId: P:Avalonia.Controls.TopLevel.Launcher
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: Launcher
-  nameWithType: TopLevel.Launcher
-  fullName: Avalonia.Controls.TopLevel.Launcher
-- uid: Avalonia.Controls.TopLevel.Clipboard
-  commentId: P:Avalonia.Controls.TopLevel.Clipboard
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: Clipboard
-  nameWithType: TopLevel.Clipboard
-  fullName: Avalonia.Controls.TopLevel.Clipboard
-- uid: Avalonia.Controls.TopLevel.FocusManager
-  commentId: P:Avalonia.Controls.TopLevel.FocusManager
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: FocusManager
-  nameWithType: TopLevel.FocusManager
-  fullName: Avalonia.Controls.TopLevel.FocusManager
-- uid: Avalonia.Controls.TopLevel.BypassFlowDirectionPolicies
-  commentId: P:Avalonia.Controls.TopLevel.BypassFlowDirectionPolicies
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: BypassFlowDirectionPolicies
-  nameWithType: TopLevel.BypassFlowDirectionPolicies
-  fullName: Avalonia.Controls.TopLevel.BypassFlowDirectionPolicies
-- uid: Avalonia.Controls.TopLevel.Opened
-  commentId: E:Avalonia.Controls.TopLevel.Opened
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: Opened
-  nameWithType: TopLevel.Opened
-  fullName: Avalonia.Controls.TopLevel.Opened
-- uid: Avalonia.Controls.TopLevel.Closed
-  commentId: E:Avalonia.Controls.TopLevel.Closed
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: Closed
-  nameWithType: TopLevel.Closed
-  fullName: Avalonia.Controls.TopLevel.Closed
-- uid: Avalonia.Controls.TopLevel.ScalingChanged
-  commentId: E:Avalonia.Controls.TopLevel.ScalingChanged
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: ScalingChanged
-  nameWithType: TopLevel.ScalingChanged
-  fullName: Avalonia.Controls.TopLevel.ScalingChanged
-- uid: Avalonia.Controls.TopLevel.BackRequested
-  commentId: E:Avalonia.Controls.TopLevel.BackRequested
-  parent: Avalonia.Controls.TopLevel
-  isExternal: true
-  name: BackRequested
-  nameWithType: TopLevel.BackRequested
-  fullName: Avalonia.Controls.TopLevel.BackRequested
-- uid: Avalonia.Controls.ContentControl.ContentProperty
-  commentId: F:Avalonia.Controls.ContentControl.ContentProperty
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: ContentProperty
-  nameWithType: ContentControl.ContentProperty
-  fullName: Avalonia.Controls.ContentControl.ContentProperty
-- uid: Avalonia.Controls.ContentControl.ContentTemplateProperty
-  commentId: F:Avalonia.Controls.ContentControl.ContentTemplateProperty
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: ContentTemplateProperty
-  nameWithType: ContentControl.ContentTemplateProperty
-  fullName: Avalonia.Controls.ContentControl.ContentTemplateProperty
-- uid: Avalonia.Controls.ContentControl.HorizontalContentAlignmentProperty
-  commentId: F:Avalonia.Controls.ContentControl.HorizontalContentAlignmentProperty
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: HorizontalContentAlignmentProperty
-  nameWithType: ContentControl.HorizontalContentAlignmentProperty
-  fullName: Avalonia.Controls.ContentControl.HorizontalContentAlignmentProperty
-- uid: Avalonia.Controls.ContentControl.VerticalContentAlignmentProperty
-  commentId: F:Avalonia.Controls.ContentControl.VerticalContentAlignmentProperty
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: VerticalContentAlignmentProperty
-  nameWithType: ContentControl.VerticalContentAlignmentProperty
-  fullName: Avalonia.Controls.ContentControl.VerticalContentAlignmentProperty
-- uid: Avalonia.Controls.ContentControl.RegisterContentPresenter(Avalonia.Controls.Presenters.ContentPresenter)
-  commentId: M:Avalonia.Controls.ContentControl.RegisterContentPresenter(Avalonia.Controls.Presenters.ContentPresenter)
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: RegisterContentPresenter(ContentPresenter)
-  nameWithType: ContentControl.RegisterContentPresenter(ContentPresenter)
-  fullName: Avalonia.Controls.ContentControl.RegisterContentPresenter(Avalonia.Controls.Presenters.ContentPresenter)
-  spec.csharp:
-  - uid: Avalonia.Controls.ContentControl.RegisterContentPresenter(Avalonia.Controls.Presenters.ContentPresenter)
-    name: RegisterContentPresenter
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Presenters.ContentPresenter
-    name: ContentPresenter
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.ContentControl.RegisterContentPresenter(Avalonia.Controls.Presenters.ContentPresenter)
-    name: RegisterContentPresenter
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Presenters.ContentPresenter
-    name: ContentPresenter
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.ContentControl.Content
-  commentId: P:Avalonia.Controls.ContentControl.Content
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: Content
-  nameWithType: ContentControl.Content
-  fullName: Avalonia.Controls.ContentControl.Content
-- uid: Avalonia.Controls.ContentControl.ContentTemplate
-  commentId: P:Avalonia.Controls.ContentControl.ContentTemplate
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: ContentTemplate
-  nameWithType: ContentControl.ContentTemplate
-  fullName: Avalonia.Controls.ContentControl.ContentTemplate
-- uid: Avalonia.Controls.ContentControl.Presenter
-  commentId: P:Avalonia.Controls.ContentControl.Presenter
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: Presenter
-  nameWithType: ContentControl.Presenter
-  fullName: Avalonia.Controls.ContentControl.Presenter
-- uid: Avalonia.Controls.ContentControl.HorizontalContentAlignment
-  commentId: P:Avalonia.Controls.ContentControl.HorizontalContentAlignment
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: HorizontalContentAlignment
-  nameWithType: ContentControl.HorizontalContentAlignment
-  fullName: Avalonia.Controls.ContentControl.HorizontalContentAlignment
-- uid: Avalonia.Controls.ContentControl.VerticalContentAlignment
-  commentId: P:Avalonia.Controls.ContentControl.VerticalContentAlignment
-  parent: Avalonia.Controls.ContentControl
-  isExternal: true
-  name: VerticalContentAlignment
-  nameWithType: ContentControl.VerticalContentAlignment
-  fullName: Avalonia.Controls.ContentControl.VerticalContentAlignment
-- uid: Avalonia.Controls.Primitives.TemplatedControl.BackgroundProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.BackgroundProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: BackgroundProperty
-  nameWithType: TemplatedControl.BackgroundProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.BackgroundProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.BackgroundSizingProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.BackgroundSizingProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: BackgroundSizingProperty
-  nameWithType: TemplatedControl.BackgroundSizingProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.BackgroundSizingProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.BorderBrushProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.BorderBrushProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: BorderBrushProperty
-  nameWithType: TemplatedControl.BorderBrushProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.BorderBrushProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.BorderThicknessProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.BorderThicknessProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: BorderThicknessProperty
-  nameWithType: TemplatedControl.BorderThicknessProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.BorderThicknessProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.CornerRadiusProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.CornerRadiusProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: CornerRadiusProperty
-  nameWithType: TemplatedControl.CornerRadiusProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.CornerRadiusProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontFamilyProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.FontFamilyProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontFamilyProperty
-  nameWithType: TemplatedControl.FontFamilyProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontFamilyProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontFeaturesProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.FontFeaturesProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontFeaturesProperty
-  nameWithType: TemplatedControl.FontFeaturesProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontFeaturesProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontSizeProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.FontSizeProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontSizeProperty
-  nameWithType: TemplatedControl.FontSizeProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontSizeProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontStyleProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.FontStyleProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontStyleProperty
-  nameWithType: TemplatedControl.FontStyleProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontStyleProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontWeightProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.FontWeightProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontWeightProperty
-  nameWithType: TemplatedControl.FontWeightProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontWeightProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontStretchProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.FontStretchProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontStretchProperty
-  nameWithType: TemplatedControl.FontStretchProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontStretchProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.ForegroundProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.ForegroundProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: ForegroundProperty
-  nameWithType: TemplatedControl.ForegroundProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.ForegroundProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.LetterSpacingProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.LetterSpacingProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: LetterSpacingProperty
-  nameWithType: TemplatedControl.LetterSpacingProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.LetterSpacingProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.PaddingProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.PaddingProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: PaddingProperty
-  nameWithType: TemplatedControl.PaddingProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.PaddingProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.TemplateProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.TemplateProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: TemplateProperty
-  nameWithType: TemplatedControl.TemplateProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.TemplateProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: IsTemplateFocusTargetProperty
-  nameWithType: TemplatedControl.IsTemplateFocusTargetProperty
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty
-- uid: Avalonia.Controls.Primitives.TemplatedControl.TemplateAppliedEvent
-  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.TemplateAppliedEvent
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: TemplateAppliedEvent
-  nameWithType: TemplatedControl.TemplateAppliedEvent
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.TemplateAppliedEvent
-- uid: Avalonia.Controls.Primitives.TemplatedControl.GetIsTemplateFocusTarget(Avalonia.Controls.Control)
-  commentId: M:Avalonia.Controls.Primitives.TemplatedControl.GetIsTemplateFocusTarget(Avalonia.Controls.Control)
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: GetIsTemplateFocusTarget(Control)
-  nameWithType: TemplatedControl.GetIsTemplateFocusTarget(Control)
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.GetIsTemplateFocusTarget(Avalonia.Controls.Control)
-  spec.csharp:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.GetIsTemplateFocusTarget(Avalonia.Controls.Control)
-    name: GetIsTemplateFocusTarget
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.GetIsTemplateFocusTarget(Avalonia.Controls.Control)
-    name: GetIsTemplateFocusTarget
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget(Avalonia.Controls.Control,System.Boolean)
-  commentId: M:Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget(Avalonia.Controls.Control,System.Boolean)
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: SetIsTemplateFocusTarget(Control, bool)
-  nameWithType: TemplatedControl.SetIsTemplateFocusTarget(Control, bool)
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget(Avalonia.Controls.Control, bool)
-  nameWithType.vb: TemplatedControl.SetIsTemplateFocusTarget(Control, Boolean)
-  fullName.vb: Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget(Avalonia.Controls.Control, Boolean)
-  name.vb: SetIsTemplateFocusTarget(Control, Boolean)
-  spec.csharp:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget(Avalonia.Controls.Control,System.Boolean)
-    name: SetIsTemplateFocusTarget
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: System.Boolean
-    name: bool
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.boolean
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget(Avalonia.Controls.Control,System.Boolean)
-    name: SetIsTemplateFocusTarget
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Controls.Control
-    name: Control
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: System.Boolean
-    name: Boolean
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.boolean
-  - name: )
-- uid: Avalonia.Controls.Primitives.TemplatedControl.ApplyTemplate
-  commentId: M:Avalonia.Controls.Primitives.TemplatedControl.ApplyTemplate
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: ApplyTemplate()
-  nameWithType: TemplatedControl.ApplyTemplate()
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.ApplyTemplate()
-  spec.csharp:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.ApplyTemplate
-    name: ApplyTemplate
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.ApplyTemplate
-    name: ApplyTemplate
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.Primitives.TemplatedControl.GetTemplateFocusTarget
-  commentId: M:Avalonia.Controls.Primitives.TemplatedControl.GetTemplateFocusTarget
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: GetTemplateFocusTarget()
-  nameWithType: TemplatedControl.GetTemplateFocusTarget()
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.GetTemplateFocusTarget()
-  spec.csharp:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.GetTemplateFocusTarget
-    name: GetTemplateFocusTarget
-    isExternal: true
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.GetTemplateFocusTarget
-    name: GetTemplateFocusTarget
-    isExternal: true
-  - name: (
-  - name: )
-- uid: Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-  commentId: M:Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs)
-  nameWithType: TemplatedControl.OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs)
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-    name: OnAttachedToLogicalTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs
-    name: LogicalTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-    name: OnAttachedToLogicalTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs
-    name: LogicalTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Primitives.TemplatedControl.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-  commentId: M:Avalonia.Controls.Primitives.TemplatedControl.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs)
-  nameWithType: TemplatedControl.OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs)
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-    name: OnDetachedFromLogicalTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs
-    name: LogicalTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
-    name: OnDetachedFromLogicalTree
-    isExternal: true
-  - name: (
-  - uid: Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs
-    name: LogicalTreeAttachmentEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Primitives.TemplatedControl.OnTemplateChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  commentId: M:Avalonia.Controls.Primitives.TemplatedControl.OnTemplateChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: OnTemplateChanged(AvaloniaPropertyChangedEventArgs)
-  nameWithType: TemplatedControl.OnTemplateChanged(AvaloniaPropertyChangedEventArgs)
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.OnTemplateChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.OnTemplateChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-    name: OnTemplateChanged
-    isExternal: true
-  - name: (
-  - uid: Avalonia.AvaloniaPropertyChangedEventArgs
-    name: AvaloniaPropertyChangedEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Controls.Primitives.TemplatedControl.OnTemplateChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
-    name: OnTemplateChanged
-    isExternal: true
-  - name: (
-  - uid: Avalonia.AvaloniaPropertyChangedEventArgs
-    name: AvaloniaPropertyChangedEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.Primitives.TemplatedControl.Background
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.Background
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: Background
-  nameWithType: TemplatedControl.Background
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.Background
-- uid: Avalonia.Controls.Primitives.TemplatedControl.BackgroundSizing
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.BackgroundSizing
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: BackgroundSizing
-  nameWithType: TemplatedControl.BackgroundSizing
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.BackgroundSizing
-- uid: Avalonia.Controls.Primitives.TemplatedControl.BorderBrush
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.BorderBrush
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: BorderBrush
-  nameWithType: TemplatedControl.BorderBrush
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.BorderBrush
-- uid: Avalonia.Controls.Primitives.TemplatedControl.BorderThickness
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.BorderThickness
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: BorderThickness
-  nameWithType: TemplatedControl.BorderThickness
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.BorderThickness
-- uid: Avalonia.Controls.Primitives.TemplatedControl.CornerRadius
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.CornerRadius
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: CornerRadius
-  nameWithType: TemplatedControl.CornerRadius
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.CornerRadius
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontFamily
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.FontFamily
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontFamily
-  nameWithType: TemplatedControl.FontFamily
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontFamily
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontFeatures
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.FontFeatures
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontFeatures
-  nameWithType: TemplatedControl.FontFeatures
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontFeatures
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontSize
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.FontSize
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontSize
-  nameWithType: TemplatedControl.FontSize
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontSize
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontStyle
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.FontStyle
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontStyle
-  nameWithType: TemplatedControl.FontStyle
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontStyle
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontWeight
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.FontWeight
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontWeight
-  nameWithType: TemplatedControl.FontWeight
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontWeight
-- uid: Avalonia.Controls.Primitives.TemplatedControl.FontStretch
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.FontStretch
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: FontStretch
-  nameWithType: TemplatedControl.FontStretch
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.FontStretch
-- uid: Avalonia.Controls.Primitives.TemplatedControl.Foreground
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.Foreground
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: Foreground
-  nameWithType: TemplatedControl.Foreground
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.Foreground
-- uid: Avalonia.Controls.Primitives.TemplatedControl.LetterSpacing
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.LetterSpacing
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: LetterSpacing
-  nameWithType: TemplatedControl.LetterSpacing
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.LetterSpacing
-- uid: Avalonia.Controls.Primitives.TemplatedControl.Padding
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.Padding
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: Padding
-  nameWithType: TemplatedControl.Padding
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.Padding
-- uid: Avalonia.Controls.Primitives.TemplatedControl.Template
-  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.Template
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: Template
-  nameWithType: TemplatedControl.Template
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.Template
-- uid: Avalonia.Controls.Primitives.TemplatedControl.TemplateApplied
-  commentId: E:Avalonia.Controls.Primitives.TemplatedControl.TemplateApplied
-  parent: Avalonia.Controls.Primitives.TemplatedControl
-  isExternal: true
-  name: TemplateApplied
-  nameWithType: TemplatedControl.TemplateApplied
-  fullName: Avalonia.Controls.Primitives.TemplatedControl.TemplateApplied
 - uid: Avalonia.Controls.Control.FocusAdornerProperty
   commentId: F:Avalonia.Controls.Control.FocusAdornerProperty
   parent: Avalonia.Controls.Control
@@ -3057,6 +1227,25 @@ references:
   name: SizeChangedEvent
   nameWithType: Control.SizeChangedEvent
   fullName: Avalonia.Controls.Control.SizeChangedEvent
+- uid: Avalonia.Controls.Control.GetTemplateFocusTarget
+  commentId: M:Avalonia.Controls.Control.GetTemplateFocusTarget
+  parent: Avalonia.Controls.Control
+  isExternal: true
+  name: GetTemplateFocusTarget()
+  nameWithType: Control.GetTemplateFocusTarget()
+  fullName: Avalonia.Controls.Control.GetTemplateFocusTarget()
+  spec.csharp:
+  - uid: Avalonia.Controls.Control.GetTemplateFocusTarget
+    name: GetTemplateFocusTarget
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.Control.GetTemplateFocusTarget
+    name: GetTemplateFocusTarget
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Avalonia.Controls.Control.OnLoaded(Avalonia.Interactivity.RoutedEventArgs)
   commentId: M:Avalonia.Controls.Control.OnLoaded(Avalonia.Interactivity.RoutedEventArgs)
   parent: Avalonia.Controls.Control
@@ -3232,6 +1421,25 @@ references:
     name: FocusChangedEventArgs
     isExternal: true
   - name: )
+- uid: Avalonia.Controls.Control.OnCreateAutomationPeer
+  commentId: M:Avalonia.Controls.Control.OnCreateAutomationPeer
+  parent: Avalonia.Controls.Control
+  isExternal: true
+  name: OnCreateAutomationPeer()
+  nameWithType: Control.OnCreateAutomationPeer()
+  fullName: Avalonia.Controls.Control.OnCreateAutomationPeer()
+  spec.csharp:
+  - uid: Avalonia.Controls.Control.OnCreateAutomationPeer
+    name: OnCreateAutomationPeer
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.Control.OnCreateAutomationPeer
+    name: OnCreateAutomationPeer
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Avalonia.Controls.Control.OnPointerReleased(Avalonia.Input.PointerReleasedEventArgs)
   commentId: M:Avalonia.Controls.Control.OnPointerReleased(Avalonia.Input.PointerReleasedEventArgs)
   parent: Avalonia.Controls.Control
@@ -3280,6 +1488,31 @@ references:
   - name: (
   - uid: Avalonia.Input.KeyEventArgs
     name: KeyEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Controls.Control.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
+  commentId: M:Avalonia.Controls.Control.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
+  parent: Avalonia.Controls.Control
+  isExternal: true
+  name: OnPropertyChanged(AvaloniaPropertyChangedEventArgs)
+  nameWithType: Control.OnPropertyChanged(AvaloniaPropertyChangedEventArgs)
+  fullName: Avalonia.Controls.Control.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Controls.Control.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
+    name: OnPropertyChanged
+    isExternal: true
+  - name: (
+  - uid: Avalonia.AvaloniaPropertyChangedEventArgs
+    name: AvaloniaPropertyChangedEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.Control.OnPropertyChanged(Avalonia.AvaloniaPropertyChangedEventArgs)
+    name: OnPropertyChanged
+    isExternal: true
+  - name: (
+  - uid: Avalonia.AvaloniaPropertyChangedEventArgs
+    name: AvaloniaPropertyChangedEventArgs
     isExternal: true
   - name: )
 - uid: Avalonia.Controls.Control.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
@@ -3818,6 +2051,31 @@ references:
     name: FocusChangingEventArgs
     isExternal: true
   - name: )
+- uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnKeyDown(KeyEventArgs)
+  nameWithType: InputElement.OnKeyDown(KeyEventArgs)
+  fullName: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+    name: OnKeyDown
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.KeyEventArgs
+    name: KeyEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+    name: OnKeyDown
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.KeyEventArgs
+    name: KeyEventArgs
+    isExternal: true
+  - name: )
 - uid: Avalonia.Input.InputElement.OnTextInput(Avalonia.Input.TextInputEventArgs)
   commentId: M:Avalonia.Input.InputElement.OnTextInput(Avalonia.Input.TextInputEventArgs)
   parent: Avalonia.Input.InputElement
@@ -3866,81 +2124,6 @@ references:
   - name: (
   - uid: Avalonia.Input.PointerEventArgs
     name: PointerEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
-  commentId: M:Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
-  parent: Avalonia.Input.InputElement
-  isExternal: true
-  name: OnPointerExited(PointerEventArgs)
-  nameWithType: InputElement.OnPointerExited(PointerEventArgs)
-  fullName: Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
-    name: OnPointerExited
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.PointerEventArgs
-    name: PointerEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
-    name: OnPointerExited
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.PointerEventArgs
-    name: PointerEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
-  commentId: M:Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
-  parent: Avalonia.Input.InputElement
-  isExternal: true
-  name: OnPointerMoved(PointerEventArgs)
-  nameWithType: InputElement.OnPointerMoved(PointerEventArgs)
-  fullName: Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
-    name: OnPointerMoved
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.PointerEventArgs
-    name: PointerEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
-    name: OnPointerMoved
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.PointerEventArgs
-    name: PointerEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
-  commentId: M:Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
-  parent: Avalonia.Input.InputElement
-  isExternal: true
-  name: OnPointerPressed(PointerPressedEventArgs)
-  nameWithType: InputElement.OnPointerPressed(PointerPressedEventArgs)
-  fullName: Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
-    name: OnPointerPressed
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.PointerPressedEventArgs
-    name: PointerPressedEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
-    name: OnPointerPressed
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.PointerPressedEventArgs
-    name: PointerPressedEventArgs
     isExternal: true
   - name: )
 - uid: Avalonia.Input.InputElement.GetNextTabStopOverride
@@ -5189,6 +3372,25 @@ references:
     isExternal: true
   - name: (
   - name: )
+- uid: Avalonia.Layout.Layoutable.ApplyTemplate
+  commentId: M:Avalonia.Layout.Layoutable.ApplyTemplate
+  parent: Avalonia.Layout.Layoutable
+  isExternal: true
+  name: ApplyTemplate()
+  nameWithType: Layoutable.ApplyTemplate()
+  fullName: Avalonia.Layout.Layoutable.ApplyTemplate()
+  spec.csharp:
+  - uid: Avalonia.Layout.Layoutable.ApplyTemplate
+    name: ApplyTemplate
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Layout.Layoutable.ApplyTemplate
+    name: ApplyTemplate
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Avalonia.Layout.Layoutable.Measure(Avalonia.Size)
   commentId: M:Avalonia.Layout.Layoutable.Measure(Avalonia.Size)
   parent: Avalonia.Layout.Layoutable
@@ -5364,6 +3566,81 @@ references:
     isExternal: true
   - name: (
   - name: )
+  - name: )
+- uid: Avalonia.Layout.Layoutable.MeasureCore(Avalonia.Size)
+  commentId: M:Avalonia.Layout.Layoutable.MeasureCore(Avalonia.Size)
+  parent: Avalonia.Layout.Layoutable
+  isExternal: true
+  name: MeasureCore(Size)
+  nameWithType: Layoutable.MeasureCore(Size)
+  fullName: Avalonia.Layout.Layoutable.MeasureCore(Avalonia.Size)
+  spec.csharp:
+  - uid: Avalonia.Layout.Layoutable.MeasureCore(Avalonia.Size)
+    name: MeasureCore
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Size
+    name: Size
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Layout.Layoutable.MeasureCore(Avalonia.Size)
+    name: MeasureCore
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Size
+    name: Size
+    isExternal: true
+  - name: )
+- uid: Avalonia.Layout.Layoutable.MeasureOverride(Avalonia.Size)
+  commentId: M:Avalonia.Layout.Layoutable.MeasureOverride(Avalonia.Size)
+  parent: Avalonia.Layout.Layoutable
+  isExternal: true
+  name: MeasureOverride(Size)
+  nameWithType: Layoutable.MeasureOverride(Size)
+  fullName: Avalonia.Layout.Layoutable.MeasureOverride(Avalonia.Size)
+  spec.csharp:
+  - uid: Avalonia.Layout.Layoutable.MeasureOverride(Avalonia.Size)
+    name: MeasureOverride
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Size
+    name: Size
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Layout.Layoutable.MeasureOverride(Avalonia.Size)
+    name: MeasureOverride
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Size
+    name: Size
+    isExternal: true
+  - name: )
+- uid: Avalonia.Layout.Layoutable.ArrangeCore(Avalonia.Rect)
+  commentId: M:Avalonia.Layout.Layoutable.ArrangeCore(Avalonia.Rect)
+  parent: Avalonia.Layout.Layoutable
+  isExternal: true
+  name: ArrangeCore(Rect)
+  nameWithType: Layoutable.ArrangeCore(Rect)
+  fullName: Avalonia.Layout.Layoutable.ArrangeCore(Avalonia.Rect)
+  spec.csharp:
+  - uid: Avalonia.Layout.Layoutable.ArrangeCore(Avalonia.Rect)
+    name: ArrangeCore
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Rect
+    name: Rect
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Layout.Layoutable.ArrangeCore(Avalonia.Rect)
+    name: ArrangeCore
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Rect
+    name: Rect
+    isExternal: true
   - name: )
 - uid: Avalonia.Layout.Layoutable.ArrangeOverride(Avalonia.Size)
   commentId: M:Avalonia.Layout.Layoutable.ArrangeOverride(Avalonia.Size)
@@ -5726,31 +4003,6 @@ references:
     isExternal: true
   - name: (
   - name: )
-- uid: Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
-  commentId: M:Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
-  parent: Avalonia.Visual
-  isExternal: true
-  name: Render(DrawingContext)
-  nameWithType: Visual.Render(DrawingContext)
-  fullName: Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
-  spec.csharp:
-  - uid: Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
-    name: Render
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Media.DrawingContext
-    name: DrawingContext
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
-    name: Render
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Media.DrawingContext
-    name: DrawingContext
-    isExternal: true
-  - name: )
 - uid: Avalonia.Visual.AffectsRender``1(Avalonia.AvaloniaProperty[])
   commentId: M:Avalonia.Visual.AffectsRender``1(Avalonia.AvaloniaProperty[])
   parent: Avalonia.Visual
@@ -5888,6 +4140,25 @@ references:
     name: VisualTreeAttachmentEventArgs
     isExternal: true
   - name: )
+- uid: Avalonia.Visual.InvalidateMirrorTransform
+  commentId: M:Avalonia.Visual.InvalidateMirrorTransform
+  parent: Avalonia.Visual
+  isExternal: true
+  name: InvalidateMirrorTransform()
+  nameWithType: Visual.InvalidateMirrorTransform()
+  fullName: Avalonia.Visual.InvalidateMirrorTransform()
+  spec.csharp:
+  - uid: Avalonia.Visual.InvalidateMirrorTransform
+    name: InvalidateMirrorTransform
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Visual.InvalidateMirrorTransform
+    name: InvalidateMirrorTransform
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Avalonia.Visual.Bounds
   commentId: P:Avalonia.Visual.Bounds
   parent: Avalonia.Visual
@@ -6000,6 +4271,13 @@ references:
   name: VisualRoot
   nameWithType: Visual.VisualRoot
   fullName: Avalonia.Visual.VisualRoot
+- uid: Avalonia.Visual.BypassFlowDirectionPolicies
+  commentId: P:Avalonia.Visual.BypassFlowDirectionPolicies
+  parent: Avalonia.Visual
+  isExternal: true
+  name: BypassFlowDirectionPolicies
+  nameWithType: Visual.BypassFlowDirectionPolicies
+  fullName: Avalonia.Visual.BypassFlowDirectionPolicies
 - uid: Avalonia.Visual.AttachedToVisualTree
   commentId: E:Avalonia.Visual.AttachedToVisualTree
   parent: Avalonia.Visual
@@ -6180,6 +4458,56 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+- uid: Avalonia.StyledElement.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+  commentId: M:Avalonia.StyledElement.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+  parent: Avalonia.StyledElement
+  isExternal: true
+  name: OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs)
+  nameWithType: StyledElement.OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs)
+  fullName: Avalonia.StyledElement.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+  spec.csharp:
+  - uid: Avalonia.StyledElement.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+    name: OnAttachedToLogicalTree
+    isExternal: true
+  - name: (
+  - uid: Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs
+    name: LogicalTreeAttachmentEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.StyledElement.OnAttachedToLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+    name: OnAttachedToLogicalTree
+    isExternal: true
+  - name: (
+  - uid: Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs
+    name: LogicalTreeAttachmentEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.StyledElement.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+  commentId: M:Avalonia.StyledElement.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+  parent: Avalonia.StyledElement
+  isExternal: true
+  name: OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs)
+  nameWithType: StyledElement.OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs)
+  fullName: Avalonia.StyledElement.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+  spec.csharp:
+  - uid: Avalonia.StyledElement.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+    name: OnDetachedFromLogicalTree
+    isExternal: true
+  - name: (
+  - uid: Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs
+    name: LogicalTreeAttachmentEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.StyledElement.OnDetachedFromLogicalTree(Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs)
+    name: OnDetachedFromLogicalTree
+    isExternal: true
+  - name: (
+  - uid: Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs
+    name: LogicalTreeAttachmentEventArgs
+    isExternal: true
+  - name: )
 - uid: Avalonia.StyledElement.OnDataContextChanged(System.EventArgs)
   commentId: M:Avalonia.StyledElement.OnDataContextChanged(System.EventArgs)
   parent: Avalonia.StyledElement
@@ -6342,6 +4670,13 @@ references:
   name: PseudoClasses
   nameWithType: StyledElement.PseudoClasses
   fullName: Avalonia.StyledElement.PseudoClasses
+- uid: Avalonia.StyledElement.StyleKeyOverride
+  commentId: P:Avalonia.StyledElement.StyleKeyOverride
+  parent: Avalonia.StyledElement
+  isExternal: true
+  name: StyleKeyOverride
+  nameWithType: StyledElement.StyleKeyOverride
+  fullName: Avalonia.StyledElement.StyleKeyOverride
 - uid: Avalonia.StyledElement.Parent
   commentId: P:Avalonia.StyledElement.Parent
   parent: Avalonia.StyledElement
@@ -8267,36 +6602,6 @@ references:
   - uid: Avalonia.Input
     name: Input
     isExternal: true
-- uid: Avalonia.Controls.Primitives
-  commentId: N:Avalonia.Controls.Primitives
-  isExternal: true
-  name: Avalonia.Controls.Primitives
-  nameWithType: Avalonia.Controls.Primitives
-  fullName: Avalonia.Controls.Primitives
-  spec.csharp:
-  - uid: Avalonia
-    name: Avalonia
-    isExternal: true
-  - name: .
-  - uid: Avalonia.Controls
-    name: Controls
-    isExternal: true
-  - name: .
-  - uid: Avalonia.Controls.Primitives
-    name: Primitives
-    isExternal: true
-  spec.vb:
-  - uid: Avalonia
-    name: Avalonia
-    isExternal: true
-  - name: .
-  - uid: Avalonia.Controls
-    name: Controls
-    isExternal: true
-  - name: .
-  - uid: Avalonia.Controls.Primitives
-    name: Primitives
-    isExternal: true
 - uid: System.ComponentModel
   commentId: N:System.ComponentModel
   isExternal: true
@@ -8324,6 +6629,28 @@ references:
     name: ComponentModel
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Avalonia.LogicalTree
+  commentId: N:Avalonia.LogicalTree
+  isExternal: true
+  name: Avalonia.LogicalTree
+  nameWithType: Avalonia.LogicalTree
+  fullName: Avalonia.LogicalTree
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.LogicalTree
+    name: LogicalTree
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.LogicalTree
+    name: LogicalTree
+    isExternal: true
 - uid: Avalonia.Styling
   commentId: N:Avalonia.Styling
   isExternal: true
@@ -8375,28 +6702,6 @@ references:
   - name: .
   - uid: Avalonia.Controls.Templates
     name: Templates
-    isExternal: true
-- uid: Avalonia.LogicalTree
-  commentId: N:Avalonia.LogicalTree
-  isExternal: true
-  name: Avalonia.LogicalTree
-  nameWithType: Avalonia.LogicalTree
-  fullName: Avalonia.LogicalTree
-  spec.csharp:
-  - uid: Avalonia
-    name: Avalonia
-    isExternal: true
-  - name: .
-  - uid: Avalonia.LogicalTree
-    name: LogicalTree
-    isExternal: true
-  spec.vb:
-  - uid: Avalonia
-    name: Avalonia
-    isExternal: true
-  - name: .
-  - uid: Avalonia.LogicalTree
-    name: LogicalTree
     isExternal: true
 - uid: Avalonia.Interactivity.Interactive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)
   commentId: M:Avalonia.Interactivity.Interactive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)
@@ -9659,92 +7964,406 @@ references:
   name: Tripous
   nameWithType: Tripous
   fullName: Tripous
-- uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  commentId: M:Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+- uid: Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
   parent: Avalonia.Input.InputElement
   isExternal: true
-  name: OnKeyDown(KeyEventArgs)
-  nameWithType: InputElement.OnKeyDown(KeyEventArgs)
-  fullName: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+  name: OnPointerMoved(PointerEventArgs)
+  nameWithType: InputElement.OnPointerMoved(PointerEventArgs)
+  fullName: Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
   spec.csharp:
-  - uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-    name: OnKeyDown
+  - uid: Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
+    name: OnPointerMoved
     isExternal: true
   - name: (
-  - uid: Avalonia.Input.KeyEventArgs
-    name: KeyEventArgs
+  - uid: Avalonia.Input.PointerEventArgs
+    name: PointerEventArgs
     isExternal: true
   - name: )
   spec.vb:
-  - uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-    name: OnKeyDown
+  - uid: Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
+    name: OnPointerMoved
     isExternal: true
   - name: (
-  - uid: Avalonia.Input.KeyEventArgs
-    name: KeyEventArgs
+  - uid: Avalonia.Input.PointerEventArgs
+    name: PointerEventArgs
     isExternal: true
   - name: )
-- uid: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_OnKeyDown_Avalonia_Input_KeyEventArgs_
-  name: OnKeyDown
-  nameWithType: PivotGridSettingsDialog.OnKeyDown
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown
-- uid: Avalonia.Input.KeyEventArgs
-  commentId: T:Avalonia.Input.KeyEventArgs
+- uid: Avalonia.Controls.ChartControl.OnPointerMoved*
+  commentId: Overload:Avalonia.Controls.ChartControl.OnPointerMoved
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_OnPointerMoved_Avalonia_Input_PointerEventArgs_
+  name: OnPointerMoved
+  nameWithType: ChartControl.OnPointerMoved
+  fullName: Avalonia.Controls.ChartControl.OnPointerMoved
+- uid: Avalonia.Input.PointerEventArgs
+  commentId: T:Avalonia.Input.PointerEventArgs
   parent: Avalonia.Input
   isExternal: true
-  name: KeyEventArgs
-  nameWithType: KeyEventArgs
-  fullName: Avalonia.Input.KeyEventArgs
-- uid: Avalonia.Controls.PivotGridSettingsDialog
-  commentId: T:Avalonia.Controls.PivotGridSettingsDialog
-  href: Avalonia.Controls.PivotGridSettingsDialog.html
-  name: PivotGridSettingsDialog
-  nameWithType: PivotGridSettingsDialog
-  fullName: Avalonia.Controls.PivotGridSettingsDialog
-- uid: Avalonia.Controls.PivotGridSettingsDialog.#ctor*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.#ctor
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog__ctor_System_Collections_Generic_IEnumerable_Avalonia_Controls_PivotGridFieldSettingsItem__System_Boolean_System_Boolean_System_Boolean_System_Boolean_
-  name: PivotGridSettingsDialog
-  nameWithType: PivotGridSettingsDialog.PivotGridSettingsDialog
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.PivotGridSettingsDialog
-  nameWithType.vb: PivotGridSettingsDialog.New
-  fullName.vb: Avalonia.Controls.PivotGridSettingsDialog.New
-  name.vb: New
-- uid: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem}
-  commentId: T:System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.IEnumerable`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  name: IEnumerable<PivotGridFieldSettingsItem>
-  nameWithType: IEnumerable<PivotGridFieldSettingsItem>
-  fullName: System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridFieldSettingsItem>
-  nameWithType.vb: IEnumerable(Of PivotGridFieldSettingsItem)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridFieldSettingsItem)
-  name.vb: IEnumerable(Of PivotGridFieldSettingsItem)
+  name: PointerEventArgs
+  nameWithType: PointerEventArgs
+  fullName: Avalonia.Input.PointerEventArgs
+- uid: Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnPointerPressed(PointerPressedEventArgs)
+  nameWithType: InputElement.OnPointerPressed(PointerPressedEventArgs)
+  fullName: Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
   spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+    name: OnPointerPressed
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - uid: Avalonia.Input.PointerPressedEventArgs
+    name: PointerPressedEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+    name: OnPointerPressed
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.PointerPressedEventArgs
+    name: PointerPressedEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Controls.ChartControl.OnPointerPressed*
+  commentId: Overload:Avalonia.Controls.ChartControl.OnPointerPressed
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_OnPointerPressed_Avalonia_Input_PointerPressedEventArgs_
+  name: OnPointerPressed
+  nameWithType: ChartControl.OnPointerPressed
+  fullName: Avalonia.Controls.ChartControl.OnPointerPressed
+- uid: Avalonia.Input.PointerPressedEventArgs
+  commentId: T:Avalonia.Input.PointerPressedEventArgs
+  parent: Avalonia.Input
+  isExternal: true
+  name: PointerPressedEventArgs
+  nameWithType: PointerPressedEventArgs
+  fullName: Avalonia.Input.PointerPressedEventArgs
+- uid: Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnPointerExited(PointerEventArgs)
+  nameWithType: InputElement.OnPointerExited(PointerEventArgs)
+  fullName: Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
+    name: OnPointerExited
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.PointerEventArgs
+    name: PointerEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
+    name: OnPointerExited
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.PointerEventArgs
+    name: PointerEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Controls.ChartControl.OnPointerExited*
+  commentId: Overload:Avalonia.Controls.ChartControl.OnPointerExited
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_OnPointerExited_Avalonia_Input_PointerEventArgs_
+  name: OnPointerExited
+  nameWithType: ChartControl.OnPointerExited
+  fullName: Avalonia.Controls.ChartControl.OnPointerExited
+- uid: Avalonia.Controls.ChartControl
+  commentId: T:Avalonia.Controls.ChartControl
+  href: Avalonia.Controls.ChartControl.html
+  name: ChartControl
+  nameWithType: ChartControl
+  fullName: Avalonia.Controls.ChartControl
+- uid: Avalonia.Controls.ChartControl.#ctor*
+  commentId: Overload:Avalonia.Controls.ChartControl.#ctor
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl__ctor
+  name: ChartControl
+  nameWithType: ChartControl.ChartControl
+  fullName: Avalonia.Controls.ChartControl.ChartControl
+  nameWithType.vb: ChartControl.New
+  fullName.vb: Avalonia.Controls.ChartControl.New
+  name.vb: New
+- uid: Avalonia.Controls.ChartControl.CreateSettings*
+  commentId: Overload:Avalonia.Controls.ChartControl.CreateSettings
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_CreateSettings
+  name: CreateSettings
+  nameWithType: ChartControl.CreateSettings
+  fullName: Avalonia.Controls.ChartControl.CreateSettings
+- uid: Avalonia.Controls.ChartSettings
+  commentId: T:Avalonia.Controls.ChartSettings
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartSettings.html
+  name: ChartSettings
+  nameWithType: ChartSettings
+  fullName: Avalonia.Controls.ChartSettings
+- uid: Avalonia.Controls.ChartControl.ApplySettings*
+  commentId: Overload:Avalonia.Controls.ChartControl.ApplySettings
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_ApplySettings_Avalonia_Controls_ChartSettings_
+  name: ApplySettings
+  nameWithType: ChartControl.ApplySettings
+  fullName: Avalonia.Controls.ChartControl.ApplySettings
+- uid: Avalonia.Controls.ChartControl.SaveSettings*
+  commentId: Overload:Avalonia.Controls.ChartControl.SaveSettings
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_SaveSettings_System_String_
+  name: SaveSettings
+  nameWithType: ChartControl.SaveSettings
+  fullName: Avalonia.Controls.ChartControl.SaveSettings
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.ChartControl.LoadSettings*
+  commentId: Overload:Avalonia.Controls.ChartControl.LoadSettings
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_LoadSettings_System_String_
+  name: LoadSettings
+  nameWithType: ChartControl.LoadSettings
+  fullName: Avalonia.Controls.ChartControl.LoadSettings
+- uid: Avalonia.Controls.ChartControl.ShowSettingsDialogAsync*
+  commentId: Overload:Avalonia.Controls.ChartControl.ShowSettingsDialogAsync
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_ShowSettingsDialogAsync
+  name: ShowSettingsDialogAsync
+  nameWithType: ChartControl.ShowSettingsDialogAsync
+  fullName: Avalonia.Controls.ChartControl.ShowSettingsDialogAsync
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: T:System.Threading.Tasks.Task{System.Boolean}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<bool>
+  nameWithType: Task<bool>
+  fullName: System.Threading.Tasks.Task<bool>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: <
-  - uid: Avalonia.Controls.PivotGridFieldSettingsItem
-    name: PivotGridFieldSettingsItem
-    href: Avalonia.Controls.PivotGridFieldSettingsItem.html
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: '>'
   spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
   - name: (
   - name: Of
   - name: " "
-  - uid: Avalonia.Controls.PivotGridFieldSettingsItem
-    name: PivotGridFieldSettingsItem
-    href: Avalonia.Controls.PivotGridFieldSettingsItem.html
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Avalonia.Controls.ChartControl.HitTest*
+  commentId: Overload:Avalonia.Controls.ChartControl.HitTest
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_HitTest_Avalonia_Point_
+  name: HitTest
+  nameWithType: ChartControl.HitTest
+  fullName: Avalonia.Controls.ChartControl.HitTest
+- uid: Avalonia.Point
+  commentId: T:Avalonia.Point
+  parent: Avalonia
+  isExternal: true
+  name: Point
+  nameWithType: Point
+  fullName: Avalonia.Point
+- uid: Avalonia.Controls.ChartHitTestResult
+  commentId: T:Avalonia.Controls.ChartHitTestResult
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartHitTestResult.html
+  name: ChartHitTestResult
+  nameWithType: ChartHitTestResult
+  fullName: Avalonia.Controls.ChartHitTestResult
+- uid: Avalonia.Controls.ChartControl.GetToolTipText*
+  commentId: Overload:Avalonia.Controls.ChartControl.GetToolTipText
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_GetToolTipText_Avalonia_Point_
+  name: GetToolTipText
+  nameWithType: ChartControl.GetToolTipText
+  fullName: Avalonia.Controls.ChartControl.GetToolTipText
+- uid: Avalonia.Media.DrawingContext
+  commentId: T:Avalonia.Media.DrawingContext
+  parent: Avalonia.Media
+  isExternal: true
+  name: DrawingContext
+  nameWithType: DrawingContext
+  fullName: Avalonia.Media.DrawingContext
+- uid: Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
+  commentId: M:Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
+  parent: Avalonia.Visual
+  isExternal: true
+  name: Render(DrawingContext)
+  nameWithType: Visual.Render(DrawingContext)
+  fullName: Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
+  spec.csharp:
+  - uid: Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
+    name: Render
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Media.DrawingContext
+    name: DrawingContext
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Visual.Render(Avalonia.Media.DrawingContext)
+    name: Render
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Media.DrawingContext
+    name: DrawingContext
+    isExternal: true
+  - name: )
+- uid: Avalonia.Controls.ChartControl.Render*
+  commentId: Overload:Avalonia.Controls.ChartControl.Render
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_Render_Avalonia_Media_DrawingContext_
+  name: Render
+  nameWithType: ChartControl.Render
+  fullName: Avalonia.Controls.ChartControl.Render
+- uid: Avalonia.Media
+  commentId: N:Avalonia.Media
+  isExternal: true
+  name: Avalonia.Media
+  nameWithType: Avalonia.Media
+  fullName: Avalonia.Media
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Media
+    name: Media
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Media
+    name: Media
+    isExternal: true
+- uid: Avalonia.Controls.ChartControl.Engine*
+  commentId: Overload:Avalonia.Controls.ChartControl.Engine
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_Engine
+  name: Engine
+  nameWithType: ChartControl.Engine
+  fullName: Avalonia.Controls.ChartControl.Engine
+- uid: Avalonia.Controls.ChartEngine
+  commentId: T:Avalonia.Controls.ChartEngine
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartEngine.html
+  name: ChartEngine
+  nameWithType: ChartEngine
+  fullName: Avalonia.Controls.ChartEngine
+- uid: Avalonia.Controls.ChartControl.Settings*
+  commentId: Overload:Avalonia.Controls.ChartControl.Settings
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_Settings
+  name: Settings
+  nameWithType: ChartControl.Settings
+  fullName: Avalonia.Controls.ChartControl.Settings
+- uid: Avalonia.Controls.ChartControl.DataAdapter*
+  commentId: Overload:Avalonia.Controls.ChartControl.DataAdapter
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_DataAdapter
+  name: DataAdapter
+  nameWithType: ChartControl.DataAdapter
+  fullName: Avalonia.Controls.ChartControl.DataAdapter
+- uid: Avalonia.Controls.IChartDataAdapter
+  commentId: T:Avalonia.Controls.IChartDataAdapter
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.IChartDataAdapter.html
+  name: IChartDataAdapter
+  nameWithType: IChartDataAdapter
+  fullName: Avalonia.Controls.IChartDataAdapter
+- uid: Avalonia.Controls.ChartControl.ItemsSource*
+  commentId: Overload:Avalonia.Controls.ChartControl.ItemsSource
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_ItemsSource
+  name: ItemsSource
+  nameWithType: ChartControl.ItemsSource
+  fullName: Avalonia.Controls.ChartControl.ItemsSource
+- uid: Avalonia.Controls.ChartControl.IsSettingsMenuItemsVisible*
+  commentId: Overload:Avalonia.Controls.ChartControl.IsSettingsMenuItemsVisible
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_IsSettingsMenuItemsVisible
+  name: IsSettingsMenuItemsVisible
+  nameWithType: ChartControl.IsSettingsMenuItemsVisible
+  fullName: Avalonia.Controls.ChartControl.IsSettingsMenuItemsVisible
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -9756,159 +8375,9 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: System.Collections.Generic.IEnumerable`1
-  commentId: T:System.Collections.Generic.IEnumerable`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  name: IEnumerable<T>
-  nameWithType: IEnumerable<T>
-  fullName: System.Collections.Generic.IEnumerable<T>
-  nameWithType.vb: IEnumerable(Of T)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
-  name.vb: IEnumerable(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-- uid: Avalonia.Controls.PivotGridSettingsDialog.Items*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.Items
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_Items
-  name: Items
-  nameWithType: PivotGridSettingsDialog.Items
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.Items
-- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridFieldSettingsItem}
-  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridFieldSettingsItem}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.IReadOnlyList`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  name: IReadOnlyList<PivotGridFieldSettingsItem>
-  nameWithType: IReadOnlyList<PivotGridFieldSettingsItem>
-  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.PivotGridFieldSettingsItem>
-  nameWithType.vb: IReadOnlyList(Of PivotGridFieldSettingsItem)
-  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.PivotGridFieldSettingsItem)
-  name.vb: IReadOnlyList(Of PivotGridFieldSettingsItem)
-  spec.csharp:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: <
-  - uid: Avalonia.Controls.PivotGridFieldSettingsItem
-    name: PivotGridFieldSettingsItem
-    href: Avalonia.Controls.PivotGridFieldSettingsItem.html
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Avalonia.Controls.PivotGridFieldSettingsItem
-    name: PivotGridFieldSettingsItem
-    href: Avalonia.Controls.PivotGridFieldSettingsItem.html
-  - name: )
-- uid: System.Collections.Generic.IReadOnlyList`1
-  commentId: T:System.Collections.Generic.IReadOnlyList`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  name: IReadOnlyList<T>
-  nameWithType: IReadOnlyList<T>
-  fullName: System.Collections.Generic.IReadOnlyList<T>
-  nameWithType.vb: IReadOnlyList(Of T)
-  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
-  name.vb: IReadOnlyList(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_ShowFieldPanel
-  name: ShowFieldPanel
-  nameWithType: PivotGridSettingsDialog.ShowFieldPanel
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_ShowRowGrandTotals
-  name: ShowRowGrandTotals
-  nameWithType: PivotGridSettingsDialog.ShowRowGrandTotals
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_ShowColumnGrandTotals
-  name: ShowColumnGrandTotals
-  nameWithType: PivotGridSettingsDialog.ShowColumnGrandTotals
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_ShowToolTips
-  name: ShowToolTips
-  nameWithType: PivotGridSettingsDialog.ShowToolTips
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
+- uid: Avalonia.Controls.ChartControl.SettingsSuggestedFileName*
+  commentId: Overload:Avalonia.Controls.ChartControl.SettingsSuggestedFileName
+  href: Avalonia.Controls.ChartControl.html#Avalonia_Controls_ChartControl_SettingsSuggestedFileName
+  name: SettingsSuggestedFileName
+  nameWithType: ChartControl.SettingsSuggestedFileName
+  fullName: Avalonia.Controls.ChartControl.SettingsSuggestedFileName

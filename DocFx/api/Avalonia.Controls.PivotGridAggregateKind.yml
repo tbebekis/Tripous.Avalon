@@ -7,9 +7,15 @@ items:
   children:
   - Avalonia.Controls.PivotGridAggregateKind.Average
   - Avalonia.Controls.PivotGridAggregateKind.Count
+  - Avalonia.Controls.PivotGridAggregateKind.CountDistinct
   - Avalonia.Controls.PivotGridAggregateKind.Max
   - Avalonia.Controls.PivotGridAggregateKind.Min
+  - Avalonia.Controls.PivotGridAggregateKind.Product
+  - Avalonia.Controls.PivotGridAggregateKind.StdDev
+  - Avalonia.Controls.PivotGridAggregateKind.StdDevP
   - Avalonia.Controls.PivotGridAggregateKind.Sum
+  - Avalonia.Controls.PivotGridAggregateKind.Variance
+  - Avalonia.Controls.PivotGridAggregateKind.VarianceP
   langs:
   - csharp
   - vb
@@ -183,6 +189,174 @@ items:
   example: []
   syntax:
     content: Average = 4
+    return:
+      type: Avalonia.Controls.PivotGridAggregateKind
+- uid: Avalonia.Controls.PivotGridAggregateKind.StdDev
+  commentId: F:Avalonia.Controls.PivotGridAggregateKind.StdDev
+  id: StdDev
+  parent: Avalonia.Controls.PivotGridAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: StdDev
+  nameWithType: PivotGridAggregateKind.StdDev
+  fullName: Avalonia.Controls.PivotGridAggregateKind.StdDev
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StdDev
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the sample standard deviation of numeric values.
+  example: []
+  syntax:
+    content: StdDev = 5
+    return:
+      type: Avalonia.Controls.PivotGridAggregateKind
+- uid: Avalonia.Controls.PivotGridAggregateKind.StdDevP
+  commentId: F:Avalonia.Controls.PivotGridAggregateKind.StdDevP
+  id: StdDevP
+  parent: Avalonia.Controls.PivotGridAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: StdDevP
+  nameWithType: PivotGridAggregateKind.StdDevP
+  fullName: Avalonia.Controls.PivotGridAggregateKind.StdDevP
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StdDevP
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the population standard deviation of numeric values.
+  example: []
+  syntax:
+    content: StdDevP = 6
+    return:
+      type: Avalonia.Controls.PivotGridAggregateKind
+- uid: Avalonia.Controls.PivotGridAggregateKind.Variance
+  commentId: F:Avalonia.Controls.PivotGridAggregateKind.Variance
+  id: Variance
+  parent: Avalonia.Controls.PivotGridAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: Variance
+  nameWithType: PivotGridAggregateKind.Variance
+  fullName: Avalonia.Controls.PivotGridAggregateKind.Variance
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Variance
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+    startLine: 41
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the sample variance of numeric values.
+  example: []
+  syntax:
+    content: Variance = 7
+    return:
+      type: Avalonia.Controls.PivotGridAggregateKind
+- uid: Avalonia.Controls.PivotGridAggregateKind.VarianceP
+  commentId: F:Avalonia.Controls.PivotGridAggregateKind.VarianceP
+  id: VarianceP
+  parent: Avalonia.Controls.PivotGridAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: VarianceP
+  nameWithType: PivotGridAggregateKind.VarianceP
+  fullName: Avalonia.Controls.PivotGridAggregateKind.VarianceP
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: VarianceP
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+    startLine: 45
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the population variance of numeric values.
+  example: []
+  syntax:
+    content: VarianceP = 8
+    return:
+      type: Avalonia.Controls.PivotGridAggregateKind
+- uid: Avalonia.Controls.PivotGridAggregateKind.CountDistinct
+  commentId: F:Avalonia.Controls.PivotGridAggregateKind.CountDistinct
+  id: CountDistinct
+  parent: Avalonia.Controls.PivotGridAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: CountDistinct
+  nameWithType: PivotGridAggregateKind.CountDistinct
+  fullName: Avalonia.Controls.PivotGridAggregateKind.CountDistinct
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CountDistinct
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Counts distinct non-empty values.
+  example: []
+  syntax:
+    content: CountDistinct = 9
+    return:
+      type: Avalonia.Controls.PivotGridAggregateKind
+- uid: Avalonia.Controls.PivotGridAggregateKind.Product
+  commentId: F:Avalonia.Controls.PivotGridAggregateKind.Product
+  id: Product
+  parent: Avalonia.Controls.PivotGridAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: Product
+  nameWithType: PivotGridAggregateKind.Product
+  fullName: Avalonia.Controls.PivotGridAggregateKind.Product
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Product
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridAggregateKind.cs
+    startLine: 53
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the product of numeric values.
+  example: []
+  syntax:
+    content: Product = 10
     return:
       type: Avalonia.Controls.PivotGridAggregateKind
 references:

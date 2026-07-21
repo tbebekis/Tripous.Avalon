@@ -1,38 +1,36 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Avalonia.Controls.PivotGridFieldRules
-  commentId: T:Avalonia.Controls.PivotGridFieldRules
-  id: PivotGridFieldRules
+- uid: Avalonia.Controls.ChartFieldRules
+  commentId: T:Avalonia.Controls.ChartFieldRules
+  id: ChartFieldRules
   parent: Avalonia.Controls
   children:
-  - Avalonia.Controls.PivotGridFieldRules.CanUseAsAxis(System.Type)
-  - Avalonia.Controls.PivotGridFieldRules.CanUseAsMeasure(System.Type)
-  - Avalonia.Controls.PivotGridFieldRules.CreateSourceField(System.String,System.String,System.Type)
-  - Avalonia.Controls.PivotGridFieldRules.GetDefaultAggregateKind(System.Type)
-  - Avalonia.Controls.PivotGridFieldRules.IsNumericType(System.Type)
+  - Avalonia.Controls.ChartFieldRules.CreateSourceField(System.String,System.String,System.Type)
+  - Avalonia.Controls.ChartFieldRules.IsDimensionType(System.Type)
+  - Avalonia.Controls.ChartFieldRules.IsNumericType(System.Type)
   langs:
   - csharp
   - vb
-  name: PivotGridFieldRules
-  nameWithType: PivotGridFieldRules
-  fullName: Avalonia.Controls.PivotGridFieldRules
+  name: ChartFieldRules
+  nameWithType: ChartFieldRules
+  fullName: Avalonia.Controls.ChartFieldRules
   type: Class
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartFieldRules.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: PivotGridFieldRules
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
+    id: ChartFieldRules
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartFieldRules.cs
     startLine: 8
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Provides source field validation helpers for <xref href="Avalonia.Controls.PivotGrid" data-throw-if-not-resolved="false"></xref>.
+  summary: Provides source field rules used by chart adapters.
   example: []
   syntax:
-    content: public static class PivotGridFieldRules
-    content.vb: Public Module PivotGridFieldRules
+    content: public static class ChartFieldRules
+    content.vb: Public Module ChartFieldRules
   inheritance:
   - System.Object
   inheritedMembers:
@@ -43,29 +41,29 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-- uid: Avalonia.Controls.PivotGridFieldRules.IsNumericType(System.Type)
-  commentId: M:Avalonia.Controls.PivotGridFieldRules.IsNumericType(System.Type)
+- uid: Avalonia.Controls.ChartFieldRules.IsNumericType(System.Type)
+  commentId: M:Avalonia.Controls.ChartFieldRules.IsNumericType(System.Type)
   id: IsNumericType(System.Type)
-  parent: Avalonia.Controls.PivotGridFieldRules
+  parent: Avalonia.Controls.ChartFieldRules
   langs:
   - csharp
   - vb
   name: IsNumericType(Type)
-  nameWithType: PivotGridFieldRules.IsNumericType(Type)
-  fullName: Avalonia.Controls.PivotGridFieldRules.IsNumericType(System.Type)
+  nameWithType: ChartFieldRules.IsNumericType(Type)
+  fullName: Avalonia.Controls.ChartFieldRules.IsNumericType(System.Type)
   type: Method
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartFieldRules.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsNumericType
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartFieldRules.cs
     startLine: 16
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Returns true when a value type is numeric.
+  summary: Returns true when a type can be treated as numeric.
   example: []
   syntax:
     content: public static bool IsNumericType(Type ValueType)
@@ -75,166 +73,89 @@ items:
       description: The value type.
     return:
       type: System.Boolean
-      description: True if the type is numeric; otherwise, false.
+      description: True if numeric; otherwise, false.
     content.vb: Public Shared Function IsNumericType(ValueType As Type) As Boolean
-  overload: Avalonia.Controls.PivotGridFieldRules.IsNumericType*
-- uid: Avalonia.Controls.PivotGridFieldRules.CanUseAsAxis(System.Type)
-  commentId: M:Avalonia.Controls.PivotGridFieldRules.CanUseAsAxis(System.Type)
-  id: CanUseAsAxis(System.Type)
-  parent: Avalonia.Controls.PivotGridFieldRules
+  overload: Avalonia.Controls.ChartFieldRules.IsNumericType*
+- uid: Avalonia.Controls.ChartFieldRules.IsDimensionType(System.Type)
+  commentId: M:Avalonia.Controls.ChartFieldRules.IsDimensionType(System.Type)
+  id: IsDimensionType(System.Type)
+  parent: Avalonia.Controls.ChartFieldRules
   langs:
   - csharp
   - vb
-  name: CanUseAsAxis(Type)
-  nameWithType: PivotGridFieldRules.CanUseAsAxis(Type)
-  fullName: Avalonia.Controls.PivotGridFieldRules.CanUseAsAxis(System.Type)
+  name: IsDimensionType(Type)
+  nameWithType: ChartFieldRules.IsDimensionType(Type)
+  fullName: Avalonia.Controls.ChartFieldRules.IsDimensionType(System.Type)
   type: Method
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartFieldRules.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: CanUseAsAxis
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
+    id: IsDimensionType
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartFieldRules.cs
     startLine: 36
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Returns true when a value type can be used as a row or column axis field.
+  summary: Returns true when a type can be used as a chart dimension.
   example: []
   syntax:
-    content: public static bool CanUseAsAxis(Type ValueType)
+    content: public static bool IsDimensionType(Type ValueType)
     parameters:
     - id: ValueType
       type: System.Type
       description: The value type.
     return:
       type: System.Boolean
-      description: True if the type can be used as an axis field; otherwise, false.
-    content.vb: Public Shared Function CanUseAsAxis(ValueType As Type) As Boolean
-  overload: Avalonia.Controls.PivotGridFieldRules.CanUseAsAxis*
-- uid: Avalonia.Controls.PivotGridFieldRules.CanUseAsMeasure(System.Type)
-  commentId: M:Avalonia.Controls.PivotGridFieldRules.CanUseAsMeasure(System.Type)
-  id: CanUseAsMeasure(System.Type)
-  parent: Avalonia.Controls.PivotGridFieldRules
-  langs:
-  - csharp
-  - vb
-  name: CanUseAsMeasure(Type)
-  nameWithType: PivotGridFieldRules.CanUseAsMeasure(Type)
-  fullName: Avalonia.Controls.PivotGridFieldRules.CanUseAsMeasure(System.Type)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: CanUseAsMeasure
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
-    startLine: 52
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Returns true when a value type can be used as a measure field.
-  example: []
-  syntax:
-    content: public static bool CanUseAsMeasure(Type ValueType)
-    parameters:
-    - id: ValueType
-      type: System.Type
-      description: The value type.
-    return:
-      type: System.Boolean
-      description: True if the type can be used as a measure field; otherwise, false.
-    content.vb: Public Shared Function CanUseAsMeasure(ValueType As Type) As Boolean
-  overload: Avalonia.Controls.PivotGridFieldRules.CanUseAsMeasure*
-- uid: Avalonia.Controls.PivotGridFieldRules.GetDefaultAggregateKind(System.Type)
-  commentId: M:Avalonia.Controls.PivotGridFieldRules.GetDefaultAggregateKind(System.Type)
-  id: GetDefaultAggregateKind(System.Type)
-  parent: Avalonia.Controls.PivotGridFieldRules
-  langs:
-  - csharp
-  - vb
-  name: GetDefaultAggregateKind(Type)
-  nameWithType: PivotGridFieldRules.GetDefaultAggregateKind(Type)
-  fullName: Avalonia.Controls.PivotGridFieldRules.GetDefaultAggregateKind(System.Type)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: GetDefaultAggregateKind
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
-    startLine: 62
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Returns the default aggregate kind for a measure value type.
-  example: []
-  syntax:
-    content: public static PivotGridAggregateKind GetDefaultAggregateKind(Type ValueType)
-    parameters:
-    - id: ValueType
-      type: System.Type
-      description: The value type.
-    return:
-      type: Avalonia.Controls.PivotGridAggregateKind
-      description: The default aggregate kind.
-    content.vb: Public Shared Function GetDefaultAggregateKind(ValueType As Type) As PivotGridAggregateKind
-  overload: Avalonia.Controls.PivotGridFieldRules.GetDefaultAggregateKind*
-- uid: Avalonia.Controls.PivotGridFieldRules.CreateSourceField(System.String,System.String,System.Type)
-  commentId: M:Avalonia.Controls.PivotGridFieldRules.CreateSourceField(System.String,System.String,System.Type)
+      description: True if the type is supported; otherwise, false.
+    content.vb: Public Shared Function IsDimensionType(ValueType As Type) As Boolean
+  overload: Avalonia.Controls.ChartFieldRules.IsDimensionType*
+- uid: Avalonia.Controls.ChartFieldRules.CreateSourceField(System.String,System.String,System.Type)
+  commentId: M:Avalonia.Controls.ChartFieldRules.CreateSourceField(System.String,System.String,System.Type)
   id: CreateSourceField(System.String,System.String,System.Type)
-  parent: Avalonia.Controls.PivotGridFieldRules
+  parent: Avalonia.Controls.ChartFieldRules
   langs:
   - csharp
   - vb
   name: CreateSourceField(string, string, Type)
-  nameWithType: PivotGridFieldRules.CreateSourceField(string, string, Type)
-  fullName: Avalonia.Controls.PivotGridFieldRules.CreateSourceField(string, string, System.Type)
+  nameWithType: ChartFieldRules.CreateSourceField(string, string, Type)
+  fullName: Avalonia.Controls.ChartFieldRules.CreateSourceField(string, string, System.Type)
   type: Method
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartFieldRules.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateSourceField
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldRules.cs
-    startLine: 74
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartFieldRules.cs
+    startLine: 55
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Creates source field metadata.
+  summary: Creates a source field descriptor.
   example: []
   syntax:
-    content: public static PivotGridSourceField CreateSourceField(string Name, string Header, Type ValueType)
+    content: public static ChartSourceField CreateSourceField(string Name, string Header, Type ValueType)
     parameters:
     - id: Name
       type: System.String
       description: The field name.
     - id: Header
       type: System.String
-      description: The display header.
+      description: The field header.
     - id: ValueType
       type: System.Type
-      description: The value type.
+      description: The field value type.
     return:
-      type: Avalonia.Controls.PivotGridSourceField
-      description: The source field metadata.
-    content.vb: Public Shared Function CreateSourceField(Name As String, Header As String, ValueType As Type) As PivotGridSourceField
-  overload: Avalonia.Controls.PivotGridFieldRules.CreateSourceField*
-  nameWithType.vb: PivotGridFieldRules.CreateSourceField(String, String, Type)
-  fullName.vb: Avalonia.Controls.PivotGridFieldRules.CreateSourceField(String, String, System.Type)
+      type: Avalonia.Controls.ChartSourceField
+      description: The source field descriptor.
+    content.vb: Public Shared Function CreateSourceField(Name As String, Header As String, ValueType As Type) As ChartSourceField
+  overload: Avalonia.Controls.ChartFieldRules.CreateSourceField*
+  nameWithType.vb: ChartFieldRules.CreateSourceField(String, String, Type)
+  fullName.vb: Avalonia.Controls.ChartFieldRules.CreateSourceField(String, String, System.Type)
   name.vb: CreateSourceField(String, String, Type)
 references:
-- uid: Avalonia.Controls.PivotGrid
-  commentId: T:Avalonia.Controls.PivotGrid
-  parent: Avalonia.Controls
-  href: Avalonia.Controls.PivotGrid.html
-  name: PivotGrid
-  nameWithType: PivotGrid
-  fullName: Avalonia.Controls.PivotGrid
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
   href: Avalonia.html
@@ -494,12 +415,12 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Avalonia.Controls.PivotGridFieldRules.IsNumericType*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldRules.IsNumericType
-  href: Avalonia.Controls.PivotGridFieldRules.html#Avalonia_Controls_PivotGridFieldRules_IsNumericType_System_Type_
+- uid: Avalonia.Controls.ChartFieldRules.IsNumericType*
+  commentId: Overload:Avalonia.Controls.ChartFieldRules.IsNumericType
+  href: Avalonia.Controls.ChartFieldRules.html#Avalonia_Controls_ChartFieldRules_IsNumericType_System_Type_
   name: IsNumericType
-  nameWithType: PivotGridFieldRules.IsNumericType
-  fullName: Avalonia.Controls.PivotGridFieldRules.IsNumericType
+  nameWithType: ChartFieldRules.IsNumericType
+  fullName: Avalonia.Controls.ChartFieldRules.IsNumericType
 - uid: System.Type
   commentId: T:System.Type
   parent: System
@@ -519,37 +440,18 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: Avalonia.Controls.PivotGridFieldRules.CanUseAsAxis*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldRules.CanUseAsAxis
-  href: Avalonia.Controls.PivotGridFieldRules.html#Avalonia_Controls_PivotGridFieldRules_CanUseAsAxis_System_Type_
-  name: CanUseAsAxis
-  nameWithType: PivotGridFieldRules.CanUseAsAxis
-  fullName: Avalonia.Controls.PivotGridFieldRules.CanUseAsAxis
-- uid: Avalonia.Controls.PivotGridFieldRules.CanUseAsMeasure*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldRules.CanUseAsMeasure
-  href: Avalonia.Controls.PivotGridFieldRules.html#Avalonia_Controls_PivotGridFieldRules_CanUseAsMeasure_System_Type_
-  name: CanUseAsMeasure
-  nameWithType: PivotGridFieldRules.CanUseAsMeasure
-  fullName: Avalonia.Controls.PivotGridFieldRules.CanUseAsMeasure
-- uid: Avalonia.Controls.PivotGridFieldRules.GetDefaultAggregateKind*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldRules.GetDefaultAggregateKind
-  href: Avalonia.Controls.PivotGridFieldRules.html#Avalonia_Controls_PivotGridFieldRules_GetDefaultAggregateKind_System_Type_
-  name: GetDefaultAggregateKind
-  nameWithType: PivotGridFieldRules.GetDefaultAggregateKind
-  fullName: Avalonia.Controls.PivotGridFieldRules.GetDefaultAggregateKind
-- uid: Avalonia.Controls.PivotGridAggregateKind
-  commentId: T:Avalonia.Controls.PivotGridAggregateKind
-  parent: Avalonia.Controls
-  href: Avalonia.Controls.PivotGridAggregateKind.html
-  name: PivotGridAggregateKind
-  nameWithType: PivotGridAggregateKind
-  fullName: Avalonia.Controls.PivotGridAggregateKind
-- uid: Avalonia.Controls.PivotGridFieldRules.CreateSourceField*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldRules.CreateSourceField
-  href: Avalonia.Controls.PivotGridFieldRules.html#Avalonia_Controls_PivotGridFieldRules_CreateSourceField_System_String_System_String_System_Type_
+- uid: Avalonia.Controls.ChartFieldRules.IsDimensionType*
+  commentId: Overload:Avalonia.Controls.ChartFieldRules.IsDimensionType
+  href: Avalonia.Controls.ChartFieldRules.html#Avalonia_Controls_ChartFieldRules_IsDimensionType_System_Type_
+  name: IsDimensionType
+  nameWithType: ChartFieldRules.IsDimensionType
+  fullName: Avalonia.Controls.ChartFieldRules.IsDimensionType
+- uid: Avalonia.Controls.ChartFieldRules.CreateSourceField*
+  commentId: Overload:Avalonia.Controls.ChartFieldRules.CreateSourceField
+  href: Avalonia.Controls.ChartFieldRules.html#Avalonia_Controls_ChartFieldRules_CreateSourceField_System_String_System_String_System_Type_
   name: CreateSourceField
-  nameWithType: PivotGridFieldRules.CreateSourceField
-  fullName: Avalonia.Controls.PivotGridFieldRules.CreateSourceField
+  nameWithType: ChartFieldRules.CreateSourceField
+  fullName: Avalonia.Controls.ChartFieldRules.CreateSourceField
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -561,10 +463,10 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
-- uid: Avalonia.Controls.PivotGridSourceField
-  commentId: T:Avalonia.Controls.PivotGridSourceField
+- uid: Avalonia.Controls.ChartSourceField
+  commentId: T:Avalonia.Controls.ChartSourceField
   parent: Avalonia.Controls
-  href: Avalonia.Controls.PivotGridSourceField.html
-  name: PivotGridSourceField
-  nameWithType: PivotGridSourceField
-  fullName: Avalonia.Controls.PivotGridSourceField
+  href: Avalonia.Controls.ChartSourceField.html
+  name: ChartSourceField
+  nameWithType: ChartSourceField
+  fullName: Avalonia.Controls.ChartSourceField

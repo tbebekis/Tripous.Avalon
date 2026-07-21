@@ -448,7 +448,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 399
+    startLine: 419
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -479,7 +479,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetConnections
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 410
+    startLine: 430
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -514,7 +514,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Reload
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 421
+    startLine: 441
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -542,7 +542,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Connections
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 430
+    startLine: 450
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -573,7 +573,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Options
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 434
+    startLine: 454
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -604,7 +604,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectedConnection
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 446
+    startLine: 466
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -635,7 +635,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConnectionSelected
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 452
+    startLine: 472
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -664,7 +664,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OpenSqlRequested
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 456
+    startLine: 476
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -693,7 +693,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SqlTextRequested
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 460
+    startLine: 480
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -722,7 +722,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LogMessage
     path: ../Tripous.Desktop/Forms/Database/DbConnectionExplorerControl.axaml.cs
-    startLine: 464
+    startLine: 484
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -747,7 +747,7 @@ items:
   source:
     id: InitializeComponent
     path: /home/teo/Dev/CSharp/Tripous.Avalon/Tripous.Desktop/obj/Release/net10.0/Avalonia.Generators/Avalonia.Generators.NameGenerator.AvaloniaNameIncrementalGenerator/Tripous.Desktop.DbConnectionExplorerControl.g.cs
-    startLine: 54
+    startLine: 58
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop

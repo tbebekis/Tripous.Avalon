@@ -4,6 +4,24 @@ items:
   commentId: N:Avalonia.Controls
   id: Avalonia.Controls
   children:
+  - Avalonia.Controls.ChartAggregateKind
+  - Avalonia.Controls.ChartControl
+  - Avalonia.Controls.ChartDataChangedEventArgs
+  - Avalonia.Controls.ChartDataPoint
+  - Avalonia.Controls.ChartDataViewDataAdapter
+  - Avalonia.Controls.ChartEngine
+  - Avalonia.Controls.ChartFieldRules
+  - Avalonia.Controls.ChartHitTestKind
+  - Avalonia.Controls.ChartHitTestResult
+  - Avalonia.Controls.ChartListDataAdapter
+  - Avalonia.Controls.ChartMeasure
+  - Avalonia.Controls.ChartPalette
+  - Avalonia.Controls.ChartSeries
+  - Avalonia.Controls.ChartSettings
+  - Avalonia.Controls.ChartSettingsDialog
+  - Avalonia.Controls.ChartSortDirection
+  - Avalonia.Controls.ChartSourceField
+  - Avalonia.Controls.ChartType
   - Avalonia.Controls.GroupGrid
   - Avalonia.Controls.GroupGridAggregateKind
   - Avalonia.Controls.GroupGridBand
@@ -55,6 +73,7 @@ items:
   - Avalonia.Controls.GroupGridToolButtonAlignment
   - Avalonia.Controls.GroupGridToolButtonEventArgs
   - Avalonia.Controls.GroupGridViewport
+  - Avalonia.Controls.IChartDataAdapter
   - Avalonia.Controls.IGroupGridDataAdapter
   - Avalonia.Controls.IGroupGridDropDownEditorHost
   - Avalonia.Controls.IPivotGridDataAdapter
@@ -106,6 +125,132 @@ items:
   assemblies:
   - Tripous.Avalonia.Controls
 references:
+- uid: Avalonia.Controls.ChartAggregateKind
+  commentId: T:Avalonia.Controls.ChartAggregateKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartAggregateKind.html
+  name: ChartAggregateKind
+  nameWithType: ChartAggregateKind
+  fullName: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartControl
+  commentId: T:Avalonia.Controls.ChartControl
+  href: Avalonia.Controls.ChartControl.html
+  name: ChartControl
+  nameWithType: ChartControl
+  fullName: Avalonia.Controls.ChartControl
+- uid: Avalonia.Controls.ChartDataChangedEventArgs
+  commentId: T:Avalonia.Controls.ChartDataChangedEventArgs
+  href: Avalonia.Controls.ChartDataChangedEventArgs.html
+  name: ChartDataChangedEventArgs
+  nameWithType: ChartDataChangedEventArgs
+  fullName: Avalonia.Controls.ChartDataChangedEventArgs
+- uid: Avalonia.Controls.ChartDataPoint
+  commentId: T:Avalonia.Controls.ChartDataPoint
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartDataPoint.html
+  name: ChartDataPoint
+  nameWithType: ChartDataPoint
+  fullName: Avalonia.Controls.ChartDataPoint
+- uid: Avalonia.Controls.ChartDataViewDataAdapter
+  commentId: T:Avalonia.Controls.ChartDataViewDataAdapter
+  href: Avalonia.Controls.ChartDataViewDataAdapter.html
+  name: ChartDataViewDataAdapter
+  nameWithType: ChartDataViewDataAdapter
+  fullName: Avalonia.Controls.ChartDataViewDataAdapter
+- uid: Avalonia.Controls.ChartEngine
+  commentId: T:Avalonia.Controls.ChartEngine
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartEngine.html
+  name: ChartEngine
+  nameWithType: ChartEngine
+  fullName: Avalonia.Controls.ChartEngine
+- uid: Avalonia.Controls.ChartFieldRules
+  commentId: T:Avalonia.Controls.ChartFieldRules
+  href: Avalonia.Controls.ChartFieldRules.html
+  name: ChartFieldRules
+  nameWithType: ChartFieldRules
+  fullName: Avalonia.Controls.ChartFieldRules
+- uid: Avalonia.Controls.ChartHitTestKind
+  commentId: T:Avalonia.Controls.ChartHitTestKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartHitTestKind.html
+  name: ChartHitTestKind
+  nameWithType: ChartHitTestKind
+  fullName: Avalonia.Controls.ChartHitTestKind
+- uid: Avalonia.Controls.ChartHitTestResult
+  commentId: T:Avalonia.Controls.ChartHitTestResult
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartHitTestResult.html
+  name: ChartHitTestResult
+  nameWithType: ChartHitTestResult
+  fullName: Avalonia.Controls.ChartHitTestResult
+- uid: Avalonia.Controls.ChartListDataAdapter
+  commentId: T:Avalonia.Controls.ChartListDataAdapter
+  href: Avalonia.Controls.ChartListDataAdapter.html
+  name: ChartListDataAdapter
+  nameWithType: ChartListDataAdapter
+  fullName: Avalonia.Controls.ChartListDataAdapter
+- uid: Avalonia.Controls.ChartMeasure
+  commentId: T:Avalonia.Controls.ChartMeasure
+  href: Avalonia.Controls.ChartMeasure.html
+  name: ChartMeasure
+  nameWithType: ChartMeasure
+  fullName: Avalonia.Controls.ChartMeasure
+- uid: Avalonia.Controls.ChartPalette
+  commentId: T:Avalonia.Controls.ChartPalette
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartPalette.html
+  name: ChartPalette
+  nameWithType: ChartPalette
+  fullName: Avalonia.Controls.ChartPalette
+- uid: Avalonia.Controls.ChartSeries
+  commentId: T:Avalonia.Controls.ChartSeries
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartSeries.html
+  name: ChartSeries
+  nameWithType: ChartSeries
+  fullName: Avalonia.Controls.ChartSeries
+- uid: Avalonia.Controls.ChartSettings
+  commentId: T:Avalonia.Controls.ChartSettings
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartSettings.html
+  name: ChartSettings
+  nameWithType: ChartSettings
+  fullName: Avalonia.Controls.ChartSettings
+- uid: Avalonia.Controls.ChartSettingsDialog
+  commentId: T:Avalonia.Controls.ChartSettingsDialog
+  href: Avalonia.Controls.ChartSettingsDialog.html
+  name: ChartSettingsDialog
+  nameWithType: ChartSettingsDialog
+  fullName: Avalonia.Controls.ChartSettingsDialog
+- uid: Avalonia.Controls.ChartSortDirection
+  commentId: T:Avalonia.Controls.ChartSortDirection
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartSortDirection.html
+  name: ChartSortDirection
+  nameWithType: ChartSortDirection
+  fullName: Avalonia.Controls.ChartSortDirection
+- uid: Avalonia.Controls.ChartSourceField
+  commentId: T:Avalonia.Controls.ChartSourceField
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartSourceField.html
+  name: ChartSourceField
+  nameWithType: ChartSourceField
+  fullName: Avalonia.Controls.ChartSourceField
+- uid: Avalonia.Controls.ChartType
+  commentId: T:Avalonia.Controls.ChartType
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartType.html
+  name: ChartType
+  nameWithType: ChartType
+  fullName: Avalonia.Controls.ChartType
+- uid: Avalonia.Controls.IChartDataAdapter
+  commentId: T:Avalonia.Controls.IChartDataAdapter
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.IChartDataAdapter.html
+  name: IChartDataAdapter
+  nameWithType: IChartDataAdapter
+  fullName: Avalonia.Controls.IChartDataAdapter
 - uid: Avalonia.Controls.GroupGridDataViewDataAdapter
   commentId: T:Avalonia.Controls.GroupGridDataViewDataAdapter
   href: Avalonia.Controls.GroupGridDataViewDataAdapter.html

@@ -1,40 +1,35 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Avalonia.Controls.PivotGridSettingsDialog
-  commentId: T:Avalonia.Controls.PivotGridSettingsDialog
-  id: PivotGridSettingsDialog
+- uid: Avalonia.Controls.ChartSettingsDialog
+  commentId: T:Avalonia.Controls.ChartSettingsDialog
+  id: ChartSettingsDialog
   parent: Avalonia.Controls
   children:
-  - Avalonia.Controls.PivotGridSettingsDialog.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem},System.Boolean,System.Boolean,System.Boolean,System.Boolean)
-  - Avalonia.Controls.PivotGridSettingsDialog.Items
-  - Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  - Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  - Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  - Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  - Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
+  - Avalonia.Controls.ChartSettingsDialog.#ctor(Avalonia.Controls.ChartSettings,System.Collections.Generic.IReadOnlyList{Avalonia.Controls.ChartSourceField})
+  - Avalonia.Controls.ChartSettingsDialog.Settings
   langs:
   - csharp
   - vb
-  name: PivotGridSettingsDialog
-  nameWithType: PivotGridSettingsDialog
-  fullName: Avalonia.Controls.PivotGridSettingsDialog
+  name: ChartSettingsDialog
+  nameWithType: ChartSettingsDialog
+  fullName: Avalonia.Controls.ChartSettingsDialog
   type: Class
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSettingsDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: PivotGridSettingsDialog
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+    id: ChartSettingsDialog
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSettingsDialog.cs
     startLine: 8
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Provides a layout settings dialog for pivot grid fields.
+  summary: Provides a settings dialog for <xref href="Avalonia.Controls.ChartControl" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
-    content: 'public class PivotGridSettingsDialog : Window, INotifyPropertyChanged, IDataContextProvider, IThemeVariantHost, IResourceHost, IResourceNode, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, ICloseable, IStyleHost, ILogicalRoot, ILogical, IFocusScope'
-    content.vb: Public Class PivotGridSettingsDialog Inherits Window Implements INotifyPropertyChanged, IDataContextProvider, IThemeVariantHost, IResourceHost, IResourceNode, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, ICloseable, IStyleHost, ILogicalRoot, ILogical, IFocusScope
+    content: 'public class ChartSettingsDialog : Window, INotifyPropertyChanged, IDataContextProvider, IThemeVariantHost, IResourceHost, IResourceNode, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, ICloseable, IStyleHost, ILogicalRoot, ILogical, IFocusScope'
+    content.vb: Public Class ChartSettingsDialog Inherits Window Implements INotifyPropertyChanged, IDataContextProvider, IThemeVariantHost, IResourceHost, IResourceNode, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue, ICloseable, IStyleHost, ILogicalRoot, ILogical, IFocusScope
   inheritance:
   - System.Object
   - Avalonia.AvaloniaObject
@@ -314,6 +309,7 @@ items:
   - Avalonia.Input.InputElement.OnAccessKey(Avalonia.Interactivity.RoutedEventArgs)
   - Avalonia.Input.InputElement.OnGettingFocus(Avalonia.Input.FocusChangingEventArgs)
   - Avalonia.Input.InputElement.OnLosingFocus(Avalonia.Input.FocusChangingEventArgs)
+  - Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
   - Avalonia.Input.InputElement.OnTextInput(Avalonia.Input.TextInputEventArgs)
   - Avalonia.Input.InputElement.OnPointerEntered(Avalonia.Input.PointerEventArgs)
   - Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
@@ -544,246 +540,82 @@ items:
   - Avalonia.Controls.Control.Tripous.Desktop.Ui.GetOwnerWindow
   - Avalonia.Controls.Control.Tripous.Desktop.Ui.GetParentWindow
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
-- uid: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  commentId: M:Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  id: OnKeyDown(Avalonia.Input.KeyEventArgs)
-  parent: Avalonia.Controls.PivotGridSettingsDialog
+- uid: Avalonia.Controls.ChartSettingsDialog.#ctor(Avalonia.Controls.ChartSettings,System.Collections.Generic.IReadOnlyList{Avalonia.Controls.ChartSourceField})
+  commentId: M:Avalonia.Controls.ChartSettingsDialog.#ctor(Avalonia.Controls.ChartSettings,System.Collections.Generic.IReadOnlyList{Avalonia.Controls.ChartSourceField})
+  id: '#ctor(Avalonia.Controls.ChartSettings,System.Collections.Generic.IReadOnlyList{Avalonia.Controls.ChartSourceField})'
+  parent: Avalonia.Controls.ChartSettingsDialog
   langs:
   - csharp
   - vb
-  name: OnKeyDown(KeyEventArgs)
-  nameWithType: PivotGridSettingsDialog.OnKeyDown(KeyEventArgs)
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: OnKeyDown
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 431
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: >-
-    Invoked when an unhandled <xref href="Avalonia.Input.InputElement.KeyDownEvent" data-throw-if-not-resolved="false"></xref> reaches an element in its 
-
-    route that is derived from this class. Implement this method to add class handling 
-
-    for this event.
-  example: []
-  syntax:
-    content: protected override void OnKeyDown(KeyEventArgs Args)
-    parameters:
-    - id: Args
-      type: Avalonia.Input.KeyEventArgs
-    content.vb: Protected Overrides Sub OnKeyDown(Args As KeyEventArgs)
-  overridden: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  overload: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem},System.Boolean,System.Boolean,System.Boolean,System.Boolean)
-  commentId: M:Avalonia.Controls.PivotGridSettingsDialog.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem},System.Boolean,System.Boolean,System.Boolean,System.Boolean)
-  id: '#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem},System.Boolean,System.Boolean,System.Boolean,System.Boolean)'
-  parent: Avalonia.Controls.PivotGridSettingsDialog
-  langs:
-  - csharp
-  - vb
-  name: PivotGridSettingsDialog(IEnumerable<PivotGridFieldSettingsItem>, bool, bool, bool, bool)
-  nameWithType: PivotGridSettingsDialog.PivotGridSettingsDialog(IEnumerable<PivotGridFieldSettingsItem>, bool, bool, bool, bool)
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.PivotGridSettingsDialog(System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridFieldSettingsItem>, bool, bool, bool, bool)
+  name: ChartSettingsDialog(ChartSettings, IReadOnlyList<ChartSourceField>)
+  nameWithType: ChartSettingsDialog.ChartSettingsDialog(ChartSettings, IReadOnlyList<ChartSourceField>)
+  fullName: Avalonia.Controls.ChartSettingsDialog.ChartSettingsDialog(Avalonia.Controls.ChartSettings, System.Collections.Generic.IReadOnlyList<Avalonia.Controls.ChartSourceField>)
   type: Constructor
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSettingsDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 451
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSettingsDialog.cs
+    startLine: 169
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Initializes a new instance of the <xref href="Avalonia.Controls.PivotGridSettingsDialog" data-throw-if-not-resolved="false"></xref> class.
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.ChartSettingsDialog" data-throw-if-not-resolved="false"></xref> class.
   example: []
   syntax:
-    content: public PivotGridSettingsDialog(IEnumerable<PivotGridFieldSettingsItem> Items, bool ShowFieldPanel, bool ShowRowGrandTotals, bool ShowColumnGrandTotals, bool ShowToolTips)
+    content: public ChartSettingsDialog(ChartSettings Settings, IReadOnlyList<ChartSourceField> SourceFields)
     parameters:
-    - id: Items
-      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem}
-      description: The editable field settings items.
-    - id: ShowFieldPanel
-      type: System.Boolean
-      description: True to display the top field panel.
-    - id: ShowRowGrandTotals
-      type: System.Boolean
-      description: True to display row grand totals as a total column.
-    - id: ShowColumnGrandTotals
-      type: System.Boolean
-      description: True to display column grand totals as a total row.
-    - id: ShowToolTips
-      type: System.Boolean
-      description: True to display hover tooltips.
-    content.vb: Public Sub New(Items As IEnumerable(Of PivotGridFieldSettingsItem), ShowFieldPanel As Boolean, ShowRowGrandTotals As Boolean, ShowColumnGrandTotals As Boolean, ShowToolTips As Boolean)
-  overload: Avalonia.Controls.PivotGridSettingsDialog.#ctor*
-  nameWithType.vb: PivotGridSettingsDialog.New(IEnumerable(Of PivotGridFieldSettingsItem), Boolean, Boolean, Boolean, Boolean)
-  fullName.vb: Avalonia.Controls.PivotGridSettingsDialog.New(System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridFieldSettingsItem), Boolean, Boolean, Boolean, Boolean)
-  name.vb: New(IEnumerable(Of PivotGridFieldSettingsItem), Boolean, Boolean, Boolean, Boolean)
-- uid: Avalonia.Controls.PivotGridSettingsDialog.Items
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.Items
-  id: Items
-  parent: Avalonia.Controls.PivotGridSettingsDialog
+    - id: Settings
+      type: Avalonia.Controls.ChartSettings
+      description: The settings to edit.
+    - id: SourceFields
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.ChartSourceField}
+      description: The available source fields.
+    content.vb: Public Sub New(Settings As ChartSettings, SourceFields As IReadOnlyList(Of ChartSourceField))
+  overload: Avalonia.Controls.ChartSettingsDialog.#ctor*
+  nameWithType.vb: ChartSettingsDialog.New(ChartSettings, IReadOnlyList(Of ChartSourceField))
+  fullName.vb: Avalonia.Controls.ChartSettingsDialog.New(Avalonia.Controls.ChartSettings, System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.ChartSourceField))
+  name.vb: New(ChartSettings, IReadOnlyList(Of ChartSourceField))
+- uid: Avalonia.Controls.ChartSettingsDialog.Settings
+  commentId: P:Avalonia.Controls.ChartSettingsDialog.Settings
+  id: Settings
+  parent: Avalonia.Controls.ChartSettingsDialog
   langs:
   - csharp
   - vb
-  name: Items
-  nameWithType: PivotGridSettingsDialog.Items
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.Items
+  name: Settings
+  nameWithType: ChartSettingsDialog.Settings
+  fullName: Avalonia.Controls.ChartSettingsDialog.Settings
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSettingsDialog.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Items
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 537
+    id: Settings
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSettingsDialog.cs
+    startLine: 267
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets the edited field settings items.
+  summary: Gets the edited settings.
   example: []
   syntax:
-    content: public IReadOnlyList<PivotGridFieldSettingsItem> Items { get; }
+    content: public ChartSettings Settings { get; }
     parameters: []
     return:
-      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridFieldSettingsItem}
-    content.vb: Public ReadOnly Property Items As IReadOnlyList(Of PivotGridFieldSettingsItem)
-  overload: Avalonia.Controls.PivotGridSettingsDialog.Items*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  id: ShowFieldPanel
-  parent: Avalonia.Controls.PivotGridSettingsDialog
-  langs:
-  - csharp
-  - vb
-  name: ShowFieldPanel
-  nameWithType: PivotGridSettingsDialog.ShowFieldPanel
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ShowFieldPanel
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 541
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets a value indicating whether the top field panel should be displayed.
-  example: []
-  syntax:
-    content: public bool ShowFieldPanel { get; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public ReadOnly Property ShowFieldPanel As Boolean
-  overload: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  id: ShowRowGrandTotals
-  parent: Avalonia.Controls.PivotGridSettingsDialog
-  langs:
-  - csharp
-  - vb
-  name: ShowRowGrandTotals
-  nameWithType: PivotGridSettingsDialog.ShowRowGrandTotals
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ShowRowGrandTotals
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 545
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets a value indicating whether row grand totals should be displayed as a total column.
-  example: []
-  syntax:
-    content: public bool ShowRowGrandTotals { get; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public ReadOnly Property ShowRowGrandTotals As Boolean
-  overload: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  id: ShowColumnGrandTotals
-  parent: Avalonia.Controls.PivotGridSettingsDialog
-  langs:
-  - csharp
-  - vb
-  name: ShowColumnGrandTotals
-  nameWithType: PivotGridSettingsDialog.ShowColumnGrandTotals
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ShowColumnGrandTotals
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 549
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets a value indicating whether column grand totals should be displayed as a total row.
-  example: []
-  syntax:
-    content: public bool ShowColumnGrandTotals { get; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public ReadOnly Property ShowColumnGrandTotals As Boolean
-  overload: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals*
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
-  commentId: P:Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
-  id: ShowToolTips
-  parent: Avalonia.Controls.PivotGridSettingsDialog
-  langs:
-  - csharp
-  - vb
-  name: ShowToolTips
-  nameWithType: PivotGridSettingsDialog.ShowToolTips
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ShowToolTips
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridSettingsDialog.cs
-    startLine: 553
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets a value indicating whether hover tooltips should be displayed.
-  example: []
-  syntax:
-    content: public bool ShowToolTips { get; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public ReadOnly Property ShowToolTips As Boolean
-  overload: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips*
+      type: Avalonia.Controls.ChartSettings
+    content.vb: Public ReadOnly Property Settings As ChartSettings
+  overload: Avalonia.Controls.ChartSettingsDialog.Settings*
 references:
+- uid: Avalonia.Controls.ChartControl
+  commentId: T:Avalonia.Controls.ChartControl
+  href: Avalonia.Controls.ChartControl.html
+  name: ChartControl
+  nameWithType: ChartControl
+  fullName: Avalonia.Controls.ChartControl
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
   href: Avalonia.html
@@ -3816,6 +3648,31 @@ references:
   - name: (
   - uid: Avalonia.Input.FocusChangingEventArgs
     name: FocusChangingEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnKeyDown(KeyEventArgs)
+  nameWithType: InputElement.OnKeyDown(KeyEventArgs)
+  fullName: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+    name: OnKeyDown
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.KeyEventArgs
+    name: KeyEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
+    name: OnKeyDown
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.KeyEventArgs
+    name: KeyEventArgs
     isExternal: true
   - name: )
 - uid: Avalonia.Input.InputElement.OnTextInput(Avalonia.Input.TextInputEventArgs)
@@ -9659,126 +9516,84 @@ references:
   name: Tripous
   nameWithType: Tripous
   fullName: Tripous
-- uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  commentId: M:Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  parent: Avalonia.Input.InputElement
-  isExternal: true
-  name: OnKeyDown(KeyEventArgs)
-  nameWithType: InputElement.OnKeyDown(KeyEventArgs)
-  fullName: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-  spec.csharp:
-  - uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-    name: OnKeyDown
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.KeyEventArgs
-    name: KeyEventArgs
-    isExternal: true
-  - name: )
-  spec.vb:
-  - uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
-    name: OnKeyDown
-    isExternal: true
-  - name: (
-  - uid: Avalonia.Input.KeyEventArgs
-    name: KeyEventArgs
-    isExternal: true
-  - name: )
-- uid: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_OnKeyDown_Avalonia_Input_KeyEventArgs_
-  name: OnKeyDown
-  nameWithType: PivotGridSettingsDialog.OnKeyDown
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.OnKeyDown
-- uid: Avalonia.Input.KeyEventArgs
-  commentId: T:Avalonia.Input.KeyEventArgs
-  parent: Avalonia.Input
-  isExternal: true
-  name: KeyEventArgs
-  nameWithType: KeyEventArgs
-  fullName: Avalonia.Input.KeyEventArgs
-- uid: Avalonia.Controls.PivotGridSettingsDialog
-  commentId: T:Avalonia.Controls.PivotGridSettingsDialog
-  href: Avalonia.Controls.PivotGridSettingsDialog.html
-  name: PivotGridSettingsDialog
-  nameWithType: PivotGridSettingsDialog
-  fullName: Avalonia.Controls.PivotGridSettingsDialog
-- uid: Avalonia.Controls.PivotGridSettingsDialog.#ctor*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.#ctor
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog__ctor_System_Collections_Generic_IEnumerable_Avalonia_Controls_PivotGridFieldSettingsItem__System_Boolean_System_Boolean_System_Boolean_System_Boolean_
-  name: PivotGridSettingsDialog
-  nameWithType: PivotGridSettingsDialog.PivotGridSettingsDialog
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.PivotGridSettingsDialog
-  nameWithType.vb: PivotGridSettingsDialog.New
-  fullName.vb: Avalonia.Controls.PivotGridSettingsDialog.New
+- uid: Avalonia.Controls.ChartSettingsDialog
+  commentId: T:Avalonia.Controls.ChartSettingsDialog
+  href: Avalonia.Controls.ChartSettingsDialog.html
+  name: ChartSettingsDialog
+  nameWithType: ChartSettingsDialog
+  fullName: Avalonia.Controls.ChartSettingsDialog
+- uid: Avalonia.Controls.ChartSettingsDialog.#ctor*
+  commentId: Overload:Avalonia.Controls.ChartSettingsDialog.#ctor
+  href: Avalonia.Controls.ChartSettingsDialog.html#Avalonia_Controls_ChartSettingsDialog__ctor_Avalonia_Controls_ChartSettings_System_Collections_Generic_IReadOnlyList_Avalonia_Controls_ChartSourceField__
+  name: ChartSettingsDialog
+  nameWithType: ChartSettingsDialog.ChartSettingsDialog
+  fullName: Avalonia.Controls.ChartSettingsDialog.ChartSettingsDialog
+  nameWithType.vb: ChartSettingsDialog.New
+  fullName.vb: Avalonia.Controls.ChartSettingsDialog.New
   name.vb: New
-- uid: System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem}
-  commentId: T:System.Collections.Generic.IEnumerable{Avalonia.Controls.PivotGridFieldSettingsItem}
+- uid: Avalonia.Controls.ChartSettings
+  commentId: T:Avalonia.Controls.ChartSettings
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartSettings.html
+  name: ChartSettings
+  nameWithType: ChartSettings
+  fullName: Avalonia.Controls.ChartSettings
+- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.ChartSourceField}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.ChartSourceField}
   parent: System.Collections.Generic
-  definition: System.Collections.Generic.IEnumerable`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  name: IEnumerable<PivotGridFieldSettingsItem>
-  nameWithType: IEnumerable<PivotGridFieldSettingsItem>
-  fullName: System.Collections.Generic.IEnumerable<Avalonia.Controls.PivotGridFieldSettingsItem>
-  nameWithType.vb: IEnumerable(Of PivotGridFieldSettingsItem)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of Avalonia.Controls.PivotGridFieldSettingsItem)
-  name.vb: IEnumerable(Of PivotGridFieldSettingsItem)
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<ChartSourceField>
+  nameWithType: IReadOnlyList<ChartSourceField>
+  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.ChartSourceField>
+  nameWithType.vb: IReadOnlyList(Of ChartSourceField)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.ChartSourceField)
+  name.vb: IReadOnlyList(Of ChartSourceField)
   spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
   - name: <
-  - uid: Avalonia.Controls.PivotGridFieldSettingsItem
-    name: PivotGridFieldSettingsItem
-    href: Avalonia.Controls.PivotGridFieldSettingsItem.html
+  - uid: Avalonia.Controls.ChartSourceField
+    name: ChartSourceField
+    href: Avalonia.Controls.ChartSourceField.html
   - name: '>'
   spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
   - name: (
   - name: Of
   - name: " "
-  - uid: Avalonia.Controls.PivotGridFieldSettingsItem
-    name: PivotGridFieldSettingsItem
-    href: Avalonia.Controls.PivotGridFieldSettingsItem.html
+  - uid: Avalonia.Controls.ChartSourceField
+    name: ChartSourceField
+    href: Avalonia.Controls.ChartSourceField.html
   - name: )
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
-- uid: System.Collections.Generic.IEnumerable`1
-  commentId: T:System.Collections.Generic.IEnumerable`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  name: IEnumerable<T>
-  nameWithType: IEnumerable<T>
-  fullName: System.Collections.Generic.IEnumerable<T>
-  nameWithType.vb: IEnumerable(Of T)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
-  name.vb: IEnumerable(Of T)
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
   spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
   - name: <
   - name: T
   - name: '>'
   spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
   - name: (
   - name: Of
   - name: " "
@@ -9821,94 +9636,9 @@ references:
     name: Generic
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-- uid: Avalonia.Controls.PivotGridSettingsDialog.Items*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.Items
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_Items
-  name: Items
-  nameWithType: PivotGridSettingsDialog.Items
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.Items
-- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridFieldSettingsItem}
-  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.PivotGridFieldSettingsItem}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.IReadOnlyList`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  name: IReadOnlyList<PivotGridFieldSettingsItem>
-  nameWithType: IReadOnlyList<PivotGridFieldSettingsItem>
-  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.PivotGridFieldSettingsItem>
-  nameWithType.vb: IReadOnlyList(Of PivotGridFieldSettingsItem)
-  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.PivotGridFieldSettingsItem)
-  name.vb: IReadOnlyList(Of PivotGridFieldSettingsItem)
-  spec.csharp:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: <
-  - uid: Avalonia.Controls.PivotGridFieldSettingsItem
-    name: PivotGridFieldSettingsItem
-    href: Avalonia.Controls.PivotGridFieldSettingsItem.html
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Avalonia.Controls.PivotGridFieldSettingsItem
-    name: PivotGridFieldSettingsItem
-    href: Avalonia.Controls.PivotGridFieldSettingsItem.html
-  - name: )
-- uid: System.Collections.Generic.IReadOnlyList`1
-  commentId: T:System.Collections.Generic.IReadOnlyList`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  name: IReadOnlyList<T>
-  nameWithType: IReadOnlyList<T>
-  fullName: System.Collections.Generic.IReadOnlyList<T>
-  nameWithType.vb: IReadOnlyList(Of T)
-  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
-  name.vb: IReadOnlyList(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_ShowFieldPanel
-  name: ShowFieldPanel
-  nameWithType: PivotGridSettingsDialog.ShowFieldPanel
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowFieldPanel
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_ShowRowGrandTotals
-  name: ShowRowGrandTotals
-  nameWithType: PivotGridSettingsDialog.ShowRowGrandTotals
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowRowGrandTotals
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_ShowColumnGrandTotals
-  name: ShowColumnGrandTotals
-  nameWithType: PivotGridSettingsDialog.ShowColumnGrandTotals
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowColumnGrandTotals
-- uid: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips*
-  commentId: Overload:Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
-  href: Avalonia.Controls.PivotGridSettingsDialog.html#Avalonia_Controls_PivotGridSettingsDialog_ShowToolTips
-  name: ShowToolTips
-  nameWithType: PivotGridSettingsDialog.ShowToolTips
-  fullName: Avalonia.Controls.PivotGridSettingsDialog.ShowToolTips
+- uid: Avalonia.Controls.ChartSettingsDialog.Settings*
+  commentId: Overload:Avalonia.Controls.ChartSettingsDialog.Settings
+  href: Avalonia.Controls.ChartSettingsDialog.html#Avalonia_Controls_ChartSettingsDialog_Settings
+  name: Settings
+  nameWithType: ChartSettingsDialog.Settings
+  fullName: Avalonia.Controls.ChartSettingsDialog.Settings

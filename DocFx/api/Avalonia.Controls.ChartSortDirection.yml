@@ -1,0 +1,1153 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.ChartSortDirection
+  commentId: T:Avalonia.Controls.ChartSortDirection
+  id: ChartSortDirection
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.ChartSortDirection.Ascending
+  - Avalonia.Controls.ChartSortDirection.Descending
+  - Avalonia.Controls.ChartSortDirection.None
+  langs:
+  - csharp
+  - vb
+  name: ChartSortDirection
+  nameWithType: ChartSortDirection
+  fullName: Avalonia.Controls.ChartSortDirection
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSortDirection.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ChartSortDirection
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSortDirection.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Defines category sort direction for a chart projection.
+  example: []
+  syntax:
+    content: public enum ChartSortDirection
+    content.vb: Public Enum ChartSortDirection
+  extensionMethods:
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Add``1(Avalonia.Controls.ChartSortDirection)
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartSortDirection)
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartSortDirection)
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Has``1(Avalonia.Controls.ChartSortDirection)
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.In``1(Avalonia.Controls.ChartSortDirection)
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartSortDirection)
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.IsZero``1
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Remove``1(Avalonia.Controls.ChartSortDirection)
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Set``1(Avalonia.Controls.ChartSortDirection,System.Boolean)
+  - Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartSortDirection)
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.ChartSortDirection.None
+  commentId: F:Avalonia.Controls.ChartSortDirection.None
+  id: None
+  parent: Avalonia.Controls.ChartSortDirection
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: ChartSortDirection.None
+  fullName: Avalonia.Controls.ChartSortDirection.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSortDirection.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSortDirection.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Keeps source discovery order.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Avalonia.Controls.ChartSortDirection
+- uid: Avalonia.Controls.ChartSortDirection.Ascending
+  commentId: F:Avalonia.Controls.ChartSortDirection.Ascending
+  id: Ascending
+  parent: Avalonia.Controls.ChartSortDirection
+  langs:
+  - csharp
+  - vb
+  name: Ascending
+  nameWithType: ChartSortDirection.Ascending
+  fullName: Avalonia.Controls.ChartSortDirection.Ascending
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSortDirection.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Ascending
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSortDirection.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Sorts categories in ascending order.
+  example: []
+  syntax:
+    content: Ascending = 1
+    return:
+      type: Avalonia.Controls.ChartSortDirection
+- uid: Avalonia.Controls.ChartSortDirection.Descending
+  commentId: F:Avalonia.Controls.ChartSortDirection.Descending
+  id: Descending
+  parent: Avalonia.Controls.ChartSortDirection
+  langs:
+  - csharp
+  - vb
+  name: Descending
+  nameWithType: ChartSortDirection.Descending
+  fullName: Avalonia.Controls.ChartSortDirection.Descending
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSortDirection.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Descending
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSortDirection.cs
+    startLine: 21
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Sorts categories in descending order.
+  example: []
+  syntax:
+    content: Descending = 2
+    return:
+      type: Avalonia.Controls.ChartSortDirection
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Add``1(Avalonia.Controls.ChartSortDirection)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  nameWithType: BitFields.Add<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  fullName: Tripous.BitFields.Add<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  nameWithType.vb: BitFields.Add(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  fullName.vb: Tripous.BitFields.Add(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  name.vb: Add(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartSortDirection)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  nameWithType: BitFields.HasAny<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  fullName: Tripous.BitFields.HasAny<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  nameWithType.vb: BitFields.HasAny(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  fullName.vb: Tripous.BitFields.HasAny(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  name.vb: HasAny(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartSortDirection)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  nameWithType: BitFields.HasNone<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  fullName: Tripous.BitFields.HasNone<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  nameWithType.vb: BitFields.HasNone(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  fullName.vb: Tripous.BitFields.HasNone(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  name.vb: HasNone(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Has``1(Avalonia.Controls.ChartSortDirection)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  nameWithType: BitFields.Has<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  fullName: Tripous.BitFields.Has<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  nameWithType.vb: BitFields.Has(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  fullName.vb: Tripous.BitFields.Has(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  name.vb: Has(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.In``1(Avalonia.Controls.ChartSortDirection)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  nameWithType: BitFields.In<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  fullName: Tripous.BitFields.In<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  nameWithType.vb: BitFields.In(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  fullName.vb: Tripous.BitFields.In(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  name.vb: In(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartSortDirection)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  nameWithType: BitFields.IsExactly<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  fullName: Tripous.BitFields.IsExactly<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  nameWithType.vb: BitFields.IsExactly(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  name.vb: IsExactly(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<ChartSortDirection>(ChartSortDirection)
+  nameWithType: BitFields.IsZero<ChartSortDirection>(ChartSortDirection)
+  fullName: Tripous.BitFields.IsZero<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection)
+  nameWithType.vb: BitFields.IsZero(Of ChartSortDirection)(ChartSortDirection)
+  fullName.vb: Tripous.BitFields.IsZero(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection)
+  name.vb: IsZero(Of ChartSortDirection)(ChartSortDirection)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.ChartSortDirection)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.ChartSortDirection)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Remove``1(Avalonia.Controls.ChartSortDirection)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  nameWithType: BitFields.Remove<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  fullName: Tripous.BitFields.Remove<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  nameWithType.vb: BitFields.Remove(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  fullName.vb: Tripous.BitFields.Remove(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  name.vb: Remove(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Set``1(Avalonia.Controls.ChartSortDirection,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<ChartSortDirection>(ChartSortDirection, ChartSortDirection, bool)
+  nameWithType: BitFields.Set<ChartSortDirection>(ChartSortDirection, ChartSortDirection, bool)
+  fullName: Tripous.BitFields.Set<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection, bool)
+  nameWithType.vb: BitFields.Set(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection, Boolean)
+  name.vb: Set(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Avalonia.Controls.ChartSortDirection.Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartSortDirection)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  nameWithType: BitFields.Toggle<ChartSortDirection>(ChartSortDirection, ChartSortDirection)
+  fullName: Tripous.BitFields.Toggle<Avalonia.Controls.ChartSortDirection>(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  nameWithType.vb: BitFields.Toggle(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  fullName.vb: Tripous.BitFields.Toggle(Of Avalonia.Controls.ChartSortDirection)(Avalonia.Controls.ChartSortDirection, Avalonia.Controls.ChartSortDirection)
+  name.vb: Toggle(Of ChartSortDirection)(ChartSortDirection, ChartSortDirection)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartSortDirection,Avalonia.Controls.ChartSortDirection)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartSortDirection
+    name: ChartSortDirection
+    href: Avalonia.Controls.ChartSortDirection.html
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.ChartSortDirection
+  commentId: T:Avalonia.Controls.ChartSortDirection
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartSortDirection.html
+  name: ChartSortDirection
+  nameWithType: ChartSortDirection
+  fullName: Avalonia.Controls.ChartSortDirection

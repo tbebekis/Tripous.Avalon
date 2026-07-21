@@ -1,41 +1,40 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Avalonia.Controls.PivotGridMeasure
-  commentId: T:Avalonia.Controls.PivotGridMeasure
-  id: PivotGridMeasure
+- uid: Avalonia.Controls.ChartHitTestResult
+  commentId: T:Avalonia.Controls.ChartHitTestResult
+  id: ChartHitTestResult
   parent: Avalonia.Controls
   children:
-  - Avalonia.Controls.PivotGridMeasure.#ctor
-  - Avalonia.Controls.PivotGridMeasure.AggregateKind
-  - Avalonia.Controls.PivotGridMeasure.DisplayFormat
-  - Avalonia.Controls.PivotGridMeasure.FormatValue(System.Object)
-  - Avalonia.Controls.PivotGridMeasure.Header
-  - Avalonia.Controls.PivotGridMeasure.Name
-  - Avalonia.Controls.PivotGridMeasure.SourceFieldName
-  - Avalonia.Controls.PivotGridMeasure.Width
+  - Avalonia.Controls.ChartHitTestResult.#ctor
+  - Avalonia.Controls.ChartHitTestResult.DataPoint
+  - Avalonia.Controls.ChartHitTestResult.Empty
+  - Avalonia.Controls.ChartHitTestResult.Kind
+  - Avalonia.Controls.ChartHitTestResult.PointIndex
+  - Avalonia.Controls.ChartHitTestResult.Series
+  - Avalonia.Controls.ChartHitTestResult.SeriesIndex
   langs:
   - csharp
   - vb
-  name: PivotGridMeasure
-  nameWithType: PivotGridMeasure
-  fullName: Avalonia.Controls.PivotGridMeasure
+  name: ChartHitTestResult
+  nameWithType: ChartHitTestResult
+  fullName: Avalonia.Controls.ChartHitTestResult
   type: Class
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: PivotGridMeasure
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
+    id: ChartHitTestResult
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
     startLine: 8
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Describes a value measure aggregated by a pivot grid.
+  summary: Represents chart hit-test information.
   example: []
   syntax:
-    content: public class PivotGridMeasure
-    content.vb: Public Class PivotGridMeasure
+    content: public class ChartHitTestResult
+    content.vb: Public Class ChartHitTestResult
   inheritance:
   - System.Object
   inheritedMembers:
@@ -48,261 +47,223 @@ items:
   - System.Object.ToString
   extensionMethods:
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
-- uid: Avalonia.Controls.PivotGridMeasure.#ctor
-  commentId: M:Avalonia.Controls.PivotGridMeasure.#ctor
+- uid: Avalonia.Controls.ChartHitTestResult.#ctor
+  commentId: M:Avalonia.Controls.ChartHitTestResult.#ctor
   id: '#ctor'
-  parent: Avalonia.Controls.PivotGridMeasure
+  parent: Avalonia.Controls.ChartHitTestResult
   langs:
   - csharp
   - vb
-  name: PivotGridMeasure()
-  nameWithType: PivotGridMeasure.PivotGridMeasure()
-  fullName: Avalonia.Controls.PivotGridMeasure.PivotGridMeasure()
+  name: ChartHitTestResult()
+  nameWithType: ChartHitTestResult.ChartHitTestResult()
+  fullName: Avalonia.Controls.ChartHitTestResult.ChartHitTestResult()
   type: Constructor
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.ChartHitTestResult" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public ChartHitTestResult()
+    content.vb: Public Sub New()
+  overload: Avalonia.Controls.ChartHitTestResult.#ctor*
+  nameWithType.vb: ChartHitTestResult.New()
+  fullName.vb: Avalonia.Controls.ChartHitTestResult.New()
+  name.vb: New()
+- uid: Avalonia.Controls.ChartHitTestResult.Empty
+  commentId: M:Avalonia.Controls.ChartHitTestResult.Empty
+  id: Empty
+  parent: Avalonia.Controls.ChartHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: Empty()
+  nameWithType: ChartHitTestResult.Empty()
+  fullName: Avalonia.Controls.ChartHitTestResult.Empty()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Empty
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Creates an empty hit-test result.
+  example: []
+  syntax:
+    content: public static ChartHitTestResult Empty()
+    return:
+      type: Avalonia.Controls.ChartHitTestResult
+      description: The result.
+    content.vb: Public Shared Function Empty() As ChartHitTestResult
+  overload: Avalonia.Controls.ChartHitTestResult.Empty*
+- uid: Avalonia.Controls.ChartHitTestResult.Kind
+  commentId: P:Avalonia.Controls.ChartHitTestResult.Kind
+  id: Kind
+  parent: Avalonia.Controls.ChartHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: Kind
+  nameWithType: ChartHitTestResult.Kind
+  fullName: Avalonia.Controls.ChartHitTestResult.Kind
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Kind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the hit kind.
+  example: []
+  syntax:
+    content: public ChartHitTestKind Kind { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.ChartHitTestKind
+    content.vb: Public Property Kind As ChartHitTestKind
+  overload: Avalonia.Controls.ChartHitTestResult.Kind*
+- uid: Avalonia.Controls.ChartHitTestResult.SeriesIndex
+  commentId: P:Avalonia.Controls.ChartHitTestResult.SeriesIndex
+  id: SeriesIndex
+  parent: Avalonia.Controls.ChartHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: SeriesIndex
+  nameWithType: ChartHitTestResult.SeriesIndex
+  fullName: Avalonia.Controls.ChartHitTestResult.SeriesIndex
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SeriesIndex
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
     startLine: 33
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Initializes a new instance of the <xref href="Avalonia.Controls.PivotGridMeasure" data-throw-if-not-resolved="false"></xref> class.
+  summary: Gets or sets the series index.
   example: []
   syntax:
-    content: public PivotGridMeasure()
-    content.vb: Public Sub New()
-  overload: Avalonia.Controls.PivotGridMeasure.#ctor*
-  nameWithType.vb: PivotGridMeasure.New()
-  fullName.vb: Avalonia.Controls.PivotGridMeasure.New()
-  name.vb: New()
-- uid: Avalonia.Controls.PivotGridMeasure.FormatValue(System.Object)
-  commentId: M:Avalonia.Controls.PivotGridMeasure.FormatValue(System.Object)
-  id: FormatValue(System.Object)
-  parent: Avalonia.Controls.PivotGridMeasure
-  langs:
-  - csharp
-  - vb
-  name: FormatValue(object)
-  nameWithType: PivotGridMeasure.FormatValue(object)
-  fullName: Avalonia.Controls.PivotGridMeasure.FormatValue(object)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: FormatValue
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-    startLine: 43
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Formats a measure value for display.
-  example: []
-  syntax:
-    content: public virtual string FormatValue(object Value)
-    parameters:
-    - id: Value
-      type: System.Object
-      description: The measure value.
+    content: public int SeriesIndex { get; set; }
+    parameters: []
     return:
-      type: System.String
-      description: The display text.
-    content.vb: Public Overridable Function FormatValue(Value As Object) As String
-  overload: Avalonia.Controls.PivotGridMeasure.FormatValue*
-  nameWithType.vb: PivotGridMeasure.FormatValue(Object)
-  fullName.vb: Avalonia.Controls.PivotGridMeasure.FormatValue(Object)
-  name.vb: FormatValue(Object)
-- uid: Avalonia.Controls.PivotGridMeasure.Name
-  commentId: P:Avalonia.Controls.PivotGridMeasure.Name
-  id: Name
-  parent: Avalonia.Controls.PivotGridMeasure
+      type: System.Int32
+    content.vb: Public Property SeriesIndex As Integer
+  overload: Avalonia.Controls.ChartHitTestResult.SeriesIndex*
+- uid: Avalonia.Controls.ChartHitTestResult.PointIndex
+  commentId: P:Avalonia.Controls.ChartHitTestResult.PointIndex
+  id: PointIndex
+  parent: Avalonia.Controls.ChartHitTestResult
   langs:
   - csharp
   - vb
-  name: Name
-  nameWithType: PivotGridMeasure.Name
-  fullName: Avalonia.Controls.PivotGridMeasure.Name
+  name: PointIndex
+  nameWithType: ChartHitTestResult.PointIndex
+  fullName: Avalonia.Controls.ChartHitTestResult.PointIndex
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Name
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-    startLine: 58
+    id: PointIndex
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
+    startLine: 37
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets or sets the measure name.
+  summary: Gets or sets the point index.
   example: []
   syntax:
-    content: public string Name { get; set; }
+    content: public int PointIndex { get; set; }
     parameters: []
     return:
-      type: System.String
-    content.vb: Public Property Name As String
-  overload: Avalonia.Controls.PivotGridMeasure.Name*
-- uid: Avalonia.Controls.PivotGridMeasure.Header
-  commentId: P:Avalonia.Controls.PivotGridMeasure.Header
-  id: Header
-  parent: Avalonia.Controls.PivotGridMeasure
+      type: System.Int32
+    content.vb: Public Property PointIndex As Integer
+  overload: Avalonia.Controls.ChartHitTestResult.PointIndex*
+- uid: Avalonia.Controls.ChartHitTestResult.Series
+  commentId: P:Avalonia.Controls.ChartHitTestResult.Series
+  id: Series
+  parent: Avalonia.Controls.ChartHitTestResult
   langs:
   - csharp
   - vb
-  name: Header
-  nameWithType: PivotGridMeasure.Header
-  fullName: Avalonia.Controls.PivotGridMeasure.Header
+  name: Series
+  nameWithType: ChartHitTestResult.Series
+  fullName: Avalonia.Controls.ChartHitTestResult.Series
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Header
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-    startLine: 62
+    id: Series
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
+    startLine: 41
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets or sets the display header.
+  summary: Gets or sets the series.
   example: []
   syntax:
-    content: public string Header { get; set; }
+    content: public ChartSeries Series { get; set; }
     parameters: []
     return:
-      type: System.String
-    content.vb: Public Property Header As String
-  overload: Avalonia.Controls.PivotGridMeasure.Header*
-- uid: Avalonia.Controls.PivotGridMeasure.SourceFieldName
-  commentId: P:Avalonia.Controls.PivotGridMeasure.SourceFieldName
-  id: SourceFieldName
-  parent: Avalonia.Controls.PivotGridMeasure
+      type: Avalonia.Controls.ChartSeries
+    content.vb: Public Property Series As ChartSeries
+  overload: Avalonia.Controls.ChartHitTestResult.Series*
+- uid: Avalonia.Controls.ChartHitTestResult.DataPoint
+  commentId: P:Avalonia.Controls.ChartHitTestResult.DataPoint
+  id: DataPoint
+  parent: Avalonia.Controls.ChartHitTestResult
   langs:
   - csharp
   - vb
-  name: SourceFieldName
-  nameWithType: PivotGridMeasure.SourceFieldName
-  fullName: Avalonia.Controls.PivotGridMeasure.SourceFieldName
+  name: DataPoint
+  nameWithType: ChartHitTestResult.DataPoint
+  fullName: Avalonia.Controls.ChartHitTestResult.DataPoint
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: SourceFieldName
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-    startLine: 66
+    id: DataPoint
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartHitTestResult.cs
+    startLine: 45
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets or sets the source field name used by the measure.
+  summary: Gets or sets the data point.
   example: []
   syntax:
-    content: public string SourceFieldName { get; set; }
+    content: public ChartDataPoint DataPoint { get; set; }
     parameters: []
     return:
-      type: System.String
-    content.vb: Public Property SourceFieldName As String
-  overload: Avalonia.Controls.PivotGridMeasure.SourceFieldName*
-- uid: Avalonia.Controls.PivotGridMeasure.AggregateKind
-  commentId: P:Avalonia.Controls.PivotGridMeasure.AggregateKind
-  id: AggregateKind
-  parent: Avalonia.Controls.PivotGridMeasure
-  langs:
-  - csharp
-  - vb
-  name: AggregateKind
-  nameWithType: PivotGridMeasure.AggregateKind
-  fullName: Avalonia.Controls.PivotGridMeasure.AggregateKind
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: AggregateKind
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-    startLine: 70
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets or sets the aggregate operation.
-  example: []
-  syntax:
-    content: public PivotGridAggregateKind AggregateKind { get; set; }
-    parameters: []
-    return:
-      type: Avalonia.Controls.PivotGridAggregateKind
-    content.vb: Public Property AggregateKind As PivotGridAggregateKind
-  overload: Avalonia.Controls.PivotGridMeasure.AggregateKind*
-- uid: Avalonia.Controls.PivotGridMeasure.DisplayFormat
-  commentId: P:Avalonia.Controls.PivotGridMeasure.DisplayFormat
-  id: DisplayFormat
-  parent: Avalonia.Controls.PivotGridMeasure
-  langs:
-  - csharp
-  - vb
-  name: DisplayFormat
-  nameWithType: PivotGridMeasure.DisplayFormat
-  fullName: Avalonia.Controls.PivotGridMeasure.DisplayFormat
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: DisplayFormat
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-    startLine: 74
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets or sets the display format.
-  example: []
-  syntax:
-    content: public string DisplayFormat { get; set; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public Property DisplayFormat As String
-  overload: Avalonia.Controls.PivotGridMeasure.DisplayFormat*
-- uid: Avalonia.Controls.PivotGridMeasure.Width
-  commentId: P:Avalonia.Controls.PivotGridMeasure.Width
-  id: Width
-  parent: Avalonia.Controls.PivotGridMeasure
-  langs:
-  - csharp
-  - vb
-  name: Width
-  nameWithType: PivotGridMeasure.Width
-  fullName: Avalonia.Controls.PivotGridMeasure.Width
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Width
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridMeasure.cs
-    startLine: 78
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets or sets the measure cell width.
-  example: []
-  syntax:
-    content: public double Width { get; set; }
-    parameters: []
-    return:
-      type: System.Double
-    content.vb: Public Property Width As Double
-  overload: Avalonia.Controls.PivotGridMeasure.Width*
+      type: Avalonia.Controls.ChartDataPoint
+    content.vb: Public Property DataPoint As ChartDataPoint
+  overload: Avalonia.Controls.ChartHitTestResult.DataPoint*
 references:
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
@@ -661,90 +622,87 @@ references:
   name: Tripous
   nameWithType: Tripous
   fullName: Tripous
-- uid: Avalonia.Controls.PivotGridMeasure
-  commentId: T:Avalonia.Controls.PivotGridMeasure
+- uid: Avalonia.Controls.ChartHitTestResult
+  commentId: T:Avalonia.Controls.ChartHitTestResult
   parent: Avalonia.Controls
-  href: Avalonia.Controls.PivotGridMeasure.html
-  name: PivotGridMeasure
-  nameWithType: PivotGridMeasure
-  fullName: Avalonia.Controls.PivotGridMeasure
-- uid: Avalonia.Controls.PivotGridMeasure.#ctor*
-  commentId: Overload:Avalonia.Controls.PivotGridMeasure.#ctor
-  href: Avalonia.Controls.PivotGridMeasure.html#Avalonia_Controls_PivotGridMeasure__ctor
-  name: PivotGridMeasure
-  nameWithType: PivotGridMeasure.PivotGridMeasure
-  fullName: Avalonia.Controls.PivotGridMeasure.PivotGridMeasure
-  nameWithType.vb: PivotGridMeasure.New
-  fullName.vb: Avalonia.Controls.PivotGridMeasure.New
+  href: Avalonia.Controls.ChartHitTestResult.html
+  name: ChartHitTestResult
+  nameWithType: ChartHitTestResult
+  fullName: Avalonia.Controls.ChartHitTestResult
+- uid: Avalonia.Controls.ChartHitTestResult.#ctor*
+  commentId: Overload:Avalonia.Controls.ChartHitTestResult.#ctor
+  href: Avalonia.Controls.ChartHitTestResult.html#Avalonia_Controls_ChartHitTestResult__ctor
+  name: ChartHitTestResult
+  nameWithType: ChartHitTestResult.ChartHitTestResult
+  fullName: Avalonia.Controls.ChartHitTestResult.ChartHitTestResult
+  nameWithType.vb: ChartHitTestResult.New
+  fullName.vb: Avalonia.Controls.ChartHitTestResult.New
   name.vb: New
-- uid: Avalonia.Controls.PivotGridMeasure.FormatValue*
-  commentId: Overload:Avalonia.Controls.PivotGridMeasure.FormatValue
-  href: Avalonia.Controls.PivotGridMeasure.html#Avalonia_Controls_PivotGridMeasure_FormatValue_System_Object_
-  name: FormatValue
-  nameWithType: PivotGridMeasure.FormatValue
-  fullName: Avalonia.Controls.PivotGridMeasure.FormatValue
-- uid: System.String
-  commentId: T:System.String
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.string
-  name: string
-  nameWithType: string
-  fullName: string
-  nameWithType.vb: String
-  fullName.vb: String
-  name.vb: String
-- uid: Avalonia.Controls.PivotGridMeasure.Name*
-  commentId: Overload:Avalonia.Controls.PivotGridMeasure.Name
-  href: Avalonia.Controls.PivotGridMeasure.html#Avalonia_Controls_PivotGridMeasure_Name
-  name: Name
-  nameWithType: PivotGridMeasure.Name
-  fullName: Avalonia.Controls.PivotGridMeasure.Name
-- uid: Avalonia.Controls.PivotGridMeasure.Header*
-  commentId: Overload:Avalonia.Controls.PivotGridMeasure.Header
-  href: Avalonia.Controls.PivotGridMeasure.html#Avalonia_Controls_PivotGridMeasure_Header
-  name: Header
-  nameWithType: PivotGridMeasure.Header
-  fullName: Avalonia.Controls.PivotGridMeasure.Header
-- uid: Avalonia.Controls.PivotGridMeasure.SourceFieldName*
-  commentId: Overload:Avalonia.Controls.PivotGridMeasure.SourceFieldName
-  href: Avalonia.Controls.PivotGridMeasure.html#Avalonia_Controls_PivotGridMeasure_SourceFieldName
-  name: SourceFieldName
-  nameWithType: PivotGridMeasure.SourceFieldName
-  fullName: Avalonia.Controls.PivotGridMeasure.SourceFieldName
-- uid: Avalonia.Controls.PivotGridMeasure.AggregateKind*
-  commentId: Overload:Avalonia.Controls.PivotGridMeasure.AggregateKind
-  href: Avalonia.Controls.PivotGridMeasure.html#Avalonia_Controls_PivotGridMeasure_AggregateKind
-  name: AggregateKind
-  nameWithType: PivotGridMeasure.AggregateKind
-  fullName: Avalonia.Controls.PivotGridMeasure.AggregateKind
-- uid: Avalonia.Controls.PivotGridAggregateKind
-  commentId: T:Avalonia.Controls.PivotGridAggregateKind
+- uid: Avalonia.Controls.ChartHitTestResult.Empty*
+  commentId: Overload:Avalonia.Controls.ChartHitTestResult.Empty
+  href: Avalonia.Controls.ChartHitTestResult.html#Avalonia_Controls_ChartHitTestResult_Empty
+  name: Empty
+  nameWithType: ChartHitTestResult.Empty
+  fullName: Avalonia.Controls.ChartHitTestResult.Empty
+- uid: Avalonia.Controls.ChartHitTestResult.Kind*
+  commentId: Overload:Avalonia.Controls.ChartHitTestResult.Kind
+  href: Avalonia.Controls.ChartHitTestResult.html#Avalonia_Controls_ChartHitTestResult_Kind
+  name: Kind
+  nameWithType: ChartHitTestResult.Kind
+  fullName: Avalonia.Controls.ChartHitTestResult.Kind
+- uid: Avalonia.Controls.ChartHitTestKind
+  commentId: T:Avalonia.Controls.ChartHitTestKind
   parent: Avalonia.Controls
-  href: Avalonia.Controls.PivotGridAggregateKind.html
-  name: PivotGridAggregateKind
-  nameWithType: PivotGridAggregateKind
-  fullName: Avalonia.Controls.PivotGridAggregateKind
-- uid: Avalonia.Controls.PivotGridMeasure.DisplayFormat*
-  commentId: Overload:Avalonia.Controls.PivotGridMeasure.DisplayFormat
-  href: Avalonia.Controls.PivotGridMeasure.html#Avalonia_Controls_PivotGridMeasure_DisplayFormat
-  name: DisplayFormat
-  nameWithType: PivotGridMeasure.DisplayFormat
-  fullName: Avalonia.Controls.PivotGridMeasure.DisplayFormat
-- uid: Avalonia.Controls.PivotGridMeasure.Width*
-  commentId: Overload:Avalonia.Controls.PivotGridMeasure.Width
-  href: Avalonia.Controls.PivotGridMeasure.html#Avalonia_Controls_PivotGridMeasure_Width
-  name: Width
-  nameWithType: PivotGridMeasure.Width
-  fullName: Avalonia.Controls.PivotGridMeasure.Width
-- uid: System.Double
-  commentId: T:System.Double
+  href: Avalonia.Controls.ChartHitTestKind.html
+  name: ChartHitTestKind
+  nameWithType: ChartHitTestKind
+  fullName: Avalonia.Controls.ChartHitTestKind
+- uid: Avalonia.Controls.ChartHitTestResult.SeriesIndex*
+  commentId: Overload:Avalonia.Controls.ChartHitTestResult.SeriesIndex
+  href: Avalonia.Controls.ChartHitTestResult.html#Avalonia_Controls_ChartHitTestResult_SeriesIndex
+  name: SeriesIndex
+  nameWithType: ChartHitTestResult.SeriesIndex
+  fullName: Avalonia.Controls.ChartHitTestResult.SeriesIndex
+- uid: System.Int32
+  commentId: T:System.Int32
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.double
-  name: double
-  nameWithType: double
-  fullName: double
-  nameWithType.vb: Double
-  fullName.vb: Double
-  name.vb: Double
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Avalonia.Controls.ChartHitTestResult.PointIndex*
+  commentId: Overload:Avalonia.Controls.ChartHitTestResult.PointIndex
+  href: Avalonia.Controls.ChartHitTestResult.html#Avalonia_Controls_ChartHitTestResult_PointIndex
+  name: PointIndex
+  nameWithType: ChartHitTestResult.PointIndex
+  fullName: Avalonia.Controls.ChartHitTestResult.PointIndex
+- uid: Avalonia.Controls.ChartHitTestResult.Series*
+  commentId: Overload:Avalonia.Controls.ChartHitTestResult.Series
+  href: Avalonia.Controls.ChartHitTestResult.html#Avalonia_Controls_ChartHitTestResult_Series
+  name: Series
+  nameWithType: ChartHitTestResult.Series
+  fullName: Avalonia.Controls.ChartHitTestResult.Series
+- uid: Avalonia.Controls.ChartSeries
+  commentId: T:Avalonia.Controls.ChartSeries
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartSeries.html
+  name: ChartSeries
+  nameWithType: ChartSeries
+  fullName: Avalonia.Controls.ChartSeries
+- uid: Avalonia.Controls.ChartHitTestResult.DataPoint*
+  commentId: Overload:Avalonia.Controls.ChartHitTestResult.DataPoint
+  href: Avalonia.Controls.ChartHitTestResult.html#Avalonia_Controls_ChartHitTestResult_DataPoint
+  name: DataPoint
+  nameWithType: ChartHitTestResult.DataPoint
+  fullName: Avalonia.Controls.ChartHitTestResult.DataPoint
+- uid: Avalonia.Controls.ChartDataPoint
+  commentId: T:Avalonia.Controls.ChartDataPoint
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartDataPoint.html
+  name: ChartDataPoint
+  nameWithType: ChartDataPoint
+  fullName: Avalonia.Controls.ChartDataPoint

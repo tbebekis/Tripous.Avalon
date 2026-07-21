@@ -1,43 +1,40 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem
-  commentId: T:Avalonia.Controls.PivotGridFieldSettingsItem
-  id: PivotGridFieldSettingsItem
+- uid: Avalonia.Controls.ChartSourceField
+  commentId: T:Avalonia.Controls.ChartSourceField
+  id: ChartSourceField
   parent: Avalonia.Controls
   children:
-  - Avalonia.Controls.PivotGridFieldSettingsItem.#ctor
-  - Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
-  - Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
-  - Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
-  - Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
-  - Avalonia.Controls.PivotGridFieldSettingsItem.Header
-  - Avalonia.Controls.PivotGridFieldSettingsItem.Name
-  - Avalonia.Controls.PivotGridFieldSettingsItem.Role
-  - Avalonia.Controls.PivotGridFieldSettingsItem.ValueType
-  - Avalonia.Controls.PivotGridFieldSettingsItem.Width
+  - Avalonia.Controls.ChartSourceField.#ctor
+  - Avalonia.Controls.ChartSourceField.CanUseAsDimension
+  - Avalonia.Controls.ChartSourceField.CanUseAsMeasure
+  - Avalonia.Controls.ChartSourceField.Header
+  - Avalonia.Controls.ChartSourceField.IsNumeric
+  - Avalonia.Controls.ChartSourceField.Name
+  - Avalonia.Controls.ChartSourceField.ValueType
   langs:
   - csharp
   - vb
-  name: PivotGridFieldSettingsItem
-  nameWithType: PivotGridFieldSettingsItem
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem
+  name: ChartSourceField
+  nameWithType: ChartSourceField
+  fullName: Avalonia.Controls.ChartSourceField
   type: Class
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: PivotGridFieldSettingsItem
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    id: ChartSourceField
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
     startLine: 8
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Represents a source field while editing pivot grid layout settings.
+  summary: Describes a field discovered from a chart data source.
   example: []
   syntax:
-    content: public class PivotGridFieldSettingsItem
-    content.vb: Public Class PivotGridFieldSettingsItem
+    content: public class ChartSourceField
+    content.vb: Public Class ChartSourceField
   inheritance:
   - System.Object
   inheritedMembers:
@@ -50,60 +47,60 @@ items:
   - System.Object.ToString
   extensionMethods:
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.#ctor
-  commentId: M:Avalonia.Controls.PivotGridFieldSettingsItem.#ctor
+- uid: Avalonia.Controls.ChartSourceField.#ctor
+  commentId: M:Avalonia.Controls.ChartSourceField.#ctor
   id: '#ctor'
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  parent: Avalonia.Controls.ChartSourceField
   langs:
   - csharp
   - vb
-  name: PivotGridFieldSettingsItem()
-  nameWithType: PivotGridFieldSettingsItem.PivotGridFieldSettingsItem()
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.PivotGridFieldSettingsItem()
+  name: ChartSourceField()
+  nameWithType: ChartSourceField.ChartSourceField()
+  fullName: Avalonia.Controls.ChartSourceField.ChartSourceField()
   type: Constructor
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
     startLine: 14
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Initializes a new instance of the <xref href="Avalonia.Controls.PivotGridFieldSettingsItem" data-throw-if-not-resolved="false"></xref> class.
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.ChartSourceField" data-throw-if-not-resolved="false"></xref> class.
   example: []
   syntax:
-    content: public PivotGridFieldSettingsItem()
+    content: public ChartSourceField()
     content.vb: Public Sub New()
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.#ctor*
-  nameWithType.vb: PivotGridFieldSettingsItem.New()
-  fullName.vb: Avalonia.Controls.PivotGridFieldSettingsItem.New()
+  overload: Avalonia.Controls.ChartSourceField.#ctor*
+  nameWithType.vb: ChartSourceField.New()
+  fullName.vb: Avalonia.Controls.ChartSourceField.New()
   name.vb: New()
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Name
-  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.Name
+- uid: Avalonia.Controls.ChartSourceField.Name
+  commentId: P:Avalonia.Controls.ChartSourceField.Name
   id: Name
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  parent: Avalonia.Controls.ChartSourceField
   langs:
   - csharp
   - vb
   name: Name
-  nameWithType: PivotGridFieldSettingsItem.Name
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Name
+  nameWithType: ChartSourceField.Name
+  fullName: Avalonia.Controls.ChartSourceField.Name
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Name
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
     startLine: 22
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets or sets the source field name.
+  summary: Gets or sets the field name.
   example: []
   syntax:
     content: public string Name { get; set; }
@@ -111,25 +108,25 @@ items:
     return:
       type: System.String
     content.vb: Public Property Name As String
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.Name*
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Header
-  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.Header
+  overload: Avalonia.Controls.ChartSourceField.Name*
+- uid: Avalonia.Controls.ChartSourceField.Header
+  commentId: P:Avalonia.Controls.ChartSourceField.Header
   id: Header
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  parent: Avalonia.Controls.ChartSourceField
   langs:
   - csharp
   - vb
   name: Header
-  nameWithType: PivotGridFieldSettingsItem.Header
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Header
+  nameWithType: ChartSourceField.Header
+  fullName: Avalonia.Controls.ChartSourceField.Header
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Header
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
     startLine: 26
   assemblies:
   - Tripous.Avalonia.Controls
@@ -142,30 +139,30 @@ items:
     return:
       type: System.String
     content.vb: Public Property Header As String
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.Header*
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.ValueType
-  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.ValueType
+  overload: Avalonia.Controls.ChartSourceField.Header*
+- uid: Avalonia.Controls.ChartSourceField.ValueType
+  commentId: P:Avalonia.Controls.ChartSourceField.ValueType
   id: ValueType
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  parent: Avalonia.Controls.ChartSourceField
   langs:
   - csharp
   - vb
   name: ValueType
-  nameWithType: PivotGridFieldSettingsItem.ValueType
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.ValueType
+  nameWithType: ChartSourceField.ValueType
+  fullName: Avalonia.Controls.ChartSourceField.ValueType
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ValueType
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
     startLine: 30
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets or sets the source value type.
+  summary: Gets or sets the field data type.
   example: []
   syntax:
     content: public Type ValueType { get; set; }
@@ -173,61 +170,61 @@ items:
     return:
       type: System.Type
     content.vb: Public Property ValueType As Type
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.ValueType*
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
-  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
-  id: CanUseAsAxis
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  overload: Avalonia.Controls.ChartSourceField.ValueType*
+- uid: Avalonia.Controls.ChartSourceField.CanUseAsDimension
+  commentId: P:Avalonia.Controls.ChartSourceField.CanUseAsDimension
+  id: CanUseAsDimension
+  parent: Avalonia.Controls.ChartSourceField
   langs:
   - csharp
   - vb
-  name: CanUseAsAxis
-  nameWithType: PivotGridFieldSettingsItem.CanUseAsAxis
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
+  name: CanUseAsDimension
+  nameWithType: ChartSourceField.CanUseAsDimension
+  fullName: Avalonia.Controls.ChartSourceField.CanUseAsDimension
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: CanUseAsAxis
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    id: CanUseAsDimension
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
     startLine: 34
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets or sets a value indicating whether the field can be used in an axis.
+  summary: Gets or sets a value indicating whether the field can be used as a category or series field.
   example: []
   syntax:
-    content: public bool CanUseAsAxis { get; set; }
+    content: public bool CanUseAsDimension { get; set; }
     parameters: []
     return:
       type: System.Boolean
-    content.vb: Public Property CanUseAsAxis As Boolean
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis*
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
-  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
+    content.vb: Public Property CanUseAsDimension As Boolean
+  overload: Avalonia.Controls.ChartSourceField.CanUseAsDimension*
+- uid: Avalonia.Controls.ChartSourceField.CanUseAsMeasure
+  commentId: P:Avalonia.Controls.ChartSourceField.CanUseAsMeasure
   id: CanUseAsMeasure
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  parent: Avalonia.Controls.ChartSourceField
   langs:
   - csharp
   - vb
   name: CanUseAsMeasure
-  nameWithType: PivotGridFieldSettingsItem.CanUseAsMeasure
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
+  nameWithType: ChartSourceField.CanUseAsMeasure
+  fullName: Avalonia.Controls.ChartSourceField.CanUseAsMeasure
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanUseAsMeasure
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
     startLine: 38
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets or sets a value indicating whether the field can be used as a value measure.
+  summary: Gets or sets a value indicating whether the field can be used as a measure source.
   example: []
   syntax:
     content: public bool CanUseAsMeasure { get; set; }
@@ -235,131 +232,38 @@ items:
     return:
       type: System.Boolean
     content.vb: Public Property CanUseAsMeasure As Boolean
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure*
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Role
-  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.Role
-  id: Role
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
+  overload: Avalonia.Controls.ChartSourceField.CanUseAsMeasure*
+- uid: Avalonia.Controls.ChartSourceField.IsNumeric
+  commentId: P:Avalonia.Controls.ChartSourceField.IsNumeric
+  id: IsNumeric
+  parent: Avalonia.Controls.ChartSourceField
   langs:
   - csharp
   - vb
-  name: Role
-  nameWithType: PivotGridFieldSettingsItem.Role
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Role
+  name: IsNumeric
+  nameWithType: ChartSourceField.IsNumeric
+  fullName: Avalonia.Controls.ChartSourceField.IsNumeric
   type: Property
   source:
     remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Role
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
+    id: IsNumeric
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartSourceField.cs
     startLine: 42
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
-  summary: Gets or sets the current layout role.
+  summary: Gets or sets a value indicating whether the field is numeric.
   example: []
   syntax:
-    content: public PivotGridFieldRole Role { get; set; }
+    content: public bool IsNumeric { get; set; }
     parameters: []
     return:
-      type: Avalonia.Controls.PivotGridFieldRole
-    content.vb: Public Property Role As PivotGridFieldRole
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.Role*
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
-  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
-  id: AggregateKind
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
-  langs:
-  - csharp
-  - vb
-  name: AggregateKind
-  nameWithType: PivotGridFieldSettingsItem.AggregateKind
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: AggregateKind
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
-    startLine: 46
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets or sets the aggregate operation used when the field is a value measure.
-  example: []
-  syntax:
-    content: public PivotGridAggregateKind AggregateKind { get; set; }
-    parameters: []
-    return:
-      type: Avalonia.Controls.PivotGridAggregateKind
-    content.vb: Public Property AggregateKind As PivotGridAggregateKind
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind*
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
-  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
-  id: DisplayFormat
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
-  langs:
-  - csharp
-  - vb
-  name: DisplayFormat
-  nameWithType: PivotGridFieldSettingsItem.DisplayFormat
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: DisplayFormat
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
-    startLine: 50
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets or sets the display format used when the field is a value measure.
-  example: []
-  syntax:
-    content: public string DisplayFormat { get; set; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public Property DisplayFormat As String
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat*
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Width
-  commentId: P:Avalonia.Controls.PivotGridFieldSettingsItem.Width
-  id: Width
-  parent: Avalonia.Controls.PivotGridFieldSettingsItem
-  langs:
-  - csharp
-  - vb
-  name: Width
-  nameWithType: PivotGridFieldSettingsItem.Width
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Width
-  type: Property
-  source:
-    remote:
-      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Width
-    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/PivotGrid/PivotGridFieldSettingsItem.cs
-    startLine: 54
-  assemblies:
-  - Tripous.Avalonia.Controls
-  namespace: Avalonia.Controls
-  summary: Gets or sets the cell width used when the field is a value measure.
-  example: []
-  syntax:
-    content: public double Width { get; set; }
-    parameters: []
-    return:
-      type: System.Double
-    content.vb: Public Property Width As Double
-  overload: Avalonia.Controls.PivotGridFieldSettingsItem.Width*
+      type: System.Boolean
+    content.vb: Public Property IsNumeric As Boolean
+  overload: Avalonia.Controls.ChartSourceField.IsNumeric*
 references:
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
@@ -718,27 +622,28 @@ references:
   name: Tripous
   nameWithType: Tripous
   fullName: Tripous
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem
-  commentId: T:Avalonia.Controls.PivotGridFieldSettingsItem
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html
-  name: PivotGridFieldSettingsItem
-  nameWithType: PivotGridFieldSettingsItem
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.#ctor*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.#ctor
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem__ctor
-  name: PivotGridFieldSettingsItem
-  nameWithType: PivotGridFieldSettingsItem.PivotGridFieldSettingsItem
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.PivotGridFieldSettingsItem
-  nameWithType.vb: PivotGridFieldSettingsItem.New
-  fullName.vb: Avalonia.Controls.PivotGridFieldSettingsItem.New
+- uid: Avalonia.Controls.ChartSourceField
+  commentId: T:Avalonia.Controls.ChartSourceField
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartSourceField.html
+  name: ChartSourceField
+  nameWithType: ChartSourceField
+  fullName: Avalonia.Controls.ChartSourceField
+- uid: Avalonia.Controls.ChartSourceField.#ctor*
+  commentId: Overload:Avalonia.Controls.ChartSourceField.#ctor
+  href: Avalonia.Controls.ChartSourceField.html#Avalonia_Controls_ChartSourceField__ctor
+  name: ChartSourceField
+  nameWithType: ChartSourceField.ChartSourceField
+  fullName: Avalonia.Controls.ChartSourceField.ChartSourceField
+  nameWithType.vb: ChartSourceField.New
+  fullName.vb: Avalonia.Controls.ChartSourceField.New
   name.vb: New
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Name*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.Name
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_Name
+- uid: Avalonia.Controls.ChartSourceField.Name*
+  commentId: Overload:Avalonia.Controls.ChartSourceField.Name
+  href: Avalonia.Controls.ChartSourceField.html#Avalonia_Controls_ChartSourceField_Name
   name: Name
-  nameWithType: PivotGridFieldSettingsItem.Name
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Name
+  nameWithType: ChartSourceField.Name
+  fullName: Avalonia.Controls.ChartSourceField.Name
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -750,18 +655,18 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Header*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.Header
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_Header
+- uid: Avalonia.Controls.ChartSourceField.Header*
+  commentId: Overload:Avalonia.Controls.ChartSourceField.Header
+  href: Avalonia.Controls.ChartSourceField.html#Avalonia_Controls_ChartSourceField_Header
   name: Header
-  nameWithType: PivotGridFieldSettingsItem.Header
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Header
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.ValueType*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.ValueType
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_ValueType
+  nameWithType: ChartSourceField.Header
+  fullName: Avalonia.Controls.ChartSourceField.Header
+- uid: Avalonia.Controls.ChartSourceField.ValueType*
+  commentId: Overload:Avalonia.Controls.ChartSourceField.ValueType
+  href: Avalonia.Controls.ChartSourceField.html#Avalonia_Controls_ChartSourceField_ValueType
   name: ValueType
-  nameWithType: PivotGridFieldSettingsItem.ValueType
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.ValueType
+  nameWithType: ChartSourceField.ValueType
+  fullName: Avalonia.Controls.ChartSourceField.ValueType
 - uid: System.Type
   commentId: T:System.Type
   parent: System
@@ -770,12 +675,12 @@ references:
   name: Type
   nameWithType: Type
   fullName: System.Type
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_CanUseAsAxis
-  name: CanUseAsAxis
-  nameWithType: PivotGridFieldSettingsItem.CanUseAsAxis
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsAxis
+- uid: Avalonia.Controls.ChartSourceField.CanUseAsDimension*
+  commentId: Overload:Avalonia.Controls.ChartSourceField.CanUseAsDimension
+  href: Avalonia.Controls.ChartSourceField.html#Avalonia_Controls_ChartSourceField_CanUseAsDimension
+  name: CanUseAsDimension
+  nameWithType: ChartSourceField.CanUseAsDimension
+  fullName: Avalonia.Controls.ChartSourceField.CanUseAsDimension
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -787,58 +692,15 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_CanUseAsMeasure
+- uid: Avalonia.Controls.ChartSourceField.CanUseAsMeasure*
+  commentId: Overload:Avalonia.Controls.ChartSourceField.CanUseAsMeasure
+  href: Avalonia.Controls.ChartSourceField.html#Avalonia_Controls_ChartSourceField_CanUseAsMeasure
   name: CanUseAsMeasure
-  nameWithType: PivotGridFieldSettingsItem.CanUseAsMeasure
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.CanUseAsMeasure
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Role*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.Role
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_Role
-  name: Role
-  nameWithType: PivotGridFieldSettingsItem.Role
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Role
-- uid: Avalonia.Controls.PivotGridFieldRole
-  commentId: T:Avalonia.Controls.PivotGridFieldRole
-  parent: Avalonia.Controls
-  href: Avalonia.Controls.PivotGridFieldRole.html
-  name: PivotGridFieldRole
-  nameWithType: PivotGridFieldRole
-  fullName: Avalonia.Controls.PivotGridFieldRole
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_AggregateKind
-  name: AggregateKind
-  nameWithType: PivotGridFieldSettingsItem.AggregateKind
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.AggregateKind
-- uid: Avalonia.Controls.PivotGridAggregateKind
-  commentId: T:Avalonia.Controls.PivotGridAggregateKind
-  parent: Avalonia.Controls
-  href: Avalonia.Controls.PivotGridAggregateKind.html
-  name: PivotGridAggregateKind
-  nameWithType: PivotGridAggregateKind
-  fullName: Avalonia.Controls.PivotGridAggregateKind
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_DisplayFormat
-  name: DisplayFormat
-  nameWithType: PivotGridFieldSettingsItem.DisplayFormat
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.DisplayFormat
-- uid: Avalonia.Controls.PivotGridFieldSettingsItem.Width*
-  commentId: Overload:Avalonia.Controls.PivotGridFieldSettingsItem.Width
-  href: Avalonia.Controls.PivotGridFieldSettingsItem.html#Avalonia_Controls_PivotGridFieldSettingsItem_Width
-  name: Width
-  nameWithType: PivotGridFieldSettingsItem.Width
-  fullName: Avalonia.Controls.PivotGridFieldSettingsItem.Width
-- uid: System.Double
-  commentId: T:System.Double
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.double
-  name: double
-  nameWithType: double
-  fullName: double
-  nameWithType.vb: Double
-  fullName.vb: Double
-  name.vb: Double
+  nameWithType: ChartSourceField.CanUseAsMeasure
+  fullName: Avalonia.Controls.ChartSourceField.CanUseAsMeasure
+- uid: Avalonia.Controls.ChartSourceField.IsNumeric*
+  commentId: Overload:Avalonia.Controls.ChartSourceField.IsNumeric
+  href: Avalonia.Controls.ChartSourceField.html#Avalonia_Controls_ChartSourceField_IsNumeric
+  name: IsNumeric
+  nameWithType: ChartSourceField.IsNumeric
+  fullName: Avalonia.Controls.ChartSourceField.IsNumeric

@@ -11,7 +11,9 @@ items:
   - Avalonia.Controls.GroupGridEngine.BeginEdit(System.Int32,Avalonia.Controls.GroupGridColumn)
   - Avalonia.Controls.GroupGridEngine.BeginningEdit
   - Avalonia.Controls.GroupGridEngine.BodyHeight
+  - Avalonia.Controls.GroupGridEngine.CanCollapseGroups
   - Avalonia.Controls.GroupGridEngine.CanDeleteCurrentRow
+  - Avalonia.Controls.GroupGridEngine.CanExpandGroups
   - Avalonia.Controls.GroupGridEngine.CanInsertRow
   - Avalonia.Controls.GroupGridEngine.CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
   - Avalonia.Controls.GroupGridEngine.CancelEdit
@@ -23,6 +25,7 @@ items:
   - Avalonia.Controls.GroupGridEngine.ClearFilters
   - Avalonia.Controls.GroupGridEngine.ClearSelection
   - Avalonia.Controls.GroupGridEngine.ClearSort
+  - Avalonia.Controls.GroupGridEngine.CollapseAllGroups
   - Avalonia.Controls.GroupGridEngine.Columns
   - Avalonia.Controls.GroupGridEngine.ColumnsChanged
   - Avalonia.Controls.GroupGridEngine.CommitEdit(System.Object)
@@ -40,6 +43,7 @@ items:
   - Avalonia.Controls.GroupGridEngine.EditRequested
   - Avalonia.Controls.GroupGridEngine.EditingCell
   - Avalonia.Controls.GroupGridEngine.EditingCellChanged
+  - Avalonia.Controls.GroupGridEngine.ExpandAllGroups
   - Avalonia.Controls.GroupGridEngine.FilterCount
   - Avalonia.Controls.GroupGridEngine.FiltersChanged
   - Avalonia.Controls.GroupGridEngine.GetColumnFilter(Avalonia.Controls.GroupGridColumn)
@@ -165,7 +169,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 703
+    startLine: 748
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -196,7 +200,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RebuildProjection
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 714
+    startLine: 759
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -224,7 +228,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearCurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 726
+    startLine: 771
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -252,7 +256,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearSelection
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 733
+    startLine: 778
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -280,7 +284,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetCurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 742
+    startLine: 787
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -315,7 +319,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetCurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 766
+    startLine: 811
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -356,7 +360,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetSelectedCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 772
+    startLine: 817
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -391,7 +395,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetSelectedCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 793
+    startLine: 838
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -432,7 +436,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectCurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 798
+    startLine: 843
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -463,7 +467,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSelectedCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 807
+    startLine: 852
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -498,7 +502,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSelectedRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 816
+    startLine: 861
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -536,7 +540,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BeginEdit
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 827
+    startLine: 872
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -571,7 +575,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BeginEdit
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 852
+    startLine: 897
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -612,7 +616,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BeginEdit
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 857
+    startLine: 902
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -643,7 +647,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CommitEdit
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 866
+    startLine: 911
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -681,7 +685,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CancelEdit
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 893
+    startLine: 938
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -712,7 +716,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetVisibleColumns
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 911
+    startLine: 956
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -743,7 +747,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IndexOfVisibleColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 920
+    startLine: 965
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -778,7 +782,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetVisibleValueColumns
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 942
+    startLine: 987
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -809,7 +813,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsGroupedColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 951
+    startLine: 996
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -844,7 +848,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GroupColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 963
+    startLine: 1008
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -885,7 +889,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UngroupColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 980
+    startLine: 1025
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -920,7 +924,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveGroupedColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 990
+    startLine: 1035
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -961,7 +965,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1008
+    startLine: 1053
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1002,7 +1006,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetColumnVisible
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1026
+    startLine: 1071
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1043,7 +1047,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetColumnFilter
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1056
+    startLine: 1101
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1078,7 +1082,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetColumnFilter
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1066
+    startLine: 1111
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1119,7 +1123,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearColumnFilter
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1091
+    startLine: 1136
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1154,7 +1158,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearFilters
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1107
+    startLine: 1152
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1185,7 +1189,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearSort
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1126
+    startLine: 1171
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1216,7 +1220,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToggleSort
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1142
+    startLine: 1187
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1251,7 +1255,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IndexOfVisibleRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1177
+    startLine: 1222
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1289,7 +1293,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetVisibleRowInfo
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1186
+    startLine: 1231
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1327,7 +1331,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveCurrentColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1197
+    startLine: 1242
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1365,7 +1369,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveCurrentRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1218
+    startLine: 1263
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1403,7 +1407,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveCurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1239
+    startLine: 1284
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1444,7 +1448,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveCurrentToFirstColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1254
+    startLine: 1299
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1475,7 +1479,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveCurrentToLastColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1266
+    startLine: 1311
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1506,7 +1510,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveCurrentToFirstRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1278
+    startLine: 1323
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1537,7 +1541,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveCurrentToLastRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1288
+    startLine: 1333
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1568,7 +1572,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MoveCurrentToNextEditableCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1299
+    startLine: 1344
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1606,7 +1610,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetGroupExpanded
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1393
+    startLine: 1438
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1647,7 +1651,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToggleGroupExpanded
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1402
+    startLine: 1447
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1667,6 +1671,68 @@ items:
   nameWithType.vb: GroupGridEngine.ToggleGroupExpanded(Integer)
   fullName.vb: Avalonia.Controls.GroupGridEngine.ToggleGroupExpanded(Integer)
   name.vb: ToggleGroupExpanded(Integer)
+- uid: Avalonia.Controls.GroupGridEngine.ExpandAllGroups
+  commentId: M:Avalonia.Controls.GroupGridEngine.ExpandAllGroups
+  id: ExpandAllGroups
+  parent: Avalonia.Controls.GroupGridEngine
+  langs:
+  - csharp
+  - vb
+  name: ExpandAllGroups()
+  nameWithType: GroupGridEngine.ExpandAllGroups()
+  fullName: Avalonia.Controls.GroupGridEngine.ExpandAllGroups()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExpandAllGroups
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
+    startLine: 1456
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Expands all group nodes.
+  example: []
+  syntax:
+    content: public bool ExpandAllGroups()
+    return:
+      type: System.Boolean
+      description: True if any group state changed; otherwise, false.
+    content.vb: Public Function ExpandAllGroups() As Boolean
+  overload: Avalonia.Controls.GroupGridEngine.ExpandAllGroups*
+- uid: Avalonia.Controls.GroupGridEngine.CollapseAllGroups
+  commentId: M:Avalonia.Controls.GroupGridEngine.CollapseAllGroups
+  id: CollapseAllGroups
+  parent: Avalonia.Controls.GroupGridEngine
+  langs:
+  - csharp
+  - vb
+  name: CollapseAllGroups()
+  nameWithType: GroupGridEngine.CollapseAllGroups()
+  fullName: Avalonia.Controls.GroupGridEngine.CollapseAllGroups()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CollapseAllGroups
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
+    startLine: 1464
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Collapses all group nodes.
+  example: []
+  syntax:
+    content: public bool CollapseAllGroups()
+    return:
+      type: System.Boolean
+      description: True if any group state changed; otherwise, false.
+    content.vb: Public Function CollapseAllGroups() As Boolean
+  overload: Avalonia.Controls.GroupGridEngine.CollapseAllGroups*
 - uid: Avalonia.Controls.GroupGridEngine.GetGroupSummary(System.Int32,Avalonia.Controls.GroupGridColumn)
   commentId: M:Avalonia.Controls.GroupGridEngine.GetGroupSummary(System.Int32,Avalonia.Controls.GroupGridColumn)
   id: GetGroupSummary(System.Int32,Avalonia.Controls.GroupGridColumn)
@@ -1685,7 +1751,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetGroupSummary
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1415
+    startLine: 1476
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1726,7 +1792,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetTotalSummary
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1433
+    startLine: 1494
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1761,7 +1827,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetGroupHeaderText
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1442
+    startLine: 1503
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1799,7 +1865,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetDisplayText
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1463
+    startLine: 1524
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1840,7 +1906,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetTotalSummaryText
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1484
+    startLine: 1545
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1875,7 +1941,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HitTest
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1498
+    startLine: 1559
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1916,7 +1982,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetVisibleRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1546
+    startLine: 1607
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1954,7 +2020,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetValue
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1557
+    startLine: 1618
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -1995,7 +2061,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetValue
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1567
+    startLine: 1628
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2036,7 +2102,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanSetValue
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1578
+    startLine: 1639
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2077,7 +2143,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanInsertRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1588
+    startLine: 1649
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2108,7 +2174,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: InsertRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1597
+    startLine: 1658
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2139,7 +2205,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanDeleteCurrentRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1626
+    startLine: 1687
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2170,7 +2236,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DeleteCurrentRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1634
+    startLine: 1695
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2201,7 +2267,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RequestEdit
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1657
+    startLine: 1718
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2229,7 +2295,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetViewport
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1668
+    startLine: 1729
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2264,7 +2330,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetViewport
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1678
+    startLine: 1739
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2305,7 +2371,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Columns
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1702
+    startLine: 1763
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2336,7 +2402,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GroupColumns
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1706
+    startLine: 1767
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2367,7 +2433,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataAdapter
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1710
+    startLine: 1771
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2398,7 +2464,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsReadOnly
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1718
+    startLine: 1779
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2429,7 +2495,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1735
+    startLine: 1796
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2460,7 +2526,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectedCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1739
+    startLine: 1800
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2491,7 +2557,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EditingCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1743
+    startLine: 1804
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2522,7 +2588,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasCurrentCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1747
+    startLine: 1808
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2553,7 +2619,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasSelectedCell
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1751
+    startLine: 1812
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2584,7 +2650,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsEditing
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1755
+    startLine: 1816
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2615,7 +2681,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRowIndex
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1759
+    startLine: 1820
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2646,7 +2712,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectedRowIndex
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1763
+    startLine: 1824
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2677,7 +2743,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1767
+    startLine: 1828
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2708,7 +2774,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectedColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1771
+    startLine: 1832
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2739,7 +2805,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: VisibleNodeCount
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1777
+    startLine: 1838
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2770,7 +2836,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GroupColumnCount
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1781
+    startLine: 1842
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2783,6 +2849,68 @@ items:
       type: System.Int32
     content.vb: Public ReadOnly Property GroupColumnCount As Integer
   overload: Avalonia.Controls.GroupGridEngine.GroupColumnCount*
+- uid: Avalonia.Controls.GroupGridEngine.CanExpandGroups
+  commentId: P:Avalonia.Controls.GroupGridEngine.CanExpandGroups
+  id: CanExpandGroups
+  parent: Avalonia.Controls.GroupGridEngine
+  langs:
+  - csharp
+  - vb
+  name: CanExpandGroups
+  nameWithType: GroupGridEngine.CanExpandGroups
+  fullName: Avalonia.Controls.GroupGridEngine.CanExpandGroups
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanExpandGroups
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
+    startLine: 1846
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets a value indicating whether any group node can be expanded.
+  example: []
+  syntax:
+    content: public bool CanExpandGroups { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property CanExpandGroups As Boolean
+  overload: Avalonia.Controls.GroupGridEngine.CanExpandGroups*
+- uid: Avalonia.Controls.GroupGridEngine.CanCollapseGroups
+  commentId: P:Avalonia.Controls.GroupGridEngine.CanCollapseGroups
+  id: CanCollapseGroups
+  parent: Avalonia.Controls.GroupGridEngine
+  langs:
+  - csharp
+  - vb
+  name: CanCollapseGroups
+  nameWithType: GroupGridEngine.CanCollapseGroups
+  fullName: Avalonia.Controls.GroupGridEngine.CanCollapseGroups
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanCollapseGroups
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
+    startLine: 1850
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets a value indicating whether any group node can be collapsed.
+  example: []
+  syntax:
+    content: public bool CanCollapseGroups { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property CanCollapseGroups As Boolean
+  overload: Avalonia.Controls.GroupGridEngine.CanCollapseGroups*
 - uid: Avalonia.Controls.GroupGridEngine.SortColumn
   commentId: P:Avalonia.Controls.GroupGridEngine.SortColumn
   id: SortColumn
@@ -2801,7 +2929,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SortColumn
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1785
+    startLine: 1854
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2832,7 +2960,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SortDirection
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1789
+    startLine: 1858
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2863,7 +2991,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FilterCount
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1793
+    startLine: 1862
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2894,7 +3022,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasFilters
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1797
+    startLine: 1866
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2925,7 +3053,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Viewport
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1803
+    startLine: 1872
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2956,7 +3084,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BodyHeight
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1807
+    startLine: 1876
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -2987,7 +3115,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LayoutMetrics
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1811
+    startLine: 1880
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3018,7 +3146,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowCount
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1815
+    startLine: 1884
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3049,7 +3177,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataAdapterChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1826
+    startLine: 1895
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3078,7 +3206,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1830
+    startLine: 1899
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3107,7 +3235,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ColumnsChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1834
+    startLine: 1903
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3136,7 +3264,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GroupColumnsChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1838
+    startLine: 1907
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3165,7 +3293,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: VisibleNodesChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1843
+    startLine: 1912
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3197,7 +3325,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentCellChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1849
+    startLine: 1918
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3226,7 +3354,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRowChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1853
+    startLine: 1922
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3255,7 +3383,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectionChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1857
+    startLine: 1926
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3284,7 +3412,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BeginningEdit
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1861
+    startLine: 1930
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3313,7 +3441,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EditingCellChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1865
+    startLine: 1934
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3342,7 +3470,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CellValidating
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1869
+    startLine: 1938
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3371,7 +3499,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CellValueCommitting
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1873
+    startLine: 1942
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3400,7 +3528,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CellValueCommitted
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1877
+    startLine: 1946
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3429,7 +3557,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EditCanceled
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1881
+    startLine: 1950
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3458,7 +3586,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ViewportChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1887
+    startLine: 1956
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3487,7 +3615,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SummariesChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1891
+    startLine: 1960
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3516,7 +3644,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SortingChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1895
+    startLine: 1964
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3545,7 +3673,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FiltersChanged
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1899
+    startLine: 1968
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3574,7 +3702,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: InsertingRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1905
+    startLine: 1974
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3603,7 +3731,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowInserted
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1909
+    startLine: 1978
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3632,7 +3760,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DeletingRow
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1913
+    startLine: 1982
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3661,7 +3789,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowDeleted
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1917
+    startLine: 1986
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -3690,7 +3818,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EditRequested
     path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridEngine.cs
-    startLine: 1923
+    startLine: 1992
   assemblies:
   - Tripous.Avalonia.Controls
   namespace: Avalonia.Controls
@@ -4455,6 +4583,18 @@ references:
   name: ToggleGroupExpanded
   nameWithType: GroupGridEngine.ToggleGroupExpanded
   fullName: Avalonia.Controls.GroupGridEngine.ToggleGroupExpanded
+- uid: Avalonia.Controls.GroupGridEngine.ExpandAllGroups*
+  commentId: Overload:Avalonia.Controls.GroupGridEngine.ExpandAllGroups
+  href: Avalonia.Controls.GroupGridEngine.html#Avalonia_Controls_GroupGridEngine_ExpandAllGroups
+  name: ExpandAllGroups
+  nameWithType: GroupGridEngine.ExpandAllGroups
+  fullName: Avalonia.Controls.GroupGridEngine.ExpandAllGroups
+- uid: Avalonia.Controls.GroupGridEngine.CollapseAllGroups*
+  commentId: Overload:Avalonia.Controls.GroupGridEngine.CollapseAllGroups
+  href: Avalonia.Controls.GroupGridEngine.html#Avalonia_Controls_GroupGridEngine_CollapseAllGroups
+  name: CollapseAllGroups
+  nameWithType: GroupGridEngine.CollapseAllGroups
+  fullName: Avalonia.Controls.GroupGridEngine.CollapseAllGroups
 - uid: Avalonia.Controls.GroupGridEngine.GetGroupSummary*
   commentId: Overload:Avalonia.Controls.GroupGridEngine.GetGroupSummary
   href: Avalonia.Controls.GroupGridEngine.html#Avalonia_Controls_GroupGridEngine_GetGroupSummary_System_Int32_Avalonia_Controls_GroupGridColumn_
@@ -4784,6 +4924,18 @@ references:
   name: GroupColumnCount
   nameWithType: GroupGridEngine.GroupColumnCount
   fullName: Avalonia.Controls.GroupGridEngine.GroupColumnCount
+- uid: Avalonia.Controls.GroupGridEngine.CanExpandGroups*
+  commentId: Overload:Avalonia.Controls.GroupGridEngine.CanExpandGroups
+  href: Avalonia.Controls.GroupGridEngine.html#Avalonia_Controls_GroupGridEngine_CanExpandGroups
+  name: CanExpandGroups
+  nameWithType: GroupGridEngine.CanExpandGroups
+  fullName: Avalonia.Controls.GroupGridEngine.CanExpandGroups
+- uid: Avalonia.Controls.GroupGridEngine.CanCollapseGroups*
+  commentId: Overload:Avalonia.Controls.GroupGridEngine.CanCollapseGroups
+  href: Avalonia.Controls.GroupGridEngine.html#Avalonia_Controls_GroupGridEngine_CanCollapseGroups
+  name: CanCollapseGroups
+  nameWithType: GroupGridEngine.CanCollapseGroups
+  fullName: Avalonia.Controls.GroupGridEngine.CanCollapseGroups
 - uid: Avalonia.Controls.GroupGridEngine.SortColumn*
   commentId: Overload:Avalonia.Controls.GroupGridEngine.SortColumn
   href: Avalonia.Controls.GroupGridEngine.html#Avalonia_Controls_GroupGridEngine_SortColumn

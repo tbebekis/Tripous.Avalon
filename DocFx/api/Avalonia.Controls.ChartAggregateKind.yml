@@ -1,0 +1,1385 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.ChartAggregateKind
+  commentId: T:Avalonia.Controls.ChartAggregateKind
+  id: ChartAggregateKind
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.ChartAggregateKind.Average
+  - Avalonia.Controls.ChartAggregateKind.Count
+  - Avalonia.Controls.ChartAggregateKind.CountDistinct
+  - Avalonia.Controls.ChartAggregateKind.Max
+  - Avalonia.Controls.ChartAggregateKind.Min
+  - Avalonia.Controls.ChartAggregateKind.Product
+  - Avalonia.Controls.ChartAggregateKind.StdDev
+  - Avalonia.Controls.ChartAggregateKind.StdDevP
+  - Avalonia.Controls.ChartAggregateKind.Sum
+  - Avalonia.Controls.ChartAggregateKind.Variance
+  - Avalonia.Controls.ChartAggregateKind.VarianceP
+  langs:
+  - csharp
+  - vb
+  name: ChartAggregateKind
+  nameWithType: ChartAggregateKind
+  fullName: Avalonia.Controls.ChartAggregateKind
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ChartAggregateKind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Defines aggregate operations supported by chart measures.
+  example: []
+  syntax:
+    content: public enum ChartAggregateKind
+    content.vb: Public Enum ChartAggregateKind
+  extensionMethods:
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Add``1(Avalonia.Controls.ChartAggregateKind)
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartAggregateKind)
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartAggregateKind)
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Has``1(Avalonia.Controls.ChartAggregateKind)
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.In``1(Avalonia.Controls.ChartAggregateKind)
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartAggregateKind)
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.IsZero``1
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Remove``1(Avalonia.Controls.ChartAggregateKind)
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Set``1(Avalonia.Controls.ChartAggregateKind,System.Boolean)
+  - Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartAggregateKind)
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.ChartAggregateKind.Count
+  commentId: F:Avalonia.Controls.ChartAggregateKind.Count
+  id: Count
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: Count
+  nameWithType: ChartAggregateKind.Count
+  fullName: Avalonia.Controls.ChartAggregateKind.Count
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Count
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Counts source rows.
+  example: []
+  syntax:
+    content: Count = 0
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.Sum
+  commentId: F:Avalonia.Controls.ChartAggregateKind.Sum
+  id: Sum
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: Sum
+  nameWithType: ChartAggregateKind.Sum
+  fullName: Avalonia.Controls.ChartAggregateKind.Sum
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Sum
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Sums numeric values.
+  example: []
+  syntax:
+    content: Sum = 1
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.Min
+  commentId: F:Avalonia.Controls.ChartAggregateKind.Min
+  id: Min
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: Min
+  nameWithType: ChartAggregateKind.Min
+  fullName: Avalonia.Controls.ChartAggregateKind.Min
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Min
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 21
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the minimum comparable value.
+  example: []
+  syntax:
+    content: Min = 2
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.Max
+  commentId: F:Avalonia.Controls.ChartAggregateKind.Max
+  id: Max
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: Max
+  nameWithType: ChartAggregateKind.Max
+  fullName: Avalonia.Controls.ChartAggregateKind.Max
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Max
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the maximum comparable value.
+  example: []
+  syntax:
+    content: Max = 3
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.Average
+  commentId: F:Avalonia.Controls.ChartAggregateKind.Average
+  id: Average
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: Average
+  nameWithType: ChartAggregateKind.Average
+  fullName: Avalonia.Controls.ChartAggregateKind.Average
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Average
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the average numeric value.
+  example: []
+  syntax:
+    content: Average = 4
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.StdDev
+  commentId: F:Avalonia.Controls.ChartAggregateKind.StdDev
+  id: StdDev
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: StdDev
+  nameWithType: ChartAggregateKind.StdDev
+  fullName: Avalonia.Controls.ChartAggregateKind.StdDev
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StdDev
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the sample standard deviation of numeric values.
+  example: []
+  syntax:
+    content: StdDev = 5
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.StdDevP
+  commentId: F:Avalonia.Controls.ChartAggregateKind.StdDevP
+  id: StdDevP
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: StdDevP
+  nameWithType: ChartAggregateKind.StdDevP
+  fullName: Avalonia.Controls.ChartAggregateKind.StdDevP
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StdDevP
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the population standard deviation of numeric values.
+  example: []
+  syntax:
+    content: StdDevP = 6
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.Variance
+  commentId: F:Avalonia.Controls.ChartAggregateKind.Variance
+  id: Variance
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: Variance
+  nameWithType: ChartAggregateKind.Variance
+  fullName: Avalonia.Controls.ChartAggregateKind.Variance
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Variance
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 41
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the sample variance of numeric values.
+  example: []
+  syntax:
+    content: Variance = 7
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.VarianceP
+  commentId: F:Avalonia.Controls.ChartAggregateKind.VarianceP
+  id: VarianceP
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: VarianceP
+  nameWithType: ChartAggregateKind.VarianceP
+  fullName: Avalonia.Controls.ChartAggregateKind.VarianceP
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: VarianceP
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 45
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the population variance of numeric values.
+  example: []
+  syntax:
+    content: VarianceP = 8
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.CountDistinct
+  commentId: F:Avalonia.Controls.ChartAggregateKind.CountDistinct
+  id: CountDistinct
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: CountDistinct
+  nameWithType: ChartAggregateKind.CountDistinct
+  fullName: Avalonia.Controls.ChartAggregateKind.CountDistinct
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CountDistinct
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Counts distinct non-empty values.
+  example: []
+  syntax:
+    content: CountDistinct = 9
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+- uid: Avalonia.Controls.ChartAggregateKind.Product
+  commentId: F:Avalonia.Controls.ChartAggregateKind.Product
+  id: Product
+  parent: Avalonia.Controls.ChartAggregateKind
+  langs:
+  - csharp
+  - vb
+  name: Product
+  nameWithType: ChartAggregateKind.Product
+  fullName: Avalonia.Controls.ChartAggregateKind.Product
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Product
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Charts/ChartAggregateKind.cs
+    startLine: 53
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the product of numeric values.
+  example: []
+  syntax:
+    content: Product = 10
+    return:
+      type: Avalonia.Controls.ChartAggregateKind
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Add``1(Avalonia.Controls.ChartAggregateKind)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  nameWithType: BitFields.Add<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  fullName: Tripous.BitFields.Add<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  nameWithType.vb: BitFields.Add(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  fullName.vb: Tripous.BitFields.Add(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  name.vb: Add(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartAggregateKind)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  nameWithType: BitFields.HasAny<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  fullName: Tripous.BitFields.HasAny<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  nameWithType.vb: BitFields.HasAny(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  fullName.vb: Tripous.BitFields.HasAny(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  name.vb: HasAny(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartAggregateKind)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  nameWithType: BitFields.HasNone<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  fullName: Tripous.BitFields.HasNone<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  nameWithType.vb: BitFields.HasNone(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  fullName.vb: Tripous.BitFields.HasNone(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  name.vb: HasNone(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Has``1(Avalonia.Controls.ChartAggregateKind)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  nameWithType: BitFields.Has<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  fullName: Tripous.BitFields.Has<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  nameWithType.vb: BitFields.Has(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  fullName.vb: Tripous.BitFields.Has(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  name.vb: Has(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.In``1(Avalonia.Controls.ChartAggregateKind)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  nameWithType: BitFields.In<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  fullName: Tripous.BitFields.In<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  nameWithType.vb: BitFields.In(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  fullName.vb: Tripous.BitFields.In(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  name.vb: In(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartAggregateKind)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  nameWithType: BitFields.IsExactly<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  fullName: Tripous.BitFields.IsExactly<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  nameWithType.vb: BitFields.IsExactly(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  name.vb: IsExactly(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<ChartAggregateKind>(ChartAggregateKind)
+  nameWithType: BitFields.IsZero<ChartAggregateKind>(ChartAggregateKind)
+  fullName: Tripous.BitFields.IsZero<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind)
+  nameWithType.vb: BitFields.IsZero(Of ChartAggregateKind)(ChartAggregateKind)
+  fullName.vb: Tripous.BitFields.IsZero(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind)
+  name.vb: IsZero(Of ChartAggregateKind)(ChartAggregateKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.ChartAggregateKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.ChartAggregateKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Remove``1(Avalonia.Controls.ChartAggregateKind)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  nameWithType: BitFields.Remove<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  fullName: Tripous.BitFields.Remove<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  nameWithType.vb: BitFields.Remove(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  fullName.vb: Tripous.BitFields.Remove(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  name.vb: Remove(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Set``1(Avalonia.Controls.ChartAggregateKind,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind, bool)
+  nameWithType: BitFields.Set<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind, bool)
+  fullName: Tripous.BitFields.Set<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind, bool)
+  nameWithType.vb: BitFields.Set(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind, Boolean)
+  name.vb: Set(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Avalonia.Controls.ChartAggregateKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartAggregateKind)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  nameWithType: BitFields.Toggle<ChartAggregateKind>(ChartAggregateKind, ChartAggregateKind)
+  fullName: Tripous.BitFields.Toggle<Avalonia.Controls.ChartAggregateKind>(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  nameWithType.vb: BitFields.Toggle(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  fullName.vb: Tripous.BitFields.Toggle(Of Avalonia.Controls.ChartAggregateKind)(Avalonia.Controls.ChartAggregateKind, Avalonia.Controls.ChartAggregateKind)
+  name.vb: Toggle(Of ChartAggregateKind)(ChartAggregateKind, ChartAggregateKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.ChartAggregateKind,Avalonia.Controls.ChartAggregateKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.ChartAggregateKind
+    name: ChartAggregateKind
+    href: Avalonia.Controls.ChartAggregateKind.html
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.ChartAggregateKind
+  commentId: T:Avalonia.Controls.ChartAggregateKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.ChartAggregateKind.html
+  name: ChartAggregateKind
+  nameWithType: ChartAggregateKind
+  fullName: Avalonia.Controls.ChartAggregateKind
