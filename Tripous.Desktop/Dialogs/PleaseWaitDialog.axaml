@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="Tripous.Desktop.PleaseWaitDialog"
+        Width="420"
+        SizeToContent="Height"
+        CanResize="False"
+        ShowInTaskbar="False"
+        WindowDecorations="None"
+        WindowStartupLocation="CenterOwner"
+        Title="Please wait">
+    <Border Padding="20"
+            Background="#FFFFFF"
+            BorderBrush="#D0D5DD"
+            BorderThickness="1">
+        <Grid RowDefinitions="Auto, 8, Auto, 20, Auto">
+            <TextBlock Grid.Row="0"
+                       Text="Please wait..."
+                       FontWeight="SemiBold"
+                       FontSize="15"/>
+            <TextBlock Name="lblMessage"
+                       Grid.Row="2"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"/>
+            <ProgressBar Grid.Row="4"
+                         Height="18"
+                         IsIndeterminate="True"/>
+        </Grid>
+    </Border>
+</Window>

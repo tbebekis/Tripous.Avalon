@@ -325,7 +325,15 @@ public partial class DbConnectionExplorerControl : UserControl
         try
         {
             Log($"Loading schema: {Schema.Name}...");
-            await Task.Run(() => Schema.Load());
+            PleaseWaitDialog WaitDialog = Ui.PleaseWait($"Loading schema: {Schema.Name}...", this.GetOwnerWindow());
+            try
+            {
+                await Task.Run(() => Schema.Load());
+            }
+            finally
+            {
+                WaitDialog.CloseDialog();
+            }
             UpdateSchemaNodeAfterLoad(SchemaNode, Schema);
             Log($"Schema {Schema.Name} loaded.");
         }

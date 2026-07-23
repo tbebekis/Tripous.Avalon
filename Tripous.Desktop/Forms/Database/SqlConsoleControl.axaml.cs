@@ -95,7 +95,16 @@ public partial class SqlConsoleControl : UserControl
         if (Statement.IsSelect)
         {
             fSelectCounter++;
-            MemTable Table = await Task.Run(() => fStore.Select(Statement.SqlText));
+            PleaseWaitDialog WaitDialog = Ui.PleaseWait("Executing SQL SELECT statement...", this.GetOwnerWindow());
+            MemTable Table;
+            try
+            {
+                Table = await Task.Run(() => fStore.Select(Statement.SqlText));
+            }
+            finally
+            {
+                WaitDialog.CloseDialog();
+            }
             GroupGrid Grid = CreateResultGrid(Table);
             TabItem Page = new TabItem
             {
@@ -116,7 +125,16 @@ SQL: {Statement.SqlText.Trim()}
                 AppendLog($"Statement {fStatementCounter}: canceled.");
                 return;
             }
-            int AffectedRows = await Task.Run(() => fStore.ExecSql(Statement.SqlText));
+            PleaseWaitDialog WaitDialog = Ui.PleaseWait("Executing SQL statement...", this.GetOwnerWindow());
+            int AffectedRows;
+            try
+            {
+                AffectedRows = await Task.Run(() => fStore.ExecSql(Statement.SqlText));
+            }
+            finally
+            {
+                WaitDialog.CloseDialog();
+            }
             AppendLog($@"Statement {fStatementCounter} successfully executed.
 Affected rows: {AffectedRows}
 SQL: {Statement.SqlText.Trim()}

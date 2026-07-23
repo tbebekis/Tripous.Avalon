@@ -13,6 +13,12 @@ namespace Tripous.Desktop;
 /// </summary>
 static public partial class Ui
 {
+    // ● private fields
+    /// <summary>
+    /// The active please-wait dialog.
+    /// </summary>
+    static PleaseWaitDialog fPleaseWaitDialog;
+
     // ● construction
     /// <summary>
     /// Static constructor
@@ -158,6 +164,32 @@ static public partial class Ui
     static public async Task<InputBoxData> InputBox(string Message, string Value = "", Control Caller = null)
     {
         return await Desktop.InputBox.ShowModal(Message, Value, Caller);
+    }
+    /// <summary>
+    /// Shows or updates the singleton please-wait dialog.
+    /// </summary>
+    /// <param name="Message">The optional message to display under the title.</param>
+    /// <param name="Owner">The owner window.</param>
+    /// <returns>The please-wait dialog.</returns>
+    static public PleaseWaitDialog PleaseWait(string Message = null, Window Owner = null)
+    {
+        if (fPleaseWaitDialog != null)
+        {
+            fPleaseWaitDialog.Message = Message;
+            return fPleaseWaitDialog;
+        }
+
+        fPleaseWaitDialog = new PleaseWaitDialog(Message);
+        fPleaseWaitDialog.Closed += (s, e) => fPleaseWaitDialog = null;
+
+        Owner ??= Ui.MainWindow;
+
+        if (Owner != null)
+            fPleaseWaitDialog.Show(Owner);
+        else
+            fPleaseWaitDialog.Show();
+
+        return fPleaseWaitDialog;
     }
 
     // ● TreeView

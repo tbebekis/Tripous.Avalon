@@ -33,9 +33,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Metadata\Resources\Sql\**\*.sql" />
-    <EmbeddedResource Include="SqlFilterExpressions.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="SqlFilterExpressions.txt" />
   </ItemGroup>
 
   <ItemGroup>

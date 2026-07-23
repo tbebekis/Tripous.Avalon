@@ -2,7 +2,9 @@
 
 Tripous.Avalon is a .NET framework for building data-centric business applications on desktop, web, service, and database platforms.
 
-It combines SQL-first data access, database metadata, application descriptors, reusable data modules, generated or manual application registration, and an Avalonia-based desktop layer.
+In desktop applications the excellent, cross-platform, [Avalonia](https://avaloniaui.net/) library is used.
+
+Tripous combines SQL-first data access, database metadata, application descriptors, reusable data modules, generated or manual application registration, and an Avalonia-based desktop layer.
 
 Documentation:
 

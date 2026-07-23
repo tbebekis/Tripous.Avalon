@@ -308,6 +308,8 @@ public class ChartControl: Control
             new Separator(),
             CreateCheckedMenuItem("Legend", fSettings.ShowLegend, ToggleLegend),
             CreateCheckedMenuItem("Value Labels", fSettings.ShowValueLabels, ToggleValueLabels),
+            new Separator(),
+            CreateMenuItem("Export to PNG...", true, ExportToPngAsync),
         };
         if (fIsSettingsMenuItemsVisible)
         {
@@ -381,6 +383,27 @@ public class ChartControl: Control
             return;
 
         SaveSettings(File.Path.LocalPath);
+    }
+    async void ExportToPngAsync()
+    {
+        TopLevel Owner = TopLevel.GetTopLevel(this);
+        if (Owner == null)
+            return;
+
+        FilePickerSaveOptions Options = new()
+        {
+            Title = "Export Chart to PNG",
+            SuggestedFileName = "chart.png",
+            FileTypeChoices = new[]
+            {
+                new FilePickerFileType("PNG") { Patterns = new[] { "*.png" } },
+            },
+        };
+        IStorageFile File = await Owner.StorageProvider.SaveFilePickerAsync(Options);
+        if (File == null)
+            return;
+
+        ExportToPng(File.Path.LocalPath);
     }
     async void LoadSettingsAsync()
     {
@@ -653,6 +676,21 @@ public class ChartControl: Control
     {
         JsonSerializerOptions Options = new() { WriteIndented = true };
         File.WriteAllText(FilePath, JsonSerializer.Serialize(fSettings, Options), Encoding.UTF8);
+    }
+    /// <summary>
+    /// Exports the currently displayed chart to a PNG image using the current control size.
+    /// </summary>
+    /// <param name="FilePath">The full file path.</param>
+    public void ExportToPng(string FilePath)
+    {
+        if (string.IsNullOrWhiteSpace(FilePath))
+            throw new ArgumentNullException(nameof(FilePath));
+
+        int Width = Math.Max(1, (int)Math.Ceiling(Bounds.Width));
+        int Height = Math.Max(1, (int)Math.Ceiling(Bounds.Height));
+        RenderTargetBitmap Bitmap = new(new PixelSize(Width, Height));
+        Bitmap.Render(this);
+        Bitmap.Save(FilePath);
     }
     /// <summary>
     /// Loads settings from JSON.
