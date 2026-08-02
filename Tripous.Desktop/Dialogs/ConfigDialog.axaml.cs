@@ -79,6 +79,15 @@ public partial class ConfigDialog : Window
     Control CreateScalarControl(ConfigPropertyDef Def)
     {
         string Value = GetEffectiveValue(Def);
+        if (Def.Name == Ui.STheme)
+        {
+            string ThemeName = Ui.NormalizeThemeName(Value);
+            int ThemeIndex = Array.IndexOf(Ui.SupportedThemes, ThemeName);
+            ComboBox Result = new();
+            Result.ItemsSource = Ui.SupportedThemes;
+            Result.SelectedIndex = ThemeIndex >= 0 ? ThemeIndex : 0;
+            return Result;
+        }
         if (Def.Kind == ConfigValueKind.Boolean)
         {
             CheckBox Result = new();
@@ -115,6 +124,8 @@ public partial class ConfigDialog : Window
             return CheckBox.IsChecked == true ? "true" : "false";
         if (Control is NumericUpDown NumericUpDown)
             return NumericUpDown.Value.HasValue ? NumericUpDown.Value.Value.ToString(CultureInfo.InvariantCulture) : string.Empty;
+        if (Control is ComboBox ComboBox)
+            return ComboBox.SelectedItem is string Text ? Text : string.Empty;
         if (Control is TextBox TextBox)
             return TextBox.Text ?? string.Empty;
         return string.Empty;

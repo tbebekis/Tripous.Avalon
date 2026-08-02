@@ -80,10 +80,10 @@ public class ItemStructureFactBoxControl: ItemFactBoxControl
     {
         Border Border = new()
         {
-            BorderBrush = Brushes.LightGray,
             BorderThickness = new Thickness(0, 0, 1, 1),
             Padding = new Thickness(4, 2)
         };
+        Border.Bind(Border.BorderBrushProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension("SystemControlForegroundBaseMediumLowBrush"));
         SelectableTextBlock Block = CreateText(Text, IsHeader);
         if (IsCentered)
         {
@@ -163,10 +163,8 @@ public class ItemStructureFactBoxControl: ItemFactBoxControl
     /// <returns>The created header control.</returns>
     protected virtual Control CreateTableExpanderHeader(string Text)
     {
-        return new Border
+        Border Result = new()
         {
-            Background = new SolidColorBrush(Color.Parse("#F1F3F5")),
-            BorderBrush = new SolidColorBrush(Color.Parse("#D7DBE0")),
             BorderThickness = new Thickness(0, 0, 0, 1),
             Padding = new Thickness(6, 3),
             HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -176,6 +174,9 @@ public class ItemStructureFactBoxControl: ItemFactBoxControl
                 TextWrapping = TextWrapping.Wrap
             }
         };
+        Result.Bind(Border.BackgroundProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension("SystemControlBackgroundChromeMediumLowBrush"));
+        Result.Bind(Border.BorderBrushProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension("SystemControlForegroundBaseMediumLowBrush"));
+        return Result;
     }
     /// <summary>
     /// Creates a table expander.

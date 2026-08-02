@@ -104,7 +104,7 @@ public class ToolBar
         Result.Width = 1;
         Result.Height = 20;
         Result.Margin = new Thickness(4, 0, 4, 0);
-        Result.Background = Brushes.Gray;
+        Result.Classes.Add("ToolBarSeparator");
 
         Panel.Children.Add(Result);
 

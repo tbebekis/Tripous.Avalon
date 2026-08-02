@@ -48,6 +48,7 @@ public class AppFormDialog : Window
     public AppFormDialog()
     {
         ShowInTaskbar = false;
+        Classes.Add("ModalDialog");
     }
 
     // ● public

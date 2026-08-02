@@ -21,6 +21,22 @@ public class DialogWindow: Window
 
     // ● overridables
     /// <summary>
+    /// Ensures the dialog content has a visible modal border.
+    /// </summary>
+    protected virtual void EnsureModalBorder()
+    {
+        if (Content is Border ExistingBorder && ExistingBorder.Classes.Contains("ModalDialogBorder"))
+            return;
+        if (Content is not Control ExistingContent)
+            return;
+
+        Border Border = new();
+        Border.Classes.Add("ModalDialogBorder");
+        Content = null;
+        Border.Child = ExistingContent;
+        Content = Border;
+    }
+    /// <summary>
     /// Initializes the window.
     /// </summary>
     protected virtual async Task WindowInitialize()
@@ -49,11 +65,13 @@ public class DialogWindow: Window
     public DialogWindow()
     {
         CanMinimize = false;
+        Classes.Add("ModalDialog");
 
         this.Loaded += async (s, e) =>
         {
             if (IsWindowInitialized)
                 return;
+            EnsureModalBorder();
             await WindowInitialize();
             await ItemToControls();
             IsWindowInitialized = true;

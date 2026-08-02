@@ -12,6 +12,7 @@ public partial class MainWindow : Window
 {
     bool IsWindowInitialized = false;
     ToolBar ToolBar;
+    ComboBox cboTheme;
 
     AppFormPagerHandler SideBarHandler; 
     AppFormPagerHandler ContentHandler; 
@@ -127,6 +128,33 @@ public partial class MainWindow : Window
         ToolBar = new();
         ToolBar.Panel = pnlToolBar;
         ToolBar.AddRange(AppRegistry.ToolBarCommands);
+        CreateThemeComboBox();
+    }
+    void CreateThemeComboBox()
+    {
+        cboTheme = ToolBar.AddComboBox(Ui.SupportedThemes, 0, 110);
+        ToolTip.SetTip(cboTheme, Texts.L("Theme", "Theme"));
+        UpdateThemeComboBox();
+        cboTheme.SelectionChanged += (Sender, Args) => ChangeTheme();
+        Command cmdExit = AppRegistry.ToolBarCommands.Find("Exit");
+        if (cmdExit?.Tag is Control ExitButton)
+            ToolBar.PlaceControlBefore(ExitButton, cboTheme);
+    }
+    void ChangeTheme()
+    {
+        if (cboTheme?.SelectedItem is not string ThemeName)
+            return;
+        ThemeName = Ui.NormalizeThemeName(ThemeName);
+        Ui.ApplyTheme(ThemeName);
+        Config.SetUserValue(Ui.STheme, ThemeName);
+    }
+    internal void UpdateThemeComboBox()
+    {
+        if (cboTheme == null)
+            return;
+        string ThemeName = Ui.NormalizeThemeName(Config.GetValue(Ui.STheme));
+        int ThemeIndex = Array.IndexOf(Ui.SupportedThemes, ThemeName);
+        cboTheme.SelectedIndex = ThemeIndex >= 0 ? ThemeIndex : 0;
     }
     void UpdateStatusBar()
     {

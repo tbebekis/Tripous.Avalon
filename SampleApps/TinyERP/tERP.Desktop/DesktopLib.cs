@@ -105,5 +105,16 @@ static public class DesktopLib
             bool Value = Convert.ToBoolean(S);
             Ui.Settings.ShowDataFormFactBoxPane = Value;
         };
+
+        Name = Ui.STheme;
+        TitleKey = "Theme";
+        Kind = ConfigValueKind.String;
+        DefaultValue = Ui.SDefaultTheme;
+
+        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, Scopes: ConfigScopeFlags.User);
+        ConfigPropertyDef.ApplyValueFunc = (Def, S) =>
+        {
+            Ui.ApplyTheme(S);
+        };
     }
 }

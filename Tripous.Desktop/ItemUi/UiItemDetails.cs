@@ -15,20 +15,43 @@ static public class UiItemDetails
 {
     // ● details
     /// <summary>
-    /// Creates the first-level detail tabs under the top table tab.
+    /// Creates the first-level details under the top table tab.
     /// </summary>
-    static public void CreateFirstLevelDetails(UiItemContext context, Control ParentControl)
+    static public Control CreateFirstLevelDetails(UiItemContext context)
     {
         List<UiDetailTableInfo> Details = context.TopTableUiInfo.DetailList
             .Where(Detail => Detail.ParentTableDef == context.TopTableUiInfo.TableDef)
             .ToList();
         Details = OrderDetails(context, context.TopTableUiInfo.TableDef, Details);
         if (Details.Count == 0)
-            return;
+            return null;
+        if (Details.Count == 1)
+            return CreateSingleFirstLevelDetail(context, Details[0]);
         TabControl TabControl = UiFactory.CreateTabControl();
         foreach (UiDetailTableInfo Detail in Details)
             TabControl.Items.Add(CreateDetailTabItem(context, Detail));
-        UiFactory.AddChild(ParentControl, TabControl);
+        return TabControl;
+    }
+    /// <summary>
+    /// Creates a panel for a single first-level detail.
+    /// </summary>
+    static Control CreateSingleFirstLevelDetail(UiItemContext context, UiDetailTableInfo DetailUiInfo)
+    {
+        Grid Result = new();
+        Result.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        Result.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
+        TextBlock Header = new()
+        {
+            Text = DetailUiInfo.TableDef.Title,
+            FontWeight = FontWeight.SemiBold,
+            Margin = new Thickness(0, 8, 0, 4)
+        };
+        Control Content = CreateDetailBranch(context, DetailUiInfo);
+        Avalonia.Controls.Grid.SetRow(Header, 0);
+        Avalonia.Controls.Grid.SetRow(Content, 1);
+        Result.Children.Add(Header);
+        Result.Children.Add(Content);
+        return Result;
     }
     /// <summary>
     /// Returns the immediate child details of a detail table.
@@ -79,8 +102,7 @@ static public class UiItemDetails
             HorizontalAlignment = HorizontalAlignment.Stretch,
             VerticalAlignment = VerticalAlignment.Center,
             ResizeDirection = GridResizeDirection.Rows,
-            ResizeBehavior = GridResizeBehavior.PreviousAndNext,
-            Background = Brushes.LightGray
+            ResizeBehavior = GridResizeBehavior.PreviousAndNext
         };
     }
     /// <summary>

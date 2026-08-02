@@ -17,8 +17,8 @@
             <Grid Name="pnlList" ColumnDefinitions="250, 4, *">
     
                 <!-- ● SideBar -->
-                <DockPanel Name="pnlSideBar" Grid.Column="0" MinWidth="250" Background="#F5F5F5">
-                    <Border DockPanel.Dock="Top" BorderBrush="Gray" BorderThickness="0,0,0,1">
+                <DockPanel Name="pnlSideBar" Grid.Column="0" MinWidth="250" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                    <Border DockPanel.Dock="Top" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" BorderThickness="0,0,0,1">
                         <StackPanel Name="pnlSelectListToolBar" Classes="ToolBar" MinHeight="32">
                         </StackPanel>
                     </Border>
@@ -29,10 +29,10 @@
                     </ScrollViewer>
                 </DockPanel>
 
-                <GridSplitter Name="Splitter" Grid.Column="1" Width="4" Background="#E0E0E0" />
+                <GridSplitter Name="Splitter" Grid.Column="1" Width="4" />
     
                 <!-- ● Grid -->
-                <Border Grid.Column="2" BorderThickness="1,0,0,0" BorderBrush="Gray">
+                <Border Grid.Column="2" BorderThickness="1,0,0,0" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
                     <extras:GroupGrid Name="gridList"
                                       IsToolBarVisible="False"
                                       IsGroupPanelVisible="True"

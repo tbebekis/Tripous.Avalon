@@ -18,6 +18,18 @@ static public partial class Ui
     /// The active please-wait dialog.
     /// </summary>
     static PleaseWaitDialog fPleaseWaitDialog;
+    static string[] fSupportedThemes = [SDefaultTheme];
+
+    // ● private methods
+    static ThemeVariant GetThemeVariant(string ThemeName)
+    {
+        ThemeName = NormalizeThemeName(ThemeName);
+        if (string.Equals(ThemeName, SLightTheme, StringComparison.OrdinalIgnoreCase))
+            return ThemeVariant.Light;
+        if (string.Equals(ThemeName, SDarkTheme, StringComparison.OrdinalIgnoreCase))
+            return ThemeVariant.Dark;
+        return ThemeVariant.Default;
+    }
 
     // ● construction
     /// <summary>
@@ -446,6 +458,25 @@ static public partial class Ui
         }
 
     }
+    /// <summary>
+    /// Returns a normalized supported theme name.
+    /// </summary>
+    /// <param name="ThemeName">The theme name.</param>
+    /// <returns>The normalized theme name.</returns>
+    static public string NormalizeThemeName(string ThemeName)
+    {
+        string Result = SupportedThemes.FirstOrDefault(Item => string.Equals(Item, ThemeName, StringComparison.OrdinalIgnoreCase));
+        return string.IsNullOrWhiteSpace(Result) ? SDefaultTheme : Result;
+    }
+    /// <summary>
+    /// Applies a supported theme name to the current Avalonia application.
+    /// </summary>
+    /// <param name="ThemeName">The theme name.</param>
+    static public void ApplyTheme(string ThemeName)
+    {
+        if (Application.Current != null)
+            Application.Current.RequestedThemeVariant = GetThemeVariant(ThemeName);
+    }
     
     // ● properties
     /// <summary>
@@ -456,4 +487,12 @@ static public partial class Ui
     /// UI global settings.
     /// </summary>
     static public UiGlobalSettings Settings { get; } = new();
+    /// <summary>
+    /// Gets or sets the supported user interface theme names.
+    /// </summary>
+    static public string[] SupportedThemes
+    {
+        get => fSupportedThemes;
+        set => fSupportedThemes = value != null && value.Length > 0 ? value : [SDefaultTheme];
+    }
 }

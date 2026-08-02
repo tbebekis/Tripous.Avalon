@@ -116,7 +116,7 @@ static internal partial class AppHost
         Command cmdDashboard = Command.Create("Dashboard", "chart_bar.png", ShowDashboardFunc, "Dashboard");
         Command cmdExit = Command.Create("Exit", "door_out.png", (c) => { AppHost.MainWindow.Close(); return 0; });
         Command cmdAppFolder = Command.Create("ShowAppFolder", "folder.png", (c) => { Sys.OpenFileExplorer(SysConfig.AppFolderPath); return 0; }, "ShowAppFolder");
-        Command cmdApplicationSettings = Command.CreateAsync("Application Settings", "setting_tools.png", async (c) => { await ConfigDialog.ShowModal(AppHost.MainWindow); return 0; }, "ApplicationSettings");
+        Command cmdApplicationSettings = Command.CreateAsync("Application Settings", "setting_tools.png", async (c) => { await ConfigDialog.ShowModal(AppHost.MainWindow); AppHost.MainWindow.UpdateThemeComboBox(); return 0; }, "ApplicationSettings");
         Command cmdChangePassword = Command.CreateAsync("Change Password", "change_password.png", async (c) => { await ChangePassword(); return 0; }, "ChangePassword");
         Command cmdConnectionInfo = Command.CreateAsync("ConnectionInfo", "database_edit.png", async (c) => { await ShowDbConnectionEditDialog(Db.GetDefaultConnectionInfo()); return 0; }, "ConnectionInfo");
         Command cmdDatabaseWorkbench = Command.Create("Database Explorer", "database.png", ShowDatabaseWorkbenchFunc, "DatabaseExplorer");

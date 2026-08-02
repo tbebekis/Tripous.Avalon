@@ -21,6 +21,7 @@ public class StartupMainWindow: Window
     Control CreateContent()
     {
         Grid Panel = new();
+        Panel.Classes.Add("StartupSurface");
         Panel.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
         Panel.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
         Panel.RowDefinitions.Add(new RowDefinition(GridLength.Star));
@@ -31,20 +32,20 @@ public class StartupMainWindow: Window
             HorizontalAlignment = HorizontalAlignment.Center,
             FontSize = 34,
             FontWeight = FontWeight.SemiBold,
-            Foreground = new SolidColorBrush(Color.FromRgb(32, 36, 40)),
             Text = "tERP"
         };
+        lblTitle.Classes.Add("StartupTitle");
         lblMessage = new TextBlock
         {
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin = new Thickness(0, 16, 0, 0),
             FontSize = 18,
             FontWeight = FontWeight.Medium,
-            Foreground = new SolidColorBrush(Color.FromRgb(74, 83, 92)),
             Text = Texts.L("Starting", "Starting..."),
             TextAlignment = TextAlignment.Center,
             TextWrapping = TextWrapping.Wrap
         };
+        lblMessage.Classes.Add("StartupMessage");
 
         Grid.SetRow(lblTitle, 0);
         Grid.SetRow(lblMessage, 1);
@@ -61,7 +62,7 @@ public class StartupMainWindow: Window
     {
         Title = "tERP";
         WindowState = WindowState.Maximized;
-        Background = new SolidColorBrush(Color.FromRgb(238, 240, 242));
+        Classes.Add("StartupMainWindow");
         ShowInTaskbar = true;
         Content = CreateContent();
     }

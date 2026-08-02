@@ -2,6 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:extras="clr-namespace:Avalonia.Controls;assembly=Tripous.Avalonia.Controls"
              x:Class="tERP.DashboardForm">
+    <UserControl.Styles>
+        <Style Selector="Border.DashboardCard">
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+        </Style>
+    </UserControl.Styles>
     <DockPanel Margin="2,2,2,2">
         <Border DockPanel.Dock="Top" Classes="ToolbarContainer">
             <StackPanel Name="pnlToolBar" Classes="ToolBar" MinHeight="32">
@@ -9,37 +15,37 @@
         </Border>
         <Grid RowDefinitions="Auto,*" Margin="8">
             <Grid Grid.Row="0" ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto">
-                <Border Grid.Row="0" Grid.Column="0" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                <Border Grid.Row="0" Grid.Column="0" Classes="DashboardCard" BorderThickness="1" Padding="12" Margin="4">
                     <StackPanel>
                         <TextBlock Name="lblSales" Text="Sales" FontWeight="SemiBold"/>
                         <TextBlock Name="txtSalesTotal" FontSize="22"/>
                     </StackPanel>
                 </Border>
-                <Border Grid.Row="0" Grid.Column="1" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                <Border Grid.Row="0" Grid.Column="1" Classes="DashboardCard" BorderThickness="1" Padding="12" Margin="4">
                     <StackPanel>
                         <TextBlock Name="lblPurchases" Text="Purchases" FontWeight="SemiBold"/>
                         <TextBlock Name="txtPurchasesTotal" FontSize="22"/>
                     </StackPanel>
                 </Border>
-                <Border Grid.Row="0" Grid.Column="2" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                <Border Grid.Row="0" Grid.Column="2" Classes="DashboardCard" BorderThickness="1" Padding="12" Margin="4">
                     <StackPanel>
                         <TextBlock Name="lblStockValue" Text="Stock Value" FontWeight="SemiBold"/>
                         <TextBlock Name="txtStockValue" FontSize="22"/>
                     </StackPanel>
                 </Border>
-                <Border Grid.Row="1" Grid.Column="0" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                <Border Grid.Row="1" Grid.Column="0" Classes="DashboardCard" BorderThickness="1" Padding="12" Margin="4">
                     <StackPanel>
                         <TextBlock Name="lblReceivables" Text="Receivables" FontWeight="SemiBold"/>
                         <TextBlock Name="txtReceivables" FontSize="22"/>
                     </StackPanel>
                 </Border>
-                <Border Grid.Row="1" Grid.Column="1" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                <Border Grid.Row="1" Grid.Column="1" Classes="DashboardCard" BorderThickness="1" Padding="12" Margin="4">
                     <StackPanel>
                         <TextBlock Name="lblPayables" Text="Payables" FontWeight="SemiBold"/>
                         <TextBlock Name="txtPayables" FontSize="22"/>
                     </StackPanel>
                 </Border>
-                <Border Grid.Row="1" Grid.Column="2" BorderBrush="#D0D0D0" BorderThickness="1" Background="#F8F8F8" Padding="12" Margin="4">
+                <Border Grid.Row="1" Grid.Column="2" Classes="DashboardCard" BorderThickness="1" Padding="12" Margin="4">
                     <StackPanel>
                         <TextBlock Name="lblCashBank" Text="Cash / Bank" FontWeight="SemiBold"/>
                         <TextBlock Name="txtCashBank" FontSize="22"/>

@@ -5,10 +5,14 @@
         Height="150"
         CanResize="False"
         ShowInTaskbar="False"
+        Classes="ModalDialog"
         WindowDecorations="None"
         WindowStartupLocation="CenterOwner"
         Title="Please wait">
-    <Border Padding="20">
+    <Border Padding="20"
+            Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+            BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+            BorderThickness="1">
         <Grid RowDefinitions="Auto, 8, Auto, 20, Auto">
             <TextBlock Grid.Row="0"
                        Text="Please wait"

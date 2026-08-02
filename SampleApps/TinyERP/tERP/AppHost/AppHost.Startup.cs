@@ -23,6 +23,7 @@ static internal partial class AppHost
         SysConfig.MainAssembly = typeof(AppHost).Assembly;
         SysConfig.AppName = "tERP";
         StartupMainWindow.SetApplicationTitle(SysConfig.AppName);
+        Ui.SupportedThemes = [Ui.SDefaultTheme, Ui.SLightTheme, Ui.SDarkTheme];
         
         //Db.Settings.LogSqlStatements = true;
     }
@@ -117,6 +118,7 @@ static internal partial class AppHost
     static void ApplyUiConfig()
     {
         Ui.Settings.ShowDataFormFactBoxPane = Sys.AsBoolean(Config.GetValue(Config.SShowDataFormFactBoxPane), true);
+        Ui.ApplyTheme(Config.GetValue(Ui.STheme));
     }
 
     static async Task<bool> EnsureAdminUser()

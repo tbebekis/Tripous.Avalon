@@ -488,10 +488,10 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         fFactBoxPane = new()
         {
             MinWidth = 220,
-            BorderBrush = Brushes.Gray,
             BorderThickness = new Thickness(1, 0, 0, 0),
             Child = CreateFactBoxTabs(FactBoxes)
         };
+        fFactBoxPane.Bind(Border.BorderBrushProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension("SystemControlForegroundBaseMediumLowBrush"));
         return fFactBoxPane;
     }
     /// <summary>
@@ -515,7 +515,6 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         fFactBoxSplitter = new()
         {
             Width = 4,
-            Background = Brushes.LightGray,
             ResizeDirection = GridResizeDirection.Columns
         };
         Grid.SetColumn(fFactBoxSplitter, 1);
@@ -841,18 +840,27 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             RefreshFactBoxes();
         };
  
-        ScrollViewer ScrollViewer = UiFactory.CreateScrollViewer();
-        StackPanel Root = UiFactory.CreateStackPanel();
-        ScrollViewer.Content = Root;
-        Content = CreateItemPageRoot(ScrollViewer, GetVisibleFactBoxes());
-
         Context.ColumnCount = ColumnCount;
-        Context.ParentControl = Root;
-        
         if (Context.TopTableUiInfo.DetailList.Count == 0)
+        {
+            ScrollViewer ScrollViewer = UiFactory.CreateScrollViewer();
+            StackPanel Root = UiFactory.CreateStackPanel();
+            ScrollViewer.Content = Root;
+            Content = CreateItemPageRoot(ScrollViewer, GetVisibleFactBoxes());
+            Context.ParentControl = Root;
             UiItemPage.CreateSinglePageLayout(Context);
+        }
         else
+        {
+            Grid Root = new()
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch
+            };
+            Content = CreateItemPageRoot(Root, GetVisibleFactBoxes());
+            Context.ParentControl = Root;
             UiItemPage.CreateTabbedTopLayout(Context);
+        }
 
         IsBindingDone = true;
     }

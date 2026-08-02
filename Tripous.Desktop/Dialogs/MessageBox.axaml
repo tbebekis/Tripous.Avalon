@@ -6,9 +6,11 @@
         x:Class="Tripous.Desktop.MessageBox"
         SizeToContent="WidthAndHeight"
         CanResize="False"
+        Classes="ModalDialog"
         WindowStartupLocation="CenterOwner"
         MinWidth="300" MaxWidth="500">
         
+        <Border Classes="ModalDialogBorder">
         <Grid Margin="20" ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
                 <Image Name="imgIcon" Grid.Column="0" Grid.Row="0" 
                        Width="32" Height="32" Margin="0,0,15,0" 
@@ -33,21 +35,6 @@
                             Spacing="10" Margin="0,20,0,0">
                 </StackPanel>
         </Grid>
-        <!--
-        <StackPanel Margin="20" Spacing="15">
-                <StackPanel Orientation="Horizontal" Spacing="15">
-                        <Image Name="imgIcon" Width="32" Height="32" VerticalAlignment="Top"/>
-                        <SelectableTextBlock Name="edtMessage" 
-                                             TextWrapping="WrapWithOverflow" 
-                                             VerticalAlignment="Center" 
-                                             MinWidth="300"
-                                             MaxWidth="500" 
-                                             FontSize="14" />
-                </StackPanel>
+        </Border>
 
-                <StackPanel Name="pnlButtons" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
-                </StackPanel>
-        </StackPanel>    
-         -->
-   
 </Window>

@@ -220,6 +220,7 @@ public class AppForm: UserControl, IBroadcasterListener
     /// </summary>
     public AppForm()
     {
+        Classes.Add("AppForm");
         AddHandler(InputElement.KeyDownEvent, (Sender, Args) =>
         {
             if (Args.Handled)

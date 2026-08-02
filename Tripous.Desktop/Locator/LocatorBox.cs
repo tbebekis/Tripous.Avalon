@@ -180,8 +180,8 @@ public class LocatorBox: UserControl
         fGrid.KeyDown += Grid_KeyDown;
         fGrid.AddHandler(KeyDownEvent, Grid_PreviewKeyDown, RoutingStrategies.Tunnel);
         fPopupBorder = new Border();
-        fPopupBorder.Background = Brushes.White;
-        fPopupBorder.BorderBrush = Brushes.Gray;
+        fPopupBorder.Bind(Border.BackgroundProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension("SystemControlBackgroundChromeMediumBrush"));
+        fPopupBorder.Bind(Border.BorderBrushProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension("SystemControlForegroundBaseMediumLowBrush"));
         fPopupBorder.BorderThickness = new Thickness(1);
         fPopupBorder.Child = fGrid;
         fPopup = new Popup();

@@ -8,8 +8,8 @@
             </StackPanel>
         </Border>
         <Grid Name="pnlMain" ColumnDefinitions="250,4,*">
-            <DockPanel Name="pnlSideBar" Grid.Column="0" MinWidth="250" Background="#F5F5F5">
-                <Border DockPanel.Dock="Top" BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="8">
+            <DockPanel Name="pnlSideBar" Grid.Column="0" MinWidth="250" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                <Border DockPanel.Dock="Top" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" BorderThickness="0,0,0,1" Padding="8">
                     <TextBlock Name="lblFilters" Text="Filters" FontWeight="SemiBold"/>
                 </Border>
                 <ScrollViewer>
@@ -17,7 +17,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </DockPanel>
-            <GridSplitter Name="Splitter" Grid.Column="1" Width="4" Background="#E0E0E0"/>
+            <GridSplitter Name="Splitter" Grid.Column="1" Width="4"/>
             <extras:GroupGrid Name="grid"
                               Grid.Column="2"
                               IsReadOnly="True"

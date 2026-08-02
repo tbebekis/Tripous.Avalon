@@ -330,11 +330,27 @@ static public class UiItemPage
         {
             Header = context.ModuleDef.Table.Title
         };
+        Grid Root = new()
+        {
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Stretch
+        };
+        Root.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        Root.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
+        ScrollViewer TopScrollViewer = UiFactory.CreateScrollViewer();
         StackPanel TopPanel = UiFactory.CreateStackPanel();
-        Result.Content = TopPanel;
+        TopScrollViewer.Content = TopPanel;
         CreateFieldGroups(context, TopPanel, context.TopTableUiInfo, context.ItemBinder, context.ColumnCount);
         UiItemDetails.CreateOneToOneDetails(context, TopPanel, context.TopTableUiInfo.TableDef);
-        UiItemDetails.CreateFirstLevelDetails(context, TopPanel);
+        Control DetailControl = UiItemDetails.CreateFirstLevelDetails(context);
+        Avalonia.Controls.Grid.SetRow(TopScrollViewer, 0);
+        Root.Children.Add(TopScrollViewer);
+        if (DetailControl != null)
+        {
+            Avalonia.Controls.Grid.SetRow(DetailControl, 1);
+            Root.Children.Add(DetailControl);
+        }
+        Result.Content = Root;
         return Result;
     }
     

@@ -42,6 +42,7 @@ global using Avalonia.Input;
 global using Avalonia.VisualTree;
 global using Avalonia.LogicalTree;
 global using Avalonia.Markup.Xaml;
+global using Avalonia.Styling;
 global using Avalonia.Layout;
 global using Avalonia.Media;
 global using Avalonia.Media.Imaging;

@@ -22,10 +22,10 @@
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel x:Name="pnlValue" Spacing="8" Margin="0,0,10,0">
-                                <Label Name="lblMessage" 
-                                       Content="Please enter a value" 
-                                       FontSize="12" 
-                                       Foreground="Gray"/>
+	                                <Label Name="lblMessage"
+		                                       Content="Please enter a value"
+		                                       FontSize="12"
+	                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
                                 <TextBox Name="edtValue" 
                                          PlaceholderText="Enter value here..."
                                          MinWidth="390"

@@ -3,7 +3,7 @@
              xmlns:AvaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
              xmlns:desktop="clr-namespace:Tripous.Desktop;assembly=Tripous.Desktop"
              x:Class="tERP.App"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
       <Application.Resources>
@@ -40,6 +40,48 @@
         <Style Selector="MenuItem">
             <Setter Property="FontSize" Value="13"/>
         </Style>
+
+        <!-- ● Modal Dialog -->
+        <Style Selector="Window.ModalDialog">
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumBrush}" />
+        </Style>
+
+        <Style Selector="Border.ModalDialogBorder">
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <!-- ● StartupMainWindow -->
+        <Style Selector="Window.StartupMainWindow">
+            <Setter Property="Background" Value="#EEF0F2" />
+        </Style>
+
+        <Style Selector="Window.StartupMainWindow Grid.StartupSurface">
+            <Setter Property="Background" Value="#EEF0F2" />
+        </Style>
+
+        <Style Selector="Window.StartupMainWindow TextBlock.StartupTitle">
+            <Setter Property="Foreground" Value="#202428" />
+        </Style>
+
+        <Style Selector="Window.StartupMainWindow TextBlock.StartupMessage">
+            <Setter Property="Foreground" Value="#4A535C" />
+        </Style>
+
+        <!-- ● AppForm -->
+        <Style Selector="desktop|AppForm.AppForm">
+            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
+        </Style>
+
+        <!-- ● StatusBar -->
+        <Style Selector="Border.StatusBar">
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+        </Style>
+
+        <Style Selector="Border.StatusBar Rectangle">
+            <Setter Property="Fill" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+        </Style>
  
         <!-- ● TabItem -->
         <Style Selector="TabItem">
@@ -75,7 +117,7 @@
             <Setter Property="Width" Value="32" />
             <Setter Property="Height" Value="32" />
             <Setter Property="Padding" Value="1" />
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
         </Style>
         
         <Style Selector="StackPanel.ToolBar > Button > Image">
@@ -88,19 +130,13 @@
             <Setter Property="Width" Value="32" />
             <Setter Property="Height" Value="32" />
             <Setter Property="Padding" Value="1" />
-            <Setter Property="Background" Value="White" />
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
         </Style>
         
         <Style Selector="StackPanel.ToolBar > ToggleButton > Image">
             <Setter Property="Width" Value="24" />
             <Setter Property="Height" Value="24" />
             <Setter Property="Stretch" Value="Uniform" />
-        </Style>
-        
-        <Style Selector="StackPanel.ToolBar > Separator">
-            <Setter Property="Width" Value="20" />
-            <Setter Property="Background" Value="#CCCCCC" />
-            <Setter Property="Margin" Value="0,0"/>
         </Style>
         
         <!-- ● ToolBar Separator -->
@@ -120,9 +156,13 @@
                 </ControlTemplate>
             </Setter>
         </Style>
+
+        <Style Selector="StackPanel.ToolBar > Border.ToolBarSeparator">
+            <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+        </Style>
         
         <Style Selector="GridSplitter">
-            <Setter Property="Background" Value="#CCCCCC" />
+            <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
         </Style>
         
         <!-- ● TreeView -->
@@ -137,8 +177,6 @@
         
         <!-- ● AvaloniaEdit:TextEditor -->
         <Style Selector="AvaloniaEdit|TextEditor">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontFamily" Value="Liberation Mono"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="ShowLineNumbers" Value="True"/>

@@ -100,6 +100,7 @@ static public class UiFactory
         return new TabControl
         {
             HorizontalAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Stretch,
             Margin = new Thickness(0, 8, 0, 0)
         };
     }
