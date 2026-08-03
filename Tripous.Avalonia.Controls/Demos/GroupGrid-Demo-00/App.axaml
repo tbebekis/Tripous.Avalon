@@ -5,10 +5,15 @@
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
+      <Application.Resources>
+        <SolidColorBrush x:Key="GroupGridResizeGuideBrush" Color="#D45A00"/>
+      </Application.Resources>
+
       <Application.Styles>
         <FluentTheme />
         
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
+        <StyleInclude Source="avares://Tripous.Avalonia.Controls/Themes/GroupGrid.axaml" />
         
         <!-- ● TextBox -->
         <Style Selector="TextBox.CodeProvider">

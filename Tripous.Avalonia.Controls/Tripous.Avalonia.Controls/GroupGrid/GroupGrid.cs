@@ -110,6 +110,14 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     /// Defines the <see cref="ResizeGuideBrush"/> property.
     /// </summary>
     public static readonly StyledProperty<IBrush> ResizeGuideBrushProperty = AvaloniaProperty.Register<GroupGrid, IBrush>(nameof(ResizeGuideBrush), CreateBrush(80, 120, 170));
+    /// <summary>
+    /// Defines the <see cref="DropDownBackgroundBrush"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IBrush> DropDownBackgroundBrushProperty = AvaloniaProperty.Register<GroupGrid, IBrush>(nameof(DropDownBackgroundBrush), CreateBrush(255, 255, 255));
+    /// <summary>
+    /// Defines the <see cref="DropDownBorderBrush"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IBrush> DropDownBorderBrushProperty = AvaloniaProperty.Register<GroupGrid, IBrush>(nameof(DropDownBorderBrush), CreateBrush(180, 185, 192));
 
     // ● private fields
     // ● toolbar constants
@@ -234,6 +242,17 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
         fCurrentPen = CreateCurrentPen();
         fEditingPen = CreateEditingPen();
         fResizePen = CreateResizePen();
+    }
+    /// <summary>
+    /// Applies the current drop-down theme brushes to the active drop-down host.
+    /// </summary>
+    void UpdateActiveDropDownHostTheme()
+    {
+        if (fActiveDropDownHost == null)
+            return;
+
+        fActiveDropDownHost.Background = DropDownBackgroundBrush;
+        fActiveDropDownHost.BorderBrush = DropDownBorderBrush;
     }
 
     // ● engine event handlers
@@ -1415,8 +1434,8 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
 
         Border Host = new()
         {
-            Background = Brushes.White,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(180, 185, 192)),
+            Background = DropDownBackgroundBrush,
+            BorderBrush = DropDownBorderBrush,
             BorderThickness = new Thickness(1),
             Child = DropDownControl,
         };
@@ -3113,6 +3132,9 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
             || Args.Property == EditingBorderBrushProperty
             || Args.Property == ResizeGuideBrushProperty)
             UpdateThemePens();
+        if (Args.Property == DropDownBackgroundBrushProperty
+            || Args.Property == DropDownBorderBrushProperty)
+            UpdateActiveDropDownHostTheme();
 
         if (Args.Property == EditingBrushProperty && fActiveEditor != null)
             fActiveEditor.Background = EditingBrush;
@@ -3387,7 +3409,9 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
             GridLineBrushProperty,
             CurrentBorderBrushProperty,
             EditingBorderBrushProperty,
-            ResizeGuideBrushProperty);
+            ResizeGuideBrushProperty,
+            DropDownBackgroundBrushProperty,
+            DropDownBorderBrushProperty);
     }
     /// <summary>
     /// Initializes a new instance of the <see cref="GroupGrid"/> class.
@@ -4540,6 +4564,14 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     /// Gets or sets the resize and drop guide brush.
     /// </summary>
     public IBrush ResizeGuideBrush { get => GetValue(ResizeGuideBrushProperty); set => SetValue(ResizeGuideBrushProperty, value); }
+    /// <summary>
+    /// Gets or sets the drop-down background brush.
+    /// </summary>
+    public IBrush DropDownBackgroundBrush { get => GetValue(DropDownBackgroundBrushProperty); set => SetValue(DropDownBackgroundBrushProperty, value); }
+    /// <summary>
+    /// Gets or sets the drop-down border brush.
+    /// </summary>
+    public IBrush DropDownBorderBrush { get => GetValue(DropDownBorderBrushProperty); set => SetValue(DropDownBorderBrushProperty, value); }
 
     // ● visibility properties
     /// <summary>

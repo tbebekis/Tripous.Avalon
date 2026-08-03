@@ -18,6 +18,7 @@
         <FluentTheme />
         
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
+        <StyleInclude Source="avares://Tripous.Avalonia.Controls/Themes/GroupGrid.axaml" />
         
         <!-- ● TextBox -->
         <Style Selector="TextBox.CodeProvider">

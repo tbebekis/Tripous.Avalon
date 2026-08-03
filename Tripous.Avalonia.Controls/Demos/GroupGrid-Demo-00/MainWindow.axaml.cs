@@ -409,6 +409,56 @@ public partial class MainWindow : Window
         Grid.SetHorizontalOffset(0);
         SetStatus("Grid cleared.");
     }
+    /// <summary>
+    /// Applies the default theme variant.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The event arguments.</param>
+    private void DefaultThemeButton_Click(object Sender, RoutedEventArgs Args)
+    {
+        Application.Current.RequestedThemeVariant = ThemeVariant.Default;
+        SetStatus("Default theme applied.");
+    }
+    /// <summary>
+    /// Applies the light theme variant.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The event arguments.</param>
+    private void LightThemeButton_Click(object Sender, RoutedEventArgs Args)
+    {
+        Application.Current.RequestedThemeVariant = ThemeVariant.Light;
+        SetStatus("Light theme applied.");
+    }
+    /// <summary>
+    /// Applies the dark theme variant.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The event arguments.</param>
+    private void DarkThemeButton_Click(object Sender, RoutedEventArgs Args)
+    {
+        Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
+        SetStatus("Dark theme applied.");
+    }
+    /// <summary>
+    /// Applies a local selected row brush.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The event arguments.</param>
+    private void LocalSelectionButton_Click(object Sender, RoutedEventArgs Args)
+    {
+        Grid.SelectedBrush = new SolidColorBrush(Color.FromRgb(255, 188, 92));
+        SetStatus("Local selected row brush applied.");
+    }
+    /// <summary>
+    /// Clears the local selected row brush.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The event arguments.</param>
+    private void ClearLocalSelectionButton_Click(object Sender, RoutedEventArgs Args)
+    {
+        Grid.ClearValue(global::Avalonia.Controls.GroupGrid.SelectedBrushProperty);
+        SetStatus("Local selected row brush cleared.");
+    }
 
     // ● protected
     /// <summary>

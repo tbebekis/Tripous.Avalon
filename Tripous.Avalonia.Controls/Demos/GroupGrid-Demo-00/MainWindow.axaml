@@ -78,6 +78,21 @@
                             <Button Content="Clear"
                                     ToolTip.Tip="Clears the item source and current selection while leaving the demo columns available."
                                     Click="ClearButton_Click" />
+                            <Button Content="Default Theme"
+                                    ToolTip.Tip="Uses the system theme variant."
+                                    Click="DefaultThemeButton_Click" />
+                            <Button Content="Light"
+                                    ToolTip.Tip="Switches the application to the Light theme variant."
+                                    Click="LightThemeButton_Click" />
+                            <Button Content="Dark"
+                                    ToolTip.Tip="Switches the application to the Dark theme variant."
+                                    Click="DarkThemeButton_Click" />
+                            <Button Content="Local Selection"
+                                    ToolTip.Tip="Applies a local selected-row brush to this GroupGrid instance."
+                                    Click="LocalSelectionButton_Click" />
+                            <Button Content="Clear Local"
+                                    ToolTip.Tip="Clears the local selected-row brush so the theme resource controls it again."
+                                    Click="ClearLocalSelectionButton_Click" />
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

@@ -1,0 +1,98 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Tripous.Avalonia.Controls">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="GroupGridGridBackgroundBrush" Color="#FFFFFF"/>
+                    <SolidColorBrush x:Key="GroupGridToolBarBrush" Color="#F6F7F8"/>
+                    <SolidColorBrush x:Key="GroupGridToolButtonBrush" Color="#FFFFFF"/>
+                    <SolidColorBrush x:Key="GroupGridToolButtonHoverBrush" Color="#EBF1F8"/>
+                    <SolidColorBrush x:Key="GroupGridDisabledTextBrush" Color="#969CA4"/>
+                    <SolidColorBrush x:Key="GroupGridGroupPanelBrush" Color="#EBEFF4"/>
+                    <SolidColorBrush x:Key="GroupGridHeaderBrush" Color="#F1F3F5"/>
+                    <SolidColorBrush x:Key="GroupGridFilterBrush" Color="#FAFAFA"/>
+                    <SolidColorBrush x:Key="GroupGridFilteredCellBrush" Color="#FFFAE4"/>
+                    <SolidColorBrush x:Key="GroupGridActiveFilterBrush" Color="#FFF6D3"/>
+                    <SolidColorBrush x:Key="GroupGridGroupRowBrush" Color="#E8EEF6"/>
+                    <SolidColorBrush x:Key="GroupGridGroupSummaryBrush" Color="#F7F9FC"/>
+                    <SolidColorBrush x:Key="GroupGridSelectedBrush" Color="#DAECFF"/>
+                    <SolidColorBrush x:Key="GroupGridCurrentBrush" Color="#FFF7D5"/>
+                    <SolidColorBrush x:Key="GroupGridEditingBrush" Color="#FFEECC"/>
+                    <SolidColorBrush x:Key="GroupGridFooterBrush" Color="#EEF0F2"/>
+                    <SolidColorBrush x:Key="GroupGridTextBrush" Color="#20252A"/>
+                    <SolidColorBrush x:Key="GroupGridMutedTextBrush" Color="#545B63"/>
+                    <SolidColorBrush x:Key="GroupGridScrollBarTrackBrush" Color="#F4F6F8"/>
+                    <SolidColorBrush x:Key="GroupGridScrollBarThumbBrush" Color="#BCC4CD"/>
+                    <SolidColorBrush x:Key="GroupGridColumnDragBrush" Color="#DCFAFCFF"/>
+                    <SolidColorBrush x:Key="GroupGridGridLineBrush" Color="#D3D8DE"/>
+                    <SolidColorBrush x:Key="GroupGridCurrentBorderBrush" Color="#407ABE"/>
+                    <SolidColorBrush x:Key="GroupGridEditingBorderBrush" Color="#C26900"/>
+                    <SolidColorBrush x:Key="GroupGridResizeGuideBrush" Color="#5078AA"/>
+                    <SolidColorBrush x:Key="GroupGridDropDownBackgroundBrush" Color="#FFFFFF"/>
+                    <SolidColorBrush x:Key="GroupGridDropDownBorderBrush" Color="#B4B9C0"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="GroupGridGridBackgroundBrush" Color="#1E1F22"/>
+                    <SolidColorBrush x:Key="GroupGridToolBarBrush" Color="#24272B"/>
+                    <SolidColorBrush x:Key="GroupGridToolButtonBrush" Color="#2B2F34"/>
+                    <SolidColorBrush x:Key="GroupGridToolButtonHoverBrush" Color="#353C45"/>
+                    <SolidColorBrush x:Key="GroupGridDisabledTextBrush" Color="#6F7782"/>
+                    <SolidColorBrush x:Key="GroupGridGroupPanelBrush" Color="#252B33"/>
+                    <SolidColorBrush x:Key="GroupGridHeaderBrush" Color="#2B3036"/>
+                    <SolidColorBrush x:Key="GroupGridFilterBrush" Color="#23262B"/>
+                    <SolidColorBrush x:Key="GroupGridFilteredCellBrush" Color="#3A3221"/>
+                    <SolidColorBrush x:Key="GroupGridActiveFilterBrush" Color="#4A3A1E"/>
+                    <SolidColorBrush x:Key="GroupGridGroupRowBrush" Color="#273344"/>
+                    <SolidColorBrush x:Key="GroupGridGroupSummaryBrush" Color="#252B33"/>
+                    <SolidColorBrush x:Key="GroupGridSelectedBrush" Color="#27486D"/>
+                    <SolidColorBrush x:Key="GroupGridCurrentBrush" Color="#3E3420"/>
+                    <SolidColorBrush x:Key="GroupGridEditingBrush" Color="#4A3322"/>
+                    <SolidColorBrush x:Key="GroupGridFooterBrush" Color="#292D33"/>
+                    <SolidColorBrush x:Key="GroupGridTextBrush" Color="#E7EAEE"/>
+                    <SolidColorBrush x:Key="GroupGridMutedTextBrush" Color="#B2BAC4"/>
+                    <SolidColorBrush x:Key="GroupGridScrollBarTrackBrush" Color="#24272C"/>
+                    <SolidColorBrush x:Key="GroupGridScrollBarThumbBrush" Color="#555E69"/>
+                    <SolidColorBrush x:Key="GroupGridColumnDragBrush" Color="#AA315776"/>
+                    <SolidColorBrush x:Key="GroupGridGridLineBrush" Color="#3B4149"/>
+                    <SolidColorBrush x:Key="GroupGridCurrentBorderBrush" Color="#7CB7FF"/>
+                    <SolidColorBrush x:Key="GroupGridEditingBorderBrush" Color="#FFB45C"/>
+                    <SolidColorBrush x:Key="GroupGridResizeGuideBrush" Color="#7CB7FF"/>
+                    <SolidColorBrush x:Key="GroupGridDropDownBackgroundBrush" Color="#25282D"/>
+                    <SolidColorBrush x:Key="GroupGridDropDownBorderBrush" Color="#505861"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <Style Selector="controls|GroupGrid">
+        <Setter Property="GridBackgroundBrush" Value="{DynamicResource GroupGridGridBackgroundBrush}"/>
+        <Setter Property="ToolBarBrush" Value="{DynamicResource GroupGridToolBarBrush}"/>
+        <Setter Property="ToolButtonBrush" Value="{DynamicResource GroupGridToolButtonBrush}"/>
+        <Setter Property="ToolButtonHoverBrush" Value="{DynamicResource GroupGridToolButtonHoverBrush}"/>
+        <Setter Property="DisabledTextBrush" Value="{DynamicResource GroupGridDisabledTextBrush}"/>
+        <Setter Property="GroupPanelBrush" Value="{DynamicResource GroupGridGroupPanelBrush}"/>
+        <Setter Property="HeaderBrush" Value="{DynamicResource GroupGridHeaderBrush}"/>
+        <Setter Property="FilterBrush" Value="{DynamicResource GroupGridFilterBrush}"/>
+        <Setter Property="FilteredCellBrush" Value="{DynamicResource GroupGridFilteredCellBrush}"/>
+        <Setter Property="ActiveFilterBrush" Value="{DynamicResource GroupGridActiveFilterBrush}"/>
+        <Setter Property="GroupRowBrush" Value="{DynamicResource GroupGridGroupRowBrush}"/>
+        <Setter Property="GroupSummaryBrush" Value="{DynamicResource GroupGridGroupSummaryBrush}"/>
+        <Setter Property="SelectedBrush" Value="{DynamicResource GroupGridSelectedBrush}"/>
+        <Setter Property="CurrentBrush" Value="{DynamicResource GroupGridCurrentBrush}"/>
+        <Setter Property="EditingBrush" Value="{DynamicResource GroupGridEditingBrush}"/>
+        <Setter Property="FooterBrush" Value="{DynamicResource GroupGridFooterBrush}"/>
+        <Setter Property="TextBrush" Value="{DynamicResource GroupGridTextBrush}"/>
+        <Setter Property="MutedTextBrush" Value="{DynamicResource GroupGridMutedTextBrush}"/>
+        <Setter Property="ScrollBarTrackBrush" Value="{DynamicResource GroupGridScrollBarTrackBrush}"/>
+        <Setter Property="ScrollBarThumbBrush" Value="{DynamicResource GroupGridScrollBarThumbBrush}"/>
+        <Setter Property="ColumnDragBrush" Value="{DynamicResource GroupGridColumnDragBrush}"/>
+        <Setter Property="GridLineBrush" Value="{DynamicResource GroupGridGridLineBrush}"/>
+        <Setter Property="CurrentBorderBrush" Value="{DynamicResource GroupGridCurrentBorderBrush}"/>
+        <Setter Property="EditingBorderBrush" Value="{DynamicResource GroupGridEditingBorderBrush}"/>
+        <Setter Property="ResizeGuideBrush" Value="{DynamicResource GroupGridResizeGuideBrush}"/>
+        <Setter Property="DropDownBackgroundBrush" Value="{DynamicResource GroupGridDropDownBackgroundBrush}"/>
+        <Setter Property="DropDownBorderBrush" Value="{DynamicResource GroupGridDropDownBorderBrush}"/>
+    </Style>
+</Styles>
