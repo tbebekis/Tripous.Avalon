@@ -45,6 +45,16 @@
                             Click="SettingsButton_Click" />
                     <Button Content="Reload"
                             Click="ReloadButton_Click" />
+                    <Button Content="Default Theme"
+                            Click="DefaultThemeButton_Click" />
+                    <Button Content="Light"
+                            Click="LightThemeButton_Click" />
+                    <Button Content="Dark"
+                            Click="DarkThemeButton_Click" />
+                    <Button Content="Local Selection"
+                            Click="LocalSelectionButton_Click" />
+                    <Button Content="Clear Local"
+                            Click="ClearLocalSelectionButton_Click" />
                 </StackPanel>
                 <TextBlock x:Name="StatusTextBlock"
                            FontSize="12"

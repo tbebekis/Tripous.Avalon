@@ -1,0 +1,47 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Tripous.Avalonia.Controls">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="PivotGridGridBackgroundBrush" Color="#FFFFFF"/>
+                    <SolidColorBrush x:Key="PivotGridHeaderBrush" Color="#F1F3F5"/>
+                    <SolidColorBrush x:Key="PivotGridTextBrush" Color="#20252A"/>
+                    <SolidColorBrush x:Key="PivotGridMutedTextBrush" Color="#545B63"/>
+                    <SolidColorBrush x:Key="PivotGridGridLineBrush" Color="#D3D8DE"/>
+                    <SolidColorBrush x:Key="PivotGridSelectedCellBrush" Color="#DAECFF"/>
+                    <SolidColorBrush x:Key="PivotGridSelectedCellBorderBrush" Color="#3D84E8"/>
+                    <SolidColorBrush x:Key="PivotGridScrollBarTrackBrush" Color="#F4F6F8"/>
+                    <SolidColorBrush x:Key="PivotGridScrollBarThumbBrush" Color="#BCC4CD"/>
+                    <SolidColorBrush x:Key="PivotGridResizeGuideBrush" Color="#5078AA"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="PivotGridGridBackgroundBrush" Color="#1E1F22"/>
+                    <SolidColorBrush x:Key="PivotGridHeaderBrush" Color="#2B3036"/>
+                    <SolidColorBrush x:Key="PivotGridTextBrush" Color="#E7EAEE"/>
+                    <SolidColorBrush x:Key="PivotGridMutedTextBrush" Color="#B2BAC4"/>
+                    <SolidColorBrush x:Key="PivotGridGridLineBrush" Color="#3B4149"/>
+                    <SolidColorBrush x:Key="PivotGridSelectedCellBrush" Color="#27486D"/>
+                    <SolidColorBrush x:Key="PivotGridSelectedCellBorderBrush" Color="#7CB7FF"/>
+                    <SolidColorBrush x:Key="PivotGridScrollBarTrackBrush" Color="#24272C"/>
+                    <SolidColorBrush x:Key="PivotGridScrollBarThumbBrush" Color="#555E69"/>
+                    <SolidColorBrush x:Key="PivotGridResizeGuideBrush" Color="#7CB7FF"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <Style Selector="controls|PivotGrid">
+        <Setter Property="GridBackgroundBrush" Value="{DynamicResource PivotGridGridBackgroundBrush}"/>
+        <Setter Property="HeaderBrush" Value="{DynamicResource PivotGridHeaderBrush}"/>
+        <Setter Property="TextBrush" Value="{DynamicResource PivotGridTextBrush}"/>
+        <Setter Property="MutedTextBrush" Value="{DynamicResource PivotGridMutedTextBrush}"/>
+        <Setter Property="GridLineBrush" Value="{DynamicResource PivotGridGridLineBrush}"/>
+        <Setter Property="SelectedCellBrush" Value="{DynamicResource PivotGridSelectedCellBrush}"/>
+        <Setter Property="SelectedCellBorderBrush" Value="{DynamicResource PivotGridSelectedCellBorderBrush}"/>
+        <Setter Property="ScrollBarTrackBrush" Value="{DynamicResource PivotGridScrollBarTrackBrush}"/>
+        <Setter Property="ScrollBarThumbBrush" Value="{DynamicResource PivotGridScrollBarThumbBrush}"/>
+        <Setter Property="ResizeGuideBrush" Value="{DynamicResource PivotGridResizeGuideBrush}"/>
+    </Style>
+</Styles>

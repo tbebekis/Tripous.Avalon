@@ -262,10 +262,9 @@ public class PivotGridSettingsDialog: Window
             Margin = new Thickness(8, 6),
         };
         DockPanel.SetDock(HeaderTextBlock, Dock.Top);
-        return new Border
+        Border Result = new()
         {
             BorderThickness = new Thickness(1),
-            BorderBrush = Brushes.LightGray,
             Margin = new Thickness(0),
             Child = new DockPanel
             {
@@ -276,6 +275,8 @@ public class PivotGridSettingsDialog: Window
                 },
             },
         };
+        Result.Bind(Border.BorderBrushProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension("SystemControlForegroundBaseMediumLowBrush"));
+        return Result;
     }
     StackPanel CreateCommandPanel()
     {

@@ -215,6 +215,31 @@ public partial class MainWindow: Window
     {
         LoadGrid();
     }
+    void DefaultThemeButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Application.Current.RequestedThemeVariant = ThemeVariant.Default;
+        SetStatus("Default theme applied.");
+    }
+    void LightThemeButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Application.Current.RequestedThemeVariant = ThemeVariant.Light;
+        SetStatus("Light theme applied.");
+    }
+    void DarkThemeButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
+        SetStatus("Dark theme applied.");
+    }
+    void LocalSelectionButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Grid.SelectedCellBrush = new SolidColorBrush(Color.FromRgb(255, 188, 92));
+        SetStatus("Local selected cell brush applied.");
+    }
+    void ClearLocalSelectionButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Grid.ClearValue(global::Avalonia.Controls.PivotGrid.SelectedCellBrushProperty);
+        SetStatus("Local selected cell brush cleared.");
+    }
     void SourceComboBox_SelectionChanged(object Sender, SelectionChangedEventArgs Args)
     {
         if (!fIsWindowInitialized)
