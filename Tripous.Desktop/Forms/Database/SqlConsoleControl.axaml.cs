@@ -46,7 +46,7 @@ public partial class SqlConsoleControl : UserControl
     // ● private
     void ApplyHighlightMode()
     {
-        edtSql.SyntaxHighlighting = Highlighters.Find(fHighlightMode);
+        Highlighters.Apply(edtSql, fHighlightMode);
     }
     void CreateToolBar()
     {
@@ -152,6 +152,16 @@ SQL: {Statement.SqlText.Trim()}
         Result.IsSettingsMenuItemsVisible = false;
         GroupGridBinder.BindGrid(Result, Table.DataView, true);
         return Result;
+    }
+
+    // ● overridables
+    /// <inheritdoc />
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs Args)
+    {
+        base.OnPropertyChanged(Args);
+
+        if (Args.Property.Name == nameof(ActualThemeVariant))
+            ApplyHighlightMode();
     }
 
     // ● construction

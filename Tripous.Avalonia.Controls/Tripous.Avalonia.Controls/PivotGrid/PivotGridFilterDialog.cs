@@ -179,6 +179,7 @@ public class PivotGridFilterDialog: Window
         MinHeight = 360;
         CanMinimize = false;
         CanMaximize = false;
+        ShowInTaskbar = false;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
         edtSearch = new TextBox

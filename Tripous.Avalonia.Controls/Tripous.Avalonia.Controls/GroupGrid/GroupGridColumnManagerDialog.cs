@@ -490,6 +490,9 @@ public class GroupGridColumnManagerDialog: Window
         Width = 390;
         Height = 590;
         CanResize = false;
+        CanMinimize = false;
+        CanMaximize = false;
+        ShowInTaskbar = false;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         Content = CreateContent();
     }

@@ -460,6 +460,7 @@ public class PivotGridSettingsDialog: Window
         MinHeight = 500;
         CanMinimize = false;
         CanMaximize = false;
+        ShowInTaskbar = false;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
         lboAvailable = new ListBox();

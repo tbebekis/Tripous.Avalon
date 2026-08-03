@@ -179,6 +179,7 @@ public class ChartSettingsDialog: Window
         CanResize = true;
         CanMinimize = false;
         CanMaximize = false;
+        ShowInTaskbar = false;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
         edtTitle = CreateTextBox();

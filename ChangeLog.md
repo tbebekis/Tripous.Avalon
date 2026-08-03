@@ -7,11 +7,16 @@ All notable changes to this project will be documented in this file.
 ### Tripous.Avalonia.Controls
 - Added explicit Light/Dark theme style dictionaries for `GroupGrid`, `PivotGrid`, and `ChartControl`
 - Added theme-facing styled brush properties for custom-rendered `GroupGrid`, `PivotGrid`, and `ChartControl` surfaces
+- Updated `GroupGrid`, `PivotGrid`, and `ChartControl` context-menu dialogs to hide from the taskbar and disable minimize/maximize commands
 - Updated the control demos with explicit `StyleInclude` loading, runtime Light/Dark switching, and resource/local override checks
 - Updated `Tripous.Avalonia.Controls` documentation with the explicit theme dictionary loading pattern
 
 ### Tripous.Desktop
 - Improved TinyERP desktop Light/Dark theme behavior for selected rows, selected tabs, drag/drop tab markers, and validation/error labels
+- Added shared `Tripous.Desktop` theme styles for modal dialogs, toolbar buttons, status bars, locator buttons, error text, app forms, and grid splitters
+- Added theme-aware SQL syntax highlighting definitions and `Highlighters.Apply()` for AvaloniaEdit text editors
+- Added theme-aware Markdown syntax highlighting with softer dark-theme headings and links
+- Added shared AvaloniaEdit text editor theme resources, foreground/background styling, line number color, and text view left margin
 - Enabled content tab reordering by default for the TinyERP desktop content page handler
 
 ## 2026-07-20

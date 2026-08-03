@@ -1,0 +1,150 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:AvaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+        xmlns:desktop="clr-namespace:Tripous.Desktop;assembly=Tripous.Desktop"
+        xmlns:editing="clr-namespace:AvaloniaEdit.Editing;assembly=AvaloniaEdit"
+        xmlns:rendering="clr-namespace:AvaloniaEdit.Rendering;assembly=AvaloniaEdit">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="ErrorTextBrush" Color="Red"/>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="TripousTextEditorBackgroundBrush" Color="#FFFFFF"/>
+                    <SolidColorBrush x:Key="TripousTextEditorForegroundBrush" Color="#111827"/>
+                    <SolidColorBrush x:Key="TripousTextEditorLineNumbersForegroundBrush" Color="#6B7280"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="TripousTextEditorBackgroundBrush" Color="#1F2227"/>
+                    <SolidColorBrush x:Key="TripousTextEditorForegroundBrush" Color="#C7CDD4"/>
+                    <SolidColorBrush x:Key="TripousTextEditorLineNumbersForegroundBrush" Color="#8A929C"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <!-- ● Error Text -->
+    <Style Selector="TextBlock.ErrorText">
+        <Setter Property="Foreground" Value="{DynamicResource ErrorTextBrush}" />
+    </Style>
+
+    <!-- ● Button -->
+    <Style Selector="Button">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ● LocatorBox Button -->
+    <Style Selector="desktop|LocatorBox Button.LocatorBoxMenuButton">
+        <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <!-- ● Modal Dialog -->
+    <Style Selector="Window.ModalDialog">
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumBrush}" />
+    </Style>
+
+    <Style Selector="Border.ModalDialogBorder">
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <!-- ● AppForm -->
+    <Style Selector="desktop|AppForm.AppForm">
+        <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
+    </Style>
+
+    <!-- ● StatusBar -->
+    <Style Selector="Border.StatusBar">
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+    </Style>
+
+    <Style Selector="Border.StatusBar Rectangle">
+        <Setter Property="Fill" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+    </Style>
+
+    <!-- ● ToolBar -->
+    <Style Selector="Border.ToolbarContainer">
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+    </Style>
+
+    <Style Selector="StackPanel.ToolBar">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="Spacing" Value="0" />
+    </Style>
+
+    <Style Selector="StackPanel.ToolBar > Button">
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+    </Style>
+
+    <Style Selector="StackPanel.ToolBar > Button > Image">
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Stretch" Value="Uniform" />
+    </Style>
+
+    <Style Selector="StackPanel.ToolBar > ToggleButton">
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+    </Style>
+
+    <Style Selector="StackPanel.ToolBar > ToggleButton > Image">
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Stretch" Value="Uniform" />
+    </Style>
+
+    <!-- ● ToolBar Separator -->
+    <Style Selector="StackPanel.ToolBar > Separator">
+        <Setter Property="Width" Value="1"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Margin" Value="2,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        Margin="{TemplateBinding Margin}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="StackPanel.ToolBar > Border.ToolBarSeparator">
+        <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+    </Style>
+
+    <!-- ● GridSplitter -->
+    <Style Selector="GridSplitter">
+        <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
+    </Style>
+
+    <!-- ● AvaloniaEdit -->
+    <Style Selector="AvaloniaEdit|TextEditor">
+        <Setter Property="Background" Value="{DynamicResource TripousTextEditorBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TripousTextEditorForegroundBrush}" />
+        <Setter Property="LineNumbersForeground" Value="{DynamicResource TripousTextEditorLineNumbersForegroundBrush}" />
+    </Style>
+
+    <Style Selector="editing|TextArea">
+        <Setter Property="Background" Value="{DynamicResource TripousTextEditorBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TripousTextEditorForegroundBrush}" />
+    </Style>
+
+    <Style Selector="rendering|TextView">
+        <Setter Property="Margin" Value="6,0,0,0" />
+    </Style>
+</Styles>

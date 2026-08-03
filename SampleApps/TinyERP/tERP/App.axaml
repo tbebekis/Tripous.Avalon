@@ -1,61 +1,25 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:AvaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
-             xmlns:desktop="clr-namespace:Tripous.Desktop;assembly=Tripous.Desktop"
              x:Class="tERP.App"
              RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
-
-      <Application.Resources>
-        <x:Double x:Key="ExpanderMinHeight">32</x:Double>
-        <x:Double x:Key="ExpanderChevronButtonSize">24</x:Double>
-        <Thickness x:Key="ExpanderHeaderPadding">6,0,0,0</Thickness>
-        <Thickness x:Key="ExpanderChevronMargin">8,0,6,0</Thickness>
-        <SolidColorBrush x:Key="ErrorTextBrush" Color="Red"/>
-      </Application.Resources>
 
       <Application.Styles>
         <FluentTheme />
         
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
         <StyleInclude Source="avares://Tripous.Avalonia.Controls/Themes/GroupGrid.axaml" />
+        <StyleInclude Source="avares://Tripous.Desktop/Themes/TripousDesktop.axaml" />
         
         <!-- ● TextBox -->
         <Style Selector="TextBox.CodeProvider">
             <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeHighBrush}" />
         </Style>
 
-        <!-- ● Error Text -->
-        <Style Selector="TextBlock.ErrorText">
-            <Setter Property="Foreground" Value="{DynamicResource ErrorTextBrush}" />
-        </Style>
-        
-        <!-- ● Button -->
-        <Style Selector="Button">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-        
-        <!-- ● LocatorBox Button -->
-        <Style Selector="desktop|LocatorBox Button.LocatorBoxMenuButton">
-            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-        </Style>
-        
         <!-- ● MenuItem -->
         <Style Selector="MenuItem">
             <Setter Property="FontSize" Value="13"/>
-        </Style>
-
-        <!-- ● Modal Dialog -->
-        <Style Selector="Window.ModalDialog">
-            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumBrush}" />
-        </Style>
-
-        <Style Selector="Border.ModalDialogBorder">
-            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
         </Style>
 
         <!-- ● StartupMainWindow -->
@@ -75,21 +39,6 @@
             <Setter Property="Foreground" Value="#4A535C" />
         </Style>
 
-        <!-- ● AppForm -->
-        <Style Selector="desktop|AppForm.AppForm">
-            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
-        </Style>
-
-        <!-- ● StatusBar -->
-        <Style Selector="Border.StatusBar">
-            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
-        </Style>
-
-        <Style Selector="Border.StatusBar Rectangle">
-            <Setter Property="Fill" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
-        </Style>
- 
         <!-- ● TabItem -->
         <Style Selector="TabItem">
             <Setter Property="FontSize" Value="12" />
@@ -105,71 +54,6 @@
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"/>
-        </Style>
-        
-        <!-- ● ToolBar -->
-        <Style Selector="Border.ToolbarContainer">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"/>
-            <Setter Property="BorderThickness" Value="0,0,0,1"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
-        </Style>
-        
-        <Style Selector="StackPanel.ToolBar">
-            <Setter Property="Orientation" Value="Horizontal" />
-            <Setter Property="Spacing" Value="0" />
-        </Style>
-        
-        <Style Selector="StackPanel.ToolBar > Button">
-            <Setter Property="Width" Value="32" />
-            <Setter Property="Height" Value="32" />
-            <Setter Property="Padding" Value="1" />
-            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
-        </Style>
-        
-        <Style Selector="StackPanel.ToolBar > Button > Image">
-            <Setter Property="Width" Value="24" />
-            <Setter Property="Height" Value="24" />
-            <Setter Property="Stretch" Value="Uniform" />
-        </Style>
-        
-        <Style Selector="StackPanel.ToolBar > ToggleButton">
-            <Setter Property="Width" Value="32" />
-            <Setter Property="Height" Value="32" />
-            <Setter Property="Padding" Value="1" />
-            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
-        </Style>
-        
-        <Style Selector="StackPanel.ToolBar > ToggleButton > Image">
-            <Setter Property="Width" Value="24" />
-            <Setter Property="Height" Value="24" />
-            <Setter Property="Stretch" Value="Uniform" />
-        </Style>
-        
-        <!-- ● ToolBar Separator -->
-        <Style Selector="StackPanel.ToolBar > Separator">
-            <Setter Property="Width" Value="1"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Margin" Value="2,0"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Border Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Background="{TemplateBinding Background}"
-                            Margin="{TemplateBinding Margin}"
-                            VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
-                </ControlTemplate>
-            </Setter>
-        </Style>
-
-        <Style Selector="StackPanel.ToolBar > Border.ToolBarSeparator">
-            <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
-        </Style>
-        
-        <Style Selector="GridSplitter">
-            <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
         </Style>
         
         <!-- ● TreeView -->

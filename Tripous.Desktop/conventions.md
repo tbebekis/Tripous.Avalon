@@ -4,6 +4,21 @@ This document collects the conventions used by `Tripous.Desktop`.
 
 It is a living document. Update it whenever a rule becomes part of the framework design.
 
+## Application Styles
+
+- Applications using `Tripous.Desktop` should include the shared style dictionary explicitly.
+- The include path is `avares://Tripous.Desktop/Themes/TripousDesktop.axaml`.
+- The dictionary contains common Tripous desktop styles for modal dialogs, toolbar panels, toolbar buttons, toolbar separators, status bars, locator buttons, error text, app forms, grid splitters, and AvaloniaEdit editor colors and text view margin.
+- Application-specific styles should remain in the application `App.axaml` or its own dictionaries.
+- If an application needs to override a shared Tripous desktop style, declare its override after the `TripousDesktop.axaml` include.
+
+## AvaloniaEdit Highlighting
+
+- Use `Highlighters.Find(HighlightMode.SQL)` for simple one-time SQL highlighting assignment.
+- Use `Highlighters.Find(HighlightMode.Markdown)` for simple one-time Markdown highlighting assignment.
+- Use `Highlighters.Apply(TextEditor, HighlightMode.SQL)` or `Highlighters.Apply(TextEditor, HighlightMode.Markdown)` when the editor should pick the current Light/Dark palette from its actual theme.
+- Controls that support runtime theme switching should re-apply highlighting when their `ActualThemeVariant` changes.
+
 ## DataForm
 
 - `DataForm` has a List part and an Item part.

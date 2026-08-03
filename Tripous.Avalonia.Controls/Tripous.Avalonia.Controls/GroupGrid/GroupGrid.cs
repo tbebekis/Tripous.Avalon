@@ -2180,6 +2180,9 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
             Width = 280,
             Height = 120,
             CanResize = false,
+            CanMinimize = false,
+            CanMaximize = false,
+            ShowInTaskbar = false,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
             Content = Panel,
         };
