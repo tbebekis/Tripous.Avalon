@@ -1,0 +1,32 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Tripous.Avalonia.Controls">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="ChartControlChartBackgroundBrush" Color="#FFFFFF"/>
+                    <SolidColorBrush x:Key="ChartControlTextBrush" Color="#111827"/>
+                    <SolidColorBrush x:Key="ChartControlMutedTextBrush" Color="#6B7280"/>
+                    <SolidColorBrush x:Key="ChartControlAxisBrush" Color="#D1D5DB"/>
+                    <SolidColorBrush x:Key="ChartControlGridLineBrush" Color="#E5E7EB"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="ChartControlChartBackgroundBrush" Color="#1E1F22"/>
+                    <SolidColorBrush x:Key="ChartControlTextBrush" Color="#E7EAEE"/>
+                    <SolidColorBrush x:Key="ChartControlMutedTextBrush" Color="#B2BAC4"/>
+                    <SolidColorBrush x:Key="ChartControlAxisBrush" Color="#555E69"/>
+                    <SolidColorBrush x:Key="ChartControlGridLineBrush" Color="#333942"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <Style Selector="controls|ChartControl">
+        <Setter Property="ChartBackgroundBrush" Value="{DynamicResource ChartControlChartBackgroundBrush}"/>
+        <Setter Property="TextBrush" Value="{DynamicResource ChartControlTextBrush}"/>
+        <Setter Property="MutedTextBrush" Value="{DynamicResource ChartControlMutedTextBrush}"/>
+        <Setter Property="AxisBrush" Value="{DynamicResource ChartControlAxisBrush}"/>
+        <Setter Property="GridLineBrush" Value="{DynamicResource ChartControlGridLineBrush}"/>
+    </Style>
+</Styles>

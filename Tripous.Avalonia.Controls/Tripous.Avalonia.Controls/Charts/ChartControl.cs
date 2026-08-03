@@ -8,14 +8,33 @@ namespace Avalonia.Controls;
 /// </summary>
 public class ChartControl: Control
 {
+    // ● public fields
+    /// <summary>
+    /// Defines the <see cref="ChartBackgroundBrush"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IBrush> ChartBackgroundBrushProperty = AvaloniaProperty.Register<ChartControl, IBrush>(nameof(ChartBackgroundBrush), CreateBrush("#FFFFFF"));
+    /// <summary>
+    /// Defines the <see cref="TextBrush"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IBrush> TextBrushProperty = AvaloniaProperty.Register<ChartControl, IBrush>(nameof(TextBrush), CreateBrush("#111827"));
+    /// <summary>
+    /// Defines the <see cref="MutedTextBrush"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IBrush> MutedTextBrushProperty = AvaloniaProperty.Register<ChartControl, IBrush>(nameof(MutedTextBrush), CreateBrush("#6B7280"));
+    /// <summary>
+    /// Defines the <see cref="AxisBrush"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IBrush> AxisBrushProperty = AvaloniaProperty.Register<ChartControl, IBrush>(nameof(AxisBrush), CreateBrush("#D1D5DB"));
+    /// <summary>
+    /// Defines the <see cref="GridLineBrush"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IBrush> GridLineBrushProperty = AvaloniaProperty.Register<ChartControl, IBrush>(nameof(GridLineBrush), CreateBrush("#E5E7EB"));
+
     // ● private fields
     readonly ChartEngine fEngine = new();
     readonly List<(Rect Rect, ChartHitTestResult Hit)> fHitRegions = new();
-    readonly Pen fAxisPen = new(new SolidColorBrush(Color.Parse("#D1D5DB")), 1);
-    readonly Pen fGridPen = new(new SolidColorBrush(Color.Parse("#E5E7EB")), 1);
-    readonly IBrush fTextBrush = new SolidColorBrush(Color.Parse("#111827"));
-    readonly IBrush fMutedTextBrush = new SolidColorBrush(Color.Parse("#6B7280"));
-    readonly IBrush fBackgroundBrush = new SolidColorBrush(Color.Parse("#FFFFFF"));
+    Pen fAxisPen;
+    Pen fGridPen;
     object fItemsSource;
     IChartDataAdapter fDataAdapter;
     IChartDataAdapter fOwnedAdapter;
@@ -23,6 +42,23 @@ public class ChartControl: Control
     bool fIsSettingsMenuItemsVisible = true;
 
     // ● private methods
+    static IBrush CreateBrush(string ColorText)
+    {
+        return new SolidColorBrush(Color.Parse(ColorText));
+    }
+    Pen CreateAxisPen()
+    {
+        return new Pen(AxisBrush, 1);
+    }
+    Pen CreateGridPen()
+    {
+        return new Pen(GridLineBrush, 1);
+    }
+    void UpdateThemePens()
+    {
+        fAxisPen = CreateAxisPen();
+        fGridPen = CreateGridPen();
+    }
     void Engine_ProjectionChanged(object Sender, EventArgs Args)
     {
         InvalidateVisual();
@@ -124,12 +160,12 @@ public class ChartControl: Control
     }
     void DrawEmpty(DrawingContext Context, Rect ContentRect)
     {
-        DrawText(Context, "No chart data", ContentRect, fMutedTextBrush, 13, FontWeight.SemiBold, false, true);
+        DrawText(Context, "No chart data", ContentRect, MutedTextBrush, 13, FontWeight.SemiBold, false, true);
     }
     void DrawTitle(DrawingContext Context, Rect TitleRect)
     {
         if (TitleRect.Height > 0)
-            DrawText(Context, fSettings.Title, TitleRect, fTextBrush, 16, FontWeight.SemiBold, false, true);
+            DrawText(Context, fSettings.Title, TitleRect, TextBrush, 16, FontWeight.SemiBold, false, true);
     }
     void DrawLegend(DrawingContext Context, Rect LegendRect, ChartPalette Palette)
     {
@@ -143,7 +179,7 @@ public class ChartControl: Control
             Rect SwatchRect = new(LegendRect.X + 4, Y + 5, 10, 10);
             Rect TextRect = new(SwatchRect.Right + 6, Y, LegendRect.Width - 24, 20);
             Context.DrawRectangle(new SolidColorBrush(Palette.GetColor(Index)), null, SwatchRect);
-            DrawText(Context, Series.Text, TextRect, fMutedTextBrush);
+            DrawText(Context, Series.Text, TextRect, MutedTextBrush);
             fHitRegions.Add((new Rect(LegendRect.X, Y, LegendRect.Width, 20), new ChartHitTestResult { Kind = ChartHitTestKind.Legend, SeriesIndex = Index, Series = Series }));
             Y += 22;
         }
@@ -158,7 +194,7 @@ public class ChartControl: Control
             double Y = PlotRect.Bottom - (PlotRect.Height * Tick / 4);
             Context.DrawLine(fGridPen, new Point(PlotRect.Left, Y), new Point(PlotRect.Right, Y));
             decimal Value = MaxValue * Tick / 4m;
-            DrawText(Context, Value.ToString(fSettings.ValueFormat, CultureInfo.CurrentCulture), new Rect(0, Y - 10, PlotRect.Left - 4, 20), fMutedTextBrush, 11, FontWeight.Normal, true);
+            DrawText(Context, Value.ToString(fSettings.ValueFormat, CultureInfo.CurrentCulture), new Rect(0, Y - 10, PlotRect.Left - 4, 20), MutedTextBrush, 11, FontWeight.Normal, true);
         }
 
         Context.DrawLine(fAxisPen, new Point(PlotRect.Left, PlotRect.Top), new Point(PlotRect.Left, PlotRect.Bottom));
@@ -177,7 +213,7 @@ public class ChartControl: Control
                 continue;
 
             Rect LabelRect = new(PlotRect.Left + Index * SlotWidth, PlotRect.Bottom + 4, SlotWidth, 34);
-            DrawText(Context, fEngine.CategoryTexts[Index], LabelRect, fMutedTextBrush, 11, FontWeight.Normal, false, true);
+            DrawText(Context, fEngine.CategoryTexts[Index], LabelRect, MutedTextBrush, 11, FontWeight.Normal, false, true);
         }
     }
     void DrawBarCategoryLabels(DrawingContext Context, Rect PlotRect)
@@ -190,7 +226,7 @@ public class ChartControl: Control
         for (int Index = 0; Index < Count; Index++)
         {
             Rect LabelRect = new(0, PlotRect.Top + Index * SlotHeight, PlotRect.Left - 6, SlotHeight);
-            DrawText(Context, fEngine.CategoryTexts[Index], LabelRect, fMutedTextBrush, 11, FontWeight.Normal, true);
+            DrawText(Context, fEngine.CategoryTexts[Index], LabelRect, MutedTextBrush, 11, FontWeight.Normal, true);
         }
     }
     void AddPointHit(Rect Rect, int SeriesIndex, int PointIndex)
@@ -531,7 +567,7 @@ public class ChartControl: Control
                 Rect HitRect = new(Points[Index].X - 7, Points[Index].Y - 7, 14, 14);
                 AddPointHit(HitRect, SeriesIndex, Index);
                 if (fSettings.ShowValueLabels)
-                    DrawText(Context, Series.Points[Index].Text, new Rect(Points[Index].X - 28, Points[Index].Y - 24, 56, 18), fMutedTextBrush, 10, FontWeight.SemiBold, false, true);
+                    DrawText(Context, Series.Points[Index].Text, new Rect(Points[Index].X - 28, Points[Index].Y - 24, 56, 18), MutedTextBrush, 10, FontWeight.SemiBold, false, true);
             }
         }
     }
@@ -581,7 +617,7 @@ public class ChartControl: Control
         }
 
         if (fSettings.ChartType == ChartType.Donut)
-            Context.DrawEllipse(fBackgroundBrush, null, Center, Radius * 0.48, Radius * 0.48);
+            Context.DrawEllipse(ChartBackgroundBrush, null, Center, Radius * 0.48, Radius * 0.48);
     }
     void DrawChart(DrawingContext Context, Rect PlotRect, ChartPalette Palette)
     {
@@ -637,14 +673,33 @@ public class ChartControl: Control
         base.OnPointerExited(Args);
         ToolTip.SetTip(this, null);
     }
+    /// <inheritdoc />
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs Args)
+    {
+        base.OnPropertyChanged(Args);
+
+        if (Args.Property == AxisBrushProperty
+            || Args.Property == GridLineBrushProperty)
+            UpdateThemePens();
+    }
 
     // ● constructor
+    static ChartControl()
+    {
+        AffectsRender<ChartControl>(
+            ChartBackgroundBrushProperty,
+            TextBrushProperty,
+            MutedTextBrushProperty,
+            AxisBrushProperty,
+            GridLineBrushProperty);
+    }
     /// <summary>
     /// Initializes a new instance of the <see cref="ChartControl"/> class.
     /// </summary>
     public ChartControl()
     {
         Focusable = true;
+        UpdateThemePens();
         fEngine.ProjectionChanged += Engine_ProjectionChanged;
         fEngine.ApplySettings(fSettings);
     }
@@ -761,7 +816,7 @@ public class ChartControl: Control
         base.Render(Context);
         fHitRegions.Clear();
         Rect ContentRect = GetContentRect();
-        Context.DrawRectangle(fBackgroundBrush, null, new Rect(0, 0, Bounds.Width, Bounds.Height));
+        Context.DrawRectangle(ChartBackgroundBrush, null, new Rect(0, 0, Bounds.Width, Bounds.Height));
 
         Rect TitleRect = GetTitleRect(ContentRect);
         Rect LegendRect = GetLegendRect(ContentRect, TitleRect);
@@ -839,4 +894,24 @@ public class ChartControl: Control
     /// Gets or sets the suggested settings file name used by the Save Settings file picker.
     /// </summary>
     public string SettingsSuggestedFileName { get; set; } = "chart-settings.json";
+    /// <summary>
+    /// Gets or sets the chart background brush.
+    /// </summary>
+    public IBrush ChartBackgroundBrush { get => GetValue(ChartBackgroundBrushProperty); set => SetValue(ChartBackgroundBrushProperty, value); }
+    /// <summary>
+    /// Gets or sets the primary text brush.
+    /// </summary>
+    public IBrush TextBrush { get => GetValue(TextBrushProperty); set => SetValue(TextBrushProperty, value); }
+    /// <summary>
+    /// Gets or sets the muted text brush.
+    /// </summary>
+    public IBrush MutedTextBrush { get => GetValue(MutedTextBrushProperty); set => SetValue(MutedTextBrushProperty, value); }
+    /// <summary>
+    /// Gets or sets the axis brush.
+    /// </summary>
+    public IBrush AxisBrush { get => GetValue(AxisBrushProperty); set => SetValue(AxisBrushProperty, value); }
+    /// <summary>
+    /// Gets or sets the grid line brush.
+    /// </summary>
+    public IBrush GridLineBrush { get => GetValue(GridLineBrushProperty); set => SetValue(GridLineBrushProperty, value); }
 }

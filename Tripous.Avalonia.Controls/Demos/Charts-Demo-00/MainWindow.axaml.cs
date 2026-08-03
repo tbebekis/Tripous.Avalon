@@ -171,6 +171,31 @@ public partial class MainWindow: Window
     {
         LoadChart();
     }
+    void DefaultThemeButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Application.Current.RequestedThemeVariant = ThemeVariant.Default;
+        SetStatus("Default theme applied.");
+    }
+    void LightThemeButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Application.Current.RequestedThemeVariant = ThemeVariant.Light;
+        SetStatus("Light theme applied.");
+    }
+    void DarkThemeButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
+        SetStatus("Dark theme applied.");
+    }
+    void LocalBackgroundButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Chart.ChartBackgroundBrush = new SolidColorBrush(Color.FromRgb(255, 248, 220));
+        SetStatus("Local chart background brush applied.");
+    }
+    void ClearLocalBackgroundButton_Click(object Sender, Avalonia.Interactivity.RoutedEventArgs Args)
+    {
+        Chart.ClearValue(global::Avalonia.Controls.ChartControl.ChartBackgroundBrushProperty);
+        SetStatus("Local chart background brush cleared.");
+    }
 
     // ● constructor
     /// <summary>
