@@ -23,7 +23,38 @@ The library currently contains:
 - `PivotGrid`: a custom-painted pivot grid for interactive cross-tab analysis.
 - `ChartControl`: a custom-painted BI chart control for aggregated SQL-style result data.
 
-Both controls are clean Avalonia controls that can later be adapted by external frameworks, but the library itself remains framework-neutral.
+The controls are clean Avalonia controls that can later be adapted by external frameworks, but the library itself remains framework-neutral.
+
+## Theme Styles
+
+The custom-rendered controls paint most of their UI through `DrawingContext`. For theme-aware rendering, include the control style dictionaries explicitly in the consuming application.
+
+```xml
+<Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://Tripous.Avalonia.Controls/Themes/GroupGrid.axaml" />
+    <StyleInclude Source="avares://Tripous.Avalonia.Controls/Themes/PivotGrid.axaml" />
+    <StyleInclude Source="avares://Tripous.Avalonia.Controls/Themes/ChartControl.axaml" />
+</Application.Styles>
+```
+
+Each dictionary provides Light and Dark `ThemeDictionaries` and binds semantic styled brush properties through `DynamicResource`. Applications may override theme resources by defining the same keys, or override a single control instance directly.
+
+```xml
+<Application.Resources>
+    <SolidColorBrush x:Key="GroupGridGridLineBrush" Color="#D45A00"/>
+</Application.Resources>
+
+<controls:ChartControl ChartBackgroundBrush="#FFF8DC" />
+```
+
+The main resource key prefixes are:
+
+- `GroupGrid...`
+- `PivotGrid...`
+- `ChartControl...`
+
+The library does not auto-load these dictionaries. This is intentional, so applications can choose exactly which control styles they use.
 
 ## Group Grid
 
@@ -55,6 +86,7 @@ Current implemented v1 feature map for `ChartControl`:
 - Save Settings and Load Settings menu items can be hidden through `IsSettingsMenuItemsVisible`.
 - `Charts-Demo-00` sample application.
 - `Charts-Tests` unit test project.
+- Light and Dark default theme resources in `Themes/ChartControl.axaml`.
 
 ## Documentation
 
@@ -155,6 +187,12 @@ Current implemented v1 feature map for `PivotGrid`.
 - `SaveExport()` writes an export through a selected exporter and caller-provided full file path.
 - HTML export marks totals in bold.
 
+### Theming
+
+- Theme-facing Avalonia styled brush properties for pivot surface, headers, text, grid lines, selection, scrollbars, and resize guides.
+- Light and Dark default theme resources in `Themes/PivotGrid.axaml`.
+- Explicit `StyleInclude` loading by the consuming application.
+
 ### Demo And Tests
 
 - `PivotGrid-Demo-00` covers POCO, `DataTable`, and `DataView` sources, small and large datasets, long row headers, scrolling, resizing, sorting, filtering, settings, and export.
@@ -235,6 +273,8 @@ Current implemented v1 feature map for `GroupGrid`.
   - grid lines
   - current and editing borders
   - resize and drop guides
+- Light and Dark default theme resources in `Themes/GroupGrid.axaml`.
+- Explicit `StyleInclude` loading by the consuming application.
 
 ### Grouping
 

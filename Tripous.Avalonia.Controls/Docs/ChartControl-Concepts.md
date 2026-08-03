@@ -225,6 +225,21 @@ bool Applied = await Chart.ShowSettingsDialogAsync();
 
 The dialog edits fields from `DataAdapter.SourceFields`, so assign `ItemsSource` or `DataAdapter` before opening it when field selection is needed.
 
+## Theming
+
+`ChartControl` exposes theme-facing Avalonia styled brush properties for chart background, primary text, muted text, axes, and grid lines.
+
+The default Light and Dark resources live in `Themes/ChartControl.axaml`. Include the dictionary explicitly in the consuming application:
+
+```xml
+<Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://Tripous.Avalonia.Controls/Themes/ChartControl.axaml" />
+</Application.Styles>
+```
+
+Applications can override resource keys such as `ChartControlGridLineBrush`, or set local brush values on a specific `ChartControl` instance.
+
 ## Hit Testing And Tooltips
 
 The control exposes hit testing and tooltip text:

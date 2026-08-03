@@ -302,6 +302,21 @@ HTML export marks totals in bold.
 
 Custom exporters can be registered through `PivotGridExporters`.
 
+## Theming
+
+`PivotGrid` exposes theme-facing Avalonia styled brush properties for its custom-rendered surface, headers, text, grid lines, selection, scrollbars, and resize guides.
+
+The default Light and Dark resources live in `Themes/PivotGrid.axaml`. Include the dictionary explicitly in the consuming application:
+
+```xml
+<Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://Tripous.Avalonia.Controls/Themes/PivotGrid.axaml" />
+</Application.Styles>
+```
+
+Applications can override resource keys such as `PivotGridGridLineBrush`, or set local brush values on a specific `PivotGrid` instance.
+
 ## Hit Testing And Tooltips
 
 `HitTest(Point)` returns the logical pivot element under a point.

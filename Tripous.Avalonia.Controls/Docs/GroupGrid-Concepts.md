@@ -418,6 +418,17 @@ The grid exposes theme-facing brush properties for the visual parts of the contr
 
 These properties are Avalonia styled properties, so they can be set directly or through resources/styles.
 
+The default Light and Dark resources live in `Themes/GroupGrid.axaml`. Include the dictionary explicitly in the consuming application:
+
+```xml
+<Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://Tripous.Avalonia.Controls/Themes/GroupGrid.axaml" />
+</Application.Styles>
+```
+
+Applications can override resource keys such as `GroupGridGridLineBrush`, or set a local value on a specific `GroupGrid` instance.
+
 ## Extensibility
 
 The intended extension points are:
