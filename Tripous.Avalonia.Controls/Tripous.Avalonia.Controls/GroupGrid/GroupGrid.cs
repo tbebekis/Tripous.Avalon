@@ -152,6 +152,9 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
 
     // ● column interaction state
     bool fColumnDragFromGroupPanel;
+    bool fIsColumnContextMenuEnabled = true;
+    bool fIsSummaryContextMenuEnabled = true;
+    bool fIsGridContextMenuEnabled = true;
     bool fIsColumnManagerMenuItemVisible = true;
     bool fIsSettingsMenuItemsVisible = true;
     bool fIsSummaryContextMenuVisible = true;
@@ -1856,6 +1859,9 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     // ● context menu helpers
     bool ShowColumnContextMenu(Point Point)
     {
+        if (!fIsColumnContextMenuEnabled)
+            return false;
+
         GroupGridHitTestResult Hit = HitTestCore(Point);
         if (Hit == null || Hit.Column == null || Hit.Kind != GroupGridHitTestKind.ColumnHeader)
             return false;
@@ -1904,7 +1910,7 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     }
     bool ShowSummaryContextMenu(Point Point)
     {
-        if (!fIsSummaryContextMenuVisible)
+        if (!fIsSummaryContextMenuEnabled || !fIsSummaryContextMenuVisible)
             return false;
 
         GroupGridHitTestResult Hit = HitTestCore(Point);
@@ -1940,6 +1946,9 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     }
     bool ShowGridContextMenu(Point Point)
     {
+        if (!fIsGridContextMenuEnabled)
+            return false;
+
         GroupGridHitTestResult Hit = HitTestCore(Point);
         if (Hit == null || Hit.Kind == GroupGridHitTestKind.ColumnHeader || Hit.Kind == GroupGridHitTestKind.FooterSummaryCell)
             return false;
@@ -2956,14 +2965,14 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
         double VisibleTop = 0;
         double EngineOffset = 0;
 
-        if (!MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.ToolBarHeight, GetToolBarHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
-            return false;
-        if (!MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.GroupPanelHeight, GetGroupPanelHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
-            return false;
-        if (!MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.ColumnHeaderHeight, GetColumnHeaderHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
-            return false;
-        if (!MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.FilterRowHeight, GetFilterPanelHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
-            return false;
+        if (MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.ToolBarHeight, GetToolBarHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
+            return true;
+        if (MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.GroupPanelHeight, GetGroupPanelHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
+            return true;
+        if (MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.ColumnHeaderHeight, GetColumnHeaderHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
+            return true;
+        if (MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.FilterRowHeight, GetFilterPanelHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
+            return true;
 
         double BodyHeight = GetBodyHeight();
         if (VisibleY < VisibleTop + BodyHeight)
@@ -2973,8 +2982,8 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
         }
 
         VisibleTop += BodyHeight;
-        if (!MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.FooterSummaryHeight, GetTotalsSummaryHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
-            return false;
+        if (MapVisibleBandY(VisibleY, fEngine.LayoutMetrics.FooterSummaryHeight, GetTotalsSummaryHeight(), ref VisibleTop, ref EngineOffset, out EngineY))
+            return true;
 
         EngineY = VisibleY + EngineOffset;
         return true;
@@ -2990,11 +2999,11 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
                 return true;
 
             VisibleTop += VisibleHeight;
-            return true;
+            return false;
         }
 
         EngineOffset += MetricHeight;
-        return true;
+        return false;
     }
     GroupGridHitTestResult HitTestCore(Point Point)
     {
@@ -4328,6 +4337,30 @@ public class GroupGrid: Control, IGroupGridDropDownEditorHost
     {
         get => fEngine.IsReadOnly;
         set => fEngine.IsReadOnly = value;
+    }
+    /// <summary>
+    /// Gets or sets a value indicating whether the column header context menu is enabled.
+    /// </summary>
+    public bool IsColumnContextMenuEnabled
+    {
+        get => fIsColumnContextMenuEnabled;
+        set => fIsColumnContextMenuEnabled = value;
+    }
+    /// <summary>
+    /// Gets or sets a value indicating whether the summary context menu is enabled.
+    /// </summary>
+    public bool IsSummaryContextMenuEnabled
+    {
+        get => fIsSummaryContextMenuEnabled;
+        set => fIsSummaryContextMenuEnabled = value;
+    }
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid body context menu is enabled.
+    /// </summary>
+    public bool IsGridContextMenuEnabled
+    {
+        get => fIsGridContextMenuEnabled;
+        set => fIsGridContextMenuEnabled = value;
     }
     /// <summary>
     /// Gets or sets a value indicating whether the column manager menu item is visible in the column context menu.

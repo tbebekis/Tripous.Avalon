@@ -862,10 +862,18 @@ public class PivotGrid: Control
 
         return CreateSubMenuItem("Aggregate", Items);
     }
-    IEnumerable<MenuItem> CreateExportMenuItems()
+    MenuItem CreateExportMenuItem()
     {
-        return PivotGridExporters.CreateExporters()
-            .Select(Exporter => CreateMenuItem("Export " + Exporter.Name, true, () => ExportAsync(Exporter)));
+        List<PivotGridExporter> Exporters = PivotGridExporters.CreateExporters().ToList();
+        MenuItem Result = new()
+        {
+            Header = "Export",
+            IsEnabled = Exporters.Count > 0,
+        };
+        Result.ItemsSource = Exporters
+            .Select(Exporter => CreateMenuItem(Exporter.Name, true, () => ExportAsync(Exporter)))
+            .ToList();
+        return Result;
     }
     bool ShowGridContextMenu(Point Point)
     {
@@ -906,7 +914,7 @@ public class PivotGrid: Control
         if (fIsExportMenuItemVisible)
         {
             Items.Add(new Separator());
-            Items.AddRange(CreateExportMenuItems());
+            Items.Add(CreateExportMenuItem());
         }
 
         Menu.ItemsSource = Items;
@@ -1015,7 +1023,7 @@ public class PivotGrid: Control
         if (fIsExportMenuItemVisible)
         {
             Items.Add(new Separator());
-            Items.AddRange(CreateExportMenuItems());
+            Items.Add(CreateExportMenuItem());
         }
 
         Menu.ItemsSource = Items;
