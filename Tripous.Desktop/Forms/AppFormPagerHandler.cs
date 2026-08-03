@@ -194,6 +194,29 @@ public class AppFormPagerHandler
         Pager.SelectedItem = fDraggedTabPage;
     }
     /// <summary>
+    /// Returns the tab drop marker brush.
+    /// </summary>
+    /// <returns>The tab drop marker brush.</returns>
+    IBrush GetTabDropMarkerBrush()
+    {
+        if (Pager.TryGetResource("SystemAccentBrush", Pager.ActualThemeVariant, out object Resource) && Resource is IBrush Brush)
+            return Brush;
+        if (Pager.TryGetResource("SystemControlHighlightAccentBrush", Pager.ActualThemeVariant, out Resource) && Resource is IBrush HighlightBrush)
+            return HighlightBrush;
+        if (Pager.TryGetResource("SystemAccentColor", Pager.ActualThemeVariant, out Resource) && Resource is Color AccentColor)
+            return new SolidColorBrush(AccentColor);
+
+        return Brushes.DodgerBlue;
+    }
+    /// <summary>
+    /// Updates the tab drop marker brush.
+    /// </summary>
+    void UpdateTabDropMarkerBrush()
+    {
+        if (fTabDropMarker?.Child is Border Marker)
+            Marker.Background = GetTabDropMarkerBrush();
+    }
+    /// <summary>
     /// Creates the tab drop marker.
     /// </summary>
     void CreateTabDropMarker()
@@ -204,7 +227,7 @@ public class AppFormPagerHandler
         Border Marker = new Border
         {
             Width = 3,
-            Background = Brushes.DodgerBlue,
+            Background = GetTabDropMarkerBrush(),
             CornerRadius = new CornerRadius(2),
             IsHitTestVisible = false
         };
@@ -234,6 +257,7 @@ public class AppFormPagerHandler
         }
 
         CreateTabDropMarker();
+        UpdateTabDropMarkerBrush();
 
         Point? Point = TargetTabPage.TranslatePoint(new Point(0, 0), Pager);
         if (Point == null)

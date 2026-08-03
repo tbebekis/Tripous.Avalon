@@ -43,7 +43,7 @@
                 <TextBox x:Name="edtConfirmPassword" Grid.Row="3" Grid.Column="1" PasswordChar="●"/>
             </Grid>
 
-            <TextBlock x:Name="lblMessage" Grid.Row="2" TextWrapping="Wrap" Text="Passwords don't match" Foreground="Red"/>
+            <TextBlock x:Name="lblMessage" Grid.Row="2" TextWrapping="Wrap" Text="Passwords don't match" Classes="ErrorText"/>
 
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
                 <Button Name="btnOK" Content="OK" />

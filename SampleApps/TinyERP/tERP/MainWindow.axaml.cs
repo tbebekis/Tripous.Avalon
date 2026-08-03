@@ -24,6 +24,7 @@ public partial class MainWindow : Window
         
         SideBarHandler = new AppFormPagerHandler(pagerSideBar);
         ContentHandler = new AppFormPagerHandler(pagerContent);
+        ContentHandler.CanUserReorderTabs = true;
 
         Ui.Post(() =>
         {

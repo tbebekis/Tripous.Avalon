@@ -32,7 +32,7 @@
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Language" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cboLanguage" Grid.Row="2" Grid.Column="1"/>
 
-                <TextBlock x:Name="lblMessage" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Foreground="Red"/>
+                <TextBlock x:Name="lblMessage" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Classes="ErrorText"/>
             </Grid>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
