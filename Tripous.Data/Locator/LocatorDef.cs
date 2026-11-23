@@ -111,7 +111,7 @@ public class LocatorDef : BaseDef
     /// </summary>
     public LocatorFieldDef Add(string Name, DataFieldType DataType)
     {
-        LocatorFieldDef Result = Fields.FindOrdAdd(Name);
+        LocatorFieldDef Result = Fields.FindOrAdd(Name);
         Result.DataType = DataType;
         Result.LocatorDef = this;
         return Result;

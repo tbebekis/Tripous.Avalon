@@ -61,7 +61,7 @@ public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
     /// <summary>
     /// Finds an item by name. It adds a new item if the item is not found.
     /// </summary>
-    public T FindOrdAdd(string Name)
+    public T FindOrAdd(string Name)
     {
         T Result = Find(Name);
         if (Result == null)
@@ -80,7 +80,7 @@ public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
     {
         List<T> Result = [];
         foreach (string Name in Names)
-            Result.Add(FindOrdAdd(Name));
+            Result.Add(FindOrAdd(Name));
         return Result;
     }
     
